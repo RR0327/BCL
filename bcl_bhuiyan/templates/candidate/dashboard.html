@@ -2,36 +2,130 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <title>Dashboard | IELTS Mock Test</title>
+    <title>Candidate Dashboard | IELTS Mock Test</title>
 
     <link rel="stylesheet"
           href="{% static 'css/auth.css' %}">
+
+    <style>
+        .test-list {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(280px, 1fr));
+            gap: 22px;
+            margin-top: 25px;
+        }
+
+        .test-card {
+            background: white;
+            padding: 26px;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+        }
+
+        .test-card h3 {
+            margin-top: 0;
+        }
+
+        .test-card p {
+            color: #64748b;
+        }
+
+        .module-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .exam-link {
+            display: inline-block;
+            background: #1645a1;
+            padding: 10px 15px;
+            color: white;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .exam-link:hover {
+            background: #10377f;
+            color: white;
+        }
+
+        .attempt-list {
+            margin-top: 24px;
+            display: grid;
+            gap: 12px;
+        }
+
+        .attempt-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .attempt-card p {
+            margin: 5px 0;
+            color: #64748b;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 7px;
+            background: #eff6ff;
+            color: #1645a1;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .empty-message {
+            background: white;
+            border: 1px dashed #cbd5e1;
+            border-radius: 12px;
+            text-align: center;
+            padding: 36px;
+            color: #64748b;
+        }
+    </style>
 </head>
+
 <body class="dashboard-body">
 
 <header class="dashboard-header">
 
-    <a href="{% url 'bcl:home' %}" class="auth-logo">
+    <a href="{% url 'bcl:home' %}"
+       class="auth-logo">
         IELTS<span>Mock</span>
     </a>
 
     <div class="header-actions">
-        <span>
-            {{ candidate.username }}
-        </span>
+
+        <span>{{ candidate.username }}</span>
 
         <form action="{% url 'bcl:logout' %}"
               method="POST">
             {% csrf_token %}
 
-            <button type="submit" class="logout-btn">
+            <button type="submit"
+                    class="logout-btn">
                 Logout
             </button>
         </form>
+
     </div>
 
 </header>
@@ -40,7 +134,9 @@
 
     <section class="welcome-banner">
 
-        <p class="welcome-label">CANDIDATE DASHBOARD</p>
+        <p class="welcome-label">
+            CANDIDATE DASHBOARD
+        </p>
 
         <h1>
             Welcome,
@@ -48,66 +144,144 @@
         </h1>
 
         <p>
-            Your IELTS preparation journey starts here.
-            Choose a module to begin practicing.
+            Choose an available mock test and
+            start your IELTS preparation.
         </p>
 
     </section>
 
+    {% if messages %}
+        {% for message in messages %}
+            <p role="status">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
     <section class="dashboard-section">
 
         <div class="section-heading">
-            <h2>Available Practice Modules</h2>
-            <p>
-                Reading, Listening, and Writing practice
-                modules will be available here.
-            </p>
+            <h2>Available IELTS Mock Tests</h2>
+            <p>Select a module to begin.</p>
         </div>
 
-        <div class="module-grid">
+        {% if mock_tests %}
 
-            {% for module in modules %}
-            <article class="module-card">
+            <div class="test-list">
 
-                <div class="module-icon">
-                    {{ module.icon }}
-                </div>
+                {% for test in mock_tests %}
 
-                <h3>{{ module.name }}</h3>
+                    <article class="test-card">
 
-                <p>
-                    {{ module.description }}
-                </p>
+                        <h3>
+                            Test {{ test.test_number }}:
+                            {{ test.title }}
+                        </h3>
 
-                <span class="module-status">
-                    Coming Soon
-                </span>
+                        <p>{{ test.description }}</p>
 
-            </article>
-            {% endfor %}
+                        <div class="module-links">
 
-        </div>
+                            {% for module in test.modules.all %}
+
+                                {% if module.is_active %}
+
+                                    <a class="exam-link"
+                                       href="{% url 'bcl:exam_rules' module.id %}">
+                                        {{ module.get_module_type_display }}
+                                        ({{ module.duration_minutes }} min)
+                                    </a>
+
+                                {% endif %}
+
+                            {% endfor %}
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-message">
+                No mock tests are currently published.
+                Please check again later.
+            </div>
+
+        {% endif %}
 
     </section>
 
     <section class="dashboard-section">
 
         <div class="section-heading">
-            <h2>My Performance</h2>
-            <p>
-                Your test attempts and score reports
-                will appear here after the exam
-                engine is developed.
-            </p>
+            <h2>Recent Exam Attempts</h2>
+            <p>Review or resume your examinations.</p>
         </div>
 
-        <div class="empty-state">
-            <h3>No test attempts yet</h3>
-            <p>
-                Once mock tests are available,
-                your results will be displayed here.
-            </p>
-        </div>
+        {% if recent_attempts %}
+
+            <div class="attempt-list">
+
+                {% for attempt in recent_attempts %}
+
+                    <article class="attempt-card">
+
+                        <div>
+                            <strong>
+                                {{ attempt.module.mock_test.title }}
+                            </strong>
+
+                            <p>
+                                {{ attempt.module.get_module_type_display }}
+                            </p>
+
+                            <small>
+                                Started:
+                                {{ attempt.started_at|date:"M d, Y H:i" }}
+                            </small>
+                        </div>
+
+                        <div>
+                            <span class="status">
+                                {{ attempt.get_status_display }}
+                            </span>
+                        </div>
+
+                        <div>
+
+                            {% if attempt.status == 'in_progress' %}
+
+                                <a class="exam-link"
+                                   href="{% url 'bcl:exam_session' attempt.id %}">
+                                    Resume
+                                </a>
+
+                            {% else %}
+
+                                <a class="exam-link"
+                                   href="{% url 'bcl:exam_result' attempt.id %}">
+                                    View Status
+                                </a>
+
+                            {% endif %}
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-message">
+                You haven't started any examinations yet.
+            </div>
+
+        {% endif %}
 
     </section>
 
