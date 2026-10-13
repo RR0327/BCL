@@ -124,30 +124,57 @@ a {
     height: 19px;
 }
 
-/* Password length feedback */
-.pw-warning,
-.pw-ok {
+/* Password strength checklist */
+.pw-checklist {
+    list-style: none;
+    margin: 8px 0 0;
+    padding: 10px 12px;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
     display: flex;
-    align-items: center;
-    gap: 6px;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.rule {
     font-size: 12.5px;
-    font-weight: 600;
-    margin-top: 6px;
-    padding: 6px 10px;
-    border-radius: 6px;
+    font-weight: 500;
+    color: var(--muted);
+    padding-left: 20px;
+    position: relative;
+    transition: color 0.2s;
 }
 
-.pw-warning {
-    color: #b91c1c;
-    background: #fef2f2;
-    border: 1px solid #fecaca;
+.rule::before {
+    content: '○';
+    position: absolute;
+    left: 0;
+    font-size: 11px;
 }
 
-.pw-ok {
+.rule-pass {
     color: #047857;
-    background: #ecfdf5;
-    border: 1px solid #a7f3d0;
 }
+
+.rule-pass::before {
+    content: '✓';
+    color: #10b981;
+    font-weight: 700;
+}
+
+.rule-fail {
+    color: #b91c1c;
+}
+
+.rule-fail::before {
+    content: '✗';
+    color: #ef4444;
+    font-weight: 700;
+}
+
+
+
 
 .input-error {
     border-color: #ef4444 !important;
@@ -158,8 +185,6 @@ a {
     border-color: #10b981 !important;
     outline: 2px solid #a7f3d0 !important;
 }
-
-
 
 .form-group small {
     display: block;

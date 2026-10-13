@@ -1,3 +1,5 @@
+import re
+
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import (
@@ -50,10 +52,36 @@ class CandidateRegistrationForm(UserCreationForm):
     def clean_password1(self):
         password1 = self.cleaned_data.get("password1", "")
 
+        errors = []
+
         if len(password1) < 8:
-            raise forms.ValidationError(
+            errors.append(
                 "Password must be at least 8 characters long."
             )
+
+        if not re.search(r'[A-Z]', password1):
+            errors.append(
+                "Password must contain at least one uppercase letter (A-Z)."
+            )
+
+        if not re.search(r'[a-z]', password1):
+            errors.append(
+                "Password must contain at least one lowercase letter (a-z)."
+            )
+
+        if not re.search(r'[0-9]', password1):
+            errors.append(
+                "Password must contain at least one number (0-9)."
+            )
+
+        if not re.search(r'[!@#$%^&*(),.?":{}|<>_\-\+\=\[\]\\\/~`]', password1):
+            errors.append(
+                "Password must contain at least one special character "
+                "(@, #, !, etc.)."
+            )
+
+        if errors:
+            raise forms.ValidationError(errors)
 
         return password1
 
