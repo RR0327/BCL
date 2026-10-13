@@ -1,454 +1,118 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Exam Session | IELTS Mock Test</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            background: #f4f7fc;
-            font-family: Arial, sans-serif;
-            color: #14213d;
-        }
-
-        .exam-header {
-            background: white;
-            border-bottom: 1px solid #e2e8f0;
-            padding: 20px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .exam-title {
-            font-size: 19px;
-            font-weight: 700;
-        }
-
-        .exam-title span {
-            display: block;
-            color: #64748b;
-            font-size: 13px;
-            margin-top: 5px;
-        }
-
-        .timer {
-            font-size: 28px;
-            font-weight: 800;
-            font-variant-numeric: tabular-nums;
-            color: #1645a1;
-            padding: 12px 20px;
-            background: #eff6ff;
-            border-radius: 9px;
-        }
-
-        .timer.warning {
-            background: #fef2f2;
-            color: #b91c1c;
-        }
-
-        .exam-main {
-            max-width: 1050px;
-            margin: 35px auto;
-            padding: 0 20px;
-        }
-
-        .info-panel,
-        .section-card {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 28px;
-            margin-bottom: 22px;
-        }
-
-        .info-panel p {
-            color: #64748b;
-            line-height: 1.7;
-        }
-
-        .section-card h2 {
-            font-size: 22px;
-        }
-
-        .section-card p {
-            white-space: pre-wrap;
-            line-height: 1.8;
-        }
-
-        .question-preview {
-            border-top: 1px solid #e2e8f0;
-            padding: 18px 0;
-        }
-
-        .question-preview span {
-            font-size: 12px;
-            font-weight: bold;
-            color: #1645a1;
-        }
-
-        .warning-note {
-            padding: 15px;
-            background: #fffbeb;
-            border: 1px solid #fde68a;
-            border-radius: 8px;
-            margin-top: 20px;
-            line-height: 1.7;
-        }
-
-        .submit-area {
-            text-align: right;
-            padding: 20px 0 50px;
-        }
-
-        .submit-btn {
-            background: #1645a1;
-            color: white;
-            padding: 14px 26px;
-            font-weight: bold;
-            font-size: 15px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .submit-btn:disabled {
-            opacity: .5;
-            cursor: not-allowed;
-        }
-    </style>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ module.get_module_type_display }} Exam | IELTS Mock Test</title>
+    <link rel="stylesheet" href="{% static 'css/exam.css' %}">
+    <script src="{% static 'js/exam.js' %}" defer></script>
 </head>
-
 <body>
-
 <header class="exam-header">
-
-    <div class="exam-title">
-        {{ mock_test.title }}
-
-        <span>
-            {{ module.get_module_type_display }}
-            Examination
-        </span>
+    <div>
+        <strong>{{ mock_test.title }}</strong>
+        <span class="subtitle">{{ module.get_module_type_display }} · Attempt #{{ attempt.pk }}</span>
     </div>
-
-    <div
-        class="timer"
-        id="examTimer"
-        role="timer"
-        aria-label="Remaining exam time"
-        data-remaining="{{ remaining_seconds }}"
-    >
-        --:--:--
+    <div class="header-right">
+        <span id="saveStatus" role="status" aria-live="polite">Ready</span>
+        <div id="examTimer" class="timer" role="timer" data-remaining="{{ remaining_seconds }}">--:--:--</div>
     </div>
-
 </header>
 
-<main class="exam-main">
-
-    <section class="info-panel">
-
-        <h1>Examination Session</h1>
-
-        <p>
-            Your exam timer is active.
-            The remaining time is calculated
-            using the server's examination deadline.
-        </p>
-
-        <p>
-            <strong>Attempt ID:</strong>
-            {{ attempt.id }}
-        </p>
-
-        <p>
-            <strong>Started:</strong>
-            {{ attempt.started_at|date:"M d, Y H:i:s" }}
-        </p>
-
-        <p>
-            <strong>Duration:</strong>
-            {{ module.duration_minutes }} minutes
-        </p>
-
-        <div class="warning-note">
-            This is the first examination engine version.
-            Answers cannot be submitted or saved
-            on this screen yet. The Submit button
-            ends the attempt without a score.
+<main id="examApp"
+      data-timer-url="{% url 'bcl:exam_timer' attempt.pk %}"
+      data-save-url="{% url 'bcl:save_exam_answer' attempt.pk %}"
+      data-result-url="{% url 'bcl:exam_result' attempt.pk %}">
+    <aside class="side-panel">
+        <h2>Questions</h2>
+        <p class="helper">Select a number to move between questions.</p>
+        <div id="questionNav" class="question-nav" aria-label="Question navigation"></div>
+        <div class="legend">
+            <span><i class="dot answered"></i> Answered</span>
+            <span><i class="dot flagged"></i> Flagged</span>
+            <span><i class="dot"></i> Unanswered</span>
         </div>
+        <p id="answeredCount" class="helper">0 answered</p>
+        <p class="helper">Answers autosave every 15 seconds and when you switch questions.</p>
+    </aside>
 
-    </section>
-
-    {% for section in sections %}
-
-        <section class="section-card">
-
-            <h2>
-                {{ section.title }}
-            </h2>
-
-            {% if section.instructions %}
-                <p>{{ section.instructions }}</p>
-            {% endif %}
-
-            {% if section.passage %}
-                <h3>Reading Passage</h3>
-                <p>{{ section.passage }}</p>
-            {% endif %}
-
-            {% if section.audio_file %}
-                <p>
-                    Audio file configured.
-                    Playback will be enabled
-                    in the Listening development stage.
-                </p>
-            {% endif %}
-
+    <div class="exam-content">
+        {% for section in sections %}
             {% for question in section.questions.all %}
-
-                <div class="question-preview">
-
-                    <span>
-                        QUESTION {{ question.order }}
-                    </span>
-
-                    <p>{{ question.question_text }}</p>
-
-                    <small>
-                        Answer controls coming in
-                        the next development stage.
-                    </small>
-
-                </div>
-
-            {% empty %}
-
-                <p>No questions configured.</p>
-
+                <section class="question-panel" data-question-id="{{ question.pk }}" hidden>
+                    <div class="question-heading">
+                        <span class="section-name">{{ section.title }}</span>
+                        <span class="question-number">Question {{ question.order }}</span>
+                    </div>
+                    {% if section.instructions %}<p class="instructions">{{ section.instructions }}</p>{% endif %}
+                    {% if section.passage %}
+                        <details class="passage" open>
+                            <summary>Reading passage / reference text</summary>
+                            <div class="passage-text">{{ section.passage|linebreaks }}</div>
+                        </details>
+                    {% endif %}
+                    {% if section.image %}<img class="section-image" src="{{ section.image.url }}" alt="Section illustration">{% endif %}
+                    {% if section.audio_file %}
+                        <p class="notice">Listening audio is not enabled in this development step. This module is for testing answer storage only.</p>
+                    {% endif %}
+                    <h2>{{ question.question_text }}</h2>
+                    {% if question.question_type == 'mcq' %}
+                        <div class="answer-options">
+                            {% for option in question.options.all %}
+                                <label class="option">
+                                    <input type="radio" name="question-{{ question.pk }}" value="{{ option.option_key }}">
+                                    <span><b>{{ option.option_key }}.</b> {{ option.option_text }}</span>
+                                </label>
+                            {% empty %}
+                                <p class="notice">No answer options have been configured for this question.</p>
+                            {% endfor %}
+                        </div>
+                    {% elif question.question_type == 'tfng' %}
+                        <div class="answer-options">
+                            <label class="option"><input type="radio" name="question-{{ question.pk }}" value="TRUE"> True</label>
+                            <label class="option"><input type="radio" name="question-{{ question.pk }}" value="FALSE"> False</label>
+                            <label class="option"><input type="radio" name="question-{{ question.pk }}" value="NOT GIVEN"> Not Given</label>
+                        </div>
+                    {% elif question.question_type == 'ynng' %}
+                        <div class="answer-options">
+                            <label class="option"><input type="radio" name="question-{{ question.pk }}" value="YES"> Yes</label>
+                            <label class="option"><input type="radio" name="question-{{ question.pk }}" value="NO"> No</label>
+                            <label class="option"><input type="radio" name="question-{{ question.pk }}" value="NOT GIVEN"> Not Given</label>
+                        </div>
+                    {% elif question.question_type == 'essay' %}
+                        <label for="answer-{{ question.pk }}">Your writing response</label>
+                        <textarea id="answer-{{ question.pk }}" class="answer-field" rows="12" maxlength="20000" placeholder="Write your answer here..."></textarea>
+                        <p class="word-count" aria-live="polite">Words: <span>0</span></p>
+                    {% else %}
+                        <label for="answer-{{ question.pk }}">Your answer</label>
+                        <input id="answer-{{ question.pk }}" class="answer-field" type="text" maxlength="20000" placeholder="Type your answer here...">
+                        {% if question.question_type == 'matching' %}
+                            <p class="helper">For this preliminary version, enter one matching answer. Grouped matching will be developed later.</p>
+                        {% endif %}
+                    {% endif %}
+                    <label class="flag-label">
+                        <input type="checkbox" class="flag-input"> Flag for review
+                    </label>
+                </section>
             {% endfor %}
+        {% endfor %}
 
+        <section id="noQuestions" class="no-questions" hidden>
+            <h2>No questions available</h2>
+            <p>Ask an administrator to add questions to this module.</p>
         </section>
 
-    {% empty %}
-
-        <section class="section-card">
-            <h2>No sections available</h2>
-            <p>
-                The administrator has not added
-                content to this module yet.
-            </p>
-        </section>
-
-    {% endfor %}
-
-    <div class="submit-area">
-
-        <form
-            method="POST"
-            id="submitExamForm"
-            action="{% url 'bcl:submit_exam' attempt.id %}"
-        >
+        <nav class="question-controls" aria-label="Question controls">
+            <button type="button" id="prevQuestion">← Previous</button>
+            <button type="button" id="nextQuestion">Next →</button>
+        </nav>
+        <form method="post" id="submitExamForm" action="{% url 'bcl:submit_exam' attempt.pk %}">
             {% csrf_token %}
-
-            <button
-                type="submit"
-                id="submitButton"
-                class="submit-btn"
-            >
-                End Examination
-            </button>
-
+            <button type="submit" class="submit-btn" id="submitButton">Submit examination</button>
         </form>
-
     </div>
-
 </main>
-
-<script>
-"use strict";
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    const timerElement =
-        document.getElementById("examTimer");
-
-    const submitForm =
-        document.getElementById("submitExamForm");
-
-    const submitButton =
-        document.getElementById("submitButton");
-
-    const timerUrl =
-        "{% url 'bcl:exam_timer' attempt.id %}";
-
-    const resultUrl =
-        "{% url 'bcl:exam_result' attempt.id %}";
-
-    let remainingSeconds = Number(
-        timerElement.dataset.remaining
-    );
-
-    // Used only for the displayed countdown.
-    // The Django server remains authoritative.
-    let deadline = Date.now() +
-        remainingSeconds * 1000;
-
-    let finished = false;
-
-    function formatTime(totalSeconds) {
-
-        const hours = Math.floor(
-            totalSeconds / 3600
-        );
-
-        const minutes = Math.floor(
-            (totalSeconds % 3600) / 60
-        );
-
-        const seconds = totalSeconds % 60;
-
-        return [
-            hours,
-            minutes,
-            seconds
-        ].map(value =>
-            String(value).padStart(2, "0")
-        ).join(":");
-    }
-
-    function renderTimer() {
-
-        if (finished) {
-            return;
-        }
-
-        remainingSeconds = Math.max(
-            0,
-            Math.ceil(
-                (deadline - Date.now()) / 1000
-            )
-        );
-
-        timerElement.textContent =
-            formatTime(remainingSeconds);
-
-        timerElement.classList.toggle(
-            "warning",
-            remainingSeconds <= 300
-        );
-
-        if (remainingSeconds === 0) {
-            timerElement.textContent = "00:00:00";
-
-            // Do not trust the browser to submit
-            // on behalf of the candidate.
-            // Ask the server for authoritative status.
-            syncTimer();
-        }
-    }
-
-    let syncing = false;
-
-    async function syncTimer() {
-
-        if (finished || syncing) {
-            return;
-        }
-
-        syncing = true;
-
-        try {
-
-            const response = await fetch(
-                timerUrl,
-                {
-                    method: "GET",
-                    credentials: "same-origin",
-                    cache: "no-store"
-                }
-            );
-
-            if (!response.ok) {
-                throw new Error(
-                    "Timer synchronization failed."
-                );
-            }
-
-            const data = await response.json();
-
-            if (data.status !== "in_progress") {
-                finished = true;
-                window.location.replace(resultUrl);
-                return;
-            }
-
-            deadline = Date.now() +
-                data.remaining_seconds * 1000;
-
-            renderTimer();
-
-        } catch (error) {
-
-            console.error(error);
-
-        } finally {
-            syncing = false;
-        }
-    }
-
-    submitForm.addEventListener("submit", event => {
-
-        if (finished) {
-            event.preventDefault();
-            return;
-        }
-
-        const confirmed = window.confirm(
-            "End this examination session? " +
-            "This action cannot be undone."
-        );
-
-        if (!confirmed) {
-            event.preventDefault();
-            return;
-        }
-
-        finished = true;
-        submitButton.disabled = true;
-    });
-
-    renderTimer();
-
-    setInterval(renderTimer, 1000);
-
-    setInterval(syncTimer, 10000);
-
-    document.addEventListener(
-        "visibilitychange",
-        () => {
-            if (!document.hidden) {
-                syncTimer();
-            }
-        }
-    );
-
-});
-</script>
-
+{{ saved_answers|json_script:"savedAnswersData" }}
 </body>
 </html>
