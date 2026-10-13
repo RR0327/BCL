@@ -20,7 +20,6 @@ from .models import (
     WritingEvaluation,
 )
 
-
 User = get_user_model()
 
 
@@ -34,7 +33,6 @@ class CandidateAuthenticationTests(TestCase):
         response = self.client.get(
             reverse("bcl:register")
         )
-
         self.assertEqual(response.status_code, 200)
 
     def test_candidate_registration(self):
@@ -136,11 +134,11 @@ class CandidateAuthenticationTests(TestCase):
             reverse("bcl:login"),
         )
 
-        dashboard = self.client.get(
+        response = self.client.get(
             reverse("bcl:dashboard")
         )
 
-        self.assertEqual(dashboard.status_code, 302)
+        self.assertEqual(response.status_code, 302)
 
     def test_logout_requires_post(self):
         user = User.objects.create_user(
@@ -220,15 +218,8 @@ class IELTSDatabaseTests(TestCase):
         )
 
     def test_mock_test_creation(self):
-        self.assertEqual(
-            self.mock_test.test_number,
-            1,
-        )
-
-        self.assertEqual(
-            self.mock_test.modules.count(),
-            2,
-        )
+        self.assertEqual(self.mock_test.test_number, 1)
+        self.assertEqual(self.mock_test.modules.count(), 2)
 
     def test_unique_exam_module(self):
         with self.assertRaises(IntegrityError):
@@ -239,11 +230,7 @@ class IELTSDatabaseTests(TestCase):
                 )
 
     def test_section_and_question_relationship(self):
-        self.assertEqual(
-            self.reading.sections.count(),
-            1,
-        )
-
+        self.assertEqual(self.reading.sections.count(), 1)
         self.assertEqual(
             self.reading_section.questions.count(),
             1,
@@ -265,10 +252,7 @@ class IELTSDatabaseTests(TestCase):
             order=2,
         )
 
-        self.assertEqual(
-            self.question.options.count(),
-            2,
-        )
+        self.assertEqual(self.question.options.count(), 2)
 
     def test_answer_creation(self):
         answer = CandidateAnswer.objects.create(
@@ -329,15 +313,13 @@ class IELTSDatabaseTests(TestCase):
             self.attempt.full_clean()
 
     def test_multiple_attempts_are_allowed(self):
-        second_start = timezone.now()
+        start = timezone.now()
 
         CandidateAttempt.objects.create(
             candidate=self.candidate,
             module=self.reading,
-            started_at=second_start,
-            expires_at=(
-                second_start + timedelta(minutes=60)
-            ),
+            started_at=start,
+            expires_at=start + timedelta(minutes=60),
         )
 
         self.assertEqual(
@@ -389,3 +371,375 @@ class IELTSDatabaseTests(TestCase):
 
         with self.assertRaises(ValidationError):
             evaluation.full_clean()
+
+
+# ==========================================
+# 3. PHASE 2 EXAM SESSION TESTS
+# ==========================================
+
+class ExamSessionTests(TestCase):
+
+    def setUp(self):
+
+        self.candidate = User.objects.create_user(
+            username="sessioncandidate",
+            password="TestPass@2026abc",
+        )
+
+        self.other_candidate = User.objects.create_user(
+            username="othercandidate",
+            password="TestPass@2026abc",
+        )
+
+        self.staff = User.objects.create_user(
+            username="staffuser",
+            password="TestPass@2026abc",
+            is_staff=True,
+        )
+
+        self.mock_test = IELTSMockTest.objects.create(
+            title="Exam Engine Test",
+            test_number=20,
+            is_published=True,
+        )
+
+        self.module = ExamModule.objects.create(
+            mock_test=self.mock_test,
+            module_type=ExamModule.ModuleType.READING,
+            duration_minutes=60,
+            is_active=True,
+        )
+
+        self.client.force_login(self.candidate)
+
+    def start_attempt(self):
+        return self.client.post(
+            reverse(
+                "bcl:start_exam",
+                args=[self.module.pk],
+            ),
+            {"accept_rules": "yes"},
+        )
+
+    def get_attempt(self):
+        return CandidateAttempt.objects.get(
+            candidate=self.candidate,
+            module=self.module,
+        )
+
+    def test_dashboard_shows_published_test(self):
+        response = self.client.get(
+            reverse("bcl:dashboard")
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "Exam Engine Test",
+        )
+
+    def test_rules_page(self):
+        response = self.client.get(
+            reverse(
+                "bcl:exam_rules",
+                args=[self.module.pk],
+            )
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "Examination Rules",
+        )
+
+    def test_start_requires_post(self):
+        response = self.client.get(
+            reverse(
+                "bcl:start_exam",
+                args=[self.module.pk],
+            )
+        )
+
+        self.assertEqual(response.status_code, 405)
+
+    def test_start_requires_rules_acceptance(self):
+        response = self.client.post(
+            reverse(
+                "bcl:start_exam",
+                args=[self.module.pk],
+            ),
+            {},
+        )
+
+        self.assertEqual(response.status_code, 302)
+
+        self.assertEqual(
+            CandidateAttempt.objects.count(),
+            0,
+        )
+
+    def test_start_creates_attempt(self):
+        response = self.start_attempt()
+
+        attempt = self.get_attempt()
+
+        self.assertRedirects(
+            response,
+            reverse(
+                "bcl:exam_session",
+                args=[attempt.pk],
+            ),
+        )
+
+        self.assertEqual(
+            attempt.status,
+            CandidateAttempt.AttemptStatus.IN_PROGRESS,
+        )
+
+        self.assertGreater(
+            attempt.expires_at,
+            attempt.started_at,
+        )
+
+    def test_start_resumes_existing_attempt(self):
+        self.start_attempt()
+        self.start_attempt()
+
+        self.assertEqual(
+            CandidateAttempt.objects.filter(
+                candidate=self.candidate,
+                module=self.module,
+            ).count(),
+            1,
+        )
+
+    def test_unpublished_test_cannot_start(self):
+        self.mock_test.is_published = False
+        self.mock_test.save()
+
+        response = self.start_attempt()
+
+        self.assertEqual(response.status_code, 404)
+
+        self.assertEqual(
+            CandidateAttempt.objects.count(),
+            0,
+        )
+
+    def test_inactive_module_cannot_start(self):
+        self.module.is_active = False
+        self.module.save()
+
+        response = self.start_attempt()
+
+        self.assertEqual(response.status_code, 404)
+
+    def test_staff_cannot_start_exam(self):
+        self.client.force_login(self.staff)
+
+        self.start_attempt()
+
+        self.assertEqual(
+            CandidateAttempt.objects.count(),
+            0,
+        )
+
+    def test_timer_api(self):
+        self.start_attempt()
+
+        attempt = self.get_attempt()
+
+        response = self.client.get(
+            reverse(
+                "bcl:exam_timer",
+                args=[attempt.pk],
+            )
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        data = response.json()
+
+        self.assertEqual(
+            data["status"],
+            "in_progress",
+        )
+
+        self.assertGreater(
+            data["remaining_seconds"],
+            0,
+        )
+
+    def test_other_candidate_cannot_access_attempt(self):
+        self.start_attempt()
+
+        attempt = self.get_attempt()
+
+        self.client.force_login(self.other_candidate)
+
+        urls = [
+            reverse(
+                "bcl:exam_session",
+                args=[attempt.pk],
+            ),
+            reverse(
+                "bcl:exam_timer",
+                args=[attempt.pk],
+            ),
+            reverse(
+                "bcl:exam_result",
+                args=[attempt.pk],
+            ),
+        ]
+
+        for url in urls:
+            response = self.client.get(url)
+            self.assertEqual(response.status_code, 404)
+
+    def test_expired_attempt_auto_submits(self):
+        self.start_attempt()
+
+        attempt = self.get_attempt()
+
+        attempt.expires_at = (
+            timezone.now() - timedelta(seconds=1)
+        )
+        attempt.save(update_fields=["expires_at"])
+
+        response = self.client.get(
+            reverse(
+                "bcl:exam_timer",
+                args=[attempt.pk],
+            )
+        )
+
+        attempt.refresh_from_db()
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(
+            attempt.status,
+            CandidateAttempt.AttemptStatus.AUTO_SUBMITTED,
+        )
+
+        self.assertIsNotNone(attempt.submitted_at)
+
+        self.assertEqual(
+            response.json()["remaining_seconds"],
+            0,
+        )
+
+    def test_manual_submission(self):
+        self.start_attempt()
+
+        attempt = self.get_attempt()
+
+        response = self.client.post(
+            reverse(
+                "bcl:submit_exam",
+                args=[attempt.pk],
+            )
+        )
+
+        attempt.refresh_from_db()
+
+        self.assertRedirects(
+            response,
+            reverse(
+                "bcl:exam_result",
+                args=[attempt.pk],
+            ),
+        )
+
+        self.assertEqual(
+            attempt.status,
+            CandidateAttempt.AttemptStatus.SUBMITTED,
+        )
+
+        self.assertIsNotNone(attempt.submitted_at)
+
+    def test_submission_requires_post(self):
+        self.start_attempt()
+
+        attempt = self.get_attempt()
+
+        response = self.client.get(
+            reverse(
+                "bcl:submit_exam",
+                args=[attempt.pk],
+            )
+        )
+
+        self.assertEqual(response.status_code, 405)
+
+    def test_other_candidate_cannot_submit(self):
+        self.start_attempt()
+
+        attempt = self.get_attempt()
+
+        self.client.force_login(self.other_candidate)
+
+        response = self.client.post(
+            reverse(
+                "bcl:submit_exam",
+                args=[attempt.pk],
+            )
+        )
+
+        self.assertEqual(response.status_code, 404)
+
+        attempt.refresh_from_db()
+
+        self.assertEqual(
+            attempt.status,
+            CandidateAttempt.AttemptStatus.IN_PROGRESS,
+        )
+
+    def test_submitted_attempt_cannot_resume(self):
+        self.start_attempt()
+
+        attempt = self.get_attempt()
+
+        self.client.post(
+            reverse(
+                "bcl:submit_exam",
+                args=[attempt.pk],
+            )
+        )
+
+        response = self.client.get(
+            reverse(
+                "bcl:exam_session",
+                args=[attempt.pk],
+            )
+        )
+
+        self.assertRedirects(
+            response,
+            reverse(
+                "bcl:exam_result",
+                args=[attempt.pk],
+            ),
+        )
+
+    def test_new_attempt_after_submission(self):
+        self.start_attempt()
+
+        first = self.get_attempt()
+
+        self.client.post(
+            reverse(
+                "bcl:submit_exam",
+                args=[first.pk],
+            )
+        )
+
+        self.start_attempt()
+
+        self.assertEqual(
+            CandidateAttempt.objects.filter(
+                candidate=self.candidate,
+                module=self.module,
+            ).count(),
+            2,
+        )

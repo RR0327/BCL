@@ -13,6 +13,11 @@ from .forms import (
     CandidateLoginForm,
 )
 
+from .models import (
+    IELTSMockTest,
+    CandidateAttempt,
+)
+
 
 # ==========================================
 # IELTS MOCK TEST PLATFORM
@@ -25,10 +30,6 @@ from .forms import (
 # ==========================================
 
 def home(request):
-    """
-    Public homepage displaying IELTS practice
-    modules and platform information.
-    """
 
     modules = [
         {
@@ -96,29 +97,20 @@ def home(request):
 # ==========================================
 
 def candidate_register(request):
-    """
-    Register a new candidate using Django's
-    built-in authentication system.
-    """
 
     if request.user.is_authenticated:
         return redirect("bcl:dashboard")
 
     if request.method == "POST":
-        form = CandidateRegistrationForm(
-            request.POST
-        )
+        form = CandidateRegistrationForm(request.POST)
 
         if form.is_valid():
             user = form.save()
-
-            # Automatically authenticate new user
             login(request, user)
 
             messages.success(
                 request,
-                "Your account has been created "
-                "successfully. Welcome!"
+                "Your account has been created successfully."
             )
 
             return redirect("bcl:dashboard")
@@ -126,15 +118,13 @@ def candidate_register(request):
     else:
         form = CandidateRegistrationForm()
 
-    context = {
-        "form": form,
-        "page_title": "Candidate Registration",
-    }
-
     return render(
         request,
         "registration/register.html",
-        context,
+        {
+            "form": form,
+            "page_title": "Candidate Registration",
+        },
     )
 
 
@@ -143,10 +133,6 @@ def candidate_register(request):
 # ==========================================
 
 class CandidateLoginView(LoginView):
-    """
-    Candidate login using Django's
-    authentication framework.
-    """
 
     template_name = "registration/login.html"
 
@@ -155,14 +141,10 @@ class CandidateLoginView(LoginView):
     redirect_authenticated_user = True
 
     def get_success_url(self):
-        return str(
-            reverse_lazy("bcl:dashboard")
-        )
+        return str(reverse_lazy("bcl:dashboard"))
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(
-            **kwargs
-        )
+        context = super().get_context_data(**kwargs)
 
         context["page_title"] = "Candidate Login"
 
@@ -175,9 +157,6 @@ class CandidateLoginView(LoginView):
 
 @require_POST
 def candidate_logout(request):
-    """
-    Secure logout through a POST request.
-    """
 
     logout(request)
 
@@ -195,50 +174,35 @@ def candidate_logout(request):
 
 @login_required
 def candidate_dashboard(request):
-    """
-    Protected dashboard accessible only
-    to authenticated users.
-
-    Exam statistics will be connected
-    after implementing database models.
-    """
 
     candidate = request.user
 
-    modules = [
-        {
-            "name": "Reading",
-            "icon": "📖",
-            "description": (
-                "Practice IELTS Reading "
-                "in a timed environment."
-            ),
-            "status": "Coming Soon",
-        },
-        {
-            "name": "Listening",
-            "icon": "🎧",
-            "description": (
-                "Practice listening with "
-                "IELTS-style audio tests."
-            ),
-            "status": "Coming Soon",
-        },
-        {
-            "name": "Writing",
-            "icon": "✍️",
-            "description": (
-                "Complete IELTS Writing "
-                "Task 1 and Task 2."
-            ),
-            "status": "Coming Soon",
-        },
-    ]
+    mock_tests = (
+        IELTSMockTest.objects
+        .filter(
+            is_published=True,
+            modules__is_active=True,
+        )
+        .distinct()
+        .prefetch_related("modules")
+        .order_by("test_number")
+    )
+
+    recent_attempts = (
+        CandidateAttempt.objects
+        .filter(candidate=candidate)
+        .select_related(
+            "module",
+            "module__mock_test",
+        )
+        .order_by("-started_at")[:10]
+    )
 
     context = {
         "page_title": "Candidate Dashboard",
         "candidate": candidate,
-        "modules": modules,
+        "mock_tests": mock_tests,
+        "recent_attempts": recent_attempts,
     }
 
     return render(
