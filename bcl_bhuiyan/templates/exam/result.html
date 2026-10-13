@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Exam Status | IELTS Mock Test</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f4f7fc;
+            color: #14213d;
+            font-family: Arial, sans-serif;
+        }
+
+        .result-card {
+            width: min(540px, 92%);
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .result-icon {
+            font-size: 48px;
+        }
+
+        h1 {
+            margin-bottom: 8px;
+        }
+
+        p {
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        .status {
+            display: inline-block;
+            background: #eff6ff;
+            color: #1645a1;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .dashboard-btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 13px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            background: #1645a1;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<main class="result-card">
+
+    <div class="result-icon">✅</div>
+
+    <h1>Examination Session Ended</h1>
+
+    <p>
+        {{ attempt.module.mock_test.title }}
+    </p>
+
+    <p>
+        Module:
+        {{ attempt.module.get_module_type_display }}
+    </p>
+
+    <p>
+        Attempt ID: {{ attempt.id }}
+    </p>
+
+    <p>
+        <span class="status">
+            {{ attempt.get_status_display }}
+        </span>
+    </p>
+
+    {% if attempt.submitted_at %}
+        <p>
+            Ended:
+            {{ attempt.submitted_at|date:"M d, Y H:i:s" }}
+        </p>
+    {% endif %}
+
+    {% if attempt.status == "auto_submitted" %}
+        <p>
+            This session was automatically ended
+            after its examination deadline.
+        </p>
+    {% endif %}
+
+    <p>
+        Reading and Listening scoring and
+        Writing evaluation will be available
+        after the assessment engine is implemented.
+    </p>
+
+    <a class="dashboard-btn"
+       href="{% url 'bcl:dashboard' %}">
+        Return to Dashboard
+    </a>
+
+</main>
+
+</body>
+</html>

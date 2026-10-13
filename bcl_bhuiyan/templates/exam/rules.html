@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Exam Rules | IELTS Mock Test</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #f4f7fc;
+            font-family: Arial, sans-serif;
+            color: #14213d;
+            line-height: 1.7;
+        }
+
+        .rules-container {
+            max-width: 760px;
+            margin: 55px auto;
+            padding: 20px;
+        }
+
+        .rules-card {
+            background: white;
+            padding: 38px;
+            border-radius: 15px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 12px 35px rgba(0,0,0,.05);
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .exam-meta {
+            background: #eff6ff;
+            padding: 18px;
+            border-radius: 9px;
+            margin: 22px 0;
+        }
+
+        .rules-list {
+            padding-left: 22px;
+        }
+
+        .rules-list li {
+            margin-bottom: 13px;
+        }
+
+        .agreement {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 18px;
+            margin: 25px 0;
+            border-radius: 9px;
+            background: #f8fafc;
+        }
+
+        .agreement input {
+            margin-top: 6px;
+        }
+
+        .start-btn {
+            background: #1645a1;
+            color: white;
+            border: 0;
+            border-radius: 8px;
+            padding: 14px 27px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-left: 15px;
+            color: #475569;
+        }
+
+        .notice {
+            color: #92400e;
+            background: #fffbeb;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 18px 0;
+        }
+
+        @media (max-width: 600px) {
+            .rules-card {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<main class="rules-container">
+
+    <div class="rules-card">
+
+        <h1>Examination Rules</h1>
+
+        <p>
+            Please read the instructions carefully
+            before starting your examination.
+        </p>
+
+        <div class="exam-meta">
+
+            <strong>{{ mock_test.title }}</strong>
+
+            <p>
+                Module:
+                {{ module.get_module_type_display }}
+            </p>
+
+            <p>
+                Time Limit:
+                {{ module.duration_minutes }} minutes
+            </p>
+
+        </div>
+
+        <h2>Exam Instructions</h2>
+
+        <ol class="rules-list">
+
+            <li>
+                The examination timer starts when
+                you select Start Examination.
+            </li>
+
+            <li>
+                The countdown uses the server clock.
+                Refreshing the page does not reset
+                your allocated time.
+            </li>
+
+            <li>
+                Once the examination is submitted,
+                the attempt cannot be resumed.
+            </li>
+
+            <li>
+                The platform's planned examination
+                policy permits one tab-switch warning.
+                A second violation will end the
+                attempt once violation tracking
+                is implemented.
+            </li>
+
+            <li>
+                Listening audio controls will be
+                restricted when the Listening
+                examination interface is implemented.
+            </li>
+
+            <li>
+                Use a stable internet connection
+                and complete your examination
+                before the deadline.
+            </li>
+
+        </ol>
+
+        <div class="notice">
+            This is an early version of the exam engine.
+            Question answering, autosaving, and
+            anti-cheating enforcement are still
+            under development.
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <p role="alert">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST"
+              action="{% url 'bcl:start_exam' module.id %}">
+
+            {% csrf_token %}
+
+            <label class="agreement">
+                <input
+                    type="checkbox"
+                    name="accept_rules"
+                    value="yes"
+                    required
+                >
+
+                <span>
+                    I have read and understood
+                    the examination instructions
+                    and agree to follow them.
+                </span>
+            </label>
+
+            <button type="submit"
+                    class="start-btn">
+                Start Examination →
+            </button>
+
+            <a href="{% url 'bcl:dashboard' %}"
+               class="back-link">
+                Cancel
+            </a>
+
+        </form>
+
+    </div>
+
+</main>
+
+</body>
+</html>
