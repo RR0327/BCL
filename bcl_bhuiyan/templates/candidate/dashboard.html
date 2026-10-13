@@ -1,0 +1,121 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | IELTS Mock Test</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/auth.css' %}">
+</head>
+<body class="dashboard-body">
+
+<header class="dashboard-header">
+
+    <a href="{% url 'bcl:home' %}" class="auth-logo">
+        IELTS<span>Mock</span>
+    </a>
+
+    <div class="header-actions">
+        <span>
+            {{ candidate.username }}
+        </span>
+
+        <form action="{% url 'bcl:logout' %}"
+              method="POST">
+            {% csrf_token %}
+
+            <button type="submit" class="logout-btn">
+                Logout
+            </button>
+        </form>
+    </div>
+
+</header>
+
+<main class="dashboard-container">
+
+    <section class="welcome-banner">
+
+        <p class="welcome-label">CANDIDATE DASHBOARD</p>
+
+        <h1>
+            Welcome,
+            {{ candidate.first_name|default:candidate.username }}!
+        </h1>
+
+        <p>
+            Your IELTS preparation journey starts here.
+            Choose a module to begin practicing.
+        </p>
+
+    </section>
+
+    <section class="dashboard-section">
+
+        <div class="section-heading">
+            <h2>Available Practice Modules</h2>
+            <p>
+                Reading, Listening, and Writing practice
+                modules will be available here.
+            </p>
+        </div>
+
+        <div class="module-grid">
+
+            {% for module in modules %}
+            <article class="module-card">
+
+                <div class="module-icon">
+                    {{ module.icon }}
+                </div>
+
+                <h3>{{ module.name }}</h3>
+
+                <p>
+                    {{ module.description }}
+                </p>
+
+                <span class="module-status">
+                    Coming Soon
+                </span>
+
+            </article>
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+    <section class="dashboard-section">
+
+        <div class="section-heading">
+            <h2>My Performance</h2>
+            <p>
+                Your test attempts and score reports
+                will appear here after the exam
+                engine is developed.
+            </p>
+        </div>
+
+        <div class="empty-state">
+            <h3>No test attempts yet</h3>
+            <p>
+                Once mock tests are available,
+                your results will be displayed here.
+            </p>
+        </div>
+
+    </section>
+
+</main>
+
+<footer class="dashboard-footer">
+    © {% now "Y" %} IELTS Mock Test Platform
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | IELTS Mock Test</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/auth.css' %}">
+</head>
+<body>
+
+<div class="auth-container">
+
+    <div class="auth-card">
+
+        <a href="{% url 'bcl:home' %}"
+           class="auth-logo">
+            IELTS<span>Mock</span>
+        </a>
+
+        <h1>Welcome Back</h1>
+
+        <p class="subtitle">
+            Login to access your IELTS
+            practice dashboard.
+        </p>
+
+        {% if messages %}
+            {% for message in messages %}
+            <div class="success-box">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if form.non_field_errors %}
+        <div class="error-box">
+            {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                </label>
+
+                {{ field }}
+
+                {% if field.errors %}
+                <div class="field-error">
+                    {{ field.errors }}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="auth-btn">
+                Login
+            </button>
+
+        </form>
+
+        <p class="auth-footer">
+            Don't have an account?
+            <a href="{% url 'bcl:register' %}">
+                Register
+            </a>
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+</html>

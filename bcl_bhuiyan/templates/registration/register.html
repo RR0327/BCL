@@ -1,0 +1,80 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Register | IELTS Mock Test</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/auth.css' %}">
+</head>
+<body>
+
+<div class="auth-container">
+
+    <div class="auth-card">
+
+        <a href="{% url 'bcl:home' %}"
+           class="auth-logo">
+            IELTS<span>Mock</span>
+        </a>
+
+        <h1>Create Your Account</h1>
+        <p class="subtitle">
+            Join our IELTS mock testing platform.
+        </p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+            <div class="error-box">
+                {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+
+            {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                </label>
+
+                {{ field }}
+
+                {% if field.errors %}
+                <div class="field-error">
+                    {{ field.errors }}
+                </div>
+                {% endif %}
+
+                {% if field.name == 'password1' %}
+                <small>
+                    Use a strong password you
+                    haven't used elsewhere.
+                </small>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="auth-btn">
+                Create Account
+            </button>
+
+        </form>
+
+        <p class="auth-footer">
+            Already have an account?
+            <a href="{% url 'bcl:login' %}">
+                Login
+            </a>
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+</html>
