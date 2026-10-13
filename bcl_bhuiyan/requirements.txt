@@ -1,0 +1,22 @@
+# ==========================================
+# IELTS MOCK TEST PLATFORM
+# Python Dependencies
+# ==========================================
+
+# Django Backend (existing project baseline)
+Django>=4.2,<4.3
+
+# Environment Variables
+python-decouple>=3.8,<4.0
+
+# Image Processing / Upload Support
+Pillow>=10.0,<13.0
+
+# DOCX Document Generation
+python-docx>=1.1,<2.0
+
+# PDF Document Generation
+WeasyPrint>=62,<68
+
+# PostgreSQL Driver (enable for production migration)
+# psycopg[binary]>=3.2,<4.0
