@@ -42,7 +42,29 @@
                     {{ field.label }}
                 </label>
 
+                {% if field.field.widget.input_type == 'password' %}
+                <div class="password-wrapper">
+                    {{ field }}
+                    <button
+                        type="button"
+                        class="eye-toggle"
+                        id="toggle-{{ field.id_for_label }}"
+                        onclick="togglePassword('{{ field.id_for_label }}', this)"
+                        aria-label="Toggle password visibility"
+                    >
+                        <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                        <svg class="eye-off-icon" style="display:none;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/>
+                            <line x1="1" y1="1" x2="23" y2="23"/>
+                        </svg>
+                    </button>
+                </div>
+                {% else %}
                 {{ field }}
+                {% endif %}
 
                 {% if field.errors %}
                 <div class="field-error">
@@ -51,6 +73,14 @@
                 {% endif %}
 
                 {% if field.name == 'password1' %}
+                <div id="pw-warning" class="pw-warning" style="display:none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    Password must be at least 8 characters.
+                </div>
+                <div id="pw-ok" class="pw-ok" style="display:none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg>
+                    Strong enough!
+                </div>
                 <small>
                     Use a strong password you
                     haven't used elsewhere.
@@ -75,6 +105,63 @@
     </div>
 
 </div>
+
+
+<script>
+// --- Password toggle ---
+function togglePassword(fieldId, btn) {
+    const input = document.getElementById(fieldId);
+    const eyeIcon = btn.querySelector('.eye-icon');
+    const eyeOffIcon = btn.querySelector('.eye-off-icon');
+
+    if (input.type === 'password') {
+        input.type = 'text';
+        eyeIcon.style.display = 'none';
+        eyeOffIcon.style.display = 'block';
+    } else {
+        input.type = 'password';
+        eyeIcon.style.display = 'block';
+        eyeOffIcon.style.display = 'none';
+    }
+}
+
+// --- Password length validation ---
+const pwInput   = document.getElementById('id_password1');
+const pwWarning = document.getElementById('pw-warning');
+const pwOk      = document.getElementById('pw-ok');
+const authForm  = document.querySelector('form');
+
+if (pwInput) {
+    pwInput.addEventListener('input', function () {
+        const len = this.value.length;
+        if (this.value === '') {
+            pwWarning.style.display = 'none';
+            pwOk.style.display = 'none';
+        } else if (len < 8) {
+            pwWarning.style.display = 'flex';
+            pwOk.style.display = 'none';
+            pwInput.classList.add('input-error');
+            pwInput.classList.remove('input-success');
+        } else {
+            pwWarning.style.display = 'none';
+            pwOk.style.display = 'flex';
+            pwInput.classList.remove('input-error');
+            pwInput.classList.add('input-success');
+        }
+    });
+}
+
+if (authForm) {
+    authForm.addEventListener('submit', function (e) {
+        if (pwInput && pwInput.value.length < 8) {
+            e.preventDefault();
+            pwWarning.style.display = 'flex';
+            pwInput.classList.add('input-error');
+            pwInput.focus();
+        }
+    });
+}
+</script>
 
 </body>
 </html>

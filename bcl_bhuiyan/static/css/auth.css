@@ -91,6 +91,76 @@ a {
     border-color: var(--primary);
 }
 
+/* Password toggle */
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-wrapper input {
+    padding-right: 44px;
+}
+
+.eye-toggle {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    color: var(--muted);
+    transition: color 0.2s;
+}
+
+.eye-toggle:hover {
+    color: var(--primary);
+}
+
+.eye-toggle svg {
+    width: 19px;
+    height: 19px;
+}
+
+/* Password length feedback */
+.pw-warning,
+.pw-ok {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12.5px;
+    font-weight: 600;
+    margin-top: 6px;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+.pw-warning {
+    color: #b91c1c;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+}
+
+.pw-ok {
+    color: #047857;
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+}
+
+.input-error {
+    border-color: #ef4444 !important;
+    outline: 2px solid #fecaca !important;
+}
+
+.input-success {
+    border-color: #10b981 !important;
+    outline: 2px solid #a7f3d0 !important;
+}
+
+
+
 .form-group small {
     display: block;
     margin-top: 6px;
