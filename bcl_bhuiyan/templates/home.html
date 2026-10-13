@@ -1,0 +1,83 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ platform_name }}</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/main.js' %}" defer></script>
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="{% url 'bcl:home' %}" class="logo">
+            IELTS<span>Mock</span>
+        </a>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#modules">Practice Tests</a>
+            <a href="#about">About</a>
+        </nav>
+
+        <span class="nav-status">Platform Preview</span>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <span class="eyebrow">COMPUTER-DELIVERED IELTS PRACTICE</span>
+
+                <h1>Prepare for IELTS with Confidence</h1>
+
+                <p>
+                    Experience IELTS-style mock examinations
+                    with Reading, Listening, and Writing
+                    practice in one convenient platform.
+                </p>
+
+                <a href="#modules" class="primary-btn">
+                    Explore Practice Modules →
+                </a>
+            </div>
+        </section>
+
+        <section class="modules" id="modules">
+            <div class="section-heading">
+                <span class="eyebrow">OUR EXAM MODULES</span>
+                <h2>Choose Your Practice Module</h2>
+                <p>Get familiar with the computer-based exam format.</p>
+            </div>
+
+            <div class="module-grid">
+                {% for module in modules %}
+                <article class="module-card">
+                    <div class="module-icon">{{ module.icon }}</div>
+                    <h3>{{ module.name }}</h3>
+                    <p>{{ module.description }}</p>
+                    <span class="coming-soon">Coming Soon</span>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="about" id="about">
+            <h2>Practice in an Exam-Focused Environment</h2>
+            <p>
+                Our platform is being developed to provide
+                realistic timed mock tests, question navigation,
+                score reports, and writing feedback.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>© {% now "Y" %} IELTS Mock Test Platform.</p>
+        <p>Independent IELTS practice platform.</p>
+    </footer>
+
+</body>
+</html>
