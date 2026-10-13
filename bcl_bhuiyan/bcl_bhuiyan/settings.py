@@ -235,10 +235,20 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # ==========================================
-# 16. APP CONFIGURATION
+# 14. APP CONFIGURATION
 # ==========================================
 
 APP_NAME = config(
     'APP_NAME',
     default='IELTS Mock Test Platform'
 )
+
+# ==========================================
+# 15. AUTHENTICATION REDIRECTS
+# ==========================================
+
+LOGIN_URL = "bcl:login"
+
+LOGIN_REDIRECT_URL = "bcl:dashboard"
+
+LOGOUT_REDIRECT_URL = "bcl:login"
