@@ -1,82 +1,485 @@
 
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ platform_name }}</title>
 
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <script src="{% static 'js/main.js' %}" defer></script>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Practice IELTS Reading, Listening, and Writing with realistic computer-based mock tests.">
+
+    <title>{{ platform_name }} | IELTS Practice</title>
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet"
+          href="{% static 'css/style.css' %}">
+
+    <!-- Homepage Navigation Styles -->
+    <style>
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .navbar nav {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            flex-wrap: wrap;
+        }
+
+        .navbar nav a {
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .navbar nav a:hover {
+            color: #2563eb;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-actions form {
+            margin: 0;
+        }
+
+        .nav-btn {
+            display: inline-block;
+            padding: 10px 18px;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .login-btn {
+            background: transparent;
+            color: #1645a1;
+            border: 1px solid #1645a1;
+        }
+
+        .register-btn {
+            background: #1645a1;
+            color: white;
+            border: 1px solid #1645a1;
+        }
+
+        .logout-btn {
+            background: #14213d;
+            color: white;
+            border: 1px solid #14213d;
+        }
+
+        .register-btn:hover {
+            background: #10377f;
+        }
+
+        .logout-btn:hover {
+            background: #263b61;
+        }
+
+        .login-btn:hover {
+            background: #eff6ff;
+        }
+
+        .welcome-user {
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .module-features {
+            margin: 20px 0 0;
+            padding-left: 19px;
+            color: #475569;
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .module-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .module-card .coming-soon {
+            margin-top: auto;
+            padding-top: 22px;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .secondary-btn {
+            display: inline-block;
+            color: white;
+            border: 1px solid #93c5fd;
+            border-radius: 8px;
+            padding: 13px 25px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .secondary-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .homepage-message {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 13px 20px;
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            color: #047857;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .homepage-message.error {
+            background: #fef2f2;
+            border-color: #fecaca;
+            color: #b91c1c;
+        }
+
+        @media (max-width: 900px) {
+            .navbar {
+                justify-content: center;
+                text-align: center;
+            }
+
+            .navbar nav {
+                justify-content: center;
+            }
+
+            .nav-actions {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+
+    <!-- Main JavaScript -->
+    <script src="{% static 'js/main.js' %}"
+            defer></script>
+
 </head>
+
 <body>
 
+    <!-- =====================================
+         HEADER / NAVIGATION
+    ====================================== -->
+
     <header class="navbar">
-        <a href="{% url 'bcl:home' %}" class="logo">
+
+        <!-- Website Logo -->
+        <a href="{% url 'bcl:home' %}"
+           class="logo">
             IELTS<span>Mock</span>
         </a>
 
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#modules">Practice Tests</a>
-            <a href="#about">About</a>
+        <!-- Main Navigation -->
+        <nav aria-label="Main navigation">
+
+            <a href="{% url 'bcl:home' %}">
+                Home
+            </a>
+
+            <a href="#modules">
+                Practice Tests
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+            {% if user.is_authenticated %}
+
+                <a href="{% url 'bcl:dashboard' %}">
+                    My Dashboard
+                </a>
+
+            {% endif %}
+
         </nav>
 
-        <span class="nav-status">Platform Preview</span>
+        <!-- Authentication Navigation -->
+        <div class="nav-actions">
+
+            {% if user.is_authenticated %}
+
+                <span class="welcome-user">
+                    Hello,
+                    {{ user.first_name|default:user.username }}
+                </span>
+
+                <a href="{% url 'bcl:dashboard' %}"
+                   class="nav-btn register-btn">
+                    Dashboard
+                </a>
+
+                <!-- Logout must use POST -->
+                <form action="{% url 'bcl:logout' %}"
+                      method="POST">
+
+                    {% csrf_token %}
+
+                    <button type="submit"
+                            class="nav-btn logout-btn">
+                        Logout
+                    </button>
+
+                </form>
+
+            {% else %}
+
+                <a href="{% url 'bcl:login' %}"
+                   class="nav-btn login-btn">
+                    Login
+                </a>
+
+                <a href="{% url 'bcl:register' %}"
+                   class="nav-btn register-btn">
+                    Get Started
+                </a>
+
+            {% endif %}
+
+        </div>
+
     </header>
 
-    <main>
-        <section class="hero" id="home">
-            <div class="hero-content">
-                <span class="eyebrow">COMPUTER-DELIVERED IELTS PRACTICE</span>
 
-                <h1>Prepare for IELTS with Confidence</h1>
+    <!-- =====================================
+         DJANGO MESSAGES
+    ====================================== -->
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="homepage-message
+                {% if message.tags == 'error' %}error{% endif %}"
+                 role="status">
+
+                {{ message }}
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+    <!-- =====================================
+         MAIN CONTENT
+    ====================================== -->
+
+    <main>
+
+
+        <!-- =================================
+             HERO SECTION
+        ================================== -->
+
+        <section class="hero" id="home">
+
+            <div class="hero-content">
+
+                <span class="eyebrow">
+                    COMPUTER-DELIVERED IELTS PRACTICE
+                </span>
+
+                <h1>
+                    Prepare for IELTS
+                    with Confidence
+                </h1>
 
                 <p>
-                    Experience IELTS-style mock examinations
-                    with Reading, Listening, and Writing
-                    practice in one convenient platform.
+                    Experience realistic computer-based
+                    IELTS mock examinations.
+
+                    Practice Reading, Listening,
+                    and Writing in one convenient
+                    online platform.
                 </p>
 
-                <a href="#modules" class="primary-btn">
-                    Explore Practice Modules →
-                </a>
+                <div class="hero-actions">
+
+                    {% if user.is_authenticated %}
+
+                        <a href="{% url 'bcl:dashboard' %}"
+                           class="primary-btn">
+
+                            Go to Dashboard →
+
+                        </a>
+
+                    {% else %}
+
+                        <a href="{% url 'bcl:register' %}"
+                           class="primary-btn">
+
+                            Create Free Account →
+
+                        </a>
+
+                        <a href="{% url 'bcl:login' %}"
+                           class="secondary-btn">
+
+                            Login
+
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
             </div>
+
         </section>
+
+
+        <!-- =================================
+             PRACTICE MODULES SECTION
+        ================================== -->
 
         <section class="modules" id="modules">
+
             <div class="section-heading">
-                <span class="eyebrow">OUR EXAM MODULES</span>
-                <h2>Choose Your Practice Module</h2>
-                <p>Get familiar with the computer-based exam format.</p>
+
+                <span class="eyebrow">
+                    IELTS PRACTICE MODULES
+                </span>
+
+                <h2>
+                    Choose Your Practice Module
+                </h2>
+
+                <p>
+                    Prepare for each part of the
+                    computer-delivered IELTS exam
+                    using our practice modules.
+                </p>
+
             </div>
+
 
             <div class="module-grid">
+
                 {% for module in modules %}
-                <article class="module-card">
-                    <div class="module-icon">{{ module.icon }}</div>
-                    <h3>{{ module.name }}</h3>
-                    <p>{{ module.description }}</p>
-                    <span class="coming-soon">Coming Soon</span>
-                </article>
+
+                    <article class="module-card">
+
+                        <!-- Module Icon -->
+                        <div class="module-icon">
+                            {{ module.icon }}
+                        </div>
+
+                        <!-- Module Name -->
+                        <h3>
+                            {{ module.name }}
+                        </h3>
+
+                        <!-- Module Description -->
+                        <p>
+                            {{ module.description }}
+                        </p>
+
+                        <!-- Features -->
+                        <ul class="module-features">
+
+                            {% for feature in module.features %}
+
+                                <li>
+                                    {{ feature }}
+                                </li>
+
+                            {% endfor %}
+
+                        </ul>
+
+                        <!-- Current Development Status -->
+                        <span class="coming-soon">
+                            Coming Soon
+                        </span>
+
+                    </article>
+
                 {% endfor %}
+
             </div>
+
         </section>
+
+
+        <!-- =================================
+             PLATFORM INFORMATION
+        ================================== -->
 
         <section class="about" id="about">
-            <h2>Practice in an Exam-Focused Environment</h2>
+
+            <span class="eyebrow"
+                  style="color: #1645a1;">
+
+                ABOUT OUR PLATFORM
+
+            </span>
+
+            <h2>
+                Practice in an Exam-Focused Environment
+            </h2>
+
             <p>
-                Our platform is being developed to provide
-                realistic timed mock tests, question navigation,
-                score reports, and writing feedback.
+                Our IELTS Mock Test Platform is designed
+                to recreate the computer-delivered
+                examination experience.
+
+                The platform will provide timed mock
+                examinations, question navigation,
+                automated Reading and Listening scoring,
+                and manual Writing feedback.
             </p>
+
         </section>
+
+
     </main>
 
+
+    <!-- =====================================
+         FOOTER
+    ====================================== -->
+
     <footer>
-        <p>© {% now "Y" %} IELTS Mock Test Platform.</p>
-        <p>Independent IELTS practice platform.</p>
+
+        <p>
+            © {% now "Y" %} IELTS Mock Test Platform.
+            All rights reserved.
+        </p>
+
+        <p>
+            Independent IELTS practice platform.
+        </p>
+
     </footer>
 
 </body>
