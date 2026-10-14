@@ -21,6 +21,14 @@ document.addEventListener("DOMContentLoaded", () => {
     let syncing = false;
     let deadline = Date.now() + Number(timerEl.dataset.remaining) * 1000;
     let queue = Promise.resolve();
+    const violationModal = document.getElementById("violationModal");
+    const acknowledgeViolation = document.getElementById("acknowledgeViolation");
+    const violationMessage = document.getElementById("violationMessage");
+    let violationPending = false;
+    let lastViolationAt = 0;
+    let warningOpen = false;
+    let submittingNormally = false;
+
 
     function getAnswer(panel) {
         const selected = panel.querySelector('input[type="radio"]:checked');
@@ -194,18 +202,198 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(() => { if (!finishing) void saveAll().catch(console.warn); }, 15000);
     setInterval(paintTimer, 1000);
     setInterval(syncTimer, 10000);
+    // A visibility or focus-loss report can be caused by normal browser
+    // actions. These reports are indicators, not proof of dishonesty.
+    async function reportViolation(reason) {
+        if (finishing || submittingNormally || warningOpen || violationPending) return;
+        const now = Date.now();
+        // visibilitychange and blur often fire for the same action.
+        if (now - lastViolationAt < 2000) return;
+        lastViolationAt = now;
+        violationPending = true;
+        try {
+            const response = await fetch(app.dataset.violationUrl, {
+                method: "POST",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": document.querySelector('[name="csrfmiddlewaretoken"]').value,
+                },
+                body: JSON.stringify({reason}),
+                keepalive: true,
+            });
+            const data = await response.json().catch(() => ({}));
+            if (response.status === 409 || data.status === "auto_submitted") {
+                finishing = true;
+                window.location.replace(app.dataset.resultUrl);
+                return;
+            }
+            if (!response.ok) throw new Error(data.error || "Unable to record focus loss");
+            if (data.warning) {
+                warningOpen = true;
+                violationMessage.textContent = "First warning: you left the examination tab or window. A second recorded violation will automatically submit your exam.";
+                violationModal.hidden = false;
+                if (!document.hidden) acknowledgeViolation.focus();
+            }
+        } catch (error) {
+            console.warn("Could not send exam focus report:", error);
+            saveStatus.textContent = "Connection issue — check exam status";
+        } finally {
+            violationPending = false;
+        }
+    }
+
+    acknowledgeViolation.addEventListener("click", () => {
+        violationModal.hidden = true;
+        warningOpen = false;
+        acknowledgeViolation.blur();
+        lastViolationAt = Date.now();
+    });
+
     document.addEventListener("visibilitychange", () => {
-        if (!document.hidden) void syncTimer();
+        if (document.hidden) {
+            void reportViolation("tab_hidden");
+        } else {
+            if (warningOpen) acknowledgeViolation.focus();
+            void syncTimer();
+        }
+    });
+    window.addEventListener("blur", () => {
+        if (!document.hidden && !warningOpen) void reportViolation("window_blur");
     });
     paintTimer();
+
+    // Reading passage tools: selections are visual only and notes are
+    // stored per candidate attempt in this browser (never sent to Django).
+    if (app.classList.contains("reading-exam")) {
+        const storagePrefix = `ielts-notes:${app.dataset.attemptId}:`;
+        const notesBySection = new Map();
+        document.querySelectorAll(".passage-notes").forEach(field => {
+            const sectionId = field.dataset.sectionId;
+            const key = storagePrefix + sectionId;
+            if (!notesBySection.has(sectionId)) {
+                let value = "";
+                try { value = window.localStorage.getItem(key) || ""; }
+                catch (error) { console.warn("Notes unavailable in browser storage", error); }
+                notesBySection.set(sectionId, value);
+            }
+            field.value = notesBySection.get(sectionId);
+            field.addEventListener("input", () => {
+                notesBySection.set(sectionId, field.value);
+                document.querySelectorAll(`.passage-notes[data-section-id="${sectionId}"]`)
+                    .forEach(other => { if (other !== field) other.value = field.value; });
+                try { window.localStorage.setItem(key, field.value); }
+                catch (error) { console.warn("Unable to store passage notes", error); }
+            });
+        });
+        // Capture the selection before the toolbar button takes focus.
+        let chosenRange = null;
+        document.addEventListener("selectionchange", () => {
+            const selection = window.getSelection();
+            if (!selection || selection.isCollapsed || !selection.rangeCount) return;
+            const range = selection.getRangeAt(0);
+            const region = range.commonAncestorContainer.nodeType === Node.ELEMENT_NODE
+                ? range.commonAncestorContainer : range.commonAncestorContainer.parentElement;
+            const passage = region?.closest?.(".selectable-passage");
+            if (passage && passage.closest(".question-panel")?.hidden === false) {
+                chosenRange = range.cloneRange();
+            }
+        });
+        document.querySelectorAll(".highlight-selection").forEach(button => {
+            button.addEventListener("click", () => {
+                const passage = button.closest(".reading-passage").querySelector(".selectable-passage");
+                const range = chosenRange;
+                if (!range || range.collapsed || !passage.contains(range.commonAncestorContainer)) return;
+                // Limit highlights to one passage; preserve text without injecting HTML.
+                const mark = document.createElement("mark");
+                try {
+                    mark.appendChild(range.extractContents());
+                    range.insertNode(mark);
+                    window.getSelection()?.removeAllRanges();
+                    chosenRange = null;
+                } catch (error) {
+                    console.warn("Cannot highlight this selection", error);
+                }
+            });
+        });
+        document.querySelectorAll(".clear-highlights").forEach(button => {
+            button.addEventListener("click", () => {
+                const passage = button.closest(".reading-passage").querySelector(".selectable-passage");
+                passage.querySelectorAll("mark").forEach(mark => mark.replaceWith(...mark.childNodes));
+                passage.normalize();
+                chosenRange = null;
+            });
+        });
+    }
+
+    // Listening: a user gesture is necessary because browsers normally block
+    // audio autoplay after a POST -> redirect navigation. Audio controls are
+    // intentionally absent, but browser-level playback is not tamper-proof.
+    if (app.classList.contains("listening-exam")) {
+        const audio = document.getElementById("listeningAudio");
+        const start = document.getElementById("startListening");
+        const status = document.getElementById("listeningStatus");
+        const parts = Array.from(document.querySelectorAll(".listening-part"));
+        let currentPart = 0;
+        let started = false;
+        let advancing = false;
+        const unavailable = parts.length === 0 || parts.some(p => !p.dataset.audioUrl);
+        if (unavailable) {
+            start.disabled = true;
+            status.textContent = "Audio not configured for every Listening part. Please contact the administrator.";
+        }
+        async function playPart(position) {
+            if (finishing || position >= parts.length) {
+                status.textContent = "Listening audio complete. You may review your answers before the exam deadline.";
+                return;
+            }
+            const part = parts[position];
+            currentPart = position;
+            audio.src = part.dataset.audioUrl;
+            audio.load();
+            status.textContent = `Playing part ${position + 1} of ${parts.length}: ${part.dataset.title}`;
+            const firstQuestion = panels.findIndex(p => p.dataset.sectionId === part.dataset.sectionId);
+            if (firstQuestion >= 0) showQuestion(firstQuestion);
+            try {
+                await audio.play();
+            } catch (error) {
+                status.textContent = "Audio could not play. Check the file, sound settings or browser permissions.";
+                console.error(error);
+            }
+        }
+        start.addEventListener("click", () => {
+            if (started || unavailable) return;
+            started = true;
+            start.disabled = true;
+            start.hidden = true;
+            void playPart(0);
+        });
+        audio.addEventListener("ended", async () => {
+            if (advancing || finishing) return;
+            advancing = true;
+            try { await playPart(currentPart + 1); }
+            finally { advancing = false; }
+        });
+        audio.addEventListener("error", () => {
+            status.textContent = "There is a problem loading the Listening audio file. Please notify an administrator.";
+        });
+        // No visible native controls or page-level seek/pause actions.
+        audio.controls = false;
+    }
 
     submitForm.addEventListener("submit", async event => {
         event.preventDefault();
         if (finishing) return;
-        if (!window.confirm("Submit this exam? You cannot edit answers afterward.")) return;
+        submittingNormally = true;
+        if (!window.confirm("Submit this exam? You cannot edit answers afterward.")) {
+            submittingNormally = false;
+            lastViolationAt = Date.now();
+            return;
+        }
         submitButton.disabled = true;
         try {
             await saveAll();
+            submittingNormally = true;
             finishing = true;
             // submit() bypasses our event listener but still sends CSRF + POST.
             HTMLFormElement.prototype.submit.call(submitForm);
@@ -213,6 +401,7 @@ document.addEventListener("DOMContentLoaded", () => {
             saveStatus.textContent = "Could not save; try again";
             alert("Some answers could not be saved. Check your connection and try again.");
             submitButton.disabled = false;
+            submittingNormally = false;
         }
     });
 });
