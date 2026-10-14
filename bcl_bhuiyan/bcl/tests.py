@@ -568,3 +568,99 @@ class WritingInterfaceTests(TestCase):
             content_type="application/json",
         )
         self.assertEqual(response.status_code, 409)
+
+# ==========================================
+# PHASE 3 STEP 4 — READING / LISTENING SCORING
+# ==========================================
+
+class AutoScoringTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username="scoring_candidate", password="SafeTestPass2026!")
+        self.mock_test = IELTSMockTest.objects.create(title="Scoring test", test_number=101, is_published=True)
+        self.module = ExamModule.objects.create(
+            mock_test=self.mock_test, module_type="reading", duration_minutes=60
+        )
+        self.section = ExamSection.objects.create(module=self.module, title="Passage", order=1)
+        self.q1 = Question.objects.create(
+            section=self.section, question_type="mcq", question_text="Pick B", correct_answer="B", order=1,
+        )
+        QuestionOption.objects.create(question=self.q1, option_key="A", option_text="Incorrect", order=1)
+        QuestionOption.objects.create(question=self.q1, option_key="B", option_text="Correct", is_correct=True, order=2)
+        self.q2 = Question.objects.create(
+            section=self.section, question_type="fill_blank", question_text="Name a colour", correct_answer="blue||azure", order=2,
+        )
+        self.now = timezone.now()
+        self.attempt = CandidateAttempt.objects.create(
+            candidate=self.user, module=self.module, started_at=self.now,
+            expires_at=self.now + timedelta(minutes=60),
+        )
+        self.client.force_login(self.user)
+
+    def test_manual_submission_grades_correct_and_incorrect(self):
+        CandidateAnswer.objects.create(attempt=self.attempt, question=self.q1, answer_text="B")
+        CandidateAnswer.objects.create(attempt=self.attempt, question=self.q2, answer_text="red")
+        self.client.post(reverse("bcl:submit_exam", args=[self.attempt.pk]))
+        self.attempt.refresh_from_db()
+        self.assertEqual(self.attempt.raw_score, 1)
+        self.assertIsNone(self.attempt.band_score)
+        self.assertTrue(CandidateAnswer.objects.get(attempt=self.attempt, question=self.q1).is_correct)
+        self.assertFalse(CandidateAnswer.objects.get(attempt=self.attempt, question=self.q2).is_correct)
+        response = self.client.get(reverse("bcl:exam_result", args=[self.attempt.pk]))
+        self.assertContains(response, "Raw score")
+        self.assertContains(response, "1 / 2")
+
+    def test_approved_alternate_answer_matches(self):
+        CandidateAnswer.objects.create(attempt=self.attempt, question=self.q2, answer_text=" AZURE ")
+        self.client.post(reverse("bcl:submit_exam", args=[self.attempt.pk]))
+        self.attempt.refresh_from_db()
+        self.assertEqual(self.attempt.raw_score, 1)
+
+    def test_expiry_grades_at_server_boundary(self):
+        CandidateAnswer.objects.create(attempt=self.attempt, question=self.q1, answer_text="B")
+        self.attempt.expires_at = timezone.now() - timedelta(seconds=1)
+        self.attempt.save(update_fields=["expires_at"])
+        self.client.get(reverse("bcl:exam_timer", args=[self.attempt.pk]))
+        self.attempt.refresh_from_db()
+        self.assertEqual(self.attempt.status, "auto_submitted")
+        self.assertEqual(self.attempt.raw_score, 1)
+
+    def test_missing_answer_key_blocks_scoring(self):
+        self.q2.correct_answer = ""
+        self.q2.save(update_fields=["correct_answer"])
+        self.client.post(reverse("bcl:submit_exam", args=[self.attempt.pk]))
+        self.attempt.refresh_from_db()
+        self.assertIsNone(self.attempt.raw_score)
+
+    def test_writing_remains_manual(self):
+        writing = ExamModule.objects.create(mock_test=self.mock_test, module_type="writing")
+        section = ExamSection.objects.create(module=writing, title="Task 1", order=1)
+        q = Question.objects.create(section=section, question_type="essay", question_text="Discuss", order=1)
+        now = timezone.now()
+        attempt = CandidateAttempt.objects.create(candidate=self.user, module=writing, started_at=now, expires_at=now + timedelta(hours=1))
+        CandidateAnswer.objects.create(attempt=attempt, question=q, answer_text="Example essay")
+        self.client.post(reverse("bcl:submit_exam", args=[attempt.pk]))
+        attempt.refresh_from_db()
+        self.assertIsNone(attempt.raw_score)
+        self.assertIsNone(attempt.band_score)
+        self.assertContains(self.client.get(reverse("bcl:exam_result", args=[attempt.pk])), "manual evaluation")
+
+    def test_full_40_question_band_conversion(self):
+        for order in range(3, 41):
+            Question.objects.create(
+                section=self.section, question_type="short_answer",
+                question_text=f"Answer {order}", correct_answer="yes", order=order,
+            )
+        CandidateAnswer.objects.create(attempt=self.attempt, question=self.q1, answer_text="B")
+        self.client.post(reverse("bcl:submit_exam", args=[self.attempt.pk]))
+        self.attempt.refresh_from_db()
+        self.assertEqual(self.attempt.raw_score, 1)
+        self.assertEqual(self.attempt.band_score, Decimal("1.0"))
+
+    def test_scoring_idempotent_on_repeated_submission(self):
+        CandidateAnswer.objects.create(attempt=self.attempt, question=self.q1, answer_text="B")
+        endpoint = reverse("bcl:submit_exam", args=[self.attempt.pk])
+        self.client.post(endpoint)
+        self.client.post(endpoint)
+        self.assertEqual(CandidateAnswer.objects.get(attempt=self.attempt, question=self.q1).awarded_marks, 1)
+        self.attempt.refresh_from_db()
+        self.assertEqual(self.attempt.raw_score, 1)

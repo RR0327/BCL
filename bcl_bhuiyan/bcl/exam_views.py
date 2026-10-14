@@ -13,6 +13,7 @@ from django.utils import timezone
 from django.views.decorators.http import require_GET, require_POST
 
 from .models import CandidateAnswer, CandidateAttempt, ExamModule, Question
+from .scoring import finalize_attempt_score
 
 
 MAX_ANSWER_LENGTH = 20000
@@ -42,6 +43,7 @@ def expire_attempt_if_needed(attempt):
             locked.status = CandidateAttempt.AttemptStatus.AUTO_SUBMITTED
             locked.submitted_at = now
             locked.save(update_fields=["status", "submitted_at"])
+            finalize_attempt_score(locked)
         return locked
 
 
@@ -110,6 +112,7 @@ def start_exam(request, module_id):
                 attempt.status = CandidateAttempt.AttemptStatus.AUTO_SUBMITTED
                 attempt.submitted_at = now
                 attempt.save(update_fields=["status", "submitted_at"])
+                finalize_attempt_score(attempt)
             elif active is None:
                 active = attempt
         if active is None:
@@ -201,6 +204,7 @@ def save_exam_answer(request, attempt_id):
             attempt.status = CandidateAttempt.AttemptStatus.AUTO_SUBMITTED
             attempt.submitted_at = now
             attempt.save(update_fields=["status", "submitted_at"])
+            finalize_attempt_score(attempt)
             return JsonResponse({"error": "Exam time has expired."}, status=409)
 
         question = get_object_or_404(
@@ -268,6 +272,7 @@ def report_exam_violation(request, attempt_id):
             attempt.status = CandidateAttempt.AttemptStatus.AUTO_SUBMITTED
             attempt.submitted_at = now
             attempt.save(update_fields=["status", "submitted_at"])
+            finalize_attempt_score(attempt)
             return JsonResponse({"error": "Exam time expired.", "status": attempt.status}, status=409)
 
         attempt.violation_count += 1
@@ -275,6 +280,7 @@ def report_exam_violation(request, attempt_id):
             attempt.status = CandidateAttempt.AttemptStatus.AUTO_SUBMITTED
             attempt.submitted_at = now
             attempt.save(update_fields=["violation_count", "status", "submitted_at"])
+            finalize_attempt_score(attempt)
         else:
             attempt.save(update_fields=["violation_count"])
         count = attempt.violation_count
@@ -312,6 +318,7 @@ def submit_exam(request, attempt_id):
             )
             attempt.submitted_at = now
             attempt.save(update_fields=["status", "submitted_at"])
+            finalize_attempt_score(attempt)
     messages.success(request, "Your examination session has ended.")
     return redirect("bcl:exam_result", attempt_id=attempt.pk)
 
@@ -322,4 +329,7 @@ def exam_result(request, attempt_id):
     attempt = expire_attempt_if_needed(get_candidate_attempt(request, attempt_id))
     if attempt.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
         return redirect("bcl:exam_session", attempt_id=attempt.pk)
-    return render(request, "exam/result.html", {"attempt": attempt})
+    total_marks = sum(
+        Question.objects.filter(section__module=attempt.module).values_list("marks", flat=True)
+    )
+    return render(request, "exam/result.html", {"attempt": attempt, "total_marks": total_marks})
