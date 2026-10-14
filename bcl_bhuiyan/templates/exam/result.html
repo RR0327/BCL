@@ -1,129 +1,49 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Exam Status | IELTS Mock Test</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #f4f7fc;
-            color: #14213d;
-            font-family: Arial, sans-serif;
-        }
-
-        .result-card {
-            width: min(540px, 92%);
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 40px;
-            text-align: center;
-        }
-
-        .result-icon {
-            font-size: 48px;
-        }
-
-        h1 {
-            margin-bottom: 8px;
-        }
-
-        p {
-            color: #64748b;
-            line-height: 1.7;
-        }
-
-        .status {
-            display: inline-block;
-            background: #eff6ff;
-            color: #1645a1;
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-weight: bold;
-        }
-
-        .dashboard-btn {
-            display: inline-block;
-            margin-top: 25px;
-            padding: 13px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            background: #1645a1;
-            color: white;
-            font-weight: bold;
-        }
-    </style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exam Result | IELTS Mock Test</title>
+  <style>
+    * {box-sizing:border-box}
+    body {margin:0;min-height:100vh;background:#f4f7fc;font-family:Arial,sans-serif;color:#14213d;display:grid;place-items:center;padding:20px}
+    .card {width:min(650px,100%);background:white;border:1px solid #e2e8f0;border-radius:16px;padding:38px;box-shadow:0 10px 30px #14213d0b}
+    .eyebrow {color:#1645a1;font-size:12px;text-transform:uppercase;font-weight:700;letter-spacing:1.5px}
+    h1 {margin:10px 0 8px} p {color:#526178;line-height:1.65}
+    .grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:24px 0}
+    .stat {background:#f4f7fc;border-radius:10px;padding:20px}
+    .stat strong {display:block;font-size:28px;margin-top:7px;color:#1645a1}
+    .status {font-weight:700;color:#1645a1}
+    .notice {background:#fffbeb;border:1px solid #fde68a;padding:16px;border-radius:9px}
+    a.button {display:inline-block;background:#1645a1;color:white;text-decoration:none;padding:13px 20px;border-radius:8px;margin-top:14px;font-weight:bold}
+    @media(max-width:480px){.grid{grid-template-columns:1fr}.card{padding:24px}}
+  </style>
 </head>
-
 <body>
-
-<main class="result-card">
-
-    <div class="result-icon">✅</div>
-
-    <h1>Examination Session Ended</h1>
-
-    <p>
-        {{ attempt.module.mock_test.title }}
-    </p>
-
-    <p>
-        Module:
-        {{ attempt.module.get_module_type_display }}
-    </p>
-
-    <p>
-        Attempt ID: {{ attempt.id }}
-    </p>
-
-    <p>
-        <span class="status">
-            {{ attempt.get_status_display }}
-        </span>
-    </p>
-
-    {% if attempt.submitted_at %}
-        <p>
-            Ended:
-            {{ attempt.submitted_at|date:"M d, Y H:i:s" }}
-        </p>
+  <main class="card">
+    <span class="eyebrow">IELTS Mock Test Platform</span>
+    <h1>Examination session ended</h1>
+    <p><strong>{{ attempt.module.mock_test.title }}</strong> — {{ attempt.module.get_module_type_display }}</p>
+    <p>Attempt #{{ attempt.pk }} · <span class="status">{{ attempt.get_status_display }}</span></p>
+    {% if attempt.submitted_at %}<p>Ended: {{ attempt.submitted_at|date:"M d, Y H:i:s" }}</p>{% endif %}
+    {% if attempt.module.module_type == 'writing' %}
+      <div class="notice"><strong>Writing is awaiting manual evaluation.</strong><p>An examiner will assess Task 1 and Task 2. No automated Writing band is awarded.</p></div>
+    {% elif attempt.raw_score is not None %}
+      <div class="grid">
+        <div class="stat"><span>Raw score</span><strong>{{ attempt.raw_score }} / {{ total_marks }}</strong></div>
+        <div class="stat"><span>Practice band</span><strong>{% if attempt.band_score is not None %}{{ attempt.band_score }}{% else %}Pending{% endif %}</strong></div>
+      </div>
+      {% if attempt.band_score is not None %}
+        <p class="notice">Practice band calculated with the platform's configurable, illustrative conversion table. It is not an official IELTS result.</p>
+      {% else %}
+        <p class="notice">A practice band is shown only for a full set of 40 one-mark questions. Your raw score is available for this shorter test.</p>
+      {% endif %}
+    {% else %}
+      <p class="notice">Score pending. Ask an administrator to check the answer keys, question types, and marking configuration. No score has been estimated.</p>
     {% endif %}
-
-    {% if attempt.status == "auto_submitted" %}
-        <p>
-            This session was automatically ended
-            after its examination deadline.
-        </p>
-    {% endif %}
-
-    <p>
-        Reading and Listening scoring and
-        Writing evaluation will be available
-        after the assessment engine is implemented.
-    </p>
-
-    <a class="dashboard-btn"
-       href="{% url 'bcl:dashboard' %}">
-        Return to Dashboard
-    </a>
-
-</main>
-
+    {% if attempt.status == 'auto_submitted' %}<p>This attempt was automatically closed because the deadline or exam-integrity limit was reached.</p>{% endif %}
+    <p>Answers cannot be edited after submission.</p>
+    <a class="button" href="{% url 'bcl:dashboard' %}">Return to dashboard</a>
+  </main>
 </body>
 </html>
