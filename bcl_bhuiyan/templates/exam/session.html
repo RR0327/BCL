@@ -20,15 +20,21 @@
     </div>
 </header>
 
-<main id="examApp" class="{% if module.module_type == 'reading' %}reading-exam{% elif module.module_type == 'listening' %}listening-exam{% endif %}"
+<main id="examApp" class="{% if module.module_type == 'reading' %}reading-exam{% elif module.module_type == 'listening' %}listening-exam{% elif module.module_type == 'writing' %}writing-exam{% endif %}"
       data-attempt-id="{{ attempt.pk }}"
       data-timer-url="{% url 'bcl:exam_timer' attempt.pk %}"
       data-save-url="{% url 'bcl:save_exam_answer' attempt.pk %}"
       data-violation-url="{% url 'bcl:report_exam_violation' attempt.pk %}"
       data-result-url="{% url 'bcl:exam_result' attempt.pk %}">
     <aside class="side-panel">
+        {% if module.module_type == 'writing' %}
+        <h2>Writing Tasks</h2>
+        <p class="helper">Select Task 1 or Task 2 to switch editors. Your responses are saved separately.</p>
+        <p id="writingTotalWords" class="writing-total" aria-live="polite">Total words: 0</p>
+        {% else %}
         <h2>Questions</h2>
         <p class="helper">Select a number to move between questions.</p>
+        {% endif %}
         <div id="questionNav" class="question-nav" aria-label="Question navigation"></div>
         <div class="legend">
             <span><i class="dot answered"></i> Answered</span>
@@ -37,6 +43,9 @@
         </div>
         <p id="answeredCount" class="helper">0 answered</p>
         <p class="helper">Answers autosave every 15 seconds and when you switch questions.</p>
+        {% if module.module_type == 'writing' %}
+        <p class="helper">Task 1 suggested minimum: 150 words. Task 2 suggested minimum: 250 words. Word counts are guidance, not automatic grades.</p>
+        {% endif %}
     </aside>
 
     <div class="exam-content">
@@ -56,10 +65,16 @@
             </div>
         </section>
         {% endif %}
+        {% if module.module_type == 'writing' %}
+        <section class="writing-overview" aria-label="Writing exam information">
+            <div><strong>IELTS Academic Writing</strong><p>Complete both Task 1 and Task 2 within the shared exam time. You may switch between tasks at any time.</p></div>
+            <p class="helper">Task 1: about 20 minutes · Task 2: about 40 minutes. These are suggested allocations, not separate timers.</p>
+        </section>
+        {% endif %}
         <p class="integrity-hint" id="integrityHint">Exam integrity: leaving this tab or switching windows triggers a warning; a second recorded violation automatically ends this attempt.</p>
         {% for section in sections %}
             {% for question in section.questions.all %}
-                <section class="question-panel" data-question-id="{{ question.pk }}" data-section-id="{{ section.pk }}" hidden>
+                <section class="question-panel" data-question-id="{{ question.pk }}" data-section-id="{{ section.pk }}" {% if module.module_type == 'writing' %}data-task-label="{{ section.title }}"{% endif %} hidden>
                     <div class="question-heading">
                         <span class="section-name">{{ section.title }}</span>
                         <span class="question-number">Question {{ question.order }}</span>
@@ -117,9 +132,15 @@
                             <label class="option"><input type="radio" name="question-{{ question.pk }}" value="NOT GIVEN"> Not Given</label>
                         </div>
                     {% elif question.question_type == 'essay' %}
+                        {% if module.module_type == 'writing' %}
+                            <div class="writing-task-info">
+                                <strong>{{ section.title }}</strong>
+                                <span class="writing-target">{% if section.order == 1 %}Suggested minimum: 150 words{% elif section.order == 2 %}Suggested minimum: 250 words{% else %}Writing response{% endif %}</span>
+                            </div>
+                        {% endif %}
                         <label for="answer-{{ question.pk }}">Your writing response</label>
-                        <textarea id="answer-{{ question.pk }}" class="answer-field" rows="12" maxlength="20000" placeholder="Write your answer here..."></textarea>
-                        <p class="word-count" aria-live="polite">Words: <span>0</span></p>
+                        <textarea id="answer-{{ question.pk }}" class="answer-field writing-editor" rows="17" maxlength="20000" spellcheck="true" placeholder="Write your response here..."></textarea>
+                        <p class="word-count" aria-live="polite">Words: <span>0</span> <span class="writing-save-note">· Saved automatically every 15 seconds</span></p>
                     {% else %}
                         <label for="answer-{{ question.pk }}">Your answer</label>
                         <input id="answer-{{ question.pk }}" class="answer-field" type="text" maxlength="20000" placeholder="Type your answer here...">
@@ -136,8 +157,8 @@
         {% endfor %}
 
         <section id="noQuestions" class="no-questions" hidden>
-            <h2>No questions available</h2>
-            <p>Ask an administrator to add questions to this module.</p>
+            <h2>{% if module.module_type == 'writing' %}Writing tasks not configured{% else %}No questions available{% endif %}</h2>
+            <p>{% if module.module_type == 'writing' %}Ask an administrator to create two Writing sections (Task 1 and Task 2), each with one Essay question.{% else %}Ask an administrator to add questions to this module.{% endif %}</p>
         </section>
 
         <nav class="question-controls" aria-label="Question controls">
