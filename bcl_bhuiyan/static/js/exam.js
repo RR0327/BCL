@@ -46,8 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
             if (hasAnswer) answered += 1;
             const button = document.createElement("button");
             button.type = "button";
-            button.textContent = String(position + 1);
-            button.title = `Question ${position + 1}`;
+            const writingTask = app.classList.contains("writing-exam");
+            button.textContent = writingTask ? (panel.dataset.taskLabel || `Task ${position + 1}`) : String(position + 1);
+            button.title = writingTask ? button.textContent : `Question ${position + 1}`;
             button.classList.toggle("answered", hasAnswer);
             button.classList.toggle("flagged", flagged);
             button.classList.toggle("active", position === index);
@@ -56,6 +57,21 @@ document.addEventListener("DOMContentLoaded", () => {
             nav.appendChild(button);
         });
         answeredCount.textContent = `${answered} of ${panels.length} answered`;
+        updateWritingTotal();
+    }
+
+    function countWords(value) {
+        return (value.trim().match(/\S+/g) || []).length;
+    }
+
+    function updateWritingTotal() {
+        const total = document.getElementById("writingTotalWords");
+        if (!total) return;
+        const words = panels.reduce((sum, panel) => {
+            const editor = panel.querySelector("textarea.writing-editor");
+            return sum + (editor ? countWords(editor.value) : 0);
+        }, 0);
+        total.textContent = `Total words: ${words}`;
     }
 
     function markDirty(panel) {
@@ -63,8 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
         saveStatus.textContent = "Unsaved changes";
         const field = panel.querySelector("textarea.answer-field");
         if (field) {
-            const words = field.value.trim().match(/\S+/g) || [];
-            panel.querySelector(".word-count span").textContent = String(words.length);
+            panel.querySelector(".word-count span").textContent = String(countWords(field.value));
         }
         renderNavigation();
     }
@@ -184,8 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         const field = panel.querySelector("textarea.answer-field");
         if (field) {
-            const words = field.value.trim().match(/\S+/g) || [];
-            panel.querySelector(".word-count span").textContent = String(words.length);
+            panel.querySelector(".word-count span").textContent = String(countWords(field.value));
         }
     }
 

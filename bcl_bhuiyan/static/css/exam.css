@@ -35,3 +35,18 @@
 #startListening:disabled{opacity:.55;cursor:not-allowed}
 .listening-exam .question-panel .question-answer-area{min-width:0}
 @media(max-width:750px){.listening-player{flex-direction:column;align-items:stretch}#startListening{white-space:normal}}
+
+
+/* Phase 3 Step 3 — Writing Task 1 and Task 2 */
+.writing-exam .question-nav{grid-template-columns:1fr 1fr}
+.writing-exam .question-nav button{padding:13px 9px;overflow-wrap:anywhere;font-size:13px}
+.writing-exam .side-panel .writing-total{padding:12px;border-radius:9px;background:#edf4ff;color:#153e87;font-weight:700}
+.writing-overview{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:20px;margin-bottom:20px;background:#edf4ff;border:1px solid #b8cef5;border-radius:12px}
+.writing-overview p{margin:8px 0 0;line-height:1.5}
+.writing-exam .question-panel h2{margin:22px 0;font-size:19px;white-space:pre-line}
+.writing-exam .writing-task-info{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;border-radius:8px;background:#f3f6fc;padding:12px 15px;margin-top:20px}
+.writing-exam .writing-target{font-size:13px;color:#475569}
+.writing-exam .writing-editor{min-height:350px;line-height:1.8;font-size:16px;resize:vertical}
+.writing-exam .word-count{font-weight:700;color:#17449a}
+.writing-save-note{font-weight:400;color:#64748b}
+@media(max-width:750px){.writing-overview{flex-direction:column;align-items:stretch}}
