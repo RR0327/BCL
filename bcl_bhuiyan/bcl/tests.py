@@ -490,3 +490,81 @@ class ListeningInterfaceTests(TestCase):
         )
         response = self.client.get(reverse("bcl:exam_session", args=[attempt.pk]))
         self.assertNotContains(response, 'id="startListening"')
+
+
+# ==========================================
+# PHASE 3 STEP 3 — WRITING MODULE INTERFACE
+# ==========================================
+
+class WritingInterfaceTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username="writing_candidate", password="TestPass@2026abc"
+        )
+        self.mock_test = IELTSMockTest.objects.create(
+            title="Writing Interface", test_number=78, is_published=True
+        )
+        self.module = ExamModule.objects.create(
+            mock_test=self.mock_test,
+            module_type=ExamModule.ModuleType.WRITING,
+            duration_minutes=60,
+        )
+        self.tasks = []
+        for number in (1, 2):
+            section = ExamSection.objects.create(
+                module=self.module, title=f"Writing Task {number}", order=number,
+                instructions=f"Complete Writing Task {number}."
+            )
+            question = Question.objects.create(
+                section=section, question_type=Question.QuestionType.ESSAY,
+                question_text=f"Write your Task {number} response.", order=1,
+            )
+            self.tasks.append(question)
+        now = timezone.now()
+        self.attempt = CandidateAttempt.objects.create(
+            candidate=self.user, module=self.module,
+            started_at=now, expires_at=now + timedelta(minutes=60)
+        )
+        self.client.force_login(self.user)
+
+    def test_writing_has_two_separate_editors_and_word_counts(self):
+        response = self.client.get(reverse("bcl:exam_session", args=[self.attempt.pk]))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'class="writing-overview"')
+        self.assertContains(response, 'id="writingTotalWords"')
+        self.assertContains(response, 'class="answer-field writing-editor"', count=2)
+        self.assertContains(response, 'Suggested minimum: 150 words')
+        self.assertContains(response, 'Suggested minimum: 250 words')
+        self.assertContains(response, "Write your Task 1 response.")
+        self.assertContains(response, "Write your Task 2 response.")
+
+    def test_writing_tasks_save_separately_and_restore(self):
+        for question, response_text in zip(self.tasks, ["First task response", "Second task response"]):
+            response = self.client.post(
+                reverse("bcl:save_exam_answer", args=[self.attempt.pk]),
+                data=json.dumps({
+                    "question_id": question.pk,
+                    "answer_text": response_text,
+                    "is_flagged": False,
+                }),
+                content_type="application/json",
+            )
+            self.assertEqual(response.status_code, 200)
+        answers = CandidateAnswer.objects.filter(attempt=self.attempt)
+        self.assertEqual(answers.count(), 2)
+        response = self.client.get(reverse("bcl:exam_session", args=[self.attempt.pk]))
+        self.assertContains(response, "First task response")
+        self.assertContains(response, "Second task response")
+
+    def test_writing_submission_blocks_further_saves(self):
+        self.client.post(reverse("bcl:submit_exam", args=[self.attempt.pk]))
+        response = self.client.post(
+            reverse("bcl:save_exam_answer", args=[self.attempt.pk]),
+            data=json.dumps({
+                "question_id": self.tasks[0].pk,
+                "answer_text": "Late response",
+                "is_flagged": False,
+            }),
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, 409)
