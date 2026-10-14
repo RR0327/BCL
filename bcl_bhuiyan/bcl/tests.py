@@ -331,3 +331,162 @@ class ExamSessionTests(TestCase):
     def test_save_requires_post(self):
         self.start_attempt()
         self.assertEqual(self.client.get(reverse("bcl:save_exam_answer", args=[self.get_attempt().pk])).status_code, 405)
+
+
+class ExamViolationTests(TestCase):
+    """Verify that violations cannot bypass ownership or exam deadlines."""
+
+    def setUp(self):
+        self.candidate = User.objects.create_user(username="violation_candidate", password="TestPass@2026abc")
+        self.other = User.objects.create_user(username="violation_other", password="TestPass@2026abc")
+        self.mock_test = IELTSMockTest.objects.create(title="Violation demo", test_number=88, is_published=True)
+        self.module = ExamModule.objects.create(mock_test=self.mock_test, module_type="reading", duration_minutes=60)
+        now = timezone.now()
+        self.attempt = CandidateAttempt.objects.create(candidate=self.candidate, module=self.module, started_at=now, expires_at=now + timedelta(hours=1))
+        self.url = reverse("bcl:report_exam_violation", args=[self.attempt.pk])
+        self.client.force_login(self.candidate)
+
+    def report(self, reason="tab_hidden"):
+        return self.client.post(self.url, data=json.dumps({"reason": reason}), content_type="application/json")
+
+    def test_first_violation_warns(self):
+        response = self.report()
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.json()["warning"])
+        self.attempt.refresh_from_db()
+        self.assertEqual(self.attempt.violation_count, 1)
+        self.assertEqual(self.attempt.status, "in_progress")
+
+    def test_second_violation_auto_submits(self):
+        self.report()
+        response = self.report("window_blur")
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.json()["auto_submitted"])
+        self.attempt.refresh_from_db()
+        self.assertEqual(self.attempt.violation_count, 2)
+        self.assertEqual(self.attempt.status, "auto_submitted")
+        self.assertIsNotNone(self.attempt.submitted_at)
+
+    def test_third_report_does_not_increment(self):
+        self.report()
+        self.report()
+        self.assertEqual(self.report().status_code, 409)
+        self.attempt.refresh_from_db()
+        self.assertEqual(self.attempt.violation_count, 2)
+
+    def test_other_candidate_cannot_report(self):
+        self.client.force_login(self.other)
+        self.assertEqual(self.report().status_code, 404)
+        self.attempt.refresh_from_db()
+        self.assertEqual(self.attempt.violation_count, 0)
+
+    def test_invalid_payload_does_not_increment(self):
+        self.assertEqual(self.report("unknown").status_code, 400)
+        self.assertEqual(self.client.post(self.url, data="invalid", content_type="application/json").status_code, 400)
+        self.attempt.refresh_from_db()
+        self.assertEqual(self.attempt.violation_count, 0)
+
+    def test_expired_attempt_rejected_and_closed(self):
+        self.attempt.expires_at = timezone.now() - timedelta(seconds=1)
+        self.attempt.save(update_fields=["expires_at"])
+        self.assertEqual(self.report().status_code, 409)
+        self.attempt.refresh_from_db()
+        self.assertEqual(self.attempt.status, "auto_submitted")
+        self.assertEqual(self.attempt.violation_count, 0)
+
+    def test_get_not_allowed(self):
+        self.assertEqual(self.client.get(self.url).status_code, 405)
+
+    def test_violation_count_exposed_to_timer(self):
+        self.report()
+        response = self.client.get(reverse("bcl:exam_timer", args=[self.attempt.pk]))
+        self.assertEqual(response.json()["violation_count"], 1)
+
+
+class ReadingInterfaceTests(TestCase):
+    """Reading-specific tools must not affect other module interfaces."""
+
+    def setUp(self):
+        self.candidate = User.objects.create_user(username="reading_ui_candidate", password="ExamplePass@2026")
+        self.mock_test = IELTSMockTest.objects.create(title="Reading UI test", test_number=99, is_published=True)
+        self.reading = ExamModule.objects.create(mock_test=self.mock_test, module_type="reading", duration_minutes=60)
+        self.listening = ExamModule.objects.create(mock_test=self.mock_test, module_type="listening", duration_minutes=30)
+        for module in (self.reading, self.listening):
+            section = ExamSection.objects.create(module=module, title="Section 1", passage="Example passage text.", order=1)
+            Question.objects.create(section=section, question_type="fill_blank", question_text="Complete the answer.", order=1)
+        self.client.force_login(self.candidate)
+
+    def get_page(self, module):
+        now = timezone.now()
+        attempt = CandidateAttempt.objects.create(
+            candidate=self.candidate, module=module, started_at=now,
+            expires_at=now + timedelta(minutes=module.duration_minutes),
+        )
+        return self.client.get(reverse("bcl:exam_session", args=[attempt.pk]))
+
+    def test_reading_has_highlight_and_notes(self):
+        response = self.get_page(self.reading)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'class="highlight-selection"')
+        self.assertContains(response, 'class="passage-notes"')
+        self.assertContains(response, 'data-attempt-id=')
+
+    def test_listening_does_not_have_reading_tools(self):
+        response = self.get_page(self.listening)
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'class="highlight-selection"')
+        self.assertNotContains(response, 'class="passage-notes"')
+
+
+# ==========================================
+# PHASE 3 STEP 2 — LISTENING INTERFACE
+# ==========================================
+
+class ListeningInterfaceTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username="listening_candidate", password="TestPass@2026abc"
+        )
+        self.test = IELTSMockTest.objects.create(
+            title="Listening Preview", test_number=29, is_published=True
+        )
+        self.module = ExamModule.objects.create(
+            mock_test=self.test,
+            module_type=ExamModule.ModuleType.LISTENING,
+            duration_minutes=30, is_active=True
+        )
+        self.section = ExamSection.objects.create(
+            module=self.module, title="Listening Part 1", order=1
+        )
+        self.question = Question.objects.create(
+            section=self.section,
+            question_type=Question.QuestionType.SHORT_ANSWER,
+            question_text="What is the name?", order=1
+        )
+        start = timezone.now()
+        self.attempt = CandidateAttempt.objects.create(
+            candidate=self.user, module=self.module,
+            started_at=start, expires_at=start + timedelta(minutes=30)
+        )
+        self.client.force_login(self.user)
+
+    def test_listening_session_has_player_and_navigation(self):
+        response = self.client.get(reverse("bcl:exam_session", args=[self.attempt.pk]))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'id="startListening"')
+        self.assertContains(response, 'id="listeningAudio"')
+        self.assertContains(response, 'data-section-id=')
+        self.assertContains(response, "What is the name?")
+
+    def test_reading_audio_player_not_shown(self):
+        reading = ExamModule.objects.create(
+            mock_test=self.test, module_type=ExamModule.ModuleType.READING,
+            duration_minutes=60
+        )
+        start = timezone.now()
+        attempt = CandidateAttempt.objects.create(
+            candidate=self.user, module=reading, started_at=start,
+            expires_at=start + timedelta(minutes=60)
+        )
+        response = self.client.get(reverse("bcl:exam_session", args=[attempt.pk]))
+        self.assertNotContains(response, 'id="startListening"')

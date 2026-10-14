@@ -14,6 +14,7 @@ urlpatterns = [
     path("exam/session/<int:attempt_id>/", exam_views.exam_session, name="exam_session"),
     path("exam/session/<int:attempt_id>/timer/", exam_views.exam_timer, name="exam_timer"),
     path("exam/session/<int:attempt_id>/save-answer/", exam_views.save_exam_answer, name="save_exam_answer"),
+    path("exam/session/<int:attempt_id>/violation/", exam_views.report_exam_violation, name="report_exam_violation"),
     path("exam/session/<int:attempt_id>/submit/", exam_views.submit_exam, name="submit_exam"),
     path("exam/session/<int:attempt_id>/result/", exam_views.exam_result, name="exam_result"),
 ]

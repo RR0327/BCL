@@ -1,5 +1,7 @@
 from datetime import timedelta
 import json
+import logging
+import uuid
 
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -14,6 +16,7 @@ from .models import CandidateAnswer, CandidateAttempt, ExamModule, Question
 
 
 MAX_ANSWER_LENGTH = 20000
+logger = logging.getLogger(__name__)
 
 
 def is_candidate(user):
@@ -228,6 +231,64 @@ def save_exam_answer(request, attempt_id):
         "answer_text": saved.answer_text,
         "is_flagged": saved.is_flagged,
         "saved_at": saved.saved_at.isoformat(),
+    })
+
+
+@login_required
+@require_POST
+def report_exam_violation(request, attempt_id):
+    """Register one focus-loss incident and end an attempt on incident two.
+
+    The browser reports focus changes; server verifies ownership, session
+    state, and time. Browser signals cannot establish intent or prevent all
+    cheating. This is a basic integrity control, not secure proctoring.
+    """
+    if not is_candidate(request.user):
+        return JsonResponse({"error": "Candidates only."}, status=403)
+    try:
+        payload = json.loads(request.body)
+    except (ValueError, UnicodeDecodeError):
+        return JsonResponse({"error": "Invalid JSON."}, status=400)
+    if not isinstance(payload, dict):
+        return JsonResponse({"error": "Expected a JSON object."}, status=400)
+
+    reason = payload.get("reason")
+    if reason not in {"tab_hidden", "window_blur"}:
+        return JsonResponse({"error": "Invalid violation reason."}, status=400)
+
+    with transaction.atomic():
+        attempt = get_object_or_404(
+            CandidateAttempt.objects.select_for_update(),
+            pk=attempt_id, candidate=request.user,
+        )
+        now = timezone.now()
+        if attempt.status != CandidateAttempt.AttemptStatus.IN_PROGRESS:
+            return JsonResponse({"error": "Exam already closed.", "status": attempt.status}, status=409)
+        if now >= attempt.expires_at:
+            attempt.status = CandidateAttempt.AttemptStatus.AUTO_SUBMITTED
+            attempt.submitted_at = now
+            attempt.save(update_fields=["status", "submitted_at"])
+            return JsonResponse({"error": "Exam time expired.", "status": attempt.status}, status=409)
+
+        attempt.violation_count += 1
+        if attempt.violation_count >= 2:
+            attempt.status = CandidateAttempt.AttemptStatus.AUTO_SUBMITTED
+            attempt.submitted_at = now
+            attempt.save(update_fields=["violation_count", "status", "submitted_at"])
+        else:
+            attempt.save(update_fields=["violation_count"])
+        count = attempt.violation_count
+        status = attempt.status
+        logger.warning(
+            "Exam focus-loss report: attempt_id=%s candidate_id=%s reason=%s count=%s status=%s",
+            attempt.pk, request.user.pk, reason, count, status,
+        )
+
+    return JsonResponse({
+        "violation_count": count,
+        "status": status,
+        "warning": count == 1,
+        "auto_submitted": status == CandidateAttempt.AttemptStatus.AUTO_SUBMITTED,
     })
 
 
