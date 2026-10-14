@@ -20,9 +20,11 @@
     </div>
 </header>
 
-<main id="examApp"
+<main id="examApp" class="{% if module.module_type == 'reading' %}reading-exam{% elif module.module_type == 'listening' %}listening-exam{% endif %}"
+      data-attempt-id="{{ attempt.pk }}"
       data-timer-url="{% url 'bcl:exam_timer' attempt.pk %}"
       data-save-url="{% url 'bcl:save_exam_answer' attempt.pk %}"
+      data-violation-url="{% url 'bcl:report_exam_violation' attempt.pk %}"
       data-result-url="{% url 'bcl:exam_result' attempt.pk %}">
     <aside class="side-panel">
         <h2>Questions</h2>
@@ -38,24 +40,58 @@
     </aside>
 
     <div class="exam-content">
+        {% if module.module_type == 'listening' %}
+        <section class="listening-player" aria-label="Listening audio">
+            <div>
+                <strong>Listening examination audio</strong>
+                <p id="listeningStatus" role="status" aria-live="polite">Audio has not started. Check your volume, then start playback.</p>
+                <p class="helper">Playback runs continuously through configured parts. There are no pause, rewind or seek controls. The examination timer has already started.</p>
+            </div>
+            <button id="startListening" type="button">Start listening audio</button>
+            <audio id="listeningAudio" preload="auto" playsinline></audio>
+            <div id="listeningParts" hidden>
+                {% for section in sections %}
+                    <span class="listening-part" data-section-id="{{ section.pk }}" data-audio-url="{% if section.audio_file %}{{ section.audio_file.url }}{% endif %}" data-title="{{ section.title }}">Part {{ forloop.counter }} — {{ section.title }}</span>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+        <p class="integrity-hint" id="integrityHint">Exam integrity: leaving this tab or switching windows triggers a warning; a second recorded violation automatically ends this attempt.</p>
         {% for section in sections %}
             {% for question in section.questions.all %}
-                <section class="question-panel" data-question-id="{{ question.pk }}" hidden>
+                <section class="question-panel" data-question-id="{{ question.pk }}" data-section-id="{{ section.pk }}" hidden>
                     <div class="question-heading">
                         <span class="section-name">{{ section.title }}</span>
                         <span class="question-number">Question {{ question.order }}</span>
                     </div>
                     {% if section.instructions %}<p class="instructions">{{ section.instructions }}</p>{% endif %}
-                    {% if section.passage %}
-                        <details class="passage" open>
-                            <summary>Reading passage / reference text</summary>
-                            <div class="passage-text">{{ section.passage|linebreaks }}</div>
-                        </details>
+                    {% if section.passage and module.module_type != 'listening' %}
+                        {% if module.module_type == 'reading' %}
+                            <div class="reading-passage" aria-label="Reading passage">
+                                <div class="passage-toolbar">
+                                    <strong>Reading passage</strong>
+                                    <div class="tool-buttons">
+                                        <button type="button" class="highlight-selection">Highlight selected text</button>
+                                        <button type="button" class="clear-highlights">Clear highlights</button>
+                                    </div>
+                                </div>
+                                <div class="passage-text selectable-passage">{{ section.passage|linebreaks }}</div>
+                                <label class="notes-label" for="notes-{{ question.pk }}">Private passage notes (saved in this browser)</label>
+                                <textarea id="notes-{{ question.pk }}" class="passage-notes" data-section-id="{{ section.pk }}" rows="3" placeholder="Notes for this passage..." maxlength="5000"></textarea>
+                                <p class="helper">Notes stay in this browser only. Highlights are temporary and reset on refresh.</p>
+                            </div>
+                        {% else %}
+                            <details class="passage" open>
+                                <summary>Reference text</summary>
+                                <div class="passage-text">{{ section.passage|linebreaks }}</div>
+                            </details>
+                        {% endif %}
                     {% endif %}
                     {% if section.image %}<img class="section-image" src="{{ section.image.url }}" alt="Section illustration">{% endif %}
-                    {% if section.audio_file %}
-                        <p class="notice">Listening audio is not enabled in this development step. This module is for testing answer storage only.</p>
+                    {% if section.audio_file and module.module_type != 'listening' %}
+                        <p class="notice">This section includes an audio attachment.</p>
                     {% endif %}
+                    <div class="question-answer-area">
                     <h2>{{ question.question_text }}</h2>
                     {% if question.question_type == 'mcq' %}
                         <div class="answer-options">
@@ -94,6 +130,7 @@
                     <label class="flag-label">
                         <input type="checkbox" class="flag-input"> Flag for review
                     </label>
+                    </div>
                 </section>
             {% endfor %}
         {% endfor %}
@@ -113,6 +150,13 @@
         </form>
     </div>
 </main>
+<div class="violation-modal" id="violationModal" role="alertdialog" aria-modal="true" aria-labelledby="violationTitle" aria-describedby="violationMessage" hidden>
+    <div class="violation-dialog">
+        <h2 id="violationTitle">Exam integrity warning</h2>
+        <p id="violationMessage">You left the examination window. This is your first warning. A second violation automatically submits the exam.</p>
+        <button id="acknowledgeViolation" type="button">I understand — return to exam</button>
+    </div>
+</div>
 {{ saved_answers|json_script:"savedAnswersData" }}
 </body>
 </html>
