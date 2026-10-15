@@ -664,3 +664,134 @@ class AutoScoringTests(TestCase):
         self.assertEqual(CandidateAnswer.objects.get(attempt=self.attempt, question=self.q1).awarded_marks, 1)
         self.attempt.refresh_from_db()
         self.assertEqual(self.attempt.raw_score, 1)
+
+
+# ==========================================
+# 4. MANUAL WRITING REVIEW TESTS — PHASE 4
+# ==========================================
+
+from .models import WritingTaskEvaluation
+from .writing_views import writing_result_band
+
+
+class WritingReviewTests(TestCase):
+    def setUp(self):
+        self.candidate = User.objects.create_user(
+            username="reviewcandidate", password="TestPass@2026abc",
+        )
+        self.examiner = User.objects.create_user(
+            username="reviewexaminer", password="TestPass@2026abc", is_staff=True,
+        )
+        self.test = IELTSMockTest.objects.create(title="Writing Review Test", test_number=89)
+        self.module = ExamModule.objects.create(
+            mock_test=self.test, module_type=ExamModule.ModuleType.WRITING,
+        )
+        self.questions = {}
+        for n in (1, 2):
+            section = ExamSection.objects.create(
+                module=self.module, title=f"Writing Task {n}", order=n,
+            )
+            question = Question.objects.create(
+                section=section, question_type=Question.QuestionType.ESSAY,
+                question_text=f"Task {n} prompt", order=1,
+            )
+            self.questions[n] = question
+
+        now = timezone.now()
+        self.attempt = CandidateAttempt.objects.create(
+            candidate=self.candidate, module=self.module,
+            started_at=now - timedelta(minutes=60),
+            expires_at=now,
+            submitted_at=now,
+            status=CandidateAttempt.AttemptStatus.SUBMITTED,
+        )
+        for n in (1, 2):
+            CandidateAnswer.objects.create(
+                attempt=self.attempt, question=self.questions[n],
+                answer_text=f"Candidate essay for task {n}.",
+            )
+        self.url = reverse("bcl:writing_review_detail", args=[self.attempt.pk])
+
+    def submit_grade(self, task_number, score):
+        return self.client.post(self.url, {
+            "task_number": str(task_number),
+            f"task{task_number}-task_achievement": str(score),
+            f"task{task_number}-coherence_cohesion": str(score),
+            f"task{task_number}-lexical_resource": str(score),
+            f"task{task_number}-grammatical_range_accuracy": str(score),
+            f"task{task_number}-feedback": f"Feedback on Task {task_number}",
+        })
+
+    def test_nonstaff_cannot_see_review_pages(self):
+        self.client.force_login(self.candidate)
+        for url in (reverse("bcl:writing_review_list"), self.url):
+            self.assertEqual(self.client.get(url).status_code, 302)
+
+    def test_staff_can_read_submission(self):
+        self.client.force_login(self.examiner)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Candidate essay for task 1")
+        self.assertContains(response, "Candidate essay for task 2")
+
+    def test_first_task_only_does_not_publish_band(self):
+        self.client.force_login(self.examiner)
+        self.assertRedirects(self.submit_grade(1, "6.0"), self.url)
+        self.attempt.refresh_from_db()
+        self.assertIsNone(self.attempt.band_score)
+        self.assertEqual(self.attempt.task_evaluations.count(), 1)
+
+    def test_both_tasks_publish_weighted_band(self):
+        self.client.force_login(self.examiner)
+        self.submit_grade(1, "6.0")
+        self.submit_grade(2, "8.0")
+        self.attempt.refresh_from_db()
+        self.assertEqual(self.attempt.band_score, Decimal("7.5"))
+        self.assertEqual(self.attempt.task_evaluations.count(), 2)
+        self.client.force_login(self.candidate)
+        response = self.client.get(reverse("bcl:exam_result", args=[self.attempt.pk]))
+        self.assertContains(response, "7.5")
+        self.assertContains(response, "Feedback on Task 1")
+
+    def test_invalid_score_not_saved(self):
+        self.client.force_login(self.examiner)
+        response = self.submit_grade(1, "9.3")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.attempt.task_evaluations.count(), 0)
+
+    def test_regrade_does_not_duplicate_task(self):
+        self.client.force_login(self.examiner)
+        self.submit_grade(1, "6.0")
+        self.submit_grade(1, "7.0")
+        self.assertEqual(self.attempt.task_evaluations.count(), 1)
+        self.assertEqual(
+            self.attempt.task_evaluations.get(task_number=1).task_achievement,
+            Decimal("7.0"),
+        )
+
+    def test_other_module_question_is_invalid(self):
+        other_module = ExamModule.objects.create(
+            mock_test=self.test, module_type=ExamModule.ModuleType.READING,
+        )
+        section = ExamSection.objects.create(module=other_module, title="Other", order=1)
+        question = Question.objects.create(
+            section=section, question_type=Question.QuestionType.ESSAY,
+            question_text="Unrelated", order=1,
+        )
+        evaluation = WritingTaskEvaluation(
+            attempt=self.attempt, question=question, task_number=1,
+            examiner=self.examiner,
+            task_achievement=Decimal("6.0"), coherence_cohesion=Decimal("6.0"),
+            lexical_resource=Decimal("6.0"), grammatical_range_accuracy=Decimal("6.0"),
+        )
+        with self.assertRaises(ValidationError):
+            evaluation.full_clean()
+
+    def test_in_progress_attempt_cannot_be_graded(self):
+        self.attempt.status = CandidateAttempt.AttemptStatus.IN_PROGRESS
+        self.attempt.submitted_at = None
+        self.attempt.save(update_fields=["status", "submitted_at"])
+        self.client.force_login(self.examiner)
+        response = self.client.get(self.url)
+        self.assertRedirects(response, reverse("bcl:writing_review_list"))
+        self.assertEqual(self.attempt.task_evaluations.count(), 0)

@@ -332,4 +332,12 @@ def exam_result(request, attempt_id):
     total_marks = sum(
         Question.objects.filter(section__module=attempt.module).values_list("marks", flat=True)
     )
-    return render(request, "exam/result.html", {"attempt": attempt, "total_marks": total_marks})
+    task_evaluations = (
+        list(attempt.task_evaluations.select_related("examiner").order_by("task_number"))
+        if attempt.module.module_type == ExamModule.ModuleType.WRITING else []
+    )
+    return render(request, "exam/result.html", {
+        "attempt": attempt,
+        "total_marks": total_marks,
+        "task_evaluations": task_evaluations,
+    })
