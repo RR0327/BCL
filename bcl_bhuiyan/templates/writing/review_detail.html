@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Writing Review | Attempt #{{ attempt.pk }}</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f6fb;font:15px/1.6 Arial,sans-serif;color:#172645}header{background:#142e62;padding:18px 5%;color:white}header a{color:#fff}main{max-width:1150px;margin:35px auto;padding:0 20px}.task{background:#fff;border:1px solid #dfe6f0;border-radius:12px;padding:25px;margin:25px 0}.layout{display:grid;grid-template-columns:1fr 1fr;gap:25px}.answer{white-space:pre-wrap;overflow-wrap:anywhere;background:#f6f8fb;border:1px solid #e4e9f2;padding:16px;border-radius:8px;max-height:520px;overflow:auto}.prompt{white-space:pre-wrap;overflow-wrap:anywhere}.field{margin-bottom:15px}label{display:block;font-weight:bold;margin-bottom:5px}select,textarea{width:100%;padding:10px;border:1px solid #bec9d9;border-radius:7px}button{padding:12px 20px;border:0;border-radius:7px;background:#1645a1;color:white;cursor:pointer;font-weight:bold}.errorlist{color:#ad2020}.info{background:#eaf2ff;padding:12px;border-radius:7px}.warning{background:#fff4dd;padding:12px;border-radius:7px}.muted{color:#59677b}@media(max-width:800px){.layout{grid-template-columns:1fr}}
+</style></head><body>
+<header><a href="{% url 'bcl:writing_review_list' %}">← All Writing attempts</a></header>
+<main><h1>Writing Assessment — Attempt #{{ attempt.pk }}</h1>
+<p><strong>Candidate:</strong> {{ attempt.candidate.username }} · <strong>Test:</strong> {{ attempt.module.mock_test.title }} · <strong>Status:</strong> {{ attempt.get_status_display }}</p>
+{% if overall_band is not None %}<p class="info"><strong>Overall practice Writing band: {{ overall_band }}</strong> (Task 1 weighted 1/3, Task 2 weighted 2/3; illustrative calculation)</p>{% else %}<p class="warning">Overall Writing band pending until both tasks are graded.</p>{% endif %}
+{% if messages %}{% for message in messages %}<p role="status" class="info">{{ message }}</p>{% endfor %}{% endif %}
+{% for task in task_cards %}
+<section class="task"><h2>Task {{ task.number }}</h2>
+{% if task.configuration_error %}<p class="warning">Admin setup required: configure exactly one Essay question in Writing section order {{ task.number }}.</p>{% else %}
+<div class="layout"><div>
+<h3>Candidate response</h3><p class="prompt"><strong>Prompt:</strong> {{ task.question.question_text }}</p>
+{% if task.question.section.image %}<img src="{{ task.question.section.image.url }}" alt="Writing task visual" style="max-width:100%;height:auto">{% endif %}
+<div class="answer">{% if task.answer %}{{ task.answer.answer_text }}{% else %}No response submitted.{% endif %}</div>
+</div><div><h3>Examiner grading</h3>
+{% if task.evaluation %}<p class="muted">Last assessed by {{ task.evaluation.examiner.username }} on {{ task.evaluation.evaluated_at|date:'M d, Y H:i' }} · Criterion average {{ task.evaluation.criterion_average }}</p>{% endif %}
+<form method="post">{% csrf_token %}<input type="hidden" name="task_number" value="{{ task.number }}">
+{{ task.form.non_field_errors }}
+{% for field in task.form %}<div class="field"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{{ field.errors }}</div>{% endfor %}
+<button type="submit">Save Task {{ task.number }} evaluation</button></form>
+</div></div>{% endif %}
+</section>
+{% endfor %}
+<p class="muted">Manual examiner feedback only. This platform does not automatically grade Writing essays.</p>
+</main></body></html>

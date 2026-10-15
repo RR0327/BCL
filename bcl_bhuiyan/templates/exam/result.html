@@ -27,7 +27,20 @@
     <p>Attempt #{{ attempt.pk }} · <span class="status">{{ attempt.get_status_display }}</span></p>
     {% if attempt.submitted_at %}<p>Ended: {{ attempt.submitted_at|date:"M d, Y H:i:s" }}</p>{% endif %}
     {% if attempt.module.module_type == 'writing' %}
-      <div class="notice"><strong>Writing is awaiting manual evaluation.</strong><p>An examiner will assess Task 1 and Task 2. No automated Writing band is awarded.</p></div>
+      {% if attempt.band_score is not None and task_evaluations|length == 2 %}
+        <div class="stat"><span>Overall practice Writing band</span><strong>{{ attempt.band_score }}</strong></div>
+        <p class="notice">Manually graded by examiners. Task 1 contributes one-third and Task 2 two-thirds to this practice result. This is not an official IELTS score.</p>
+      {% else %}
+        <div class="notice"><strong>Writing evaluation pending.</strong><p>Both tasks require manual assessment before an overall practice band is released.</p></div>
+      {% endif %}
+      {% for grade in task_evaluations %}
+        <div class="stat" style="margin-top:12px">
+          <strong style="font-size:18px">Task {{ grade.task_number }} assessment</strong>
+          <p>Task achievement/response: {{ grade.task_achievement }} · Coherence and cohesion: {{ grade.coherence_cohesion }} · Lexical resource: {{ grade.lexical_resource }} · Grammar: {{ grade.grammatical_range_accuracy }}</p>
+          <p><strong style="font-size:16px">Task average: {{ grade.criterion_average }}</strong></p>
+          <p>Examiner feedback: {{ grade.feedback|default:"No feedback entered." }}</p>
+        </div>
+      {% endfor %}
     {% elif attempt.raw_score is not None %}
       <div class="grid">
         <div class="stat"><span>Raw score</span><strong>{{ attempt.raw_score }} / {{ total_marks }}</strong></div>
