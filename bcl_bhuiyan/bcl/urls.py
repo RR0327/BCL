@@ -1,5 +1,5 @@
 from django.urls import path
-from . import exam_views, views, writing_views
+from . import exam_views, views, writing_views, writing_exports
 
 app_name = "bcl"
 
@@ -19,4 +19,5 @@ urlpatterns = [
     path("exam/session/<int:attempt_id>/result/", exam_views.exam_result, name="exam_result"),
     path("writing/reviews/", writing_views.writing_review_list, name="writing_review_list"),
     path("writing/reviews/<int:attempt_id>/", writing_views.writing_review_detail, name="writing_review_detail"),
+    path("writing/reviews/<int:attempt_id>/export/<str:format>/", writing_exports.writing_export, name="writing_export"),
 ]
