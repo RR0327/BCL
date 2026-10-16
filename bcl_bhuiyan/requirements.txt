@@ -20,3 +20,5 @@ WeasyPrint>=62,<68
 
 # PostgreSQL Driver (enable for production migration)
 # psycopg[binary]>=3.2,<4.0
+# Portable PDF export engine
+reportlab>=4.0,<5.0
