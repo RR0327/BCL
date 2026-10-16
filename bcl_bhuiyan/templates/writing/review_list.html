@@ -5,6 +5,7 @@
 </style></head><body><header><strong>IELTS Admin — Writing Review</strong> · <a href="{% url 'admin:index' %}">Django Admin</a></header>
 <main><h1>Submitted Writing attempts</h1><p>Review Task 1 and Task 2 separately. Only submitted or automatically closed attempts are listed.</p>
 {% if messages %}{% for message in messages %}<p role="status">{{ message }}</p>{% endfor %}{% endif %}
+<p>PDF and DOCX reports are available from each attempt's review page.</p>
 <table><thead><tr><th>Attempt</th><th>Candidate</th><th>Test</th><th>Status</th><th>Tasks graded</th><th>Review</th></tr></thead><tbody>
 {% for attempt in attempts %}<tr><td>#{{ attempt.id }}</td><td>{{ attempt.candidate.username }}</td><td>{{ attempt.module.mock_test.title }}</td><td>{{ attempt.get_status_display }}</td><td>{{ attempt.graded_tasks }}/2</td><td><a class="action" href="{% url 'bcl:writing_review_detail' attempt.id %}">Review</a></td></tr>
 {% empty %}<tr><td colspan="6">No submitted Writing attempts yet.</td></tr>{% endfor %}

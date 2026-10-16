@@ -5,6 +5,7 @@
 </style></head><body>
 <header><a href="{% url 'bcl:writing_review_list' %}">← All Writing attempts</a></header>
 <main><h1>Writing Assessment — Attempt #{{ attempt.pk }}</h1>
+<p><a href="{% url 'bcl:writing_export' attempt.pk 'pdf' %}">Download PDF report</a> · <a href="{% url 'bcl:writing_export' attempt.pk 'docx' %}">Download DOCX report</a></p>
 <p><strong>Candidate:</strong> {{ attempt.candidate.username }} · <strong>Test:</strong> {{ attempt.module.mock_test.title }} · <strong>Status:</strong> {{ attempt.get_status_display }}</p>
 {% if overall_band is not None %}<p class="info"><strong>Overall practice Writing band: {{ overall_band }}</strong> (Task 1 weighted 1/3, Task 2 weighted 2/3; illustrative calculation)</p>{% else %}<p class="warning">Overall Writing band pending until both tasks are graded.</p>{% endif %}
 {% if messages %}{% for message in messages %}<p role="status" class="info">{{ message }}</p>{% endfor %}{% endif %}
