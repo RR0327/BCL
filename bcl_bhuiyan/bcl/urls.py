@@ -1,9 +1,11 @@
 from django.urls import path
-from . import exam_views, views, writing_views, writing_exports
+from . import exam_views, views, writing_views, writing_exports, private_media
 
 app_name = "bcl"
 
 urlpatterns = [
+    path("writing/reviews/<int:attempt_id>/section/<int:section_id>/image/", private_media.staff_section_image, name="staff_section_image"),
+    path("exam/session/<int:attempt_id>/media/<int:section_id>/<str:kind>/", private_media.section_media, name="section_media"),
     path("", views.home, name="home"),
     path("register/", views.candidate_register, name="register"),
     path("login/", views.CandidateLoginView.as_view(), name="login"),
