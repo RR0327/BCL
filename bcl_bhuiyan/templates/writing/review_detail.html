@@ -14,7 +14,7 @@
 {% if task.configuration_error %}<p class="warning">Admin setup required: configure exactly one Essay question in Writing section order {{ task.number }}.</p>{% else %}
 <div class="layout"><div>
 <h3>Candidate response</h3><p class="prompt"><strong>Prompt:</strong> {{ task.question.question_text }}</p>
-{% if task.question.section.image %}<img src="{{ task.question.section.image.url }}" alt="Writing task visual" style="max-width:100%;height:auto">{% endif %}
+{% if task.question.section.image %}<img src="{% url 'bcl:staff_section_image' attempt.pk task.question.section.pk %}" alt="Writing task visual" style="max-width:100%;height:auto">{% endif %}
 <div class="answer">{% if task.answer %}{{ task.answer.answer_text }}{% else %}No response submitted.{% endif %}</div>
 </div><div><h3>Examiner grading</h3>
 {% if task.evaluation %}<p class="muted">Last assessed by {{ task.evaluation.examiner.username }} on {{ task.evaluation.evaluated_at|date:'M d, Y H:i' }} · Criterion average {{ task.evaluation.criterion_average }}</p>{% endif %}

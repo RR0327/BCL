@@ -60,7 +60,7 @@
             <audio id="listeningAudio" preload="auto" playsinline></audio>
             <div id="listeningParts" hidden>
                 {% for section in sections %}
-                    <span class="listening-part" data-section-id="{{ section.pk }}" data-audio-url="{% if section.audio_file %}{{ section.audio_file.url }}{% endif %}" data-title="{{ section.title }}">Part {{ forloop.counter }} — {{ section.title }}</span>
+                    <span class="listening-part" data-section-id="{{ section.pk }}" data-audio-url="{% if section.audio_file %}{% url 'bcl:section_media' attempt.pk section.pk 'audio' %}{% endif %}" data-title="{{ section.title }}">Part {{ forloop.counter }} — {{ section.title }}</span>
                 {% endfor %}
             </div>
         </section>
@@ -102,7 +102,7 @@
                             </details>
                         {% endif %}
                     {% endif %}
-                    {% if section.image %}<img class="section-image" src="{{ section.image.url }}" alt="Section illustration">{% endif %}
+                    {% if section.image %}<img class="section-image" src="{% url 'bcl:section_media' attempt.pk section.pk 'image' %}" alt="Section illustration">{% endif %}
                     {% if section.audio_file and module.module_type != 'listening' %}
                         <p class="notice">This section includes an audio attachment.</p>
                     {% endif %}
