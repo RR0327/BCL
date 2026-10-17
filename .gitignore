@@ -6,7 +6,6 @@ __pycache__/
 *$py.class
 *.pyd
 *.so
-/__pycache__/
 
 # ==============================
 # Django
