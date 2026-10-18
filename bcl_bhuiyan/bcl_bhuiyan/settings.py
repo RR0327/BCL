@@ -13,7 +13,8 @@ if not DEBUG and (not ALLOWED_HOSTS or '*' in ALLOWED_HOSTS):
     raise ImproperlyConfigured('Production requires explicit DJANGO_ALLOWED_HOSTS (no wildcard).')
 INSTALLED_APPS = [
     'django.contrib.admin', 'django.contrib.auth', 'django.contrib.contenttypes',
-    'django.contrib.sessions', 'django.contrib.messages', 'django.contrib.staticfiles', 'bcl',
+    'django.contrib.sessions', 'django.contrib.messages', 'django.contrib.staticfiles',
+    'axes', 'django_otp', 'django_otp.plugins.otp_totp', 'bcl',
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -22,6 +23,9 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'axes.middleware.AxesMiddleware',
+    'django_otp.middleware.OTPMiddleware',
+    'bcl.security_middleware.StaffMFAMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -94,3 +98,17 @@ DATA_UPLOAD_MAX_NUMBER_FIELDS = 2000
 LOGGING = {'version': 1, 'disable_existing_loggers': False,
            'handlers': {'console': {'class': 'logging.StreamHandler'}},
            'loggers': {'django.security': {'handlers': ['console'], 'level': 'WARNING', 'propagate': False}}}
+
+# Authentication defense: django-axes uses database-backed counters shared across workers.
+AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesStandaloneBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+AXES_FAILURE_LIMIT = config('AXES_FAILURE_LIMIT', default=5, cast=int)
+AXES_COOLOFF_TIME = config('AXES_COOLOFF_HOURS', default=1, cast=int)
+AXES_LOCKOUT_PARAMETERS = ['username', 'ip_address']
+AXES_RESET_ON_SUCCESS = True
+AXES_ENABLED = True
+SESSION_COOKIE_AGE = config('SESSION_COOKIE_AGE', default=3600, cast=int)
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
