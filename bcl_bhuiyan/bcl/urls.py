@@ -1,9 +1,11 @@
 from django.urls import path
-from . import exam_views, views, writing_views, writing_exports, private_media
+from . import exam_views, views, writing_views, writing_exports, private_media, mfa_views
 
 app_name = "bcl"
 
 urlpatterns = [
+    path("security/mfa/setup/", mfa_views.mfa_setup, name="mfa_setup"),
+    path("security/mfa/verify/", mfa_views.mfa_verify, name="mfa_verify"),
     path("writing/reviews/<int:attempt_id>/section/<int:section_id>/image/", private_media.staff_section_image, name="staff_section_image"),
     path("exam/session/<int:attempt_id>/media/<int:section_id>/<str:kind>/", private_media.section_media, name="section_media"),
     path("", views.home, name="home"),
