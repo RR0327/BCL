@@ -14,7 +14,7 @@ if not DEBUG and (not ALLOWED_HOSTS or '*' in ALLOWED_HOSTS):
 INSTALLED_APPS = [
     'django.contrib.admin', 'django.contrib.auth', 'django.contrib.contenttypes',
     'django.contrib.sessions', 'django.contrib.messages', 'django.contrib.staticfiles',
-    'axes', 'django_otp', 'django_otp.plugins.otp_totp', 'bcl',
+    'axes', 'django_otp', 'django_otp.plugins.otp_totp', 'bcl.apps.BclConfig',
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
