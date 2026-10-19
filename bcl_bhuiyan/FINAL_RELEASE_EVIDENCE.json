@@ -1,0 +1,21 @@
+{
+  "release": "IELTS Final Handoff (Step 4 baseline)",
+  "source_archive": "IELTS_Security_Step4_Complete_Repository.zip",
+  "source_sha256": "658fa2ee88de68ecf49a148e1c117b730a53b38fdf6b5f982c1273ab146193f8",
+  "assessment": "CONDITIONAL_NOT_PRODUCTION_APPROVED",
+  "evidence": {
+    "pre_step4_regression": "140 tests; 15 failures; 3 errors (provided log)",
+    "post_step4_regression": "NOT PROVIDED",
+    "postgresql_restore": "NOT PROVIDED",
+    "testbank_30_content_and_licensing": "NOT PROVIDED",
+    "release_acceptance_strict": "NOT PROVIDED",
+    "independent_security_validation": "NOT PROVIDED"
+  },
+  "application_code_modified": false,
+  "schema_changed": false,
+  "added_files": [
+    "FINAL_RELEASE_HANDOFF.md",
+    "FINAL_RELEASE_EVIDENCE.json",
+    "RELEASE_SIGNOFF_TEMPLATE.md"
+  ]
+}
