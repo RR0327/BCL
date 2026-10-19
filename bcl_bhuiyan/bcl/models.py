@@ -244,3 +244,6 @@ class WritingTaskEvaluation(models.Model):
 
     def __str__(self):
         return f"Attempt #{self.attempt_id} — Task {self.task_number}"
+
+# Privacy/security event metadata; no personal response contents.
+from .privacy import SecurityAuditEvent  # noqa: E402,F401
