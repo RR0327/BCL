@@ -27,11 +27,14 @@ class Command(BaseCommand):
             data = Fernet(os.environ['IELTS_BACKUP_FERNET_KEY'].encode('ascii')).decrypt(ciphertext)
         except (KeyError, ValueError, InvalidToken, OSError) as exc:
             raise CommandError(f'Backup verification failed: {exc}') from exc
-        with tempfile.NamedTemporaryFile(suffix='.sqlite3') as tmp:
+        with tempfile.NamedTemporaryFile(suffix='.sqlite3', delete=False) as tmp:
+            temporary_path = Path(tmp.name)
             tmp.write(data)
-            tmp.flush()
-            with sqlite3.connect(f'file:{tmp.name}?mode=ro', uri=True) as connection:
+        try:
+            with sqlite3.connect(str(temporary_path)) as connection:
                 status = connection.execute('PRAGMA integrity_check').fetchone()[0]
                 if status != 'ok':
                     raise CommandError(f'SQLite integrity check failed: {status}')
+        finally:
+            temporary_path.unlink(missing_ok=True)
         self.stdout.write(self.style.SUCCESS('Backup verified: SHA-256, decryption, SQLite integrity.'))

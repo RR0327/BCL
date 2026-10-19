@@ -37,8 +37,17 @@ class Command(BaseCommand):
         try:
             with tempfile.NamedTemporaryFile(suffix='.sqlite3', delete=False) as handle:
                 tmp = Path(handle.name)
-            with sqlite3.connect(str(source)) as src, sqlite3.connect(str(tmp)) as dst:
-                src.backup(dst)
+            
+            src = sqlite3.connect(str(source))
+            try:
+                dst = sqlite3.connect(str(tmp))
+                try:
+                    src.backup(dst)
+                finally:
+                    dst.close()
+            finally:
+                src.close()
+
             encrypted = fernet.encrypt(tmp.read_bytes())
             target = destination / (name + '.sqlite3.enc')
             with target.open('xb') as output:
