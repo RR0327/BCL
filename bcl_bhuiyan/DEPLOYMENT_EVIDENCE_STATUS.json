@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-20",
+  "release_decision": "NO_GO_PUBLIC_PRODUCTION",
+  "regression": {
+    "total": 144,
+    "passed": 144,
+    "failures": 0,
+    "errors": 0,
+    "duration_seconds": 137.791,
+    "source": "regression_step4.log.txt",
+    "database": "SQLite in-memory test database"
+  },
+  "acceptance": {
+    "automated_gates_pass": false,
+    "testbank_ready": 0,
+    "testbank_total": 30,
+    "production_controls": {
+      "debug_disabled": false,
+      "https_redirect": false,
+      "secure_session_cookie": false,
+      "secure_csrf_cookie": false,
+      "postgresql": false
+    },
+    "manual_gates": [
+      "content licensing",
+      "private media reverse-proxy validation",
+      "MFA recovery",
+      "PostgreSQL restore and data validation",
+      "browser E2E",
+      "independent security review",
+      "backup encryption and retention policy"
+    ]
+  },
+  "postgres_restore": {
+    "status": "BLOCKED_NOT_EXECUTED",
+    "server": "PostgreSQL 18 service running per user report",
+    "client": "18.6 per user report",
+    "driver": "psycopg 3.3.6 per user report",
+    "source_database_connected": false,
+    "dump_created": false,
+    "restore_executed": false,
+    "reconciliation_done": false
+  },
+  "signoff": {
+    "status": "NOT_VERIFIED",
+    "note": "User states 15 checks complete, but uploaded acceptance and restore evidence do not demonstrate production signoff."
+  }
+}
