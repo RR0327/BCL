@@ -1,3 +1,4 @@
+from .test_helpers import force_verified_staff
 from datetime import timedelta
 from decimal import Decimal
 import json
@@ -728,21 +729,21 @@ class WritingReviewTests(TestCase):
             self.assertEqual(self.client.get(url).status_code, 302)
 
     def test_staff_can_read_submission(self):
-        self.client.force_login(self.examiner)
+        force_verified_staff(self.client, self.examiner)
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Candidate essay for task 1")
         self.assertContains(response, "Candidate essay for task 2")
 
     def test_first_task_only_does_not_publish_band(self):
-        self.client.force_login(self.examiner)
+        force_verified_staff(self.client, self.examiner)
         self.assertRedirects(self.submit_grade(1, "6.0"), self.url)
         self.attempt.refresh_from_db()
         self.assertIsNone(self.attempt.band_score)
         self.assertEqual(self.attempt.task_evaluations.count(), 1)
 
     def test_both_tasks_publish_weighted_band(self):
-        self.client.force_login(self.examiner)
+        force_verified_staff(self.client, self.examiner)
         self.submit_grade(1, "6.0")
         self.submit_grade(2, "8.0")
         self.attempt.refresh_from_db()
@@ -754,13 +755,13 @@ class WritingReviewTests(TestCase):
         self.assertContains(response, "Feedback on Task 1")
 
     def test_invalid_score_not_saved(self):
-        self.client.force_login(self.examiner)
+        force_verified_staff(self.client, self.examiner)
         response = self.submit_grade(1, "9.3")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(self.attempt.task_evaluations.count(), 0)
 
     def test_regrade_does_not_duplicate_task(self):
-        self.client.force_login(self.examiner)
+        force_verified_staff(self.client, self.examiner)
         self.submit_grade(1, "6.0")
         self.submit_grade(1, "7.0")
         self.assertEqual(self.attempt.task_evaluations.count(), 1)
@@ -791,7 +792,7 @@ class WritingReviewTests(TestCase):
         self.attempt.status = CandidateAttempt.AttemptStatus.IN_PROGRESS
         self.attempt.submitted_at = None
         self.attempt.save(update_fields=["status", "submitted_at"])
-        self.client.force_login(self.examiner)
+        force_verified_staff(self.client, self.examiner)
         response = self.client.get(self.url)
         self.assertRedirects(response, reverse("bcl:writing_review_list"))
         self.assertEqual(self.attempt.task_evaluations.count(), 0)

@@ -40,7 +40,7 @@ class PrivacyTests(TestCase):
             call_command('purge_candidate_data', days=0, stdout=StringIO())
 
     def test_login_audit_records_no_password(self):
-        self.client.login(username='privacycandidate', password='StrongPass123!')
+        self.client.post(__import__('django.urls', fromlist=['reverse']).reverse('bcl:login'), {'username': 'privacycandidate', 'password': 'StrongPass123!'})
         self.assertTrue(SecurityAuditEvent.objects.filter(event='auth.login', actor_id=self.user.pk).exists())
         self.assertFalse(any('StrongPass123!' in str(event) for event in SecurityAuditEvent.objects.all()))
 

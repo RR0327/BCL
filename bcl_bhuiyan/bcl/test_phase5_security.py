@@ -1,3 +1,4 @@
+from .test_helpers import force_verified_staff
 """Phase 5 Step 3 security and deployment regression tests."""
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -45,11 +46,11 @@ class AuthorizationSecurityTests(TestCase):
         response = self.client.get(reverse('bcl:exam_result', args=[self.attempt.pk]))
         self.assertEqual(response.status_code, 404)
     def test_invalid_export_extension_is_rejected(self):
-        self.client.force_login(self.staff)
+        force_verified_staff(self.client, self.staff)
         response = self.client.get(reverse('bcl:writing_export', args=[self.attempt.pk, 'html']))
         self.assertEqual(response.status_code, 404)
     def test_export_has_private_no_store_header(self):
-        self.client.force_login(self.staff)
+        force_verified_staff(self.client, self.staff)
         response = self.client.get(reverse('bcl:writing_export', args=[self.attempt.pk, 'docx']))
         self.assertEqual(response.status_code, 200)
         self.assertIn('no-store', response['Cache-Control'])

@@ -1,3 +1,4 @@
+from .test_helpers import force_verified_staff
 from datetime import timedelta
 from django.contrib.auth import get_user_model
 from django.core.files.base import ContentFile
@@ -42,7 +43,7 @@ class PrivateMediaTests(TestCase):
         self.assertEqual(self.client.get(self.url()).status_code, 404)
 
     def test_staff_denied(self):
-        self.client.force_login(self.staff)
+        force_verified_staff(self.client, self.staff)
         self.assertEqual(self.client.get(self.url()).status_code, 404)
 
     def test_cross_module_denied(self):

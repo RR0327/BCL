@@ -1,3 +1,4 @@
+from .test_helpers import force_verified_staff
 """Security and content regression tests for Writing report downloads."""
 from datetime import timedelta
 from io import BytesIO
@@ -40,14 +41,14 @@ class WritingExportTests(TestCase):
         self.assertEqual(self.client.get(self.url("docx")).status_code, 302)
 
     def test_staff_pdf_contains_valid_pdf(self):
-        self.client.force_login(self.staff)
+        force_verified_staff(self.client, self.staff)
         response = self.client.get(self.url("pdf"))
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.content.startswith(b"%PDF"))
         self.assertEqual(response["Cache-Control"], "private, no-store")
 
     def test_staff_docx_contains_document(self):
-        self.client.force_login(self.staff)
+        force_verified_staff(self.client, self.staff)
         response = self.client.get(self.url("docx"))
         self.assertEqual(response.status_code, 200)
         with ZipFile(BytesIO(response.content)) as z:
@@ -59,13 +60,13 @@ class WritingExportTests(TestCase):
         self.attempt.status = "in_progress"
         self.attempt.submitted_at = None
         self.attempt.save()
-        self.client.force_login(self.staff)
+        force_verified_staff(self.client, self.staff)
         self.assertEqual(self.client.get(self.url("pdf")).status_code, 404)
 
     def test_invalid_format_not_found(self):
-        self.client.force_login(self.staff)
+        force_verified_staff(self.client, self.staff)
         self.assertEqual(self.client.get(self.url("txt")).status_code, 404)
 
     def test_post_not_allowed(self):
-        self.client.force_login(self.staff)
+        force_verified_staff(self.client, self.staff)
         self.assertEqual(self.client.post(self.url("pdf")).status_code, 405)

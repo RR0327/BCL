@@ -33,9 +33,13 @@ class SQLiteBackupTests(TestCase):
             with patch('bcl.management.commands.backup_sqlite.connections') as mock_connections:
                 # Back up a standalone fixture, not Django's active test database.
                 src = Path(temp) / 'source.sqlite3'
-                with sqlite3.connect(str(src)) as db:
+                db = sqlite3.connect(str(src))
+                try:
                     db.execute('CREATE TABLE demo (value TEXT)')
                     db.execute('INSERT INTO demo VALUES (?)', ('example',))
+                    db.commit()
+                finally:
+                    db.close()
                 mock_connections.__getitem__.return_value.vendor = 'sqlite'
                 mock_connections.__getitem__.return_value.settings_dict = {'NAME': str(src)}
                 destination = Path(temp).parent / ('backup_test_' + src.parent.name)
