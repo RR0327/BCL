@@ -23,10 +23,24 @@
 .selectable-passage{padding:20px;max-height:470px;overflow-y:auto;user-select:text;line-height:1.9}
 .selectable-passage p:first-child{margin-top:0}
 .selectable-passage mark{background:#fde68a;border-radius:2px;color:inherit}
+.reading-context-menu{position:fixed;z-index:1000;min-width:178px;padding:6px;background:#fff;border:1px solid #b8cef5;border-radius:8px;box-shadow:0 8px 24px rgba(15,23,42,.18)}
+.reading-context-menu[hidden]{display:none}
+.reading-context-menu button{display:block;width:100%;border:0;border-radius:5px;padding:9px 12px;background:#fff;color:#243b68;text-align:left;font:inherit;cursor:pointer}
+.reading-context-menu button:hover{background:#edf4ff}
 .notes-label{display:block;margin:0 15px 6px;font-size:13px;font-weight:bold}
 .passage-notes{display:block;width:calc(100% - 30px);margin:0 15px;border:1px solid #bac9df;border-radius:7px;padding:9px;font:inherit;resize:vertical}
 .reading-passage .helper{margin:8px 15px 15px}
 @media(max-width:1100px){.reading-exam .question-panel:not([hidden]){grid-template-columns:minmax(0,1fr)}.reading-exam .question-answer-area{grid-column:1;border-left:0;border-top:1px solid #e2e8f0;padding-left:0;padding-top:22px}}
+.reading-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
+.reading-layout[hidden]{display:none}
+.reading-passage-column{min-width:0;position:sticky;top:112px}
+.reading-question-column{min-width:0}
+.reading-exam .reading-layout .question-panel{display:block!important;margin:0 0 16px;padding:20px}
+.reading-layout .question-panel[hidden]{display:block!important}
+.reading-layout .question-heading{border-bottom:0;padding-bottom:0}
+.reading-layout .question-answer-area{border:0;padding:0}
+.reading-layout .question-answer-area h2{margin-top:12px}
+@media(max-width:1100px){.reading-layout{grid-template-columns:1fr}.reading-passage-column{position:static}}
 
 /* Phase 3 Step 2: Listening player and part indication */
 .listening-player{background:#edf4ff;border:1px solid #b8cef5;border-radius:12px;padding:20px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;gap:20px}
@@ -50,3 +64,70 @@
 .writing-exam .word-count{font-weight:700;color:#17449a}
 .writing-save-note{font-weight:400;color:#64748b}
 @media(max-width:750px){.writing-overview{flex-direction:column;align-items:stretch}}
+
+.question-prompt{font-size:21px;line-height:1.5;margin:24px 0}
+.fill-blank-prompt{line-height:2.3}
+.blank-input{display:inline-block;width:150px;margin:0 5px;border:0;border-bottom:2px solid #64748b;background:transparent;border-radius:0;padding:3px 6px;text-align:center;font:inherit}
+.blank-input::placeholder{color:#94a3b8;opacity:1}
+.blank-input:focus{outline:0;border-bottom-color:#2563eb;background:#eff6ff}
+.matching-field{max-width:420px}
+.matching-information-options{margin:16px 0;padding:14px;border:1px solid #bfd4f5;border-radius:8px;background:#eef5ff}
+.matching-information-options>strong{display:block;margin-bottom:10px;text-align:center}
+.matching-option-list{display:grid;gap:7px}
+.matching-option-list span{display:block;padding:8px 10px;background:#fff;border:1px solid #c7d5eb;border-radius:6px}
+
+/* Reading workspace */
+body:has(#examApp.reading-exam){background:#f4f6ff;overflow:hidden}
+.reading-exam{position:fixed;z-index:1;top:74px;right:0;bottom:74px;left:0;width:auto;max-width:none!important;height:auto!important;margin:0!important;padding:0!important;display:block!important}
+.reading-exam .side-panel{position:fixed;z-index:20;left:0;right:0;bottom:0;height:74px;margin:0;padding:0 24px;background:#f7f8ff;border:0;border-top:1px solid #d4d9ee;border-radius:0;display:flex;align-items:center;gap:14px;box-shadow:0 -4px 18px rgba(36,55,100,.06)}
+.reading-exam .side-panel h2,.reading-exam .side-panel>.helper,.reading-exam .side-panel>.legend,.reading-exam #answeredCount{display:none}
+.reading-exam .question-nav{order:2;display:flex;align-items:center;gap:7px;overflow-x:auto;flex:1;margin:0;padding:7px 0}
+.reading-exam .question-nav button{min-width:40px;height:40px;border-radius:50%;padding:0;background:#fff;color:#475569}
+.reading-exam .question-nav button.active{outline:2px solid #635bff}
+.reading-exam .part-nav{order:1;height:100%;display:flex;align-items:stretch;border-right:1px solid #d4d9ee}
+.reading-exam .part-button{min-width:125px;border:0;border-right:1px solid #d4d9ee;background:transparent;color:#64748b;font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer}
+.reading-exam .part-button small{font-weight:400;color:#94a3b8}
+.reading-exam .part-button.active{color:#273a64;background:#eef0ff}
+.reading-exam .part-button:hover{background:#eef0ff}
+.reading-exam .exam-content{height:100%;padding:0;overflow:hidden}
+.reading-exam .integrity-hint,.reading-exam .question-controls{display:none}
+.reading-exam #submitExamForm{display:block;position:fixed;z-index:130;right:24px;bottom:14px;margin:0;text-align:right}
+.reading-exam #submitExamForm .submit-btn{background:#079669;padding:12px 22px;border-radius:8px;box-shadow:0 4px 12px rgba(4,120,87,.2)}
+.reading-exam .reading-layout{height:100%;min-height:0;grid-template-columns:minmax(360px,1fr) minmax(420px,1.12fr);gap:0;background:#f4f6ff}
+.reading-exam .reading-passage-column,.reading-exam .reading-question-column{height:100%;overflow-y:auto;position:static;padding-bottom:20px}
+.reading-exam .reading-passage-column{border-right:1px solid #cfd7eb;background:#f1f5ff}
+.reading-exam .reading-question-column{padding:22px 32px 100px;background:#f7f7ff}
+.reading-exam .reading-passage{border:0;border-radius:0;background:transparent;min-height:100%}
+.reading-exam .reading-section-header{padding:4px 0 18px;color:#625bf6;font-size:16px;letter-spacing:.02em}
+.reading-exam .reading-section-header p{margin:8px 0 0;color:#4b5563;font-size:16px;line-height:1.55;letter-spacing:0;font-weight:400}
+.question-instructions{margin:0 0 10px;color:#475569;font-size:14px;line-height:1.55;font-style:italic}
+.question-instructions p{margin:0}
+.reading-exam .passage-toolbar{position:sticky;top:0;z-index:2;padding:18px 28px;background:#edf3ff;border-bottom:1px solid #cbd8f0}
+.reading-exam .selectable-passage{max-height:none;padding:26px 28px;font-size:18px;line-height:1.8}
+.reading-exam .passage-instructions{padding:0 28px 18px;margin:0;color:#334155;font-style:italic;line-height:1.7}
+.reading-exam .passage-instructions p{margin:0}
+.reading-exam .question-panel{background:transparent;border:0;border-bottom:1px solid #dce2f0;border-radius:0;padding:0 0 22px;margin-bottom:22px!important}
+.reading-exam .question-heading{padding:0 0 8px}
+.reading-exam .question-heading .section-name{display:none}
+.reading-exam .question-number{font-weight:700;color:#64748b}
+.reading-exam .question-answer-area h2,.reading-exam .question-prompt{font-size:18px;line-height:1.55;margin:10px 0 18px}
+.reading-exam .answer-options{gap:8px}
+.reading-exam .option{background:#fff;border-color:#d8dfef;border-radius:8px;padding:12px 14px}
+.reading-exam .matching-field{width:64px;height:44px;padding:4px 8px;margin:0 0 0 auto;border:1px solid #cbd5e1;background:#fff;text-align:center;font-size:18px}
+.reading-exam .question-panel[hidden]{display:none!important}
+@media(max-width:800px){body:has(#examApp.reading-exam){overflow:auto}.reading-exam{position:relative;top:auto;right:auto;bottom:auto;left:auto;height:auto!important;min-height:calc(100vh - 74px);padding-bottom:74px!important}.reading-exam .exam-content{height:auto;overflow:visible}.reading-exam .reading-layout{height:auto;min-height:0;display:block}.reading-exam .reading-passage-column,.reading-exam .reading-question-column{height:auto;overflow:visible;padding-bottom:30px}.reading-exam .reading-passage-column{border-right:0}.reading-exam .side-panel{height:auto;min-height:66px;padding:0 8px}.reading-exam .part-button{min-width:82px}.reading-exam .question-nav{display:none}.reading-exam #submitExamForm{right:8px;bottom:8px}}
+
+/* Final Reading viewport contract: header, workspace, and bottom controls never overlap. */
+body:has(#examApp.reading-exam){overflow:hidden}
+body:has(#examApp.reading-exam) .exam-header{position:fixed;top:0;left:0;right:0;z-index:100;height:auto;min-height:0}
+.reading-exam{position:fixed!important;top:var(--reading-header-height,108px)!important;right:0!important;bottom:74px!important;left:0!important;height:auto!important;min-height:0!important}
+.reading-exam .exam-content{height:100%!important;min-height:0!important}
+.reading-exam .reading-layout{height:100%!important;min-height:0!important}
+.reading-exam .side-panel{position:fixed!important;top:auto!important;right:0!important;bottom:0!important;left:0!important;z-index:110!important;height:74px!important}
+@media(max-width:800px){
+    body:has(#examApp.reading-exam){overflow:auto}
+    body:has(#examApp.reading-exam) .exam-header{position:relative}
+    .reading-exam{position:relative!important;top:auto!important;right:auto!important;bottom:auto!important;left:auto!important;height:auto!important;min-height:calc(100vh - 74px)!important}
+    .reading-exam .exam-content,.reading-exam .reading-layout{height:auto!important}
+    .reading-exam .side-panel{position:fixed!important;height:auto!important;min-height:66px!important}
+}

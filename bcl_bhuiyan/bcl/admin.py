@@ -1,7 +1,9 @@
 
 from django.contrib import admin
 from django.core.exceptions import ValidationError
+from django.db import models
 from django.forms.models import BaseInlineFormSet
+from django import forms
 
 from .models import (
     IELTSMockTest,
@@ -36,6 +38,113 @@ class ExamModuleInline(admin.TabularInline):
         "module_type",
         "duration_minutes",
         "is_active",
+    )
+
+
+class ExamSectionInlineFormSet(BaseInlineFormSet):
+    def clean(self):
+        super().clean()
+        used_orders = set(
+            self.queryset.values_list("order", flat=True)
+        )
+        next_order = max(used_orders, default=0) + 1
+        for form in self.forms:
+            if not hasattr(form, "cleaned_data") or not form.cleaned_data:
+                continue
+            if form.cleaned_data.get("DELETE"):
+                continue
+            instance = form.instance
+            if instance._state.adding and instance.order in used_orders:
+                instance.order = next_order
+                form.cleaned_data["order"] = next_order
+                used_orders.add(next_order)
+                next_order += 1
+            else:
+                used_orders.add(instance.order)
+
+
+class ExamSectionInline(admin.StackedInline):
+    model = ExamSection
+    formset = ExamSectionInlineFormSet
+    extra = 1
+    fields = (
+        "order",
+        "title",
+        "instructions",
+        "passage_instructions",
+        "passage",
+        "audio_file",
+        "image",
+    )
+
+
+class ExamSectionAdminForm(forms.ModelForm):
+    class Meta:
+        model = ExamSection
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["instructions"].label = "Question instructions"
+        self.fields["instructions"].help_text = (
+            "Instructions shown above the questions on the right side."
+        )
+        self.fields["passage_instructions"].label = "Passage instructions"
+
+    def clean_order(self):
+        order = self.cleaned_data["order"]
+        module = self.cleaned_data.get("module")
+        if (
+            module
+            and self.instance._state.adding
+            and ExamSection.objects.filter(module=module, order=order).exists()
+        ):
+            return (
+                ExamSection.objects.filter(module=module)
+                .order_by("-order")
+                .values_list("order", flat=True)
+                .first()
+                + 1
+            )
+        return order
+
+
+ExamSectionInline.form = ExamSectionAdminForm
+
+
+class QuestionInlineFormSet(BaseInlineFormSet):
+    def clean(self):
+        super().clean()
+        used_orders = set(self.queryset.values_list("order", flat=True))
+        next_order = max(used_orders, default=0) + 1
+        for form in self.forms:
+            if not hasattr(form, "cleaned_data") or not form.cleaned_data:
+                continue
+            if form.cleaned_data.get("DELETE"):
+                continue
+            instance = form.instance
+            if instance._state.adding and instance.order in used_orders:
+                instance.order = next_order
+                form.cleaned_data["order"] = next_order
+                used_orders.add(next_order)
+                next_order += 1
+            else:
+                used_orders.add(instance.order)
+
+
+class QuestionInline(admin.StackedInline):
+    model = Question
+    formset = QuestionInlineFormSet
+    extra = 1
+    fields = (
+        "order",
+        "question_type",
+        "question_text",
+        "question_instructions",
+        "answer_count",
+        "marks",
+        "correct_answer",
+        "explanation",
     )
 
 
@@ -95,6 +204,7 @@ class ExamModuleAdmin(admin.ModelAdmin):
     )
 
     list_select_related = ("mock_test",)
+    inlines = [ExamSectionInline]
 
 
 # ==========================================
@@ -103,6 +213,7 @@ class ExamModuleAdmin(admin.ModelAdmin):
 
 @admin.register(ExamSection)
 class ExamSectionAdmin(admin.ModelAdmin):
+    form = ExamSectionAdminForm
 
     list_display = (
         "id",
@@ -124,6 +235,7 @@ class ExamSectionAdmin(admin.ModelAdmin):
         "module",
         "module__mock_test",
     )
+    inlines = [QuestionInline]
 
 
 # ==========================================
@@ -132,7 +244,7 @@ class ExamSectionAdmin(admin.ModelAdmin):
 
 class QuestionOptionInline(admin.TabularInline):
     model = QuestionOption
-    extra = 0
+    extra = 4
 
     fields = (
         "option_key",
@@ -140,6 +252,11 @@ class QuestionOptionInline(admin.TabularInline):
         "is_correct",
         "order",
     )
+    verbose_name = "Option (use A, B, C… as the option key)"
+    verbose_name_plural = "Options (add the choices used by MCQ or Matching questions)"
+    formfield_overrides = {
+        models.CharField: {"widget": forms.TextInput(attrs={"placeholder": "Optional"})},
+    }
 
 
 # ==========================================
@@ -153,6 +270,7 @@ class QuestionAdmin(admin.ModelAdmin):
         "id",
         "short_question",
         "question_type",
+        "answer_count",
         "section",
         "order",
         "marks",
@@ -165,6 +283,7 @@ class QuestionAdmin(admin.ModelAdmin):
 
     search_fields = (
         "question_text",
+        "question_instructions",
         "section__title",
     )
 
@@ -174,6 +293,33 @@ class QuestionAdmin(admin.ModelAdmin):
     )
 
     inlines = [QuestionOptionInline]
+    fieldsets = (
+        (
+            "Question",
+            {
+                "fields": (
+                    "section",
+                    "order",
+                    "question_type",
+                    "question_text",
+                    "question_instructions",
+                    "answer_count",
+                    "marks",
+                )
+            },
+        ),
+        (
+            "Answer key",
+            {
+                "fields": ("correct_answer", "explanation"),
+                "description": (
+                    "For Multiple Choice, Matching, and Matching Information, "
+                    "add A/B/C options in the Options section below and mark the "
+                    "correct option. For fill-in-the-blank, separate answers with ;;;."
+                ),
+            },
+        ),
+    )
 
     @admin.display(description="Question")
     def short_question(self, obj):

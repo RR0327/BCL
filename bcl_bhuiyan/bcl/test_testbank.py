@@ -4,7 +4,7 @@ from pathlib import Path
 from django.core.exceptions import ValidationError
 from django.core.management import call_command
 from django.test import TestCase
-from bcl.models import IELTSMockTest
+from bcl.models import IELTSMockTest, Question, QuestionOption
 from bcl.testbank import import_test, readiness
 
 class TestBankTests(TestCase):
@@ -53,3 +53,97 @@ class TestBankTests(TestCase):
         with self.assertRaises(ValidationError):
             import_test(payload)
         self.assertFalse(IELTSMockTest.objects.exists())
+
+    def test_import_preserves_multiple_questions_and_blank_configuration(self):
+        test = import_test({
+            'test_number': 3,
+            'title': 'Reading formats',
+            'modules': [{
+                'module_type': 'reading',
+                'sections': [{
+                    'title': 'Note completion',
+                    'passage': 'A passage',
+                    'questions': [
+                        {
+                            'question_type': 'fill_blank',
+                            'question_text': 'The answer is ___ and ___.',
+                            'question_instructions': 'Write ONE WORD ONLY.',
+                            'answer_count': 2,
+                            'correct_answer': 'one;;;two',
+                        },
+                        {
+                            'question_type': 'matching',
+                            'question_text': 'Which paragraph?',
+                            'options': [{'option_key': 'A', 'option_text': 'Paragraph A', 'is_correct': True}],
+                        },
+                    ],
+                }],
+            }],
+        })
+        section = test.modules.get(module_type='reading').sections.get()
+        questions = list(section.questions.order_by('order'))
+        self.assertEqual(len(questions), 2)
+        self.assertEqual(questions[0].answer_count, 2)
+        self.assertEqual(questions[0].question_instructions, 'Write ONE WORD ONLY.')
+        self.assertEqual(questions[1].options.get().option_key, 'A')
+
+    def test_import_supports_multiple_ordered_reading_parts(self):
+        test = import_test({
+            'test_number': 4,
+            'title': 'Three reading parts',
+            'modules': [{
+                'module_type': 'reading',
+                'sections': [
+                    {'title': 'Passage 1', 'passage': 'First passage', 'questions': []},
+                    {'title': 'Passage 2', 'passage': 'Second passage', 'questions': []},
+                    {'title': 'Passage 3', 'passage': 'Third passage', 'questions': []},
+                ],
+            }],
+        })
+        parts = list(test.modules.get(module_type='reading').sections.order_by('order'))
+        self.assertEqual([part.title for part in parts], ['Passage 1', 'Passage 2', 'Passage 3'])
+        self.assertEqual([part.passage for part in parts], ['First passage', 'Second passage', 'Third passage'])
+
+    def test_import_supports_matching_information(self):
+        test = import_test({
+            'test_number': 5,
+            'title': 'Matching information',
+            'modules': [{
+                'module_type': 'reading',
+                'sections': [{
+                    'passage': 'Passage',
+                    'questions': [{
+                        'question_type': 'matching_information',
+                        'question_text': 'Which paragraph contains this information?',
+                        'correct_answer': 'B',
+                        'options': [
+                            {'option_key': 'A', 'option_text': 'Paragraph A'},
+                            {'option_key': 'B', 'option_text': 'Paragraph B', 'is_correct': True},
+                        ],
+                    }],
+                }],
+            }],
+        })
+        question = test.modules.get(module_type='reading').sections.get().questions.get()
+        self.assertEqual(question.question_type, 'matching_information')
+        self.assertEqual(question.options.get(is_correct=True).option_key, 'B')
+
+    def test_import_allows_blank_option_text(self):
+        test = import_test({
+            'test_number': 6,
+            'title': 'Blank option labels',
+            'modules': [{
+                'module_type': 'reading',
+                'sections': [{
+                    'passage': 'Passage',
+                    'questions': [{
+                        'question_type': 'matching',
+                        'question_text': 'Select an option.',
+                        'correct_answer': 'A',
+                        'options': [{'option_key': 'A', 'is_correct': True}],
+                    }],
+                }],
+            }],
+        })
+        option = test.modules.get(module_type='reading').sections.get().questions.get().options.get()
+        self.assertEqual(option.option_text, '')

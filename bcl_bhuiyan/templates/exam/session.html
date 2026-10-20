@@ -36,6 +36,16 @@
         <p class="helper">Select a number to move between questions.</p>
         {% endif %}
         <div id="questionNav" class="question-nav" aria-label="Question navigation"></div>
+        {% if module.module_type == 'reading' %}
+        <div id="partNav" class="part-nav" aria-label="Reading parts">
+            {% for part in sections %}
+                <button type="button" class="part-button" data-section-id="{{ part.pk }}">
+                    <span>Part {{ forloop.counter }}</span>
+                    <small>0/{{ part.questions.count }}</small>
+                </button>
+            {% endfor %}
+        </div>
+        {% endif %}
         <div class="legend">
             <span><i class="dot answered"></i> Answered</span>
             <span><i class="dot flagged"></i> Flagged</span>
@@ -79,7 +89,7 @@
                         <span class="section-name">{{ section.title }}</span>
                         <span class="question-number">Question {{ question.order }}</span>
                     </div>
-                    {% if section.instructions %}<p class="instructions">{{ section.instructions }}</p>{% endif %}
+                    {% if question.question_instructions %}<p class="question-instructions">{{ question.question_instructions|linebreaks }}</p>{% endif %}
                     {% if section.passage and module.module_type != 'listening' %}
                         {% if module.module_type == 'reading' %}
                             <div class="reading-passage" aria-label="Reading passage">
@@ -91,6 +101,9 @@
                                     </div>
                                 </div>
                                 <div class="passage-text selectable-passage">{{ section.passage|linebreaks }}</div>
+                                {% if section.passage_instructions %}
+                                    <p class="passage-instructions">{{ section.passage_instructions|linebreaks }}</p>
+                                {% endif %}
                                 <label class="notes-label" for="notes-{{ question.pk }}">Private passage notes (saved in this browser)</label>
                                 <textarea id="notes-{{ question.pk }}" class="passage-notes" data-section-id="{{ section.pk }}" rows="3" placeholder="Notes for this passage..." maxlength="5000"></textarea>
                                 <p class="helper">Notes stay in this browser only. Highlights are temporary and reset on refresh.</p>
@@ -107,7 +120,11 @@
                         <p class="notice">This section includes an audio attachment.</p>
                     {% endif %}
                     <div class="question-answer-area">
-                    <h2>{{ question.question_text }}</h2>
+                    {% if question.question_type == 'fill_blank' %}
+                        <div class="question-prompt fill-blank-prompt" data-answer-count="{{ question.answer_count }}">{{ question.question_text }}</div>
+                    {% else %}
+                        <h2 class="question-prompt">{{ question.question_text }}</h2>
+                    {% endif %}
                     {% if question.question_type == 'mcq' %}
                         <div class="answer-options">
                             {% for option in question.options.all %}
@@ -131,6 +148,30 @@
                             <label class="option"><input type="radio" name="question-{{ question.pk }}" value="NO"> No</label>
                             <label class="option"><input type="radio" name="question-{{ question.pk }}" value="NOT GIVEN"> Not Given</label>
                         </div>
+                    {% elif question.question_type == 'matching_information' %}
+                        <div class="matching-information-options">
+                            <strong>List of options</strong>
+                            <div class="matching-option-list">
+                                {% for option in question.options.all %}
+                                    <span><b>{{ option.option_key }}</b> {{ option.option_text }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <label for="answer-{{ question.pk }}">Choose the paragraph</label>
+                        <select id="answer-{{ question.pk }}" class="answer-field matching-field">
+                            <option value="">Select an answer</option>
+                            {% for option in question.options.all %}
+                                <option value="{{ option.option_key }}">{{ option.option_key }}</option>
+                            {% endfor %}
+                        </select>
+                    {% elif question.question_type == 'matching' %}
+                        <label for="answer-{{ question.pk }}">Choose the matching paragraph or item</label>
+                        <select id="answer-{{ question.pk }}" class="answer-field matching-field">
+                            <option value="">Select an answer</option>
+                            {% for option in question.options.all %}
+                                <option value="{{ option.option_key }}">{{ option.option_key }}{% if option.option_text %} — {{ option.option_text }}{% endif %}</option>
+                            {% endfor %}
+                        </select>
                     {% elif question.question_type == 'essay' %}
                         {% if module.module_type == 'writing' %}
                             <div class="writing-task-info">
@@ -141,12 +182,11 @@
                         <label for="answer-{{ question.pk }}">Your writing response</label>
                         <textarea id="answer-{{ question.pk }}" class="answer-field writing-editor" rows="17" maxlength="20000" spellcheck="true" placeholder="Write your response here..."></textarea>
                         <p class="word-count" aria-live="polite">Words: <span>0</span> <span class="writing-save-note">· Saved automatically every 15 seconds</span></p>
-                    {% else %}
+                    {% elif question.question_type != 'fill_blank' %}
                         <label for="answer-{{ question.pk }}">Your answer</label>
                         <input id="answer-{{ question.pk }}" class="answer-field" type="text" maxlength="20000" placeholder="Type your answer here...">
-                        {% if question.question_type == 'matching' %}
-                            <p class="helper">For this preliminary version, enter one matching answer. Grouped matching will be developed later.</p>
-                        {% endif %}
+                    {% else %}
+                        <label class="fill-blank-label">Type an answer in each blank</label>
                     {% endif %}
                     <label class="flag-label">
                         <input type="checkbox" class="flag-input"> Flag for review

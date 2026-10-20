@@ -31,7 +31,7 @@
         <div class="stat"><span>Overall practice Writing band</span><strong>{{ attempt.band_score }}</strong></div>
         <p class="notice">Manually graded by examiners. Task 1 contributes one-third and Task 2 two-thirds to this practice result. This is not an official IELTS score.</p>
       {% else %}
-        <div class="notice"><strong>Writing evaluation pending.</strong><p>Both tasks require manual assessment before an overall practice band is released.</p></div>
+        <div class="notice"><strong>Writing evaluation pending.</strong><p>Both tasks require manual evaluation before an overall practice band is released.</p></div>
       {% endif %}
       {% for grade in task_evaluations %}
         <div class="stat" style="margin-top:12px">

@@ -41,12 +41,14 @@ def readiness(test):
                     if q.question_type != 'essay':
                         problems.append(f'writing question {q.order}: expected essay')
                 else:
-                    if q.question_type in ('essay', 'matching'):
+                    if q.question_type == 'essay':
                         problems.append(f'{kind} question {q.order}: unsupported auto-scoring type')
                     elif not q.correct_answer.strip() and not any(o.is_correct for o in q.options.all()):
                         problems.append(f'{kind} question {q.order}: answer key missing')
                     if q.question_type == 'mcq' and sum(o.is_correct for o in q.options.all()) != 1:
                         problems.append(f'{kind} question {q.order}: MCQ requires one correct option')
+                    if q.question_type in ('matching', 'matching_information') and not any(o.is_correct for o in q.options.all()):
+                        problems.append(f'{kind} question {q.order}: matching requires one correct option')
     return problems
 
 
@@ -72,15 +74,15 @@ def import_test(payload, *, publish=False):
             kind = module_data['module_type']
             module = ExamModule.objects.create(mock_test=test, module_type=kind, duration_minutes=int(module_data.get('duration_minutes', 60)), instructions=str(module_data.get('instructions', '')))
             for section_index, section_data in enumerate(module_data.get('sections', []), 1):
-                section = ExamSection.objects.create(module=module, order=section_index, title=str(section_data.get('title', f'Section {section_index}')), instructions=str(section_data.get('instructions', '')), passage=str(section_data.get('passage', '')))
+                section = ExamSection.objects.create(module=module, order=section_index, title=str(section_data.get('title', f'Section {section_index}')), instructions=str(section_data.get('instructions', '')), passage_instructions=str(section_data.get('passage_instructions', '')), passage=str(section_data.get('passage', '')))
                 # Audio/image files are uploaded separately through admin; never trust local paths from JSON.
                 for question_index, qdata in enumerate(section_data.get('questions', []), 1):
                     qtype = qdata.get('question_type')
                     if qtype not in Question.QuestionType.values:
                         raise ValidationError(f'Unsupported question type: {qtype}')
-                    q = Question.objects.create(section=section, order=question_index, question_type=qtype, question_text=str(qdata.get('question_text', '')), correct_answer=str(qdata.get('correct_answer', '')), marks=int(qdata.get('marks', 1)), explanation=str(qdata.get('explanation', '')))
+                    q = Question.objects.create(section=section, order=question_index, question_type=qtype, question_text=str(qdata.get('question_text', '')), question_instructions=str(qdata.get('question_instructions', '')), answer_count=max(1, int(qdata.get('answer_count', 1))), correct_answer=str(qdata.get('correct_answer', '')), marks=int(qdata.get('marks', 1)), explanation=str(qdata.get('explanation', '')))
                     for index, option in enumerate(qdata.get('options', []), 1):
-                        QuestionOption.objects.create(question=q, order=index, option_key=str(option['option_key']), option_text=str(option['option_text']), is_correct=bool(option.get('is_correct', False)))
+                        QuestionOption.objects.create(question=q, order=index, option_key=str(option['option_key']), option_text=str(option.get('option_text', '')), is_correct=bool(option.get('is_correct', False)))
         if publish:
             issues = readiness(test)
             if issues:

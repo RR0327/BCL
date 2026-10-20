@@ -26,10 +26,18 @@ class Command(BaseCommand):
         dest.mkdir(parents=True, exist_ok=True)
         stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
         target = dest / ('ielts-sqlite-' + stamp + '.sqlite3')
-        with sqlite3.connect(str(source)) as origin, sqlite3.connect(str(target)) as backup:
+        origin = sqlite3.connect(str(source))
+        backup = sqlite3.connect(str(target))
+        try:
             origin.backup(backup)
-        with sqlite3.connect(str(target)) as verify:
+        finally:
+            backup.close()
+            origin.close()
+        verify = sqlite3.connect(str(target))
+        try:
             status = verify.execute('PRAGMA integrity_check').fetchone()[0]
+        finally:
+            verify.close()
         if status != 'ok':
             target.unlink(missing_ok=True)
             raise CommandError('Backup integrity check failed')

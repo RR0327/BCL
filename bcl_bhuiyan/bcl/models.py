@@ -48,6 +48,10 @@ class ExamSection(models.Model):
     module = models.ForeignKey(ExamModule, on_delete=models.CASCADE, related_name="sections")
     title = models.CharField(max_length=255)
     instructions = models.TextField(blank=True)
+    passage_instructions = models.TextField(
+        blank=True,
+        help_text="Instructions or introductory text shown with the passage.",
+    )
     passage = models.TextField(blank=True, help_text="Reading passage or supporting text.")
     audio_file = models.FileField(upload_to="ielts/audio/", blank=True, null=True)
     image = models.ImageField(upload_to="ielts/images/", blank=True, null=True)
@@ -69,11 +73,20 @@ class Question(models.Model):
         FILL_BLANK = "fill_blank", "Fill in the Blank"
         SHORT_ANSWER = "short_answer", "Short Answer"
         MATCHING = "matching", "Matching"
+        MATCHING_INFORMATION = "matching_information", "Matching Information"
         ESSAY = "essay", "Writing Task"
 
     section = models.ForeignKey(ExamSection, on_delete=models.CASCADE, related_name="questions")
     question_type = models.CharField(max_length=30, choices=QuestionType.choices)
     question_text = models.TextField()
+    question_instructions = models.TextField(
+        blank=True,
+        help_text="Optional instructions shown directly above this question.",
+    )
+    answer_count = models.PositiveIntegerField(
+        default=1,
+        help_text="Number of answer fields for fill-in-the-blank questions. Use ___ in the prompt for inline fields.",
+    )
     order = models.PositiveIntegerField(default=1)
     marks = models.PositiveIntegerField(default=1)
     correct_answer = models.TextField(blank=True, help_text="Canonical answer for auto-marked questions. Leave blank for manually evaluated writing.")
@@ -89,7 +102,11 @@ class Question(models.Model):
 
 class QuestionOption(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="options")
-    option_text = models.CharField(max_length=500)
+    option_text = models.CharField(
+        max_length=500,
+        blank=True,
+        help_text="Optional description shown beside the option key.",
+    )
     option_key = models.CharField(max_length=10, help_text="Example: A, B, C, D")
     is_correct = models.BooleanField(default=False)
     order = models.PositiveIntegerField(default=1)

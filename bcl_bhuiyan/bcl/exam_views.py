@@ -223,6 +223,13 @@ def save_exam_answer(request, attempt_id):
         if question.question_type == Question.QuestionType.YES_NO_NOT_GIVEN and value:
             if value not in {"YES", "NO", "NOT GIVEN"}:
                 return JsonResponse({"error": "Invalid YNNG answer."}, status=400)
+        if question.question_type in {
+            Question.QuestionType.MATCHING,
+            Question.QuestionType.MATCHING_INFORMATION,
+        } and value:
+            valid_keys = {option.option_key for option in question.options.all()}
+            if value not in valid_keys:
+                return JsonResponse({"error": "Invalid matching selection."}, status=400)
 
         saved, _ = CandidateAnswer.objects.update_or_create(
             attempt=attempt,

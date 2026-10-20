@@ -32,6 +32,8 @@ SUPPORTED_TYPES = {
     Question.QuestionType.YES_NO_NOT_GIVEN,
     Question.QuestionType.FILL_BLANK,
     Question.QuestionType.SHORT_ANSWER,
+    Question.QuestionType.MATCHING,
+    Question.QuestionType.MATCHING_INFORMATION,
 }
 
 
@@ -77,6 +79,13 @@ def finalize_attempt_score(attempt):
             # Two sources must agree when the canonical answer is supplied.
             if q.correct_answer.strip() and normalize(q.correct_answer) != normalize(correct_options[0]):
                 return
+        elif q.question_type in {
+            Question.QuestionType.MATCHING,
+            Question.QuestionType.MATCHING_INFORMATION,
+        } and not (
+            q.correct_answer.strip() or any(o.is_correct for o in q.options.all())
+        ):
+            return
         elif not q.correct_answer.strip():
             return
 
@@ -91,11 +100,22 @@ def finalize_attempt_score(attempt):
         if q.question_type == Question.QuestionType.MCQ:
             expected = next(o.option_key for o in q.options.all() if o.is_correct)
             accepted = [expected]
+        elif q.question_type in {
+            Question.QuestionType.MATCHING,
+            Question.QuestionType.MATCHING_INFORMATION,
+        } and any(o.is_correct for o in q.options.all()):
+            accepted = [o.option_key for o in q.options.all() if o.is_correct]
         else:
             # Alternative approved text answers can be separated by ||.
             accepted = [v for v in q.correct_answer.split("||") if v.strip()]
-        correct = bool(answer.answer_text.strip()) and any(
-            normalize(answer.answer_text) == normalize(x) for x in accepted
+        actual_values = answer.answer_text.split(";;;") if q.question_type == Question.QuestionType.FILL_BLANK else [answer.answer_text]
+        expected_values = q.correct_answer.split(";;;") if q.question_type == Question.QuestionType.FILL_BLANK else accepted
+        correct = bool(answer.answer_text.strip()) and (
+            len(actual_values) == len(expected_values)
+            and all(
+                any(normalize(actual) == normalize(expected) for expected in expected_value.split("||"))
+                for actual, expected_value in zip(actual_values, expected_values)
+            )
         )
         answer.is_correct = correct
         answer.awarded_marks = 1 if correct else 0

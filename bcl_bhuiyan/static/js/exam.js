@@ -3,12 +3,62 @@
 document.addEventListener("DOMContentLoaded", () => {
     const app = document.getElementById("examApp");
     if (!app) return;
+    const examHeader = document.querySelector(".exam-header");
+    function syncReadingHeaderHeight() {
+        if (!examHeader || !app.classList.contains("reading-exam")) return;
+        document.documentElement.style.setProperty(
+            "--reading-header-height",
+            `${examHeader.getBoundingClientRect().height}px`
+        );
+    }
+    syncReadingHeaderHeight();
+    window.addEventListener("resize", syncReadingHeaderHeight);
 
     const panels = Array.from(document.querySelectorAll(".question-panel"));
+    const readingLayouts = new Map();
+    if (app.classList.contains("reading-exam")) {
+        const sections = new Map();
+        panels.forEach(panel => {
+            const sectionId = panel.dataset.sectionId;
+            if (!sections.has(sectionId)) sections.set(sectionId, []);
+            sections.get(sectionId).push(panel);
+        });
+        sections.forEach((sectionPanels, sectionId) => {
+            const firstPanel = sectionPanels[0];
+            const layout = document.createElement("div");
+            layout.className = "reading-layout";
+            const passageColumn = document.createElement("div");
+            passageColumn.className = "reading-passage-column";
+            const questionColumn = document.createElement("div");
+            questionColumn.className = "reading-question-column";
+            const passage = firstPanel.querySelector(".reading-passage");
+            if (passage) passageColumn.appendChild(passage);
+            const sectionHeader = document.createElement("div");
+            sectionHeader.className = "reading-section-header";
+            const sectionTitle = firstPanel.querySelector(".section-name")?.textContent.trim();
+            const sectionInstructions = firstPanel.querySelector(".instructions")?.textContent.trim();
+            sectionHeader.innerHTML = `<strong>${sectionTitle || "Questions"}</strong>`;
+            if (sectionInstructions) {
+                const instructions = document.createElement("p");
+                instructions.textContent = sectionInstructions;
+                sectionHeader.appendChild(instructions);
+            }
+            firstPanel.querySelector(".instructions")?.remove();
+            questionColumn.appendChild(sectionHeader);
+            layout.append(passageColumn, questionColumn);
+            firstPanel.parentElement.insertBefore(layout, firstPanel);
+            sectionPanels.forEach(panel => {
+                questionColumn.appendChild(panel);
+                panel.querySelector(".reading-passage")?.remove();
+            });
+            readingLayouts.set(sectionId, layout);
+        });
+    }
     const initialData = JSON.parse(document.getElementById("savedAnswersData").textContent);
     const saved = new Map(initialData.map(row => [String(row.question_id), row]));
     const dirty = new Set();
     const nav = document.getElementById("questionNav");
+    const partNav = document.getElementById("partNav");
     const saveStatus = document.getElementById("saveStatus");
     const answeredCount = document.getElementById("answeredCount");
     const timerEl = document.getElementById("examTimer");
@@ -31,6 +81,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     function getAnswer(panel) {
+        const blankFields = panel.querySelectorAll(".blank-input");
+        if (blankFields.length) {
+            return Array.from(blankFields).map(field => field.value.trim()).join(";;;");
+        }
         const selected = panel.querySelector('input[type="radio"]:checked');
         if (selected) return selected.value;
         const field = panel.querySelector(".answer-field");
@@ -40,10 +94,12 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderNavigation() {
         nav.innerHTML = "";
         let answered = 0;
+        const activeSectionId = panels[index]?.dataset.sectionId;
         panels.forEach((panel, position) => {
             const hasAnswer = getAnswer(panel).trim().length > 0;
             const flagged = panel.querySelector(".flag-input").checked;
             if (hasAnswer) answered += 1;
+            if (app.classList.contains("reading-exam") && panel.dataset.sectionId !== activeSectionId) return;
             const button = document.createElement("button");
             button.type = "button";
             const writingTask = app.classList.contains("writing-exam");
@@ -56,6 +112,15 @@ document.addEventListener("DOMContentLoaded", () => {
             button.addEventListener("click", () => showQuestion(position));
             nav.appendChild(button);
         });
+        if (partNav) {
+            partNav.querySelectorAll(".part-button").forEach(button => {
+                button.classList.toggle("active", button.dataset.sectionId === activeSectionId);
+                const sectionPanels = panels.filter(panel => panel.dataset.sectionId === button.dataset.sectionId);
+                const sectionAnswered = sectionPanels.filter(panel => getAnswer(panel).trim().length > 0).length;
+                const count = button.querySelector("small");
+                if (count) count.textContent = `${sectionAnswered}/${sectionPanels.length}`;
+            });
+        }
         answeredCount.textContent = `${answered} of ${panels.length} answered`;
         updateWritingTotal();
     }
@@ -88,13 +153,31 @@ document.addEventListener("DOMContentLoaded", () => {
         if (position < 0 || position >= panels.length) return;
         const previous = panels[index];
         index = position;
-        panels.forEach((panel, i) => { panel.hidden = i !== index; });
+        if (app.classList.contains("reading-exam")) {
+            const sectionId = panels[index].dataset.sectionId;
+            panels.forEach(panel => {
+                panel.hidden = panel.dataset.sectionId !== sectionId;
+            });
+            readingLayouts.forEach((layout, id) => { layout.hidden = id !== sectionId; });
+            panels[index].scrollIntoView({behavior: "smooth", block: "nearest"});
+        } else {
+            panels.forEach((panel, i) => { panel.hidden = i !== index; });
+        }
         prevButton.disabled = index === 0;
         nextButton.disabled = index === panels.length - 1;
         renderNavigation();
         if (previous && dirty.has(previous.dataset.questionId)) {
             void saveQuestion(previous.dataset.questionId);
         }
+    }
+
+    if (partNav) {
+        partNav.querySelectorAll(".part-button").forEach(button => {
+            button.addEventListener("click", () => {
+                const position = panels.findIndex(panel => panel.dataset.sectionId === button.dataset.sectionId);
+                if (position >= 0) showQuestion(position);
+            });
+        });
     }
 
     // Serial requests ensure the last typed answer cannot be overwritten
@@ -186,8 +269,33 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     for (const panel of panels) {
+        const questionNumber = panels.indexOf(panel) + 1;
+        panel.dataset.questionNumber = String(questionNumber);
+        const questionNumberLabel = panel.querySelector(".question-number");
+        if (questionNumberLabel) questionNumberLabel.textContent = `Question ${questionNumber}`;
+        const blankPrompt = panel.querySelector(".fill-blank-prompt");
+        if (blankPrompt && !blankPrompt.querySelector(".blank-input")) {
+            const count = Math.max(1, Number(blankPrompt.dataset.answerCount) || 1);
+            let found = 0;
+            const rendered = blankPrompt.textContent.split(/(_{3,})/).map(part => {
+                if (!/^_{3,}$/.test(part)) return part;
+                found += 1;
+                const number = Number(panel.dataset.questionNumber) || found;
+                return `<input class="blank-input" type="text" maxlength="20000" placeholder="[${number + found - 1}]" aria-label="Answer ${number + found - 1}">`;
+            }).join("");
+            blankPrompt.innerHTML = rendered;
+            while (found < count) {
+                found += 1;
+                const number = Number(panel.dataset.questionNumber) || found;
+                panel.querySelector(".fill-blank-prompt").insertAdjacentHTML("beforeend", `<input class="blank-input" type="text" maxlength="20000" placeholder="[${number + found - 1}]" aria-label="Answer ${number + found - 1}">`);
+            }
+        }
         const row = saved.get(panel.dataset.questionId);
         if (row) {
+            const blankFields = panel.querySelectorAll(".blank-input");
+            row.answer_text.split(";;;").forEach((value, position) => {
+                if (blankFields[position]) blankFields[position].value = value;
+            });
             const field = panel.querySelector(".answer-field");
             if (field) field.value = row.answer_text;
             const radios = panel.querySelectorAll('input[type="radio"]');
@@ -300,43 +408,83 @@ document.addEventListener("DOMContentLoaded", () => {
                 catch (error) { console.warn("Unable to store passage notes", error); }
             });
         });
-        // Capture the selection before the toolbar button takes focus.
+        // Capture the selection before a toolbar or context-menu action takes focus.
         let chosenRange = null;
-        document.addEventListener("selectionchange", () => {
+        let chosenPassage = null;
+        function captureSelection() {
             const selection = window.getSelection();
-            if (!selection || selection.isCollapsed || !selection.rangeCount) return;
+            if (!selection || selection.isCollapsed || !selection.rangeCount) return false;
             const range = selection.getRangeAt(0);
             const region = range.commonAncestorContainer.nodeType === Node.ELEMENT_NODE
                 ? range.commonAncestorContainer : range.commonAncestorContainer.parentElement;
             const passage = region?.closest?.(".selectable-passage");
-            if (passage && passage.closest(".question-panel")?.hidden === false) {
-                chosenRange = range.cloneRange();
-            }
+            if (!passage) return false;
+            chosenRange = range.cloneRange();
+            chosenPassage = passage;
+            return true;
+        }
+        document.addEventListener("selectionchange", captureSelection);
+        document.addEventListener("mousedown", event => {
+            if (!event.target.closest?.(".selectable-passage")) return;
+            window.setTimeout(captureSelection, 0);
         });
+        const highlightSelection = (passage, range) => {
+            if (!passage || !range || range.collapsed || !passage.contains(range.commonAncestorContainer)) return;
+            const mark = document.createElement("mark");
+            try {
+                mark.appendChild(range.extractContents());
+                range.insertNode(mark);
+                window.getSelection()?.removeAllRanges();
+                chosenRange = null;
+                chosenPassage = null;
+            } catch (error) {
+                console.warn("Cannot highlight this selection", error);
+            }
+        };
+        const clearHighlights = passage => {
+            if (!passage) return;
+            passage.querySelectorAll("mark").forEach(mark => mark.replaceWith(...mark.childNodes));
+            passage.normalize();
+            chosenRange = null;
+            chosenPassage = null;
+        };
         document.querySelectorAll(".highlight-selection").forEach(button => {
             button.addEventListener("click", () => {
                 const passage = button.closest(".reading-passage").querySelector(".selectable-passage");
-                const range = chosenRange;
-                if (!range || range.collapsed || !passage.contains(range.commonAncestorContainer)) return;
-                // Limit highlights to one passage; preserve text without injecting HTML.
-                const mark = document.createElement("mark");
-                try {
-                    mark.appendChild(range.extractContents());
-                    range.insertNode(mark);
-                    window.getSelection()?.removeAllRanges();
-                    chosenRange = null;
-                } catch (error) {
-                    console.warn("Cannot highlight this selection", error);
-                }
+                highlightSelection(passage, chosenRange);
             });
         });
         document.querySelectorAll(".clear-highlights").forEach(button => {
             button.addEventListener("click", () => {
                 const passage = button.closest(".reading-passage").querySelector(".selectable-passage");
-                passage.querySelectorAll("mark").forEach(mark => mark.replaceWith(...mark.childNodes));
-                passage.normalize();
-                chosenRange = null;
+                clearHighlights(passage);
             });
+        });
+        const menu = document.createElement("div");
+        menu.className = "reading-context-menu";
+        menu.hidden = true;
+        menu.innerHTML = '<button type="button" data-action="highlight">Highlight</button><button type="button" data-action="clear">Clear highlights</button>';
+        document.body.appendChild(menu);
+        const closeMenu = () => { menu.hidden = true; };
+        document.addEventListener("click", event => {
+            if (!menu.contains(event.target)) closeMenu();
+        });
+        document.addEventListener("scroll", closeMenu, true);
+        document.addEventListener("contextmenu", event => {
+            const passage = event.target.closest?.(".selectable-passage");
+            if (!passage) return;
+            event.preventDefault();
+            captureSelection();
+            chosenPassage = passage;
+            menu.hidden = false;
+            menu.style.left = `${Math.min(event.clientX, window.innerWidth - 190)}px`;
+            menu.style.top = `${Math.min(event.clientY, window.innerHeight - 90)}px`;
+        });
+        menu.addEventListener("click", event => {
+            const action = event.target.dataset.action;
+            if (action === "highlight") highlightSelection(chosenPassage, chosenRange);
+            if (action === "clear") clearHighlights(chosenPassage);
+            closeMenu();
         });
     }
 
