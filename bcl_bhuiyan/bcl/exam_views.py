@@ -115,6 +115,14 @@ def start_exam(request, module_id):
                 finalize_attempt_score(attempt)
             elif active is None:
                 active = attempt
+            else:
+                # Legacy data may contain duplicate live attempts. Keep the
+                # newest session and close the others under the candidate lock.
+                # This prevents an old session from continuing to accept answers.
+                attempt.status = CandidateAttempt.AttemptStatus.AUTO_SUBMITTED
+                attempt.submitted_at = now
+                attempt.save(update_fields=["status", "submitted_at"])
+                finalize_attempt_score(attempt)
         if active is None:
             active = CandidateAttempt.objects.create(
                 candidate=request.user,
