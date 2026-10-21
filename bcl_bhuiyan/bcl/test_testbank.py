@@ -30,11 +30,24 @@ class TestBankTests(TestCase):
         test = import_test({'test_number': 1, 'title': 'Sample', 'modules': []})
         self.assertFalse(test.is_published)
 
-    def test_duplicate_import_rejected(self):
+    def test_repeated_empty_slot_import_is_allowed(self):
+        """An empty, unpublished slot is intentionally reusable for first content import."""
         payload = {'test_number': 1, 'title': 'Sample', 'modules': []}
+        original = import_test(payload)
+        updated = import_test({'test_number': 1, 'title': 'Updated Sample', 'modules': []})
+        self.assertEqual(original.pk, updated.pk)
+        self.assertEqual(IELTSMockTest.objects.count(), 1)
+        self.assertEqual(updated.title, 'Updated Sample')
+
+    def test_duplicate_populated_import_rejected(self):
+        """Once a slot has exam content, imports must never overwrite it."""
+        payload = {'test_number': 1, 'title': 'Sample', 'modules': [
+            {'module_type': 'reading', 'sections': []},
+        ]}
         import_test(payload)
         with self.assertRaises(ValidationError):
             import_test(payload)
+        self.assertEqual(IELTSMockTest.objects.get(test_number=1).modules.count(), 1)
 
     def test_failed_publish_rolls_back(self):
         with self.assertRaises(ValidationError):
