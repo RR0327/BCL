@@ -147,3 +147,54 @@ class TestBankTests(TestCase):
         })
         option = test.modules.get(module_type='reading').sections.get().questions.get().options.get()
         self.assertEqual(option.option_text, '')
+
+
+class EmptySlotImportRegressionTests(TestCase):
+    """Import must work with initialized slots without overwriting candidate content."""
+
+    def test_import_into_initialized_empty_slot(self):
+        call_command('manage_testbank', '--initialize', verbosity=0)
+        original = IELTSMockTest.objects.get(test_number=1)
+        imported = import_test({'test_number': 1, 'title': 'Authorized Test', 'modules': []})
+        self.assertEqual(imported.pk, original.pk)
+        self.assertEqual(imported.title, 'Authorized Test')
+        self.assertEqual(IELTSMockTest.objects.count(), 30)
+
+    def test_reject_populated_unpublished_slot_without_changes(self):
+        call_command('manage_testbank', '--initialize', verbosity=0)
+        payload = {'test_number': 1, 'title': 'Original', 'modules': [
+            {'module_type': 'reading', 'sections': []}]}
+        import_test(payload)
+        with self.assertRaises(ValidationError):
+            import_test({'test_number': 1, 'title': 'Replacement', 'modules': []})
+        test = IELTSMockTest.objects.get(test_number=1)
+        self.assertEqual(test.title, 'Original')
+        self.assertEqual(test.modules.count(), 1)
+
+    def test_reject_published_empty_slot(self):
+        IELTSMockTest.objects.create(test_number=1, title='Live', is_published=True)
+        with self.assertRaises(ValidationError):
+            import_test({'test_number': 1, 'title': 'Replace', 'modules': []})
+        self.assertEqual(IELTSMockTest.objects.get(test_number=1).title, 'Live')
+
+    def test_invalid_payload_rolls_back_existing_slot(self):
+        IELTSMockTest.objects.create(test_number=1, title='Placeholder')
+        with self.assertRaises(ValidationError):
+            import_test({'test_number': 1, 'title': 'Should rollback', 'modules': [
+                {'module_type': 'reading', 'sections': [
+                    {'questions': [{'question_type': 'invalid'}]}]}]})
+        self.assertEqual(IELTSMockTest.objects.get(test_number=1).title, 'Placeholder')
+        self.assertFalse(IELTSMockTest.objects.get(test_number=1).modules.exists())
+
+    def test_dry_run_existing_slot_rolls_back(self):
+        IELTSMockTest.objects.create(test_number=1, title='Placeholder')
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'test.json'
+            path.write_text(json.dumps({'test_number': 1, 'title': 'Changed', 'modules': []}))
+            call_command('manage_testbank', '--import-json', str(path), '--dry-run')
+        self.assertEqual(IELTSMockTest.objects.get(test_number=1).title, 'Placeholder')
+
+    def test_reject_non_object_module(self):
+        with self.assertRaises(ValidationError):
+            import_test({'test_number': 1, 'title': 'Bad', 'modules': [None]})
+        self.assertFalse(IELTSMockTest.objects.exists())

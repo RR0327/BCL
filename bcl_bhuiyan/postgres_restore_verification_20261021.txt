@@ -1,0 +1,740 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20261021154010
+Username: DESKTOP-TCGPEID\LENOVO
+RunAs User: DESKTOP-TCGPEID\LENOVO
+Configuration Name: 
+Machine: DESKTOP-TCGPEID (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe -noexit -command try { . "c:\Users\LENOVO\AppData\Local\Programs\Microsoft VS Code\6d62b1d5da\resources\app\out\vs\workbench\contrib\terminal\common\scripts\shellIntegration.ps1" } catch {}
+Process ID: 11696
+PSVersion: 5.1.26100.9711
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9711
+BuildVersion: 10.0.26100.9711
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is .\postgres_restore_verification_20261021.txt
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) $env:DB_NAME="ielts_db"
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py postgres_rehearsal --destination "D:\IELTS_secure_backups" --restore-db "ielts_restore_verify_20261021" --execute-restore --confirm "RESTORE-ISOLATED-STAGING"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) $env:PGPASSWORD = $env:DB_PASSWORD
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) & "C:\Program Files\PostgreSQL\18\bin\psql.exe" -h 127.0.0.1 -p 5432 -U ielts_app -d ielts_restore_verify_20261021 -c "\dt"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) & "C:\Program Files\PostgreSQL\18\bin\psql.exe" -h 127.0.0.1 -p 5432 -U ielts_app -d ielts_restore_verify_20261021 -c "SELECT COUNT(*) AS migration_rows FROM django_migrations;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) & "C:\Program Files\PostgreSQL\18\bin\psql.exe" -h 127.0.0.1 -p 5432 -U ielts_app -d ielts_restore_verify_20261021 -c "SELECT COUNT(*) AS test_rows FROM bcl_ieltsmocktest;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py postgres_rehearsal `
+  --destination "D:\IELTS_secure_backups" `
+  --restore-db "ielts_restore_empty" `
+  --execute-restore `
+  --confirm "RESTORE-ISOLATED-STAGING" `
+  2>&1 | Tee-Object -FilePath "postgres_restore_success.log"
+python : CommandError: PostgreSQL utility failed; inspect database connectivity and permissions
+At line:1 char:1
++ python manage.py postgres_rehearsal `
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (CommandError: P...and permissions:String) [], Remote
+   Exception
+    + FullyQualifiedErrorId : NativeCommandError
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py check
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py migrate --check
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) & "C:\Program Files\PostgreSQL\18\bin\psql.exe" `
+  -h 127.0.0.1 `
+  -p 5432 `
+  -U ielts_app `
+  -d ielts_restore_verify_20261021 `
+  -c "SELECT current_database(), current_user;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) & "C:\Program Files\PostgreSQL\18\bin\psql.exe" `
+  -h 127.0.0.1 `
+  -p 5432 `
+  -U ielts_app `
+  -d ielts_db `
+  -c "SELECT
+      (SELECT COUNT(*) FROM auth_user) AS users,
+      (SELECT COUNT(*) FROM bcl_ieltsmocktest) AS tests,
+      (SELECT COUNT(*) FROM django_migrations) AS migrations;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) & "C:\Program Files\PostgreSQL\18\bin\psql.exe" `
+  -h 127.0.0.1 `
+  -p 5432 `
+  -U ielts_app `
+  -d ielts_restore_verify_20261021 `
+  -c "SELECT
+      (SELECT COUNT(*) FROM bcl_ieltsmocktest) AS tests,
+      (SELECT COUNT(*) FROM bcl_exammodule) AS modules,
+      (SELECT COUNT(*) FROM bcl_examsection) AS sections,
+      (SELECT COUNT(*) FROM bcl_question) AS questions,
+      (SELECT COUNT(*) FROM bcl_questionoption) AS options;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) & "C:\Program Files\PostgreSQL\18\bin\psql.exe" `
+  -h 127.0.0.1 `
+  -p 5432 `
+  -U ielts_app `
+  -d ielts_restore_verify_20261021 `
+  -c "\dt"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+]633;D]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) $env:DJANGO_DEBUG="False"
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) $env:DJANGO_SECURE_SSL_REDIRECT="True"
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) $env:DJANGO_ALLOWED_HOSTS="127.0.0.1,localhost"
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) $env:DJANGO_SECRET_KEY="_d*okvd43mem5j0s4aj^q=hee-+efatp6ba_bjno_71xshm*2!"
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py check --deploy
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) $env:DJANGO_HSTS_SECONDS="31536000"
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py check --deploy
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py release_acceptance `
+  --strict `
+  --output "release_acceptance_strict_restored.json"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py release_acceptance --strict --output "release_acceptance_strict_restored.json"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python -c "import json; r=json.load(open('release_acceptance_strict_restored.json', encoding='utf-8')); print(json.dumps({'controls': r['controls'], 'automated_gates_pass': r['automated_gates_pass'], 'failed_tests': [x for x in r['test_bank'] if not x['ready']]}, indent=2))"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank --audit
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py createsuperuser
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py runserver
+Quit the server with CTRL-BREAK.
+(venv) TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py shell -c "from django.conf import settings; print(settings.DATABASES['default']['ENGINE']); print(settings.DATABASES['default']['NAME'])"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py migrate
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py migrate --check
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py check
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+]633;D]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py runserver
+
+(venv) TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py release_acceptance --strict --output release_acceptance_strict_restored.json
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+]633;D]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank --audit
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank --import-json "path\to\authorized_test.json"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank --import-json "bcl_bhuiyan\testbank_json"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank --import-json "G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan\testbank_json"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank --import-json "testbank_json"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+]633;D]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py release_acceptance --strict --output release_acceptance_strict_restored.json
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) psql -h localhost -p 5432 -U ielts_app -d ielts_db -c "SELECT 'mock_tests' AS item, COUNT() FROM bcl_ieltsmocktest UNION ALL SELECT 'users', COUNT() FROM auth_user UNION ALL SELECT 'attempts', COUNT() FROM bcl_candidateattempt UNION ALL SELECT 'answers', COUNT() FROM bcl_candidateanswer UNION ALL SELECT 'questions', COUNT() FROM bcl_question UNION ALL SELECT 'writing_evaluations', COUNT() FROM bcl_writingevaluation UNION ALL SELECT 'mfa_devices', COUNT(*) FROM otp_totp_totpdevice;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) psql -h localhost -p 5432 -U ielts_app -d ielts_db -c "SELECT 'mock_tests' AS item, COUNT() FROM bcl_ieltsmocktest UNION ALL SELECT 'users', COUNT() FROM auth_user UNION ALL SELECT 'attempts', COUNT() FROM bcl_candidateattempt UNION ALL SELECT 'answers', COUNT() FROM bcl_candidateanswer UNION ALL SELECT 'questions', COUNT() FROM bcl_question UNION ALL SELECT 'writing_evaluations', COUNT() FROM bcl_writingevaluation UNION ALL SELECT 'mfa_devices', COUNT(*) FROM otp_totp_totpdevice;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) psql -h localhost -p 5432 -U ielts_app -d ielts_db -c "SELECT 'mock_tests' AS item, COUNT() FROM bcl_ieltsmocktest UNION ALL SELECT 'users', COUNT() FROM auth_user UNION ALL SELECT 'attempts', COUNT() FROM bcl_candidateattempt UNION ALL SELECT 'answers', COUNT() FROM bcl_candidateanswer UNION ALL SELECT 'questions', COUNT() FROM bcl_question UNION ALL SELECT 'writing_evaluations', COUNT() FROM bcl_writingevaluation UNION ALL SELECT 'mfa_devices', COUNT(*) FROM otp_totp_totpdevice;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) psql -h localhost -p 5432 -U ielts_app -d ielts_db -c "SELECT 'mock_tests' AS item, COUNT(*) AS total FROM bcl_ieltsmocktest UNION ALL SELECT 'users', COUNT(*) FROM auth_user UNION ALL SELECT 'attempts', COUNT(*) FROM bcl_candidateattempt UNION ALL SELECT 'answers', COUNT(*) FROM bcl_candidateanswer UNION ALL SELECT 'questions', COUNT(*) FROM bcl_question UNION ALL SELECT 'writing_evaluations', COUNT(*) FROM bcl_writingevaluation UNION ALL SELECT 'mfa_devices', COUNT(*) FROM otp_totp_totpdevice;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+]633;D]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) psql -h localhost -p 5432 -U ielts_app -d ielts_restore_empty -c "SELECT 'mock_tests' AS item, COUNT() FROM bcl_ieltsmocktest UNION ALL SELECT 'users', COUNT() FROM auth_user UNION ALL SELECT 'attempts', COUNT() FROM bcl_candidateattempt UNION ALL SELECT 'answers', COUNT() FROM bcl_candidateanswer UNION ALL SELECT 'questions', COUNT() FROM bcl_question UNION ALL SELECT 'writing_evaluations', COUNT() FROM bcl_writingevaluation UNION ALL SELECT 'mfa_devices', COUNT(*) FROM otp_totp_totpdevice;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) psql -h localhost -p 5432 -U ielts_app -d ielts_restore_empty -c "SELECT 'mock_tests' AS item, COUNT() FROM bcl_ieltsmocktest UNION ALL SELECT 'users', COUNT() FROM auth_user UNION ALL SELECT 'attempts', COUNT() FROM bcl_candidateattempt UNION ALL SELECT 'answers', COUNT() FROM bcl_candidateanswer UNION ALL SELECT 'questions', COUNT() FROM bcl_question UNION ALL SELECT 'writing_evaluations', COUNT() FROM bcl_writingevaluation UNION ALL SELECT 'mfa_devices', COUNT(*) FROM otp_totp_totpdevice;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) psql -h localhost -p 5432 -U ielts_app -d ielts_restore_empty -c "SELECT 'mock_tests' AS item, COUNT(*) AS total FROM bcl_ieltsmocktest UNION ALL SELECT 'users', COUNT(*) FROM auth_user UNION ALL SELECT 'attempts', COUNT(*) FROM bcl_candidateattempt UNION ALL SELECT 'answers', COUNT(*) FROM bcl_candidateanswer UNION ALL SELECT 'questions', COUNT(*) FROM bcl_question UNION ALL SELECT 'writing_evaluations', COUNT(*) FROM bcl_writingevaluation UNION ALL SELECT 'mfa_devices', COUNT(*) FROM otp_totp_totpdevice;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) psql -h localhost -p 5432 -U ielts_app -d ielts_db -c "SELECT 'mock_tests' AS item, COUNT() FROM bcl_ieltsmocktest UNION ALL SELECT 'users', COUNT() FROM auth_user UNION ALL SELECT 'attempts', COUNT() FROM bcl_candidateattempt UNION ALL SELECT 'answers', COUNT() FROM bcl_candidateanswer UNION ALL SELECT 'questions', COUNT() FROM bcl_question UNION ALL SELECT 'writing_evaluations', COUNT() FROM bcl_writingevaluation UNION ALL SELECT 'mfa_devices', COUNT(*) FROM otp_totp_totpdevice;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) psql -h localhost -p 5432 -U ielts_app -d ielts_restore_empty -c "SELECT 'mock_tests' AS item, COUNT(*) AS total FROM bcl_ieltsmocktest UNION ALL SELECT 'users', COUNT(*) FROM auth_user UNION ALL SELECT 'attempts', COUNT(*) FROM bcl_candidateattempt UNION ALL SELECT 'answers', COUNT(*) FROM bcl_candidateanswer UNION ALL SELECT 'questions', COUNT(*) FROM bcl_question UNION ALL SELECT 'writing_evaluations', COUNT(*) FROM bcl_writingevaluation UNION ALL SELECT 'mfa_devices', COUNT(*) FROM otp_totp_totpdevice;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+]633;D]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv)         item         | total
+total : The term 'total' is not recognized as the name of a cmdlet, function, script file, or operable program. Check 
+the spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:24
++         item         | total
++                        ~~~~~
+    + CategoryInfo          : ObjectNotFound: (total:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+total : The term 'total' is not recognized as the name of a cmdlet, function, script file, or
+operable program. Check the spelling of the name, or if a path was included, verify that the path
+is correct and try again.
+At line:1 char:24
++         item         | total
++                        ~~~~~
+    + CategoryInfo          : ObjectNotFound: (total:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) ---------------------+-------
+ mock_tests          |    30
+At line:1 char:30
++ ---------------------+-------
++                              ~
+Missing expression after unary operator '-'.
+
+At line:2 char:2
++  mock_tests          |    30
++  ~~~~~~~~~~
+Unexpected token 'mock_tests' in expression or statement.
+
+At line:2 char:27
++  mock_tests          |    30
++                           ~~
+Expressions are only allowed as the first element of a pipeline.
+
+At line:1 char:3
++ ---------------------+-------
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The '--' operator works only on variables or on properties.
+
+At line:1 char:5
++ ---------------------+-------
++     ~~~~~~~~~~~~~~~~~~~~~~~~~
+The '--' operator works only on variables or on properties.
+
+At line:1 char:7
++ ---------------------+-------
++       ~~~~~~~~~~~~~~~~~~~~~~~
+The '--' operator works only on variables or on properties.
+
+At line:1 char:9
++ ---------------------+-------
++         ~~~~~~~~~~~~~~~~~~~~~
+The '--' operator works only on variables or on properties.
+
+At line:1 char:11
++ ---------------------+-------
++           ~~~~~~~~~~~~~~~~~~~
+The '--' operator works only on variables or on properties.
+
+At line:1 char:13
++ ---------------------+-------
++             ~~~~~~~~~~~~~~~~~
+The '--' operator works only on variables or on properties.
+
+At line:1 char:15
++ ---------------------+-------
++               ~~~~~~~~~~~~~~~
+The '--' operator works only on variables or on properties.
+
+Not all parse errors were reported.  Correct the reported errors and try again.
+At line:1 char:30
++ ---------------------+-------
++                              ~
+Missing expression after unary operator '-'.
+
+At line:2 char:2
++  mock_tests          |    30
++  ~~~~~~~~~~
+Unexpected token 'mock_tests' in expression or statement.
+
+At line:2 char:27
++  mock_tests          |    30
++                           ~~
+Expressions are only allowed as the first element of a pipeline.
+
+At line:1 char:3
++ ---------------------+-------
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The '--' operator works only on variables or on properties.
+
+At line:1 char:5
++ ---------------------+-------
++     ~~~~~~~~~~~~~~~~~~~~~~~~~
+The '--' operator works only on variables or on properties.
+
+At line:1 char:7
++ ---------------------+-------
++       ~~~~~~~~~~~~~~~~~~~~~~~
+The '--' operator works only on variables or on properties.
+
+At line:1 char:9
++ ---------------------+-------
++         ~~~~~~~~~~~~~~~~~~~~~
+The '--' operator works only on variables or on properties.
+
+At line:1 char:11
++ ---------------------+-------
++           ~~~~~~~~~~~~~~~~~~~
+The '--' operator works only on variables or on properties.
+
+At line:1 char:13
++ ---------------------+-------
++             ~~~~~~~~~~~~~~~~~
+The '--' operator works only on variables or on properties.
+
+At line:1 char:15
++ ---------------------+-------
++               ~~~~~~~~~~~~~~~
+The '--' operator works only on variables or on properties.
+
+Not all parse errors were reported.  Correct the reported errors and try again.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : MissingExpressionAfterOperator
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv)  users               |     5
+At line:1 char:28
++  users               |     5
++                            ~
+Expressions are only allowed as the first element of a pipeline.
+At line:1 char:28
++  users               |     5
++                            ~
+Expressions are only allowed as the first element of a pipeline.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : ExpressionsMustBeFirstInPipeline
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv)  attempts            |     0
+At line:1 char:28
++  attempts            |     0
++                            ~
+Expressions are only allowed as the first element of a pipeline.
+At line:1 char:28
++  attempts            |     0
++                            ~
+Expressions are only allowed as the first element of a pipeline.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : ExpressionsMustBeFirstInPipeline
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv)  answers             |     0
+At line:1 char:28
++  answers             |     0
++                            ~
+Expressions are only allowed as the first element of a pipeline.
+At line:1 char:28
++  answers             |     0
++                            ~
+Expressions are only allowed as the first element of a pipeline.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : ExpressionsMustBeFirstInPipeline
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv)  questions           |     9
+At line:1 char:28
++  questions           |     9
++                            ~
+Expressions are only allowed as the first element of a pipeline.
+At line:1 char:28
++  questions           |     9
++                            ~
+Expressions are only allowed as the first element of a pipeline.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : ExpressionsMustBeFirstInPipeline
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv)  writing_evaluations |     0
+At line:1 char:28
++  writing_evaluations |     0
++                            ~
+Expressions are only allowed as the first element of a pipeline.
+At line:1 char:28
++  writing_evaluations |     0
++                            ~
+Expressions are only allowed as the first element of a pipeline.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : ExpressionsMustBeFirstInPipeline
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv)  mfa_devices         |     0
+At line:1 char:28
++  mfa_devices         |     0
++                            ~
+Expressions are only allowed as the first element of a pipeline.
+At line:1 char:28
++  mfa_devices         |     0
++                            ~
+Expressions are only allowed as the first element of a pipeline.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : ExpressionsMustBeFirstInPipeline
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) psql -h localhost -p 5432 -U ielts_app -d ielts_db -c "SELECT 'mock_tests' AS item, COUNT(*) AS total FROM bcl_ieltsmocktest UNION ALL SELECT 'users', COUNT(*) FROM auth_user UNION ALL SELECT 'attempts', COUNT(*) FROM bcl_candidateattempt UNION ALL SELECT 'answers', COUNT(*) FROM bcl_candidateanswer UNION ALL SELECT 'questions', COUNT(*) FROM bcl_question UNION ALL SELECT 'writing_evaluations', COUNT(*) FROM bcl_writingevaluation UNION ALL SELECT 'mfa_devices', COUNT(*) FROM otp_totp_totpdevice;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+]633;D]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) psql -h localhost -p 5432 -U ielts_app -d ielts_restore_empty -c "SELECT 'mock_tests' AS item, COUNT(*) AS total FROM bcl_ieltsmocktest UNION ALL SELECT 'users', COUNT(*) FROM auth_user UNION ALL SELECT 'attempts', COUNT(*) FROM bcl_candidateattempt UNION ALL SELECT 'answers', COUNT(*) FROM bcl_candidateanswer UNION ALL SELECT 'questions', COUNT(*) FROM bcl_question UNION ALL SELECT 'writing_evaluations', COUNT(*) FROM bcl_writingevaluation UNION ALL SELECT 'mfa_devices', COUNT(*) FROM otp_totp_totpdevice;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank --audit
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py check --deploy
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+]633;D]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank --audit
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+]633;D]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py release_acceptance `
+  --strict `
+  --output release_acceptance_final.json
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) psql -h localhost -p 5432 -U ielts_app -d ielts_db -c "SELECT 'mock_tests' AS item, COUNT(*) AS total FROM bcl_ieltsmocktest UNION ALL SELECT 'users', COUNT(*) FROM auth_user UNION ALL SELECT 'attempts', COUNT(*) FROM bcl_candidateattempt UNION ALL SELECT 'answers', COUNT(*) FROM bcl_candidateanswer UNION ALL SELECT 'questions', COUNT(*) FROM bcl_question UNION ALL SELECT 'writing_evaluations', COUNT(*) FROM bcl_writingevaluation UNION ALL SELECT 'mfa_devices', COUNT(*) FROM otp_totp_totpdevice;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+]633;D]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) psql -h localhost -p 5432 -U ielts_app -d ielts_restore_empty -c "SELECT 'mock_tests' AS item, COUNT(*) AS total FROM bcl_ieltsmocktest UNION ALL SELECT 'users', COUNT(*) FROM auth_user UNION ALL SELECT 'attempts', COUNT(*) FROM bcl_candidateattempt UNION ALL SELECT 'answers', COUNT(*) FROM bcl_candidateanswer UNION ALL SELECT 'questions', COUNT(*) FROM bcl_question UNION ALL SELECT 'writing_evaluations', COUNT(*) FROM bcl_writingevaluation UNION ALL SELECT 'mfa_devices', COUNT(*) FROM otp_totp_totpdevice;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) psql -h localhost -p 5432 -U ielts_app -d ielts_db -c "SELECT id, is_active, is_staff, date_joined FROM auth_user ORDER BY id;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) psql -h localhost -p 5432 -U ielts_app -d ielts_restore_empty -c "SELECT id, is_active, is_staff, date_joined FROM auth_user ORDER BY id;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) psql -h localhost -p 5432 -U ielts_app -d ielts_db -c "SELECT id, username, email, date_joined FROM auth_user ORDER BY id;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) psql -h localhost -p 5432 -U ielts_app -d ielts_restore_verify_20261021 -c "SELECT id, username, email, date_joined FROM auth_user ORDER BY id;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) psql -h localhost -p 5432 -U ielts_app -d ielts_db -c "SELECT COUNT(*) AS source_users FROM auth_user;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) psql -h localhost -p 5432 -U ielts_app -d ielts_restore_verify_20261021 -c "SELECT COUNT(*) AS restored_users FROM auth_user;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) Get-ChildItem "D:\IELTS_secure_backups\*.dump" |
+  Sort-Object LastWriteTime |
+  Select-Object Name, Length, LastWriteTime
+
+Name                                       Length LastWriteTime
+----                                       ------ -------------
+ielts-postgres-20261019T235131844057Z.dump  83570 10/20/2026 5:51:32 AM
+ielts-postgres-20261019T235249659066Z.dump  83570 10/20/2026 5:52:50 AM
+ielts-postgres-20261019T235321767141Z.dump  83570 10/20/2026 5:53:22 AM
+ielts-postgres-20261019T235610764733Z.dump  83570 10/20/2026 5:56:11 AM
+ielts-postgres-20261020T001649262337Z.dump  83570 10/20/2026 6:16:49 AM
+ielts-postgres-20261020T001919270159Z.dump  83570 10/20/2026 6:19:19 AM
+ielts-postgres-20261020T174118230851Z.dump  85375 10/20/2026 11:41:18 PM
+ielts-postgres-20261020T175447536773Z.dump  85876 10/20/2026 11:54:47 PM
+ielts-postgres-20261020T180228348042Z.dump  85876 10/21/2026 12:02:28 AM
+ielts-postgres-20261020T182738277989Z.dump  85896 10/21/2026 12:27:38 AM
+ielts-postgres-20261020T195059690975Z.dump  85896 10/21/2026 1:51:00 AM
+ielts-postgres-20261020T202209283870Z.dump  85876 10/21/2026 2:22:09 AM
+ielts-postgres-20261021T084314809513Z.dump  85876 10/21/2026 2:43:15 PM
+ielts-postgres-20261021T092039967329Z.dump  85876 10/21/2026 3:20:40 PM
+ielts-postgres-20261021T093311360376Z.dump  85876 10/21/2026 3:33:11 PM
+ielts-postgres-20261021T094033276456Z.dump  85876 10/21/2026 3:40:33 PM
+
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) psql -h localhost -p 5432 -U ielts_app -d ielts_db -c "SELECT id, username, date_joined FROM auth_user ORDER BY date_joined DESC LIMIT 5;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py check
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py migrate --check
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank --audit
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py runserver
+
+(venv) TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py runserver 127.0.0.1:8000
+
+(venv) TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py runserver 127.0.0.1:8000
+
+(venv) TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) Remove-Item Env:DJANGO_DEBUG -ErrorAction SilentlyContinue
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) Remove-Item Env:DJANGO_SECURE_SSL_REDIRECT -ErrorAction SilentlyContinue
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) Remove-Item Env:TRUST_PROXY_SSL_HEADER -ErrorAction SilentlyContinue
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) Remove-Item Env:SESSION_COOKIE_SECURE -ErrorAction SilentlyContinue
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) Remove-Item Env:CSRF_COOKIE_SECURE -ErrorAction SilentlyContinue
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+]633;D]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) $env:DJANGO_DEBUG="True"
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) $env:DJANGO_SECURE_SSL_REDIRECT="False"
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) $env:TRUST_PROXY_SSL_HEADER="False"
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) $env:DJANGO_ALLOWED_HOSTS="127.0.0.1,localhost"
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py shell -c "from django.conf import settings; print('DEBUG=', settings.DEBUG); print('SSL_REDIRECT=', settings.SECURE_SSL_REDIRECT); print('SESSION_SECURE=', settings.SESSION_COOKIE_SECURE); print('CSRF_SECURE=', settings.CSRF_COOKIE_SECURE)"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py runserver 127.0.0.1:8000
+Quit the server with CTRL-BREAK.
+(venv) TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py runserver 127.0.0.1:8000
+
+(venv) TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) psql -h localhost -p 5432 -U ielts_app -d ielts_db -c "SELECT id, is_active, is_staff, date_joined FROM auth_user ORDER BY id;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) psql -h localhost -p 5432 -U ielts_app -d ielts_restore_empty -c "SELECT id, is_active, is_staff, date_joined FROM auth_user ORDER BY id;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) Get-ChildItem "D:\IELTS_secure_backups\*.dump" |
+  Sort-Object LastWriteTime |
+  Select-Object Name, LastWriteTime, Length
+
+Name                                       LastWriteTime          Length
+----                                       -------------          ------
+ielts-postgres-20261019T235131844057Z.dump 10/20/2026 5:51:32 AM   83570
+ielts-postgres-20261019T235249659066Z.dump 10/20/2026 5:52:50 AM   83570
+ielts-postgres-20261019T235321767141Z.dump 10/20/2026 5:53:22 AM   83570
+ielts-postgres-20261019T235610764733Z.dump 10/20/2026 5:56:11 AM   83570
+ielts-postgres-20261020T001649262337Z.dump 10/20/2026 6:16:49 AM   83570
+ielts-postgres-20261020T001919270159Z.dump 10/20/2026 6:19:19 AM   83570
+ielts-postgres-20261020T174118230851Z.dump 10/20/2026 11:41:18 PM  85375
+ielts-postgres-20261020T175447536773Z.dump 10/20/2026 11:54:47 PM  85876
+ielts-postgres-20261020T180228348042Z.dump 10/21/2026 12:02:28 AM  85876
+ielts-postgres-20261020T182738277989Z.dump 10/21/2026 12:27:38 AM  85896
+ielts-postgres-20261020T195059690975Z.dump 10/21/2026 1:51:00 AM   85896
+ielts-postgres-20261020T202209283870Z.dump 10/21/2026 2:22:09 AM   85876
+ielts-postgres-20261021T084314809513Z.dump 10/21/2026 2:43:15 PM   85876
+ielts-postgres-20261021T092039967329Z.dump 10/21/2026 3:20:40 PM   85876
+ielts-postgres-20261021T093311360376Z.dump 10/21/2026 3:33:11 PM   85876
+ielts-postgres-20261021T094033276456Z.dump 10/21/2026 3:40:33 PM   85876
+
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) psql -h 127.0.0.1 -p 5432 -U ielts_app -d ielts_db -c "SELECT id, username, date_joined FROM auth_user ORDER BY date_joined;"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py check
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py migrate --check
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank --audit
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank --import-json "C:\path\to\authorized_test_01.json"
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank --help
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank --audit
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py check
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py showmigrations bcl
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py test bcl --verbosity 2
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank --import-json FILE --dry-run
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank `
+  --import-json "G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan\testbank_json\test1.json" `
+  --dry-run
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) Get-Content ".\testbank_json\test1.json"
+{
+  "test_number": 1,
+  "title": "IELTS Mock Test 1",
+  "description": "Authorized practice material",
+  "modules": [
+    {
+      "module_type": "reading",
+      "duration_minutes": 60,
+      "instructions": "Read each passage and answer the questions.",
+      "sections": [
+        {
+          "title": "Reading Passage 1",
+          "passage": "Insert the complete, authorized reading passage here.",
+          "questions": [
+            {
+              "question_type": "mcq",
+              "question_text": "Insert a question supported by the passage.",
+              "question_instructions": "Choose one answer.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "First option",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Second option",
+                  "is_correct": true
+                }
+              ],
+              "correct_answer": "B",
+              "marks": 1,
+              "explanation": "Insert a verified explanation."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank `
+  --import-json ".\testbank_json\test1.json" `
+  --dry-run
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank --audit
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) Get-Content ".\bcl\management\commands\manage_testbank.py"
+import json
+from pathlib import Path
+from django.core.management.base import BaseCommand, CommandError
+from django.core.exceptions import ValidationError
+from django.db import transaction
+from bcl.models import IELTSMockTest
+from bcl.testbank import import_test, readiness
+
+class Command(BaseCommand):
+    help = 'Initialize empty slots, import authorized JSON test content, or audit readiness.'
+
+    def add_arguments(self, parser):
+        group = parser.add_mutually_exclusive_group(required=True)
+        group.add_argument('--initialize', action='store_true', help='Create missing unpublished test slots 1â€“30')
+        group.add_argument('--audit', action='store_true', help='Check readiness of all test slots')
+        group.add_argument('--import-json', metavar='FILE', help='Import one new test from a JSON file')
+        parser.add_argument('--publish', action='store_true', help='Publish only if imported test is complete')
+        parser.add_argument('--dry-run', action='store_true', help='Roll back changes after validation')
+
+    def handle(self, *args, **options):
+        if options['publish'] and not options['import_json']:
+            raise CommandError('--publish requires --import-json')
+        try:
+            with transaction.atomic():
+                if options['initialize']:
+                    for number in range(1, 31):
+                        _, created = IELTSMockTest.objects.get_or_create(test_number=number, defaults={'title': f'IELTS Mock Test {number}', 'is_published': False})
+                        if created:
+                            self.stdout.write(f'Created unpublished slot {number}')
+                elif options['import_json']:
+                    path = Path(options['import_json'])
+                    data = json.loads(path.read_text(encoding='utf-8'))
+                    test = import_test(data, publish=options['publish'])
+                    self.stdout.write(f'Imported test {test.test_number}; published={test.is_published}')
+                else:
+                    for test in IELTSMockTest.objects.all():
+                        issues = readiness(test)
+                        self.stdout.write(f'Test {test.test_number}: {"READY" if not issues else "NOT READY"} ({len(issues)} issues)')
+                        for issue in issues:
+                            self.stdout.write('  - ' + issue)
+                if options['dry_run']:
+                    transaction.set_rollback(True)
+                    self.stdout.write('DRY RUN: changes rolled back')
+        except (ValidationError, ValueError, KeyError, OSError, json.JSONDecodeError) as exc:
+            raise CommandError(str(exc)) from exc
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank `
+  --import-json "test_01.json" `
+  --dry-run
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank --audit
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank --audit
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank `
+  --import-json "test1.json" `
+  --dry-run
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank `
+  --import-json "bcl_bhuiyan\testbank_json\test1.json" `
+  --dry-run
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+]633;D]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank `
+  --import-json "bcl_bhuiyan\testbank_json\test1.json" `
+  --dry-run
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B
+(venv) python manage.py manage_testbank `
+  --import-json "test1.json" `
+  --dry-run
+
+]633;D;0]633;A]633;P;Cwd=G:\x5cShaikat\x5cBCL-Bhuiyan\x5cbcl_bhuiyanPS G:\Shaikat\BCL-Bhuiyan\bcl_bhuiyan> ]633;B

@@ -63,13 +63,27 @@ def import_test(payload, *, publish=False):
         raise ValidationError('test_number and title are required')
     if not 1 <= number <= 30 or not title:
         raise ValidationError('Test number must be 1–30 and title cannot be empty')
-    if IELTSMockTest.objects.filter(test_number=number).exists():
-        raise ValidationError(f'Test {number} already exists; import will not overwrite it')
-    kinds = [m.get('module_type') for m in payload['modules'] if isinstance(m, dict)]
+    if any(not isinstance(m, dict) for m in payload['modules']):
+        raise ValidationError('Every module must be an object')
+    kinds = [m.get('module_type') for m in payload['modules']]
     if len(kinds) != len(set(kinds)) or any(k not in MODULES for k in kinds):
         raise ValidationError('Module types must be unique and supported')
     with transaction.atomic():
-        test = IELTSMockTest.objects.create(test_number=number, title=title, description=str(payload.get('description', '')), is_published=False)
+        # Lock the numbered slot to prevent concurrent imports. Existing populated or
+        # published slots must never be modified by the content importer.
+        test = IELTSMockTest.objects.select_for_update().filter(test_number=number).first()
+        if test is not None:
+            if (test.is_published or test.modules.exists() or
+                    test.modules.filter(attempts__isnull=False).exists()):
+                raise ValidationError(f'Test {number} already contains content or is published; import will not overwrite it')
+            test.title = title
+            test.description = str(payload.get('description', ''))
+            test.save(update_fields=['title', 'description', 'updated_at'])
+        else:
+            test = IELTSMockTest.objects.create(
+                test_number=number, title=title,
+                description=str(payload.get('description', '')), is_published=False,
+            )
         for module_data in payload['modules']:
             kind = module_data['module_type']
             module = ExamModule.objects.create(mock_test=test, module_type=kind, duration_minutes=int(module_data.get('duration_minutes', 60)), instructions=str(module_data.get('instructions', '')))

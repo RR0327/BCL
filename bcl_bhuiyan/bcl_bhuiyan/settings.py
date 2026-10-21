@@ -55,7 +55,12 @@ elif DB_ENGINE in ('postgresql', 'postgres'):
                              'PASSWORD': required['DB_PASSWORD'], 'HOST': required['DB_HOST'],
                              'PORT': config('DB_PORT', default='5432'),
                              'CONN_MAX_AGE': config('DB_CONN_MAX_AGE', default=60, cast=int),
-                             'OPTIONS': {'sslmode': config('DB_SSLMODE', default='require')}}}
+                             'OPTIONS': {'sslmode': config('DB_SSLMODE', default='require')},
+                             'TEST': {
+                                'NAME': 'ielts_test',
+                                'TEMPLATE': 'template0',
+                             },
+                             }}
 else:
     raise ImproperlyConfigured('DB_ENGINE must be sqlite3 or postgresql.')
 AUTH_PASSWORD_VALIDATORS = [

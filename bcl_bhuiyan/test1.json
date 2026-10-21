@@ -1,0 +1,40 @@
+{
+  "test_number": 1,
+  "title": "IELTS Mock Test 1",
+  "description": "Authorized practice material",
+  "modules": [
+    {
+      "module_type": "reading",
+      "duration_minutes": 60,
+      "instructions": "Read each passage and answer the questions.",
+      "sections": [
+        {
+          "title": "Reading Passage 1",
+          "passage": "Insert the complete, authorized reading passage here.",
+          "questions": [
+            {
+              "question_type": "mcq",
+              "question_text": "Insert a question supported by the passage.",
+              "question_instructions": "Choose one answer.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "First option",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Second option",
+                  "is_correct": true
+                }
+              ],
+              "correct_answer": "B",
+              "marks": 1,
+              "explanation": "Insert a verified explanation."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
