@@ -116,7 +116,11 @@ class TestBankQualityTests(TestCase):
 
     def test_duplicate_import_does_not_mutate_existing(self):
         existing = IELTSMockTest.objects.create(test_number=5, title='Keep original')
+        original_module = ExamModule.objects.create(
+            mock_test=existing, module_type='reading', duration_minutes=60
+        )
         with self.assertRaises(ValidationError):
-            import_test({'test_number':5,'title':'Replace','modules':[]})
+            import_test({'test_number': 5, 'title': 'Replace', 'modules': []})
         existing.refresh_from_db()
         self.assertEqual(existing.title, 'Keep original')
+        self.assertTrue(ExamModule.objects.filter(pk=original_module.pk, mock_test=existing).exists())
