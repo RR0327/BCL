@@ -1,0 +1,23 @@
+{
+  "database_engine": "postgresql",
+  "generated_at": "2026-10-22T00:51:11.237358+00:00",
+  "totals": {
+    "attempts": 0,
+    "answers": 0,
+    "in_progress": 0
+  },
+  "anomalies": {
+    "expired_in_progress": 0,
+    "closed_missing_submission_time": 0,
+    "active_with_submission_time": 0,
+    "answer_from_different_module": 0,
+    "awarded_marks_exceed_question": 0,
+    "closed_objective_attempt_missing_score": 0,
+    "duplicate_active_attempt_groups": 0
+  },
+  "passed": true,
+  "notes": [
+    "Expired in-progress attempts are closed lazily on candidate requests; an expired count may require operational follow-up.",
+    "Aggregate audit only; no records are changed."
+  ]
+}

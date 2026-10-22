@@ -1,0 +1,14 @@
+{
+  "database_vendor": "postgresql",
+  "published_tests_checked": 0,
+  "published_tests_with_issues": 0,
+  "audio_references_checked": 0,
+  "image_references_checked": 0,
+  "storage_existence_verified": false,
+  "findings": [],
+  "manual_checks_required": [
+    "Confirm licensing and factual accuracy of all examination content",
+    "Test audio playback and media authorization in a real browser",
+    "Validate writing marking and candidate end-to-end workflows"
+  ]
+}

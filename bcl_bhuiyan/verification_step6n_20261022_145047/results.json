@@ -1,0 +1,17 @@
+[
+    {
+        "name":  "django_check",
+        "exit_code":  0,
+        "log":  "G:\\Shaikat\\BCL-Bhuiyan\\bcl_bhuiyan\\verification_step6n_20261022_145047\\django_check.log"
+    },
+    {
+        "name":  "migration_drift",
+        "exit_code":  0,
+        "log":  "G:\\Shaikat\\BCL-Bhuiyan\\bcl_bhuiyan\\verification_step6n_20261022_145047\\migration_drift.log"
+    },
+    {
+        "name":  "complete_backend_suite",
+        "exit_code":  0,
+        "log":  "G:\\Shaikat\\BCL-Bhuiyan\\bcl_bhuiyan\\verification_step6n_20261022_145047\\complete_backend_suite.log"
+    }
+]

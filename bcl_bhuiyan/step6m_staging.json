@@ -1,0 +1,17 @@
+{
+  "database_vendor": "postgresql",
+  "counts": {
+    "mock_tests": 30,
+    "users": 2,
+    "modules": 0,
+    "sections": 0,
+    "questions": 0,
+    "attempts": 0,
+    "answers": 0,
+    "writing_evaluations": 0
+  },
+  "missing_test_slots": [],
+  "ready_tests": 0,
+  "published_tests": 0,
+  "published_test_readiness_issues": []
+}
