@@ -156,6 +156,9 @@ def exam_session(request, attempt_id):
     attempt = expire_attempt_if_needed(get_candidate_attempt(request, attempt_id))
     if attempt.status != CandidateAttempt.AttemptStatus.IN_PROGRESS:
         return redirect("bcl:exam_result", attempt_id=attempt.pk)
+    # An older duplicate must not display an active exam interface.
+    if is_superseded_active_attempt(attempt):
+        return redirect("bcl:exam_rules", module_id=attempt.module_id)
 
     sections = attempt.module.sections.order_by("order", "pk").prefetch_related("questions__options")
     saved_answers = list(
@@ -177,6 +180,14 @@ def exam_session(request, attempt_id):
 @require_GET
 def exam_timer(request, attempt_id):
     attempt = expire_attempt_if_needed(get_candidate_attempt(request, attempt_id))
+    if (attempt.status == CandidateAttempt.AttemptStatus.IN_PROGRESS
+            and is_superseded_active_attempt(attempt)):
+        return JsonResponse({
+            "error": "This session was superseded by a newer active session.",
+            "attempt_id": attempt.pk,
+            "status": "superseded",
+            "remaining_seconds": 0,
+        }, status=409)
     remaining = (
         get_remaining_seconds(attempt)
         if attempt.status == CandidateAttempt.AttemptStatus.IN_PROGRESS else 0
