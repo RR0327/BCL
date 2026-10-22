@@ -37,6 +37,10 @@ def get_remaining_seconds(attempt, now=None):
 def expire_attempt_if_needed(attempt):
     """Close timed-out attempts when an endpoint is requested."""
     with transaction.atomic():
+        # Lock in the same order as start/save/violation/submit endpoints:
+        # candidate first, then attempt. This serializes timer-triggered expiry
+        # with answer submission and session creation on PostgreSQL.
+        get_user_model().objects.select_for_update().get(pk=attempt.candidate_id)
         locked = CandidateAttempt.objects.select_for_update().get(pk=attempt.pk)
         now = timezone.now()
         if locked.status == CandidateAttempt.AttemptStatus.IN_PROGRESS and now >= locked.expires_at:
