@@ -6,7 +6,7 @@ import uuid
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.db import transaction
+from django.db import models, transaction
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
@@ -45,6 +45,22 @@ def expire_attempt_if_needed(attempt):
             locked.save(update_fields=["status", "submitted_at"])
             finalize_attempt_score(locked)
         return locked
+
+
+def is_superseded_active_attempt(attempt):
+    """Reject writes to legacy duplicate sessions until the start flow repairs them.
+
+    A newer active attempt for the same candidate/module is authoritative.
+    Read-only check; the start endpoint performs duplicate cleanup and scoring.
+    """
+    return CandidateAttempt.objects.filter(
+        candidate_id=attempt.candidate_id,
+        module_id=attempt.module_id,
+        status=CandidateAttempt.AttemptStatus.IN_PROGRESS,
+    ).filter(
+        models.Q(started_at__gt=attempt.started_at)
+        | models.Q(started_at=attempt.started_at, pk__gt=attempt.pk)
+    ).exists()
 
 
 def get_candidate_attempt(request, attempt_id):
@@ -200,11 +216,15 @@ def save_exam_answer(request, attempt_id):
         return JsonResponse({"error": "is_flagged must be true or false."}, status=400)
 
     with transaction.atomic():
+        get_user_model().objects.select_for_update().get(pk=request.user.pk)
         attempt = get_object_or_404(
             CandidateAttempt.objects.select_for_update(),
             pk=attempt_id,
             candidate=request.user,
         )
+        if (attempt.status == CandidateAttempt.AttemptStatus.IN_PROGRESS
+                and is_superseded_active_attempt(attempt)):
+            return JsonResponse({"error": "This session was superseded by a newer active session."}, status=409)
         now = timezone.now()
         if attempt.status != CandidateAttempt.AttemptStatus.IN_PROGRESS:
             return JsonResponse({"error": "This exam is already closed."}, status=409)
@@ -276,10 +296,14 @@ def report_exam_violation(request, attempt_id):
         return JsonResponse({"error": "Invalid violation reason."}, status=400)
 
     with transaction.atomic():
+        get_user_model().objects.select_for_update().get(pk=request.user.pk)
         attempt = get_object_or_404(
             CandidateAttempt.objects.select_for_update(),
             pk=attempt_id, candidate=request.user,
         )
+        if (attempt.status == CandidateAttempt.AttemptStatus.IN_PROGRESS
+                and is_superseded_active_attempt(attempt)):
+            return JsonResponse({"error": "This session was superseded by a newer active session."}, status=409)
         now = timezone.now()
         if attempt.status != CandidateAttempt.AttemptStatus.IN_PROGRESS:
             return JsonResponse({"error": "Exam already closed.", "status": attempt.status}, status=409)
@@ -319,11 +343,15 @@ def submit_exam(request, attempt_id):
     if not is_candidate(request.user):
         return JsonResponse({"error": "Candidates only."}, status=403)
     with transaction.atomic():
+        get_user_model().objects.select_for_update().get(pk=request.user.pk)
         attempt = get_object_or_404(
             CandidateAttempt.objects.select_for_update(),
             pk=attempt_id,
             candidate=request.user,
         )
+        if (attempt.status == CandidateAttempt.AttemptStatus.IN_PROGRESS
+                and is_superseded_active_attempt(attempt)):
+            return JsonResponse({"error": "This session was superseded by a newer active session."}, status=409)
         if attempt.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
             now = timezone.now()
             attempt.status = (
