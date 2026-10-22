@@ -57,7 +57,7 @@ elif DB_ENGINE in ('postgresql', 'postgres'):
                              'CONN_MAX_AGE': config('DB_CONN_MAX_AGE', default=60, cast=int),
                              'OPTIONS': {'sslmode': config('DB_SSLMODE', default='require')},
                              'TEST': {
-                                'NAME': 'ielts_test',
+                                'NAME': config('DB_TEST_NAME', default='ielts_test'),
                                 'TEMPLATE': 'template0',
                              },
                              }}

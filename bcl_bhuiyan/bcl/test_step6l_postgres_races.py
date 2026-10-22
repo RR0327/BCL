@@ -10,7 +10,7 @@ from datetime import timedelta
 from threading import Barrier
 
 from django.contrib.auth import get_user_model
-from django.db import close_old_connections, connection
+from django.db import close_old_connections, connection, connections
 from django.test import Client, TransactionTestCase
 from django.urls import reverse
 from django.utils import timezone
@@ -20,6 +20,10 @@ from bcl.models import CandidateAnswer, CandidateAttempt, ExamModule, ExamSectio
 
 class PostgreSQLCrossEndpointRaceTests(TransactionTestCase):
     databases = {"default"}
+
+    def tearDown(self):
+        super().tearDown()
+        connections.close_all()
 
     def setUp(self):
         if connection.vendor != "postgresql":
@@ -56,6 +60,7 @@ class PostgreSQLCrossEndpointRaceTests(TransactionTestCase):
                 return action(client)
             finally:
                 close_old_connections()
+                connections.close_all()
 
         with ThreadPoolExecutor(max_workers=len(actions)) as pool:
             futures = [pool.submit(worker, action) for action in actions]

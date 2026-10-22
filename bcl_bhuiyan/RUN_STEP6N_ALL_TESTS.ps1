@@ -14,8 +14,11 @@ $results = @()
 foreach($check in $checks){
     Write-Host "Running $($check.Name)..."
     $log = Join-Path $reports "$($check.Name).log"
+    $prevEAP = $ErrorActionPreference
+    $ErrorActionPreference = 'Continue'
     & python @($check.Args) *>&1 | Out-File -FilePath $log -Encoding utf8
     $code = $LASTEXITCODE
+    $ErrorActionPreference = $prevEAP
     $results += [pscustomobject]@{name=$check.Name; exit_code=$code; log=$log}
     if($code -ne 0){
         $results | ConvertTo-Json -Depth 3 | Set-Content (Join-Path $reports 'results.json')

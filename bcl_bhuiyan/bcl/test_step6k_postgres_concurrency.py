@@ -8,7 +8,7 @@ from datetime import timedelta
 from threading import Barrier
 
 from django.contrib.auth import get_user_model
-from django.db import close_old_connections, connection
+from django.db import close_old_connections, connection, connections
 from django.test import Client, TransactionTestCase
 from django.urls import reverse
 from django.utils import timezone
@@ -51,6 +51,7 @@ class PostgreSQLCandidateConcurrencyTests(TransactionTestCase):
                 return operation(client)
             finally:
                 close_old_connections()
+                connections.close_all()
 
         with ThreadPoolExecutor(max_workers=len(operations)) as executor:
             futures = [executor.submit(run, operation) for operation in operations]
