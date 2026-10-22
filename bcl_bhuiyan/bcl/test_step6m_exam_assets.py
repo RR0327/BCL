@@ -57,16 +57,25 @@ class ExamAssetAuditTests(TestCase):
     def test_missing_media_reference_detected_when_opted_in(self):
         self.section.audio_file.name = 'ielts/audio/missing-file.mp3'
         self.section.save(update_fields=['audio_file'])
-        with patch.object(type(self.section.audio_file.storage), 'exists', return_value=False):
+        with patch.object(self.section.audio_file.storage, 'exists', return_value=False):
             report = self.report(verify_storage=True)
         self.assertTrue(any('audio_file object missing' in issue for issue in report['findings'][0]['issues']))
 
     def test_storage_not_checked_by_default(self):
         self.section.audio_file.name = 'ielts/audio/example.mp3'
         self.section.save(update_fields=['audio_file'])
-        with patch.object(type(self.section.audio_file.storage), 'exists', side_effect=AssertionError('Unexpected storage access')):
+        with patch.object(self.section.audio_file.storage, 'exists', side_effect=AssertionError('Unexpected storage access')):
             report = self.report()
         self.assertFalse(report['storage_existence_verified'])
+
+    def test_storage_backend_failure_is_reported_without_exposing_path(self):
+        self.section.audio_file.name = 'ielts/audio/private-file.mp3'
+        self.section.save(update_fields=['audio_file'])
+        with patch.object(self.section.audio_file.storage, 'exists', side_effect=OSError('private storage detail')):
+            report = self.report(verify_storage=True)
+        self.assertTrue(any('storage check failed' in issue for issue in report['findings'][0]['issues']))
+        self.assertNotIn('private-file.mp3', json.dumps(report))
+        self.assertNotIn('private storage detail', json.dumps(report))
 
     def test_requires_postgresql_when_requested(self):
         from django.db import connection
