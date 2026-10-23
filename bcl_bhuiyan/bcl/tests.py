@@ -12,7 +12,7 @@ from django.utils import timezone
 
 from .models import (
     IELTSMockTest, ExamModule, ExamSection, Question, QuestionOption,
-    CandidateAttempt, CandidateAnswer, WritingEvaluation,
+    CandidateAttempt, CandidateAnswer, WritingEvaluation, WritingTaskEvaluation, FullMockAttempt,
 )
 
 User = get_user_model()
@@ -44,7 +44,15 @@ class CandidateAuthenticationTests(TestCase):
     def test_dashboard_requires_login(self):
         response = self.client.get(reverse("bcl:dashboard"))
         self.assertEqual(response.status_code, 302)
-        self.assertIn(reverse("bcl:login"), response.url)
+        self.assertEqual(response.url, f"{reverse('bcl:login')}?next={reverse('bcl:dashboard')}")
+
+    def test_accounts_login_redirects_to_login(self):
+        response = self.client.get("/accounts/login/?next=/dashboard/")
+        self.assertRedirects(response, f"{reverse('bcl:login')}?next=/dashboard/", fetch_redirect_response=False)
+
+    def test_accounts_logout_redirects_to_login(self):
+        response = self.client.get("/accounts/logout/")
+        self.assertRedirects(response, reverse("bcl:login"), fetch_redirect_response=False)
 
     def test_login(self):
         User.objects.create_user(username="candidate", password="TestPass@2026abc")
@@ -53,16 +61,52 @@ class CandidateAuthenticationTests(TestCase):
         })
         self.assertRedirects(response, reverse("bcl:dashboard"))
 
+    def test_login_with_next_parameter(self):
+        User.objects.create_user(username="candidate_next", password="TestPass@2026abc")
+        response = self.client.post(f"{reverse('bcl:login')}?next=/exam/1/rules/", {
+            "username": "candidate_next", "password": "TestPass@2026abc",
+        })
+        self.assertRedirects(response, "/exam/1/rules/", fetch_redirect_response=False)
+
     def test_logout(self):
         user = User.objects.create_user(username="candidate", password="TestPass@2026abc")
         self.client.force_login(user)
         self.assertRedirects(self.client.post(reverse("bcl:logout")), reverse("bcl:login"))
-        self.assertEqual(self.client.get(reverse("bcl:dashboard")).status_code, 302)
+        dash_response = self.client.get(reverse("bcl:dashboard"))
+        self.assertEqual(dash_response.status_code, 302)
+        self.assertEqual(dash_response.url, f"{reverse('bcl:login')}?next={reverse('bcl:dashboard')}")
 
     def test_logout_requires_post(self):
-        user = User.objects.create_user(username="candidate", password="TestPass@2026abc")
+        user = User.objects.create_user(username="candidate_post_logout", password="TestPass@2026abc")
         self.client.force_login(user)
         self.assertEqual(self.client.get(reverse("bcl:logout")).status_code, 405)
+
+    def test_theme_toggle_elements_present_on_pages(self):
+        # 1. Homepage
+        home_res = self.client.get(reverse("bcl:home"))
+        self.assertEqual(home_res.status_code, 200)
+        self.assertContains(home_res, 'id="themeToggleBtn"')
+        self.assertContains(home_res, 'theme.')
+
+        # 2. Login
+        login_res = self.client.get(reverse("bcl:login"))
+        self.assertEqual(login_res.status_code, 200)
+        self.assertContains(login_res, 'id="themeToggleBtn"')
+        self.assertContains(login_res, 'theme.')
+
+        # 3. Register
+        reg_res = self.client.get(reverse("bcl:register"))
+        self.assertEqual(reg_res.status_code, 200)
+        self.assertContains(reg_res, 'id="themeToggleBtn"')
+        self.assertContains(reg_res, 'theme.')
+
+        # 4. Candidate Dashboard
+        user = User.objects.create_user(username="candidate_theme", password="TestPass@2026abc")
+        self.client.force_login(user)
+        dash_res = self.client.get(reverse("bcl:dashboard"))
+        self.assertEqual(dash_res.status_code, 200)
+        self.assertContains(dash_res, 'id="themeToggleBtn"')
+        self.assertContains(dash_res, 'theme.')
 
 
 class IELTSDatabaseTests(TestCase):
@@ -218,7 +262,7 @@ class ExamSessionTests(TestCase):
         self.start_attempt()
         attempt = self.get_attempt()
         self.client.force_login(self.other)
-        for name in ("exam_session", "exam_timer", "exam_result"):
+        for name in ("exam_session", "exam_timer", "exam_ended", "exam_result"):
             self.assertEqual(self.client.get(reverse("bcl:" + name, args=[attempt.pk])).status_code, 404)
 
     def test_expired_attempt_auto_submits(self):
@@ -235,9 +279,32 @@ class ExamSessionTests(TestCase):
         self.start_attempt()
         attempt = self.get_attempt()
         response = self.client.post(reverse("bcl:submit_exam", args=[attempt.pk]))
-        self.assertRedirects(response, reverse("bcl:exam_result", args=[attempt.pk]))
+        self.assertRedirects(response, reverse("bcl:exam_ended", args=[attempt.pk]))
         attempt.refresh_from_db()
         self.assertEqual(attempt.status, "submitted")
+
+    def test_exam_session_renders_back_button(self):
+        self.start_attempt()
+        attempt = self.get_attempt()
+        response = self.client.get(reverse("bcl:exam_session", args=[attempt.pk]))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'id="headerBackBtn"')
+        self.assertContains(response, 'class="back-link')
+
+    def test_dashboard_disables_resume_for_in_progress_listening(self):
+        listening_module = ExamModule.objects.create(
+            mock_test=self.mock_test, module_type="listening", duration_minutes=30, is_active=True
+        )
+        CandidateAttempt.objects.create(
+            candidate=self.candidate,
+            module=listening_module,
+            started_at=timezone.now(),
+            expires_at=timezone.now() + timedelta(minutes=30),
+            status="in_progress",
+        )
+        response = self.client.get(reverse("bcl:dashboard"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'disabled title="Listening examinations cannot be resumed."')
 
     def test_submission_requires_post(self):
         self.start_attempt()
@@ -253,7 +320,25 @@ class ExamSessionTests(TestCase):
         self.start_attempt()
         attempt = self.get_attempt()
         self.client.post(reverse("bcl:submit_exam", args=[attempt.pk]))
-        self.assertRedirects(self.client.get(reverse("bcl:exam_session", args=[attempt.pk])), reverse("bcl:exam_result", args=[attempt.pk]))
+        self.assertRedirects(self.client.get(reverse("bcl:exam_session", args=[attempt.pk])), reverse("bcl:exam_ended", args=[attempt.pk]))
+
+    def test_exam_ended_in_progress_redirects_to_session(self):
+        self.start_attempt()
+        attempt = self.get_attempt()
+        response = self.client.get(reverse("bcl:exam_ended", args=[attempt.pk]))
+        self.assertRedirects(response, reverse("bcl:exam_session", args=[attempt.pk]))
+
+    def test_exam_ended_renders_page_and_links(self):
+        self.start_attempt()
+        attempt = self.get_attempt()
+        self.client.post(reverse("bcl:submit_exam", args=[attempt.pk]))
+        response = self.client.get(reverse("bcl:exam_ended", args=[attempt.pk]))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Examination Session Ended")
+        self.assertContains(response, reverse("bcl:dashboard"))
+        self.assertContains(response, reverse("bcl:exam_result", args=[attempt.pk]))
+        self.assertContains(response, "Return to Dashboard")
+        self.assertContains(response, "View Result")
 
     def test_new_attempt_after_submission(self):
         self.start_attempt()
@@ -354,26 +439,40 @@ class ExamViolationTests(TestCase):
         response = self.report()
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.json()["warning"])
+        self.assertFalse(response.json()["auto_submitted"])
         self.attempt.refresh_from_db()
         self.assertEqual(self.attempt.violation_count, 1)
         self.assertEqual(self.attempt.status, "in_progress")
 
-    def test_second_violation_auto_submits(self):
+    def test_second_violation_warns(self):
         self.report()
         response = self.report("window_blur")
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(response.json()["auto_submitted"])
+        self.assertTrue(response.json()["warning"])
+        self.assertFalse(response.json()["auto_submitted"])
         self.attempt.refresh_from_db()
         self.assertEqual(self.attempt.violation_count, 2)
+        self.assertEqual(self.attempt.status, "in_progress")
+
+    def test_third_violation_auto_submits(self):
+        self.report()
+        self.report("window_blur")
+        response = self.report("tab_hidden")
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.json()["auto_submitted"])
+        self.assertFalse(response.json()["warning"])
+        self.attempt.refresh_from_db()
+        self.assertEqual(self.attempt.violation_count, 3)
         self.assertEqual(self.attempt.status, "auto_submitted")
         self.assertIsNotNone(self.attempt.submitted_at)
 
-    def test_third_report_does_not_increment(self):
+    def test_fourth_report_does_not_increment(self):
+        self.report()
         self.report()
         self.report()
         self.assertEqual(self.report().status_code, 409)
         self.attempt.refresh_from_db()
-        self.assertEqual(self.attempt.violation_count, 2)
+        self.assertEqual(self.attempt.violation_count, 3)
 
     def test_other_candidate_cannot_report(self):
         self.client.force_login(self.other)
@@ -475,6 +574,7 @@ class ListeningInterfaceTests(TestCase):
         response = self.client.get(reverse("bcl:exam_session", args=[self.attempt.pk]))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'id="startListening"')
+        self.assertContains(response, 'class="listening-audio-btn state-ready"')
         self.assertContains(response, 'id="listeningAudio"')
         self.assertContains(response, 'data-section-id=')
         self.assertContains(response, "What is the name?")
@@ -491,6 +591,39 @@ class ListeningInterfaceTests(TestCase):
         )
         response = self.client.get(reverse("bcl:exam_session", args=[attempt.pk]))
         self.assertNotContains(response, 'id="startListening"')
+
+    def test_listening_session_with_continuous_module_audio(self):
+        from django.core.files.base import ContentFile
+        self.module.audio_file.save("module_master.mp3", ContentFile(b"continuous master audio"), save=True)
+        try:
+            response = self.client.get(reverse("bcl:exam_session", args=[self.attempt.pk]))
+            self.assertEqual(response.status_code, 200)
+            expected_url = reverse("bcl:module_media", args=[self.attempt.pk, "audio"])
+            self.assertContains(response, f'data-module-audio-url="{expected_url}"')
+            self.assertContains(response, "Continuous examination audio (covers all parts)")
+        finally:
+            self.module.audio_file.delete(save=False)
+
+    def test_listening_session_with_individual_section_audio(self):
+        from django.core.files.base import ContentFile
+        self.section.audio_file.save("section_part1.mp3", ContentFile(b"section audio"), save=True)
+        try:
+            response = self.client.get(reverse("bcl:exam_session", args=[self.attempt.pk]))
+            self.assertEqual(response.status_code, 200)
+            self.assertContains(response, 'data-module-audio-url=""')
+            expected_section_url = reverse("bcl:section_media", args=[self.attempt.pk, self.section.pk, "audio"])
+            self.assertContains(response, expected_section_url)
+        finally:
+            self.section.audio_file.delete(save=False)
+
+    def test_listening_session_with_nonexistent_module_audio_file(self):
+        """When module.audio_file has a path that doesn't exist on disk, do not emit broken module audio URL."""
+        self.module.audio_file.name = "ielts/audio/missing_test_module.mp3"
+        self.module.save(update_fields=["audio_file"])
+        response = self.client.get(reverse("bcl:exam_session", args=[self.attempt.pk]))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'data-module-audio-url=""')
+
 
 
 # ==========================================
@@ -796,3 +929,298 @@ class WritingReviewTests(TestCase):
         response = self.client.get(self.url)
         self.assertRedirects(response, reverse("bcl:writing_review_list"))
         self.assertEqual(self.attempt.task_evaluations.count(), 0)
+
+
+class AllModulesFullMockTests(TestCase):
+    def setUp(self):
+        self.candidate = User.objects.create_user(username="cand_all_mod", password="TestPass@2026abc")
+        self.examiner = User.objects.create_user(username="examiner_all_mod", password="TestPass@2026abc", is_staff=True)
+        self.client.force_login(self.candidate)
+
+        self.mock_test = IELTSMockTest.objects.create(
+            title="Complete IELTS Mock Test 1",
+            test_number=101,
+            is_published=True,
+        )
+
+        # 1. Reading Module
+        self.reading_mod = ExamModule.objects.create(
+            mock_test=self.mock_test,
+            module_type=ExamModule.ModuleType.READING,
+            duration_minutes=60,
+            is_active=True,
+        )
+        sec_r = ExamSection.objects.create(module=self.reading_mod, title="Passage 1", order=1)
+        q_r = Question.objects.create(
+            section=sec_r,
+            question_type=Question.QuestionType.MCQ,
+            question_text="Reading Question 1",
+            order=1,
+            marks=1,
+            correct_answer="A",
+        )
+        QuestionOption.objects.create(question=q_r, option_key="A", option_text="Alpha", order=1)
+
+        # 2. Listening Module
+        self.listening_mod = ExamModule.objects.create(
+            mock_test=self.mock_test,
+            module_type=ExamModule.ModuleType.LISTENING,
+            duration_minutes=30,
+            is_active=True,
+        )
+        sec_l = ExamSection.objects.create(module=self.listening_mod, title="Section 1", order=1)
+        q_l = Question.objects.create(
+            section=sec_l,
+            question_type=Question.QuestionType.FILL_BLANK,
+            question_text="Listening Question 1",
+            order=1,
+            marks=1,
+            correct_answer="hotel",
+        )
+
+        # 3. Writing Module
+        self.writing_mod = ExamModule.objects.create(
+            mock_test=self.mock_test,
+            module_type=ExamModule.ModuleType.WRITING,
+            duration_minutes=60,
+            is_active=True,
+        )
+        sec_w1 = ExamSection.objects.create(module=self.writing_mod, title="Task 1", order=1)
+        self.q_w1 = Question.objects.create(
+            section=sec_w1,
+            question_type=Question.QuestionType.ESSAY,
+            question_text="Summarise the chart",
+            order=1,
+            marks=3,
+        )
+        sec_w2 = ExamSection.objects.create(module=self.writing_mod, title="Task 2", order=2)
+        self.q_w2 = Question.objects.create(
+            section=sec_w2,
+            question_type=Question.QuestionType.ESSAY,
+            question_text="Discuss both views",
+            order=1,
+            marks=6,
+        )
+
+    def test_full_mock_rules_requires_all_modules(self):
+        # When all 3 modules exist
+        response = self.client.get(reverse("bcl:full_mock_rules", args=[self.mock_test.pk]))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "All Modules")
+        self.assertContains(response, "Reading")
+        self.assertContains(response, "Listening")
+        self.assertContains(response, "Writing")
+
+        # When a module is inactive or missing
+        self.writing_mod.is_active = False
+        self.writing_mod.save()
+        res_incomplete = self.client.get(reverse("bcl:full_mock_rules", args=[self.mock_test.pk]))
+        self.assertRedirects(res_incomplete, reverse("bcl:dashboard"))
+
+    def test_start_full_mock_creates_full_mock_and_reading_attempt(self):
+        url = reverse("bcl:start_full_mock", args=[self.mock_test.pk])
+        # Requires accepting rules
+        res_fail = self.client.post(url, {})
+        self.assertRedirects(res_fail, reverse("bcl:full_mock_rules", args=[self.mock_test.pk]))
+
+        # Accept rules starts session
+        res_ok = self.client.post(url, {"accept_rules": "yes"})
+        full_attempt = FullMockAttempt.objects.get(candidate=self.candidate, mock_test=self.mock_test)
+        self.assertEqual(full_attempt.status, FullMockAttempt.AttemptStatus.IN_PROGRESS)
+        self.assertEqual(full_attempt.current_step, "reading")
+        self.assertIsNotNone(full_attempt.reading_attempt)
+        self.assertEqual(full_attempt.reading_attempt.full_mock, full_attempt)
+        self.assertRedirects(res_ok, reverse("bcl:exam_session", args=[full_attempt.reading_attempt.pk]))
+
+    def test_sequential_full_mock_transitions_to_completion(self):
+        # 1. Start full mock -> Reading
+        self.client.post(reverse("bcl:start_full_mock", args=[self.mock_test.pk]), {"accept_rules": "yes"})
+        full = FullMockAttempt.objects.get(candidate=self.candidate, mock_test=self.mock_test)
+        reading_att = full.reading_attempt
+
+        # Save an answer in Reading and submit Reading
+        q_r = Question.objects.filter(section__module=self.reading_mod).first()
+        self.client.post(
+            reverse("bcl:save_exam_answer", args=[reading_att.pk]),
+            json.dumps({"question_id": q_r.pk, "answer_text": "A", "is_flagged": False}),
+            content_type="application/json",
+        )
+        res_sub_reading = self.client.post(reverse("bcl:submit_exam", args=[reading_att.pk]), {})
+        self.assertRedirects(res_sub_reading, reverse("bcl:full_mock_intermission", args=[full.pk]))
+
+        full.refresh_from_db()
+        self.assertEqual(full.current_step, "listening")
+        reading_att.refresh_from_db()
+        self.assertEqual(reading_att.status, CandidateAttempt.AttemptStatus.SUBMITTED)
+
+        # 2. View intermission and launch Listening
+        res_inter1 = self.client.get(reverse("bcl:full_mock_intermission", args=[full.pk]))
+        self.assertEqual(res_inter1.status_code, 200)
+        self.assertContains(res_inter1, "Reading Module Submitted")
+        self.assertContains(res_inter1, "Listening Module")
+
+        res_launch_listening = self.client.post(reverse("bcl:full_mock_next_module", args=[full.pk]))
+        full.refresh_from_db()
+        self.assertIsNotNone(full.listening_attempt)
+        self.assertRedirects(res_launch_listening, reverse("bcl:exam_session", args=[full.listening_attempt.pk]))
+
+        # Submit Listening
+        listening_att = full.listening_attempt
+        res_sub_listening = self.client.post(reverse("bcl:submit_exam", args=[listening_att.pk]), {})
+        self.assertRedirects(res_sub_listening, reverse("bcl:full_mock_intermission", args=[full.pk]))
+
+        full.refresh_from_db()
+        self.assertEqual(full.current_step, "writing")
+
+        # 3. View intermission and launch Writing
+        res_inter2 = self.client.get(reverse("bcl:full_mock_intermission", args=[full.pk]))
+        self.assertEqual(res_inter2.status_code, 200)
+        self.assertContains(res_inter2, "Listening Module Submitted")
+        self.assertContains(res_inter2, "Writing Module")
+
+        res_launch_writing = self.client.post(reverse("bcl:full_mock_next_module", args=[full.pk]))
+        full.refresh_from_db()
+        self.assertIsNotNone(full.writing_attempt)
+        self.assertRedirects(res_launch_writing, reverse("bcl:exam_session", args=[full.writing_attempt.pk]))
+
+        # Candidate types answers in Writing and submits
+        writing_att = full.writing_attempt
+        self.client.post(
+            reverse("bcl:save_exam_answer", args=[writing_att.pk]),
+            json.dumps({"question_id": self.q_w1.pk, "answer_text": "The provided chart indicates substantial growth in technology.", "is_flagged": False}),
+            content_type="application/json",
+        )
+        res_sub_writing = self.client.post(reverse("bcl:submit_exam", args=[writing_att.pk]), {})
+        self.assertRedirects(res_sub_writing, reverse("bcl:full_mock_ended", args=[full.pk]))
+
+        full.refresh_from_db()
+        self.assertEqual(full.status, FullMockAttempt.AttemptStatus.SUBMITTED)
+        self.assertEqual(full.current_step, "completed")
+
+        # 4. View ended page
+        res_ended = self.client.get(reverse("bcl:full_mock_ended", args=[full.pk]))
+        self.assertEqual(res_ended.status_code, 200)
+        self.assertContains(res_ended, "Examination Submitted Successfully")
+        self.assertContains(res_ended, "View All Results")
+
+    def test_early_exit_finalizes_full_mock(self):
+        # Start full mock
+        self.client.post(reverse("bcl:start_full_mock", args=[self.mock_test.pk]), {"accept_rules": "yes"})
+        full = FullMockAttempt.objects.get(candidate=self.candidate, mock_test=self.mock_test)
+        reading_att = full.reading_attempt
+
+        # Exit full mock via Back button
+        res_exit = self.client.post(reverse("bcl:submit_exam", args=[reading_att.pk]), {"exit_full_mock": "true"})
+        self.assertRedirects(res_exit, reverse("bcl:full_mock_ended", args=[full.pk]))
+
+        full.refresh_from_db()
+        self.assertEqual(full.status, FullMockAttempt.AttemptStatus.SUBMITTED)
+        self.assertEqual(full.current_step, "completed")
+
+    def test_full_mock_result_writing_under_review_then_evaluated(self):
+        # Create full mock attempt directly with all 3 module attempts submitted
+        full = FullMockAttempt.objects.create(
+            candidate=self.candidate,
+            mock_test=self.mock_test,
+            status=FullMockAttempt.AttemptStatus.SUBMITTED,
+            current_step="completed",
+            submitted_at=timezone.now(),
+        )
+        r_att = CandidateAttempt.objects.create(
+            candidate=self.candidate,
+            module=self.reading_mod,
+            full_mock=full,
+            started_at=timezone.now() - timedelta(minutes=50),
+            expires_at=timezone.now() + timedelta(minutes=10),
+            submitted_at=timezone.now(),
+            status=CandidateAttempt.AttemptStatus.SUBMITTED,
+            raw_score=35,
+            band_score=Decimal("8.0"),
+        )
+        l_att = CandidateAttempt.objects.create(
+            candidate=self.candidate,
+            module=self.listening_mod,
+            full_mock=full,
+            started_at=timezone.now() - timedelta(minutes=25),
+            expires_at=timezone.now() + timedelta(minutes=5),
+            submitted_at=timezone.now(),
+            status=CandidateAttempt.AttemptStatus.SUBMITTED,
+            raw_score=36,
+            band_score=Decimal("8.0"),
+        )
+        w_att = CandidateAttempt.objects.create(
+            candidate=self.candidate,
+            module=self.writing_mod,
+            full_mock=full,
+            started_at=timezone.now() - timedelta(minutes=55),
+            expires_at=timezone.now() + timedelta(minutes=5),
+            submitted_at=timezone.now(),
+            status=CandidateAttempt.AttemptStatus.SUBMITTED,
+        )
+        full.reading_attempt = r_att
+        full.listening_attempt = l_att
+        full.writing_attempt = w_att
+        full.save()
+
+        # Before writing review: shows Under Review and overall band is pending
+        res_before = self.client.get(reverse("bcl:full_mock_result", args=[full.pk]))
+        self.assertEqual(res_before.status_code, 200)
+        self.assertFalse(res_before.context["is_writing_evaluated"])
+        self.assertContains(res_before, "Under Review")
+        self.assertContains(res_before, "Manual Review Status")
+
+        # Staff evaluates Task 1 and Task 2
+        WritingTaskEvaluation.objects.create(
+            attempt=w_att,
+            question=self.q_w1,
+            task_number=1,
+            examiner=self.examiner,
+            task_achievement=Decimal("7.0"),
+            coherence_cohesion=Decimal("7.0"),
+            lexical_resource=Decimal("7.0"),
+            grammatical_range_accuracy=Decimal("7.0"),
+            feedback="Well structured report.",
+        )
+        WritingTaskEvaluation.objects.create(
+            attempt=w_att,
+            question=self.q_w2,
+            task_number=2,
+            examiner=self.examiner,
+            task_achievement=Decimal("8.0"),
+            coherence_cohesion=Decimal("8.0"),
+            lexical_resource=Decimal("8.0"),
+            grammatical_range_accuracy=Decimal("8.0"),
+            feedback="Excellent essay discussion.",
+        )
+        from .writing_views import writing_result_band
+        w_att.band_score = writing_result_band(w_att)
+        w_att.save(update_fields=["band_score"])
+
+        # After writing review: shows Band score and Overall Band
+        res_after = self.client.get(reverse("bcl:full_mock_result", args=[full.pk]))
+        self.assertEqual(res_after.status_code, 200)
+        self.assertTrue(res_after.context["is_writing_evaluated"])
+        self.assertContains(res_after, "Overall IELTS Band")
+        self.assertContains(res_after, "Well structured report.")
+        self.assertContains(res_after, "Excellent essay discussion.")
+
+    def test_dashboard_shows_all_modules_button_and_attempts(self):
+        # 1. Available mock tests card has the full-width Full Mock button without star icon
+        res = self.client.get(reverse("bcl:dashboard"))
+        self.assertEqual(res.status_code, 200)
+        self.assertContains(res, "Full Mock (150 min)")
+        self.assertContains(res, "exam-link-full")
+        self.assertNotContains(res, "⭐")
+        self.assertContains(res, reverse("bcl:full_mock_rules", args=[self.mock_test.pk]))
+
+        # 2. Add an in-progress full mock attempt
+        full = FullMockAttempt.objects.create(
+            candidate=self.candidate,
+            mock_test=self.mock_test,
+            status=FullMockAttempt.AttemptStatus.IN_PROGRESS,
+            current_step="reading",
+        )
+        res_with_att = self.client.get(reverse("bcl:dashboard"))
+        self.assertContains(res_with_att, "Full Mock (Reading + Listening + Writing)")
+        self.assertContains(res_with_att, "In Progress &bull; Stage: Reading")
+        self.assertContains(res_with_att, "Resume")

@@ -160,9 +160,19 @@ nav a {
 .coming-soon {
     display: inline-block;
     margin-top: 24px;
+    padding: 5px 14px;
+    border-radius: 9999px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
     color: var(--primary);
     font-weight: 700;
-    font-size: 13px;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    width: fit-content;
+}
+
+.about-eyebrow {
+    color: var(--primary);
 }
 
 .about {

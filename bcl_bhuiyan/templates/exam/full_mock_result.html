@@ -1,0 +1,773 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>All Modules Result | {{ mock_test.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/exam.css' %}">
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    <script>
+        (function() {
+            try {
+                var t = localStorage.getItem("test-theme") || "device";
+                var isDark = (t === "dark") || (t === "device" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+                if (isDark) {
+                    document.documentElement.classList.add("dark");
+                    document.documentElement.setAttribute("data-theme", "dark");
+                } else {
+                    document.documentElement.classList.remove("dark");
+                    document.documentElement.setAttribute("data-theme", "light");
+                }
+            } catch (e) {}
+        })();
+    </script>
+    <style>
+        :root {
+            --res-bg: #f8fafc;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --text-title: #0f172a;
+            --text-subtitle: #475569;
+            --text-muted: #64748b;
+            --pill-bg: #f1f5f9;
+        }
+
+        html.dark {
+            --res-bg: #18181b;
+            --card-bg: #27272a;
+            --card-border: #3f3f46;
+            --text-title: #f4f4f5;
+            --text-subtitle: #cbd5e1;
+            --text-muted: #a1a1aa;
+            --pill-bg: #3f3f46;
+        }
+
+        body {
+            background-color: var(--res-bg);
+            color: var(--text-title);
+            font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-bar {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--card-border);
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 30;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .result-container {
+            max-width: 1060px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 32px 20px 60px 20px;
+        }
+
+        .hero-banner {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 28px;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .hero-left {
+            max-width: 600px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            background: #eff6ff;
+            color: #1d4ed8;
+            border: 1px solid #bfdbfe;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        html.dark .hero-badge {
+            background: rgba(30, 58, 138, 0.4);
+            color: #93c5fd;
+            border-color: rgba(99, 102, 241, 0.4);
+        }
+
+        .hero-title {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-meta {
+            font-size: 14px;
+            color: var(--text-subtitle);
+        }
+
+        .band-score-box {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 20px 28px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.35);
+            min-width: 180px;
+        }
+
+        .band-score-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .band-score-number {
+            font-size: 42px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin: 4px 0;
+        }
+
+        .band-score-review {
+            background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+            box-shadow: 0 10px 25px rgba(217, 119, 6, 0.3);
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .mod-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .mod-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .mod-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .mod-title {
+            font-size: 18px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mod-badge {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 9999px;
+        }
+
+        .mod-badge-success {
+            background: #ecfdf5;
+            color: #047857;
+            border: 1px solid #a7f3d0;
+        }
+
+        html.dark .mod-badge-success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #6ee7b7;
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .mod-badge-review {
+            background: #fffbeb;
+            color: #b45309;
+            border: 1px solid #fde68a;
+        }
+
+        html.dark .mod-badge-review {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fde68a;
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .mod-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            background: var(--pill-bg);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-title);
+        }
+
+        .btn-mod-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            padding: 11px 18px;
+            border-radius: 10px;
+            font-size: 13.5px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #4338ca;
+        }
+
+        .btn-amber {
+            background: #d97706;
+            color: white;
+        }
+
+        .btn-amber:hover {
+            background: #b45309;
+        }
+
+        /* Writing Full Section */
+        .writing-detailed-section {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 32px;
+            margin-top: 10px;
+        }
+
+        .writing-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .writing-tasks-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        .task-card {
+            background: var(--res-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .task-title {
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .task-criteria-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 14px 0;
+        }
+
+        @media (max-width: 600px) {
+            .task-criteria-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .criteria-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .criteria-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .criteria-score {
+            font-size: 18px;
+            font-weight: 800;
+            color: #4f46e5;
+            margin-top: 2px;
+        }
+
+        html.dark .criteria-score {
+            color: #a5b4fc;
+        }
+
+        .feedback-box {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 13.5px;
+            color: #065f46;
+            margin-top: 12px;
+        }
+
+        html.dark .feedback-box {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.3);
+            color: #6ee7b7;
+        }
+
+        .review-pending-notice {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        html.dark .review-pending-notice {
+            background: rgba(245, 158, 11, 0.15);
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .response-text-preview {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 14px;
+            font-size: 13.5px;
+            color: var(--text-subtitle);
+            white-space: pre-wrap;
+            max-height: 200px;
+            overflow-y: auto;
+            line-height: 1.6;
+        }
+
+        .btn-top-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-subtitle);
+            border: 1px solid var(--card-border);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-top-back:hover {
+            color: var(--text-title);
+            background: var(--pill-bg);
+        }
+
+        .theme-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 8px;
+            cursor: pointer;
+            color: var(--text-subtitle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            color: var(--text-title);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-bar">
+        <div class="logo-group">
+            {% if request.user.is_staff %}
+            <a href="{% url 'admin:index' %}" class="btn-top-back" style="background:#e0e7ff;color:#3730a3;border-color:#c7d2fe;">
+                &larr; Admin
+            </a>
+            {% else %}
+            <a href="{% url 'bcl:dashboard' %}" class="btn-top-back">
+                &larr; Dashboard
+            </a>
+            {% endif %}
+            <span style="font-weight:800;font-size:16px;">IELTS<span style="color:#4f46e5;">Mock</span></span>
+            <span style="font-size:13px;color:var(--text-muted);">&bull; Full Mock 3-in-1 Result</span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:13px;font-weight:600;color:var(--text-subtitle);">Student: {{ full_mock.candidate.username }}</span>
+            <button type="button" id="themeToggleBtn" class="theme-toggle-btn" title="Toggle Theme" aria-label="Toggle Theme">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="20" height="14" x="2" y="3" rx="2"></rect>
+                    <line x1="8" x2="16" y1="21" y2="21"></line>
+                    <line x1="12" x2="12" y1="17" y2="21"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="result-container">
+        <!-- Hero Overall Score Banner -->
+        <section class="hero-banner">
+            <div class="hero-left">
+                <div class="hero-badge">FULL MOCK CONSOLIDATED SCORE REPORT</div>
+                <h1 class="hero-title">{{ mock_test.title }}</h1>
+                <p class="hero-meta">
+                    Candidate: <strong>{{ full_mock.candidate.username }}</strong> &bull; Completed: {{ full_mock.submitted_at|date:"M d, Y H:i"|default:"Recently" }}
+                </p>
+            </div>
+
+            {% if is_writing_evaluated %}
+                <div class="band-score-box">
+                    <div class="band-score-label">Overall IELTS Band</div>
+                    <div class="band-score-number">{{ overall_band }}</div>
+                    <div style="font-size:11px;opacity:0.85;">Official IELTS Band Average</div>
+                </div>
+            {% else %}
+                <div class="band-score-box band-score-review">
+                    <div class="band-score-label">Writing Status</div>
+                    <div class="band-score-number" style="font-size:24px;margin:10px 0;">Under Review</div>
+                    <div style="font-size:11px;opacity:0.9;">Overall Band Finalized After Review</div>
+                </div>
+            {% endif %}
+        </section>
+
+        <!-- 3 Module Cards Grid -->
+        <section class="modules-grid">
+            <!-- 1. Reading Module Card -->
+            <article class="mod-card">
+                <div>
+                    <div class="mod-card-header">
+                        <span class="mod-title">📖 Reading</span>
+                        {% if full_mock.reading_attempt and full_mock.reading_attempt.band_score is not None %}
+                            <span class="mod-badge mod-badge-success">Evaluated</span>
+                        {% elif full_mock.reading_attempt %}
+                            <span class="mod-badge mod-badge-success">Submitted</span>
+                        {% else %}
+                            <span class="mod-badge" style="background:#f1f5f9;color:#64748b;">Not Taken</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="mod-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Band Score</div>
+                            <div class="stat-value" style="color:#4f46e5;">
+                                {% if full_mock.reading_attempt and full_mock.reading_attempt.band_score is not None %}
+                                    {{ full_mock.reading_attempt.band_score }}
+                                {% else %}&mdash;{% endif %}
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Raw Score</div>
+                            <div class="stat-value">
+                                {% if full_mock.reading_attempt and full_mock.reading_attempt.raw_score is not None %}
+                                    {{ full_mock.reading_attempt.raw_score }}<span style="font-size:13px;font-weight:500;color:var(--text-muted);">/40</span>
+                                {% else %}&mdash;{% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <p style="font-size:13px;color:var(--text-muted);margin-bottom:18px;">
+                        Time taken: <strong>{{ reading_time }}</strong> &bull; 3 Passages, 40 Questions
+                    </p>
+                </div>
+
+                {% if full_mock.reading_attempt %}
+                <a href="{% url 'bcl:exam_result' full_mock.reading_attempt.pk %}" class="btn-mod-action btn-primary">
+                    View Reading Question Review &rarr;
+                </a>
+                {% endif %}
+            </article>
+
+            <!-- 2. Listening Module Card -->
+            <article class="mod-card">
+                <div>
+                    <div class="mod-card-header">
+                        <span class="mod-title">🎧 Listening</span>
+                        {% if full_mock.listening_attempt and full_mock.listening_attempt.band_score is not None %}
+                            <span class="mod-badge mod-badge-success">Evaluated</span>
+                        {% elif full_mock.listening_attempt %}
+                            <span class="mod-badge mod-badge-success">Submitted</span>
+                        {% else %}
+                            <span class="mod-badge" style="background:#f1f5f9;color:#64748b;">Not Taken</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="mod-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Band Score</div>
+                            <div class="stat-value" style="color:#059669;">
+                                {% if full_mock.listening_attempt and full_mock.listening_attempt.band_score is not None %}
+                                    {{ full_mock.listening_attempt.band_score }}
+                                {% else %}&mdash;{% endif %}
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Raw Score</div>
+                            <div class="stat-value">
+                                {% if full_mock.listening_attempt and full_mock.listening_attempt.raw_score is not None %}
+                                    {{ full_mock.listening_attempt.raw_score }}<span style="font-size:13px;font-weight:500;color:var(--text-muted);">/40</span>
+                                {% else %}&mdash;{% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <p style="font-size:13px;color:var(--text-muted);margin-bottom:18px;">
+                        Time taken: <strong>{{ listening_time }}</strong> &bull; 4 Sections, 40 Questions
+                    </p>
+                </div>
+
+                {% if full_mock.listening_attempt %}
+                <a href="{% url 'bcl:exam_result' full_mock.listening_attempt.pk %}" class="btn-mod-action btn-primary" style="background:#059669;">
+                    View Listening Question Review &rarr;
+                </a>
+                {% endif %}
+            </article>
+
+            <!-- 3. Writing Module Card -->
+            <article class="mod-card">
+                <div>
+                    <div class="mod-card-header">
+                        <span class="mod-title">✍️ Writing</span>
+                        {% if is_writing_evaluated %}
+                            <span class="mod-badge mod-badge-success">Evaluated</span>
+                        {% elif full_mock.writing_attempt %}
+                            <span class="mod-badge mod-badge-review">Under Review</span>
+                        {% else %}
+                            <span class="mod-badge" style="background:#f1f5f9;color:#64748b;">Not Taken</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="mod-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Band Score</div>
+                            <div class="stat-value" style="color:#d97706;">
+                                {% if is_writing_evaluated %}
+                                    {{ full_mock.writing_attempt.band_score }}
+                                {% else %}
+                                    <span style="font-size:15px;color:#d97706;">Pending</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Status</div>
+                            <div class="stat-value" style="font-size:15px;font-weight:700;">
+                                {% if is_writing_evaluated %}Evaluated{% else %}Manual Review{% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <p style="font-size:13px;color:var(--text-muted);margin-bottom:18px;">
+                        Time taken: <strong>{{ writing_time }}</strong> &bull; Task 1 &amp; Task 2
+                    </p>
+                </div>
+
+                {% if full_mock.writing_attempt %}
+                <a href="{% url 'bcl:exam_result' full_mock.writing_attempt.pk %}" class="btn-mod-action {% if is_writing_evaluated %}btn-primary{% else %}btn-amber{% endif %}">
+                    {% if is_writing_evaluated %}View Examiner Evaluation &rarr;{% else %}View Writing Submission Details &rarr;{% endif %}
+                </a>
+                {% endif %}
+            </article>
+        </section>
+
+        <!-- Detailed Writing Section -->
+        {% if full_mock.writing_attempt %}
+        <section class="writing-detailed-section">
+            <div class="writing-header">
+                <div>
+                    <h2 style="font-size:20px;font-weight:800;margin-bottom:4px;">✍️ Writing Assessment &amp; Feedback</h2>
+                    <p style="font-size:14px;color:var(--text-subtitle);">Detailed overview of your Task 1 and Task 2 submissions.</p>
+                </div>
+
+                {% if is_writing_evaluated %}
+                    <span class="mod-badge mod-badge-success" style="font-size:14px;padding:6px 14px;">
+                        Writing Band {{ full_mock.writing_attempt.band_score }} &bull; Completed
+                    </span>
+                {% else %}
+                    <span class="mod-badge mod-badge-review" style="font-size:14px;padding:6px 14px;">
+                        ⏳ Examiner Evaluation In Progress
+                    </span>
+                {% endif %}
+            </div>
+
+            {% if not is_writing_evaluated %}
+                <div class="review-pending-notice">
+                    <span style="font-size:24px;">📝</span>
+                    <div>
+                        <strong style="color:#92400e;display:block;font-size:15px;margin-bottom:4px;">Manual Review Status: Queued for Assessment</strong>
+                        <p style="font-size:13.5px;color:#78350f;line-height:1.6;margin:0;">
+                            Your IELTS Writing tasks have been submitted and are currently in the queue for manual evaluation by our certified examiners. They will assess your responses on Task Achievement, Coherence &amp; Cohesion, Lexical Resource, and Grammatical Range &amp; Accuracy. Once complete, your writing band and Overall Band Score will be published here automatically.
+                        </p>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="writing-tasks-grid">
+                {% for task in writing_tasks %}
+                    <div class="task-card">
+                        <div class="task-title">
+                            <span>Task {{ task.task_number }}: {{ task.section.title|default:"Essay Question" }}</span>
+                            <span style="font-size:13px;font-weight:600;color:var(--text-muted);">{{ task.word_count }} words</span>
+                        </div>
+
+                        {% if task.evaluation %}
+                            <!-- Evaluated criteria -->
+                            <div class="task-criteria-grid">
+                                <div class="criteria-box">
+                                    <div class="criteria-title">Task Response</div>
+                                    <div class="criteria-score">{{ task.evaluation.task_achievement }}</div>
+                                </div>
+                                <div class="criteria-box">
+                                    <div class="criteria-title">Coherence</div>
+                                    <div class="criteria-score">{{ task.evaluation.coherence_cohesion }}</div>
+                                </div>
+                                <div class="criteria-box">
+                                    <div class="criteria-title">Lexical</div>
+                                    <div class="criteria-score">{{ task.evaluation.lexical_resource }}</div>
+                                </div>
+                                <div class="criteria-box">
+                                    <div class="criteria-title">Grammar</div>
+                                    <div class="criteria-score">{{ task.evaluation.grammatical_range_accuracy }}</div>
+                                </div>
+                            </div>
+
+                            {% if task.evaluation.feedback %}
+                                <div class="feedback-box">
+                                    <strong>Examiner Feedback:</strong>
+                                    <p style="margin-top:4px;white-space:pre-wrap;">{{ task.evaluation.feedback }}</p>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+
+                        <div style="margin-top:14px;">
+                            <label style="font-size:12px;font-weight:700;color:var(--text-muted);display:block;margin-bottom:6px;">Your Written Response</label>
+                            <div class="response-text-preview">{{ task.answer_text|default:"(No response recorded)" }}</div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p style="color:var(--text-muted);font-size:14px;">No written responses recorded for this attempt.</p>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        <div style="margin-top:36px;text-align:center;">
+            <a href="{% url 'bcl:dashboard' %}" class="btn-top-back" style="padding:12px 28px;font-size:14px;background:var(--card-bg);">
+                Return to Candidate Dashboard
+            </a>
+        </div>
+    </main>
+
+    <script>
+        (function() {
+            var themeBtn = document.getElementById("themeToggleBtn");
+            var modes = ["light", "dark", "device"];
+
+            var ICONS = {
+                light: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>',
+                dark: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>',
+                device: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg>'
+            };
+
+            function updateTheme(mode) {
+                var isDark = (mode === "dark") || (mode === "device" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+                if (isDark) {
+                    document.documentElement.classList.add("dark");
+                    document.documentElement.setAttribute("data-theme", "dark");
+                } else {
+                    document.documentElement.classList.remove("dark");
+                    document.documentElement.setAttribute("data-theme", "light");
+                }
+                if (themeBtn) {
+                    themeBtn.innerHTML = ICONS[mode] || ICONS.device;
+                }
+            }
+
+            var current = localStorage.getItem("test-theme") || "device";
+            updateTheme(current);
+
+            if (themeBtn) {
+                themeBtn.addEventListener("click", function() {
+                    var cur = localStorage.getItem("test-theme") || "device";
+                    var nextIdx = (modes.indexOf(cur) + 1) % modes.length;
+                    var nextMode = modes[nextIdx];
+                    localStorage.setItem("test-theme", nextMode);
+                    updateTheme(nextMode);
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

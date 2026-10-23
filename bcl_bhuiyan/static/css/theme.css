@@ -1,0 +1,715 @@
+/**
+ * Global Theme Stylesheet for IELTS Mock Test Platform
+ * Supports complete, harmonious Light and Dark palettes across all pages.
+ */
+
+:root {
+    --theme-toggle-bg: #ffffff;
+    --theme-toggle-border: #cbd5e1;
+    --theme-toggle-hover: #f1f5f9;
+    --theme-toggle-text: #475569;
+}
+
+html.dark,
+html[data-theme="dark"] {
+    --theme-toggle-bg: #1e293b;
+    --theme-toggle-border: #334155;
+    --theme-toggle-hover: #334155;
+    --theme-toggle-text: #cbd5e1;
+}
+
+/* Reusable Theme Toggle Button */
+.theme-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: var(--theme-toggle-bg);
+    border: 1px solid var(--theme-toggle-border);
+    border-radius: 8px;
+    color: var(--theme-toggle-text);
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.theme-toggle-btn:hover {
+    background: var(--theme-toggle-hover);
+    transform: translateY(-1px);
+}
+
+.theme-toggle-btn:active {
+    transform: translateY(0);
+}
+
+.theme-toggle-btn svg {
+    display: block;
+    width: 18px;
+    height: 18px;
+}
+
+/* ===================================================
+   DARK THEME: GLOBAL STYLES & OVERRIDES
+   =================================================== */
+
+html.dark,
+html[data-theme="dark"] {
+    color-scheme: dark;
+}
+
+/* --- Global Body & Links --- */
+html.dark body {
+    background-color: #0b0f19 !important;
+    color: #f1f5f9 !important;
+}
+
+/* --- Home / Landing Page --- */
+html.dark .navbar {
+    background: #0f172a !important;
+    border-bottom-color: #1e293b !important;
+}
+
+html.dark .logo {
+    color: #f8fafc !important;
+}
+
+html.dark .logo span,
+html[data-theme="dark"] .logo span,
+html.dark .auth-logo span,
+html[data-theme="dark"] .auth-logo span {
+    color: #60a5fa !important;
+}
+
+html.dark nav a {
+    color: #cbd5e1 !important;
+}
+
+html.dark nav a:hover {
+    color: #60a5fa !important;
+}
+
+html.dark .nav-status {
+    background: #1e293b !important;
+    color: #93c5fd !important;
+    border: 1px solid #334155;
+}
+
+html.dark .login-btn,
+html[data-theme="dark"] .login-btn {
+    background: transparent !important;
+    color: #93c5fd !important;
+    border-color: #3b82f6 !important;
+}
+
+html.dark .login-btn:hover,
+html[data-theme="dark"] .login-btn:hover {
+    background: rgba(59, 130, 246, 0.18) !important;
+    color: #ffffff !important;
+}
+
+html.dark .register-btn,
+html[data-theme="dark"] .register-btn {
+    background: #2563eb !important;
+    border-color: #2563eb !important;
+    color: #ffffff !important;
+}
+
+html.dark .register-btn:hover,
+html[data-theme="dark"] .register-btn:hover {
+    background: #1d4ed8 !important;
+}
+
+html.dark .logout-btn,
+html[data-theme="dark"] .logout-btn {
+    background: #1e293b !important;
+    border-color: #475569 !important;
+    color: #e2e8f0 !important;
+}
+
+html.dark .logout-btn:hover,
+html[data-theme="dark"] .logout-btn:hover {
+    background: #334155 !important;
+}
+
+html.dark .welcome-user,
+html[data-theme="dark"] .welcome-user {
+    color: #cbd5e1 !important;
+}
+
+html.dark .hero {
+    background: linear-gradient(135deg, #0b1329 0%, #171f38 100%) !important;
+    border-bottom: 1px solid #1e293b;
+}
+
+html.dark .hero h1 {
+    color: #ffffff !important;
+}
+
+html.dark .hero p {
+    color: #cbd5e1 !important;
+}
+
+html.dark .hero .primary-btn,
+html[data-theme="dark"] .hero .primary-btn {
+    background: #2563eb !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4) !important;
+}
+
+html.dark .hero .primary-btn:hover,
+html[data-theme="dark"] .hero .primary-btn:hover {
+    background: #1d4ed8 !important;
+}
+
+html.dark .modules,
+html[data-theme="dark"] .modules {
+    background: #0b0f19 !important;
+    border-top: 1px solid #1e293b !important;
+    border-bottom: 1px solid #1e293b !important;
+}
+
+html.dark .section-heading .eyebrow,
+html[data-theme="dark"] .section-heading .eyebrow,
+html.dark .about-eyebrow,
+html[data-theme="dark"] .about-eyebrow {
+    color: #818cf8 !important;
+}
+
+html.dark .section-heading h2,
+html.dark .module-header h2 {
+    color: #f8fafc !important;
+}
+
+html.dark .section-heading p,
+html.dark .module-header p {
+    color: #94a3b8 !important;
+}
+
+html.dark .module-card,
+html.dark .feature-card,
+html.dark .step-card,
+html.dark .faq-item {
+    background: #1e293b !important;
+    border: 1px solid #334155 !important;
+    color: #f1f5f9 !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+}
+
+html.dark .module-card h3,
+html.dark .feature-card h3,
+html.dark .step-card h3,
+html.dark .faq-item h4 {
+    color: #f8fafc !important;
+}
+
+html.dark .module-card p,
+html.dark .feature-card p,
+html.dark .step-card p,
+html.dark .faq-item p {
+    color: #94a3b8 !important;
+}
+
+html.dark .module-card ul li,
+html.dark .module-features,
+html.dark .module-features li,
+html[data-theme="dark"] .module-features,
+html[data-theme="dark"] .module-features li {
+    color: #cbd5e1 !important;
+}
+
+html.dark .coming-soon,
+html[data-theme="dark"] .coming-soon {
+    background: rgba(30, 58, 95, 0.6) !important;
+    color: #93c5fd !important;
+    border: 1px solid #1e40af !important;
+}
+
+html.dark .about {
+    background: #0b0f19 !important;
+    color: #cbd5e1 !important;
+}
+
+html.dark .about h2 {
+    color: #f8fafc !important;
+}
+
+html.dark .about p {
+    color: #94a3b8 !important;
+}
+
+html.dark .about .eyebrow,
+html.dark .eyebrow[style*="color: #1645a1"] {
+    color: #93c5fd !important;
+}
+
+html.dark footer,
+html.dark .site-footer {
+    background: #070a10 !important;
+    border-top: 1px solid #1e293b !important;
+    color: #64748b !important;
+}
+
+html.dark footer a,
+html.dark .site-footer a {
+    color: #cbd5e1 !important;
+}
+
+html.dark .back-link,
+html[data-theme="dark"] .back-link {
+    color: #93c5fd !important;
+}
+
+html.dark .back-link:hover,
+html[data-theme="dark"] .back-link:hover {
+    color: #bfdbfe !important;
+}
+
+/* --- Candidate Dashboard --- */
+html.dark .dashboard-body {
+    background: #0b0f19 !important;
+}
+
+html.dark .dashboard-header {
+    background: #0f172a !important;
+    border-bottom-color: #1e293b !important;
+}
+
+html.dark .auth-logo {
+    color: #f8fafc !important;
+}
+
+html.dark .header-actions span {
+    color: #cbd5e1 !important;
+}
+
+html.dark .welcome-banner {
+    background: linear-gradient(135deg, #111e3b 0%, #1e293b 100%) !important;
+    border: 1px solid #334155 !important;
+    color: #f8fafc !important;
+}
+
+html.dark .welcome-banner h1 {
+    color: #ffffff !important;
+}
+
+html.dark .welcome-banner p {
+    color: #cbd5e1 !important;
+}
+
+html.dark .welcome-label {
+    color: #60a5fa !important;
+}
+
+html.dark .test-card {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+}
+
+html.dark .test-card h3 {
+    color: #f8fafc !important;
+}
+
+html.dark .test-card p {
+    color: #94a3b8 !important;
+}
+
+html.dark .exam-link-module {
+    background: #1d4ed8 !important;
+    color: #ffffff !important;
+}
+
+html.dark .exam-link-module:hover {
+    background: #2563eb !important;
+}
+
+html.dark .attempt-card {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+html.dark .attempt-card strong {
+    color: #f8fafc !important;
+}
+
+html.dark .attempt-card p,
+html.dark .attempt-card small {
+    color: #94a3b8 !important;
+}
+
+html.dark .attempt-card p[style*="color:#4f46e5"] {
+    color: #818cf8 !important;
+}
+
+html.dark .status {
+    background: #1e3a5f !important;
+    color: #93c5fd !important;
+    border: 1px solid #1e40af !important;
+}
+
+html.dark .status[style*="ecfdf5"] {
+    background: #064e3b !important;
+    color: #6ee7b7 !important;
+    border-color: #047857 !important;
+}
+
+html.dark .status[style*="fffbeb"] {
+    background: #451a03 !important;
+    color: #fcd34d !important;
+    border-color: #b45309 !important;
+}
+
+html.dark .empty-message {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #94a3b8 !important;
+}
+
+html.dark .dashboard-footer {
+    background: #070a10 !important;
+    border-top: 1px solid #1e293b !important;
+    color: #64748b !important;
+}
+
+/* --- Authentication Pages (Login & Register) --- */
+html.dark .auth-container {
+    background: #0b0f19 !important;
+}
+
+html.dark .auth-card {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45) !important;
+}
+
+html.dark .auth-card h1 {
+    color: #f8fafc !important;
+}
+
+html.dark .auth-card .subtitle {
+    color: #94a3b8 !important;
+}
+
+html.dark .form-group label {
+    color: #e2e8f0 !important;
+}
+
+html.dark .form-group input,
+html.dark .form-group select {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+
+html.dark .form-group input:focus,
+html.dark .form-group select:focus {
+    border-color: #3b82f6 !important;
+    outline: 2px solid rgba(59, 130, 246, 0.35) !important;
+}
+
+html.dark .eye-toggle {
+    color: #94a3b8 !important;
+}
+
+html.dark .eye-toggle:hover {
+    color: #f8fafc !important;
+}
+
+html.dark .auth-footer {
+    color: #94a3b8 !important;
+}
+
+html.dark .field-helper,
+html.dark .input-hint {
+    color: #94a3b8 !important;
+}
+
+/* --- Exam Rules Page (Single Module) --- */
+html.dark .rules-card {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45) !important;
+}
+
+html.dark .rules-card h1 {
+    color: #f8fafc !important;
+}
+
+html.dark .exam-meta {
+    background: #0f172a !important;
+    border: 1px solid #334155 !important;
+    color: #cbd5e1 !important;
+}
+
+html.dark .exam-meta strong {
+    color: #60a5fa !important;
+}
+
+html.dark .rules-list {
+    color: #cbd5e1 !important;
+}
+
+html.dark .rules-list li strong {
+    color: #f8fafc !important;
+}
+
+html.dark .agreement {
+    background: #0f172a !important;
+    border: 1px solid #334155 !important;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+html.dark .agreement label {
+    color: #cbd5e1 !important;
+}
+
+html.dark .notice {
+    background: #172554 !important;
+    border-color: #1e40af !important;
+    color: #bfdbfe !important;
+}
+
+/* --- Staff Writing Reviews (Slate / Dark theme matching Django & Website) --- */
+html.dark table {
+    background: #1e293b !important;
+    border: 1px solid #334155 !important;
+}
+
+html.dark th {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+    border-bottom: 1px solid #334155 !important;
+}
+
+html.dark td {
+    color: #cbd5e1 !important;
+    border-bottom: 1px solid #334155 !important;
+}
+
+html.dark .task,
+html.dark .top-info-card,
+html.dark .task-card,
+html.dark .card-table-wrap {
+    background: #1e293b !important;
+    border: 1px solid #334155 !important;
+    color: #f1f5f9 !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+}
+
+html.dark .top-info-card h1,
+html.dark .task-header h2,
+html.dark .candidate-side h3,
+html.dark .examiner-side h3,
+html.dark .page-header h1 {
+    color: #f8fafc !important;
+}
+
+html.dark .meta-tag,
+html.dark .prompt-box,
+html.dark .answer-box,
+html.dark .eval-history {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    color: #cbd5e1 !important;
+}
+
+html.dark .prompt-label {
+    color: #93c5fd !important;
+}
+
+html.dark .word-count-tag {
+    background: #334155 !important;
+    color: #cbd5e1 !important;
+}
+
+html.dark .task-visual {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+}
+
+html.dark .task-badge.graded {
+    background: rgba(6, 95, 70, 0.35) !important;
+    color: #6ee7b7 !important;
+    border-color: rgba(5, 150, 105, 0.4) !important;
+}
+
+html.dark .task-badge.ungraded {
+    background: rgba(146, 64, 14, 0.35) !important;
+    color: #fde68a !important;
+    border-color: rgba(217, 119, 6, 0.4) !important;
+}
+
+html.dark table.reviews-table {
+    background: #1e293b !important;
+}
+
+html.dark table.reviews-table th {
+    background: #0f172a !important;
+    color: #94a3b8 !important;
+    border-bottom: 1px solid #334155 !important;
+}
+
+html.dark table.reviews-table td {
+    color: #cbd5e1 !important;
+    border-bottom: 1px solid #334155 !important;
+}
+
+html.dark table.reviews-table tr:hover td {
+    background: #24334a !important;
+}
+
+html.dark .answer {
+    background: #0f172a !important;
+    border: 1px solid #334155 !important;
+    color: #e2e8f0 !important;
+}
+
+html.dark select,
+html.dark textarea,
+html.dark select.score-select,
+html.dark input.score-input,
+html.dark textarea.feedback-textarea,
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] select.score-select,
+html[data-theme="dark"] input.score-input,
+html[data-theme="dark"] textarea.feedback-textarea {
+    background: #0f172a !important;
+    border: 1px solid #334155 !important;
+    color: #f8fafc !important;
+}
+
+html.dark select.score-select:focus,
+html.dark input.score-input:focus,
+html.dark textarea.feedback-textarea:focus,
+html[data-theme="dark"] select.score-select:focus,
+html[data-theme="dark"] input.score-input:focus,
+html[data-theme="dark"] textarea.feedback-textarea:focus {
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25) !important;
+}
+
+html.dark .info {
+    background: #172554 !important;
+    color: #bfdbfe !important;
+    border: 1px solid #1e40af !important;
+}
+
+html.dark .warning {
+    background: #451a03 !important;
+    color: #fde68a !important;
+    border: 1px solid #92400e !important;
+}
+
+/* --- Security / MFA --- */
+html.dark .mfa-card,
+html.dark main.mfa-main {
+    background: #1e293b !important;
+    border: 1px solid #334155 !important;
+    color: #f1f5f9 !important;
+}
+
+/* --- Exam Taking Session Dark Mode Overrides --- */
+html.dark .text-slate-900,
+html.dark .text-gray-900,
+html.dark .text-slate-800,
+html.dark .text-gray-800,
+html[data-theme="dark"] .text-slate-900,
+html[data-theme="dark"] .text-gray-900,
+html[data-theme="dark"] .text-slate-800,
+html[data-theme="dark"] .text-gray-800 {
+    color: #f8fafc !important;
+}
+
+html.dark .text-slate-700,
+html.dark .text-gray-700,
+html.dark .text-slate-600,
+html.dark .text-gray-600,
+html[data-theme="dark"] .text-slate-700,
+html[data-theme="dark"] .text-gray-700,
+html[data-theme="dark"] .text-slate-600,
+html[data-theme="dark"] .text-gray-600 {
+    color: #cbd5e1 !important;
+}
+
+html.dark .text-slate-500,
+html.dark .text-gray-500,
+html.dark .text-slate-400,
+html.dark .text-gray-400,
+html[data-theme="dark"] .text-slate-500,
+html[data-theme="dark"] .text-gray-500,
+html[data-theme="dark"] .text-slate-400,
+html[data-theme="dark"] .text-gray-400 {
+    color: #94a3b8 !important;
+}
+
+html.dark .question-panel,
+html[data-theme="dark"] .question-panel {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+
+html.dark .fill-blank-prompt,
+html.dark .question-prompt,
+html[data-theme="dark"] .fill-blank-prompt,
+html[data-theme="dark"] .question-prompt {
+    color: #f8fafc !important;
+}
+
+html.dark .blank-input,
+html[data-theme="dark"] .blank-input {
+    border-bottom: 2px solid #818cf8 !important;
+    color: #f8fafc !important;
+    background-color: rgba(99, 102, 241, 0.15) !important;
+}
+
+html.dark .option,
+html[data-theme="dark"] .option {
+    background-color: #0f172a !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+
+html.dark .option span,
+html.dark .option b,
+html[data-theme="dark"] .option span,
+html[data-theme="dark"] .option b {
+    color: #f8fafc !important;
+}
+
+html.dark .back-home-btn,
+html[data-theme="dark"] .back-home-btn {
+    color: #94a3b8 !important;
+    border-color: #334155 !important;
+    background: #0f172a !important;
+}
+
+html.dark .back-home-btn:hover,
+html[data-theme="dark"] .back-home-btn:hover {
+    color: #818cf8 !important;
+    border-color: #6366f1 !important;
+    background: rgba(99, 102, 241, 0.12) !important;
+}
+
+html.dark .back-home-footer,
+html[data-theme="dark"] .back-home-footer {
+    border-top-color: #334155 !important;
+}
+
+html.dark .back-home-footer a,
+html[data-theme="dark"] .back-home-footer a {
+    color: #94a3b8 !important;
+}
+
+html.dark .back-home-footer a:hover,
+html[data-theme="dark"] .back-home-footer a:hover {
+    color: #818cf8 !important;
+}
+
+

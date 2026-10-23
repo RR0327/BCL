@@ -1,0 +1,33 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<script>
+    (function() {
+        try {
+            var t = localStorage.getItem("test-theme") || localStorage.getItem("theme") || "auto";
+            var isDark = (t === "dark") || ((t === "device" || t === "auto") && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+            if (isDark) {
+                document.documentElement.dataset.theme = "dark";
+                document.documentElement.classList.add("dark");
+            } else {
+                document.documentElement.dataset.theme = "light";
+                document.documentElement.classList.remove("dark");
+            }
+        } catch (e) {}
+    })();
+</script>
+<script src="{% static 'js/theme.js' %}" defer></script>
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
+{% if user.is_anonymous %}
+  {% include "admin/color_theme_toggle.html" %}
+{% endif %}
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

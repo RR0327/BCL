@@ -30,7 +30,7 @@ def readiness(test):
         for section in sections:
             if kind == 'reading' and not section.passage.strip():
                 problems.append(f'{kind} section {section.order}: passage missing')
-            if kind == 'listening' and not section.audio_file:
+            if kind == 'listening' and not (module.audio_file or section.audio_file):
                 problems.append(f'{kind} section {section.order}: audio missing')
             if kind == 'writing' and not section.questions.all():
                 problems.append(f'writing section {section.order}: essay prompt missing')

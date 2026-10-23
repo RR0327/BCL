@@ -23,6 +23,26 @@ class IELTSMockTest(models.Model):
     def __str__(self):
         return f"Test {self.test_number}: {self.title}"
 
+    @property
+    def ordered_modules(self):
+        """Return active modules ordered: Reading (left), Listening (middle), Writing (right)."""
+        order_map = {"reading": 1, "listening": 2, "writing": 3}
+        return sorted(
+            [m for m in self.modules.all() if m.is_active],
+            key=lambda m: order_map.get(m.module_type, 99),
+        )
+
+    @property
+    def has_all_modules(self):
+        """Check if active Reading, Listening, and Writing modules all exist."""
+        active_types = {m.module_type for m in self.modules.all() if m.is_active}
+        return {"reading", "listening", "writing"}.issubset(active_types)
+
+    @property
+    def all_modules_duration_minutes(self):
+        """Total duration for all 3 modules in minutes (typically 150m: 60+30+60)."""
+        return sum(m.duration_minutes for m in self.ordered_modules)
+
 
 class ExamModule(models.Model):
     class ModuleType(models.TextChoices):
@@ -34,6 +54,12 @@ class ExamModule(models.Model):
     module_type = models.CharField(max_length=20, choices=ModuleType.choices)
     duration_minutes = models.PositiveIntegerField(default=60)
     instructions = models.TextField(blank=True)
+    audio_file = models.FileField(
+        upload_to="ielts/audio/",
+        blank=True,
+        null=True,
+        help_text="Full continuous audio recording for this module (covers all parts/questions). If provided, this single audio will play continuously across all parts. If left blank, individual section audio files will be used instead.",
+    )
     is_active = models.BooleanField(default=True)
 
     class Meta:
@@ -53,7 +79,12 @@ class ExamSection(models.Model):
         help_text="Instructions or introductory text shown with the passage.",
     )
     passage = models.TextField(blank=True, help_text="Reading passage or supporting text.")
-    audio_file = models.FileField(upload_to="ielts/audio/", blank=True, null=True)
+    audio_file = models.FileField(
+        upload_to="ielts/audio/",
+        blank=True,
+        null=True,
+        help_text="Individual audio for this specific part/section (used when module-level continuous audio is not provided).",
+    )
     image = models.ImageField(upload_to="ielts/images/", blank=True, null=True)
     order = models.PositiveIntegerField(default=1)
 
@@ -74,6 +105,8 @@ class Question(models.Model):
         SHORT_ANSWER = "short_answer", "Short Answer"
         MATCHING = "matching", "Matching"
         MATCHING_INFORMATION = "matching_information", "Matching Information"
+        MULTI_SELECT = "multi_select", "Multi-Select"
+        MAP_LABELLING = "map_labelling", "Map / Diagram Labelling"
         ESSAY = "essay", "Writing Task"
 
     section = models.ForeignKey(ExamSection, on_delete=models.CASCADE, related_name="questions")
@@ -86,6 +119,16 @@ class Question(models.Model):
     answer_count = models.PositiveIntegerField(
         default=1,
         help_text="Number of answer fields for fill-in-the-blank questions. Use ___ in the prompt for inline fields.",
+    )
+    image = models.ImageField(
+        upload_to="ielts/questions/images/",
+        blank=True,
+        null=True,
+        help_text="Optional figure or diagram image for this question.",
+    )
+    table_content = models.TextField(
+        blank=True,
+        help_text="Optional HTML or markdown table content for this question.",
     )
     order = models.PositiveIntegerField(default=1)
     marks = models.PositiveIntegerField(default=1)
@@ -122,6 +165,89 @@ class QuestionOption(models.Model):
         return f"{self.option_key}: {self.option_text}"
 
 
+class FullMockAttempt(models.Model):
+    class AttemptStatus(models.TextChoices):
+        IN_PROGRESS = "in_progress", "In Progress"
+        SUBMITTED = "submitted", "Submitted"
+        AUTO_SUBMITTED = "auto_submitted", "Auto Submitted"
+
+    candidate = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="full_mock_attempts")
+    mock_test = models.ForeignKey(IELTSMockTest, on_delete=models.CASCADE, related_name="full_mock_attempts")
+    status = models.CharField(max_length=20, choices=AttemptStatus.choices, default=AttemptStatus.IN_PROGRESS)
+    current_step = models.CharField(
+        max_length=20,
+        default="reading",
+        help_text="Current active module step: reading, listening, writing, or completed.",
+    )
+    reading_attempt = models.ForeignKey(
+        "CandidateAttempt",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="as_full_mock_reading",
+    )
+    listening_attempt = models.ForeignKey(
+        "CandidateAttempt",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="as_full_mock_listening",
+    )
+    writing_attempt = models.ForeignKey(
+        "CandidateAttempt",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="as_full_mock_writing",
+    )
+    started_at = models.DateTimeField(default=timezone.now)
+    submitted_at = models.DateTimeField(null=True, blank=True)
+    overall_band_score = models.DecimalField(
+        max_digits=3,
+        decimal_places=1,
+        validators=[MinValueValidator(Decimal("0.0")), MaxValueValidator(Decimal("9.0"))],
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        ordering = ["-started_at"]
+        verbose_name = "All-Module Full Mock Attempt"
+        verbose_name_plural = "All-Module Full Mock Attempts"
+
+    def __str__(self):
+        return f"{self.candidate.username} - {self.mock_test.title} (All Modules) - {self.status}"
+
+    def calculate_overall_score(self):
+        scores = []
+        for att in [self.reading_attempt, self.listening_attempt, self.writing_attempt]:
+            if att and att.band_score is not None:
+                scores.append(float(att.band_score))
+        if len(scores) == 3:
+            avg = sum(scores) / 3.0
+            remainder = avg % 1
+            base = int(avg)
+            if remainder < 0.25:
+                final = base
+            elif remainder < 0.75:
+                final = base + 0.5
+            else:
+                final = base + 1.0
+            self.overall_band_score = Decimal(str(final))
+        elif len(scores) > 0:
+            avg = sum(scores) / len(scores)
+            remainder = avg % 1
+            base = int(avg)
+            if remainder < 0.25:
+                final = base
+            elif remainder < 0.75:
+                final = base + 0.5
+            else:
+                final = base + 1.0
+            self.overall_band_score = Decimal(str(final))
+        return self.overall_band_score
+
+
 class CandidateAttempt(models.Model):
     class AttemptStatus(models.TextChoices):
         IN_PROGRESS = "in_progress", "In Progress"
@@ -131,6 +257,14 @@ class CandidateAttempt(models.Model):
 
     candidate = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name="ielts_attempts")
     module = models.ForeignKey(ExamModule, on_delete=models.PROTECT, related_name="attempts")
+    full_mock = models.ForeignKey(
+        FullMockAttempt,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="module_attempts",
+        help_text="Associated All-Module Full Mock Attempt if part of combined testing.",
+    )
     status = models.CharField(max_length=20, choices=AttemptStatus.choices, default=AttemptStatus.IN_PROGRESS)
     started_at = models.DateTimeField(default=timezone.now)
     expires_at = models.DateTimeField(help_text="Server-authoritative exam deadline.")

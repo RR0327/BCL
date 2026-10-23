@@ -73,10 +73,10 @@ class CandidateWorkflowQualityTests(TestCase):
         self.assertEqual(self.save(attempt, answer='X'*20001).status_code, 400)
         self.assertFalse(CandidateAnswer.objects.filter(attempt=attempt).exists())
 
-    def test_second_focus_violation_auto_submits(self):
+    def test_third_focus_violation_auto_submits(self):
         attempt = self.start()
         url = reverse('bcl:report_exam_violation', args=[attempt.pk])
-        for expected in (1, 2):
+        for expected in (1, 2, 3):
             response = self.client.post(url, data=json.dumps({'reason':'tab_hidden'}), content_type='application/json')
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response.json()['violation_count'], expected)

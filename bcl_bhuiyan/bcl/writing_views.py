@@ -15,9 +15,6 @@ from .models import (
 )
 
 
-SCORE_CHOICES = [(str(Decimal(n) / 2), str(Decimal(n) / 2)) for n in range(19)]
-
-
 class WritingTaskEvaluationForm(forms.ModelForm):
     class Meta:
         model = WritingTaskEvaluation
@@ -26,11 +23,43 @@ class WritingTaskEvaluationForm(forms.ModelForm):
             "grammatical_range_accuracy", "feedback",
         ]
         widgets = {
-            "task_achievement": forms.Select(choices=SCORE_CHOICES),
-            "coherence_cohesion": forms.Select(choices=SCORE_CHOICES),
-            "lexical_resource": forms.Select(choices=SCORE_CHOICES),
-            "grammatical_range_accuracy": forms.Select(choices=SCORE_CHOICES),
-            "feedback": forms.Textarea(attrs={"rows": 5, "placeholder": "Specific feedback for this task..."}),
+            "task_achievement": forms.NumberInput(attrs={
+                "class": "score-input",
+                "step": "0.5",
+                "min": "0",
+                "max": "9",
+                "placeholder": "e.g. 6.5",
+                "inputmode": "decimal",
+            }),
+            "coherence_cohesion": forms.NumberInput(attrs={
+                "class": "score-input",
+                "step": "0.5",
+                "min": "0",
+                "max": "9",
+                "placeholder": "e.g. 6.5",
+                "inputmode": "decimal",
+            }),
+            "lexical_resource": forms.NumberInput(attrs={
+                "class": "score-input",
+                "step": "0.5",
+                "min": "0",
+                "max": "9",
+                "placeholder": "e.g. 6.5",
+                "inputmode": "decimal",
+            }),
+            "grammatical_range_accuracy": forms.NumberInput(attrs={
+                "class": "score-input",
+                "step": "0.5",
+                "min": "0",
+                "max": "9",
+                "placeholder": "e.g. 6.5",
+                "inputmode": "decimal",
+            }),
+            "feedback": forms.Textarea(attrs={
+                "rows": 5,
+                "class": "feedback-textarea",
+                "placeholder": "Detail candidate strengths, lexical range improvements, and grammar corrections...",
+            }),
         }
 
 
@@ -131,6 +160,9 @@ def writing_review_detail(request, attempt_id):
                 band = writing_result_band(locked)
                 locked.band_score = band
                 locked.save(update_fields=["band_score"])
+                if locked.full_mock:
+                    locked.full_mock.calculate_overall_score()
+                    locked.full_mock.save(update_fields=["overall_band_score"])
             messages.success(request, f"Task {n} evaluation saved.")
             return redirect("bcl:writing_review_detail", attempt_id=attempt.pk)
 

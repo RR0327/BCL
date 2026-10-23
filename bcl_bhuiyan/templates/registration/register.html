@@ -8,8 +8,25 @@
 
     <title>Register | IELTS Mock Test</title>
 
-    <link rel="stylesheet"
-          href="{% static 'css/auth.css' %}">
+    <script>
+        (function() {
+            try {
+                var t = localStorage.getItem("test-theme") || "device";
+                var isDark = (t === "dark") || (t === "device" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+                if (isDark) {
+                    document.documentElement.classList.add("dark");
+                    document.documentElement.setAttribute("data-theme", "dark");
+                } else {
+                    document.documentElement.classList.remove("dark");
+                    document.documentElement.setAttribute("data-theme", "light");
+                }
+            } catch (e) {}
+        })();
+    </script>
+
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    <script src="{% static 'js/theme.js' %}" defer></script>
 </head>
 <body>
 
@@ -17,10 +34,22 @@
 
     <div class="auth-card">
 
-        <a href="{% url 'bcl:home' %}"
-           class="auth-logo">
-            IELTS<span>Mock</span>
-        </a>
+        <div class="auth-top-nav">
+            <a href="{% url 'bcl:home' %}" class="back-home-btn" title="Back to Home">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                <span>Back to Home</span>
+            </a>
+            <button type="button" id="themeToggleBtn" class="theme-toggle-btn" title="Toggle theme" aria-label="Toggle theme"></button>
+        </div>
+
+        <div style="margin-bottom: 6px;">
+            <a href="{% url 'bcl:home' %}" class="auth-logo">
+                IELTS<span>Mock</span>
+            </a>
+        </div>
 
         <h1>Create Your Account</h1>
         <p class="subtitle">
@@ -90,12 +119,19 @@
 
         </form>
 
-        <p class="auth-footer">
-            Already have an account?
-            <a href="{% url 'bcl:login' %}">
-                Login
-            </a>
-        </p>
+        <div class="auth-footer">
+            <p style="margin: 0 0 10px 0;">
+                Already have an account?
+                <a href="{% url 'bcl:login' %}">
+                    Login
+                </a>
+            </p>
+            <div class="back-home-footer">
+                <a href="{% url 'bcl:home' %}">
+                    &larr; Back to Home
+                </a>
+            </div>
+        </div>
 
     </div>
 

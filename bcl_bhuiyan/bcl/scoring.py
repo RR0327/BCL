@@ -34,11 +34,25 @@ SUPPORTED_TYPES = {
     Question.QuestionType.SHORT_ANSWER,
     Question.QuestionType.MATCHING,
     Question.QuestionType.MATCHING_INFORMATION,
+    Question.QuestionType.MULTI_SELECT,
+    Question.QuestionType.MAP_LABELLING,
 }
 
 
 def normalize(value):
     return " ".join(value.strip().casefold().split())
+
+
+def split_alternative_answers(text):
+    """Split answer variants by ||, /, or |.
+    
+    Example:
+    '1st of june / 1st june / first of june / june 1st / june 1 / 1 june'
+    -> ['1st of june', '1st june', 'first of june', 'june 1st', 'june 1', '1 june']
+    """
+    import re
+    parts = re.split(r'\s*\|\|\s*|\s*/\s*|\s*\|\s*', text)
+    return [p.strip() for p in parts if p.strip()]
 
 
 def band_for_raw(module_type, raw):
@@ -82,10 +96,14 @@ def finalize_attempt_score(attempt):
         elif q.question_type in {
             Question.QuestionType.MATCHING,
             Question.QuestionType.MATCHING_INFORMATION,
+            Question.QuestionType.MAP_LABELLING,
         } and not (
             q.correct_answer.strip() or any(o.is_correct for o in q.options.all())
         ):
             return
+        elif q.question_type == Question.QuestionType.MULTI_SELECT:
+            if not (q.correct_answer.strip() or any(o.is_correct for o in q.options.all())):
+                return
         elif not q.correct_answer.strip():
             return
 
@@ -98,24 +116,53 @@ def finalize_attempt_score(attempt):
         if not answer:
             continue
         if q.question_type == Question.QuestionType.MCQ:
-            expected = next(o.option_key for o in q.options.all() if o.is_correct)
-            accepted = [expected]
+            correct_opts = [o.option_key for o in q.options.all() if o.is_correct]
+            if correct_opts:
+                accepted = correct_opts
+            else:
+                accepted = split_alternative_answers(q.correct_answer)
         elif q.question_type in {
             Question.QuestionType.MATCHING,
             Question.QuestionType.MATCHING_INFORMATION,
-        } and any(o.is_correct for o in q.options.all()):
-            accepted = [o.option_key for o in q.options.all() if o.is_correct]
-        else:
-            # Alternative approved text answers can be separated by ||.
-            accepted = [v for v in q.correct_answer.split("||") if v.strip()]
-        actual_values = answer.answer_text.split(";;;") if q.question_type == Question.QuestionType.FILL_BLANK else [answer.answer_text]
-        expected_values = q.correct_answer.split(";;;") if q.question_type == Question.QuestionType.FILL_BLANK else accepted
-        correct = bool(answer.answer_text.strip()) and (
-            len(actual_values) == len(expected_values)
-            and all(
-                any(normalize(actual) == normalize(expected) for expected in expected_value.split("||"))
-                for actual, expected_value in zip(actual_values, expected_values)
+            Question.QuestionType.MAP_LABELLING,
+        }:
+            correct_opts = [o.option_key for o in q.options.all() if o.is_correct]
+            if correct_opts:
+                accepted = correct_opts
+            else:
+                accepted = split_alternative_answers(q.correct_answer)
+        elif q.question_type == Question.QuestionType.MULTI_SELECT:
+            correct_opts = {o.option_key.strip().upper() for o in q.options.all() if o.is_correct}
+            if not correct_opts and q.correct_answer.strip():
+                correct_opts = {k.strip().upper() for k in q.correct_answer.split(";;;") if k.strip()}
+            actual_keys = {k.strip().upper() for k in answer.answer_text.split(";;;") if k.strip()}
+            correct = bool(actual_keys) and actual_keys == correct_opts
+            answer.is_correct = correct
+            answer.awarded_marks = 1 if correct else 0
+            answer.save(update_fields=["is_correct", "awarded_marks"])
+            raw += int(correct)
+            continue
+        elif q.question_type == Question.QuestionType.FILL_BLANK:
+            actual_values = [v.strip() for v in answer.answer_text.split(";;;")]
+            expected_blanks = [b.strip() for b in q.correct_answer.split(";;;")]
+            correct = bool(answer.answer_text.strip()) and (
+                len(actual_values) == len(expected_blanks)
+                and all(
+                    any(normalize(actual) == normalize(exp) for exp in split_alternative_answers(expected_blank))
+                    for actual, expected_blank in zip(actual_values, expected_blanks)
+                )
             )
+            answer.is_correct = correct
+            answer.awarded_marks = 1 if correct else 0
+            answer.save(update_fields=["is_correct", "awarded_marks"])
+            raw += int(correct)
+            continue
+        else:
+            accepted = split_alternative_answers(q.correct_answer)
+
+        correct = bool(answer.answer_text.strip()) and any(
+            normalize(answer.answer_text) == normalize(acc)
+            for acc in accepted
         )
         answer.is_correct = correct
         answer.awarded_marks = 1 if correct else 0

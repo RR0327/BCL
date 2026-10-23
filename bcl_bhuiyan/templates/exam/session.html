@@ -4,220 +4,634 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ module.get_module_type_display }} Exam | IELTS Mock Test</title>
-    <link rel="stylesheet" href="{% static 'css/exam.css' %}">
-    <script src="{% static 'js/exam.js' %}" defer></script>
+    <title>{{ module.get_module_type_display }} Exam | {{ mock_test.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/exam.css' %}?v={% now 'U' %}">
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}?v={% now 'U' %}">
+    <script>
+        (function() {
+            try {
+                var t = localStorage.getItem("test-theme") || "device";
+                var isDark = (t === "dark") || (t === "device" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+                if (isDark) {
+                    document.documentElement.classList.add("dark");
+                    document.documentElement.setAttribute("data-theme", "dark");
+                } else {
+                    document.documentElement.classList.remove("dark");
+                    document.documentElement.setAttribute("data-theme", "light");
+                }
+            } catch (e) {}
+        })();
+    </script>
+    <script src="{% static 'js/exam.js' %}?v={% now 'U' %}" defer></script>
 </head>
-<body>
-<header class="exam-header">
-    <div>
-        <strong>{{ mock_test.title }}</strong>
-        <span class="subtitle">{{ module.get_module_type_display }} · Attempt #{{ attempt.pk }}</span>
-    </div>
-    <div class="header-right">
-        <span id="saveStatus" role="status" aria-live="polite">Ready</span>
-        <div id="examTimer" class="timer" role="timer" data-remaining="{{ remaining_seconds }}">--:--:--</div>
-    </div>
-</header>
+<body class="antialiased">
+<div class="exam-app-wrapper flex flex-col h-screen overflow-hidden">
+    <!-- Top Header Bar -->
+    <header class="exam-header flex items-center justify-between px-4 sm:px-6 lg:px-8 py-2.5 bg-gradient-to-b from-blue-50 via-indigo-50 to-purple-50/95 backdrop-blur-xl border-b border-indigo-200 shadow-sm shrink-0 z-20">
+        <div class="flex items-center gap-2 min-w-0">
+            <a href="{% url 'bcl:dashboard' %}" id="headerBackBtn" class="back-link flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-indigo-600 border border-indigo-200 hover:bg-indigo-50 transition-colors shrink-0" title="Exit and submit examination">
+                &larr; Back
+            </a>
+            <div class="w-7 h-7 rounded-md bg-indigo-600 flex items-center justify-center shrink-0">
+                <span class="text-white text-sm">📖</span>
+            </div>
+            <span class="text-sm font-semibold text-gray-800 truncate max-w-[200px] sm:max-w-xs lg:max-w-sm" id="headerTestTitle" title="{{ mock_test.title }}">
+                {{ mock_test.title }}
+            </span>
+            <span class="subtitle text-xs text-gray-500 hidden sm:inline-block">· {{ module.get_module_type_display }} #{{ attempt.pk }}</span>
+            {% if attempt.full_mock %}
+            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 shrink-0">
+                Full Mock · Stage {% if module.module_type == 'reading' %}1/3 (Reading){% elif module.module_type == 'listening' %}2/3 (Listening){% else %}3/3 (Writing){% endif %}
+            </span>
+            {% endif %}
+        </div>
 
-<main id="examApp" class="{% if module.module_type == 'reading' %}reading-exam{% elif module.module_type == 'listening' %}listening-exam{% elif module.module_type == 'writing' %}writing-exam{% endif %}"
-      data-attempt-id="{{ attempt.pk }}"
-      data-timer-url="{% url 'bcl:exam_timer' attempt.pk %}"
-      data-save-url="{% url 'bcl:save_exam_answer' attempt.pk %}"
-      data-violation-url="{% url 'bcl:report_exam_violation' attempt.pk %}"
-      data-result-url="{% url 'bcl:exam_result' attempt.pk %}">
-    <aside class="side-panel">
-        {% if module.module_type == 'writing' %}
-        <h2>Writing Tasks</h2>
-        <p class="helper">Select Task 1 or Task 2 to switch editors. Your responses are saved separately.</p>
-        <p id="writingTotalWords" class="writing-total" aria-live="polite">Total words: 0</p>
-        {% else %}
-        <h2>Questions</h2>
-        <p class="helper">Select a number to move between questions.</p>
-        {% endif %}
-        <div id="questionNav" class="question-nav" aria-label="Question navigation"></div>
-        {% if module.module_type == 'reading' %}
-        <div id="partNav" class="part-nav" aria-label="Reading parts">
-            {% for part in sections %}
-                <button type="button" class="part-button" data-section-id="{{ part.pk }}">
-                    <span>Part {{ forloop.counter }}</span>
-                    <small>0/{{ part.questions.count }}</small>
+        <div class="flex items-center gap-2">
+            <button type="button" id="examTimerBtn" title="Exam Timer" class="flex items-center gap-1.5 text-sm font-mono font-bold px-3 py-1 rounded-full transition-colors bg-white text-gray-700 border border-gray-200 shadow-xs">
+                <span>⏱</span>
+                <span id="examTimer" class="timer" role="timer" data-remaining="{{ remaining_seconds }}">--:--:--</span>
+            </button>
+            <span id="saveStatus" class="text-xs font-medium text-slate-500 ml-1" role="status" aria-live="polite">Ready</span>
+        </div>
+
+        <div class="flex items-center gap-2 shrink-0">
+            <button type="button" id="themeToggleBtn" class="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-700/60 transition-colors" title="Theme: Device / System (click for Light)" aria-label="Theme mode: Device default">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-600 dark:text-slate-300">
+                    <rect width="20" height="14" x="2" y="3" rx="2"></rect>
+                    <line x1="8" x2="16" y1="21" y2="21"></line>
+                    <line x1="12" x2="12" y1="17" y2="21"></line>
+                </svg>
+            </button>
+            <button type="button" class="ask-aria-btn flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-200/60 hover:from-indigo-500/20 hover:to-purple-500/20 hover:shadow-sm transition-all duration-200" title="AI Exam Assistant">
+                <span class="text-sm font-semibold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Ask Aria</span>
+            </button>
+            <div class="relative inline-block">
+                <button type="button" class="help-btn flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/10 to-green-500/10 border border-emerald-200/60 hover:from-emerald-500/20 hover:to-green-500/20 hover:shadow-sm transition-all duration-200" title="Support assistance">
+                    <span class="text-emerald-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0 0 20.464 3.488"></path>
+                        </svg>
+                    </span>
+                    <span class="text-sm font-semibold bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">Help</span>
                 </button>
-            {% endfor %}
+            </div>
         </div>
-        {% endif %}
-        <div class="legend">
-            <span><i class="dot answered"></i> Answered</span>
-            <span><i class="dot flagged"></i> Flagged</span>
-            <span><i class="dot"></i> Unanswered</span>
-        </div>
-        <p id="answeredCount" class="helper">0 answered</p>
-        <p class="helper">Answers autosave every 15 seconds and when you switch questions.</p>
-        {% if module.module_type == 'writing' %}
-        <p class="helper">Task 1 suggested minimum: 150 words. Task 2 suggested minimum: 250 words. Word counts are guidance, not automatic grades.</p>
-        {% endif %}
-    </aside>
+    </header>
 
-    <div class="exam-content">
-        {% if module.module_type == 'listening' %}
-        <section class="listening-player" aria-label="Listening audio">
-            <div>
-                <strong>Listening examination audio</strong>
-                <p id="listeningStatus" role="status" aria-live="polite">Audio has not started. Check your volume, then start playback.</p>
-                <p class="helper">Playback runs continuously through configured parts. There are no pause, rewind or seek controls. The examination timer has already started.</p>
-            </div>
-            <button id="startListening" type="button">Start listening audio</button>
-            <audio id="listeningAudio" preload="auto" playsinline></audio>
-            <div id="listeningParts" hidden>
-                {% for section in sections %}
-                    <span class="listening-part" data-section-id="{{ section.pk }}" data-audio-url="{% if section.audio_file %}{% url 'bcl:section_media' attempt.pk section.pk 'audio' %}{% endif %}" data-title="{{ section.title }}">Part {{ forloop.counter }} — {{ section.title }}</span>
-                {% endfor %}
-            </div>
-        </section>
-        {% endif %}
-        {% if module.module_type == 'writing' %}
-        <section class="writing-overview" aria-label="Writing exam information">
-            <div><strong>IELTS Academic Writing</strong><p>Complete both Task 1 and Task 2 within the shared exam time. You may switch between tasks at any time.</p></div>
-            <p class="helper">Task 1: about 20 minutes · Task 2: about 40 minutes. These are suggested allocations, not separate timers.</p>
-        </section>
-        {% endif %}
-        <p class="integrity-hint" id="integrityHint">Exam integrity: leaving this tab or switching windows triggers a warning; a second recorded violation automatically ends this attempt.</p>
-        {% for section in sections %}
-            {% for question in section.questions.all %}
-                <section class="question-panel" data-question-id="{{ question.pk }}" data-section-id="{{ section.pk }}" {% if module.module_type == 'writing' %}data-task-label="{{ section.title }}"{% endif %} hidden>
-                    <div class="question-heading">
-                        <span class="section-name">{{ section.title }}</span>
-                        <span class="question-number">Question {{ question.order }}</span>
+    <!-- Main Exam Workspace -->
+    <main id="examApp" class="flex-1 overflow-hidden flex flex-col {% if module.module_type == 'reading' %}reading-exam{% elif module.module_type == 'listening' %}listening-exam{% elif module.module_type == 'writing' %}writing-exam{% endif %}"
+          data-attempt-id="{{ attempt.pk }}"
+          data-module-type="{{ module.module_type }}"
+          data-is-full-mock="{% if attempt.full_mock %}true{% else %}false{% endif %}"
+          data-timer-url="{% url 'bcl:exam_timer' attempt.pk %}"
+          data-save-url="{% url 'bcl:save_exam_answer' attempt.pk %}"
+          data-violation-url="{% url 'bcl:report_exam_violation' attempt.pk %}"
+          data-ended-url="{% if attempt.full_mock_id %}{% url 'bcl:full_mock_ended' attempt.full_mock_id %}{% else %}{% url 'bcl:exam_ended' attempt.pk %}{% endif %}"
+          data-result-url="{% url 'bcl:exam_result' attempt.pk %}"
+          data-violation-count="{{ attempt.violation_count }}">
+
+        {% if module.module_type == 'reading' %}
+        <!-- READING SPLIT SCREEN -->
+        <div class="reading-split-container flex flex-1 overflow-hidden" id="readingSplitArea">
+            <!-- Left Pane: Passage -->
+            <div class="reading-passage-column shrink-0 h-full flex flex-col" id="passageCol" style="width: 50%;">
+                <div class="flex-1 overflow-y-auto bg-blue-50/50 border-r border-blue-200 relative passage-scroll-pane" id="passageScrollArea">
+                    <div class="sticky top-0 bg-blue-50/90 backdrop-blur border-b border-blue-200 px-5 py-3 flex items-center justify-between z-10 passage-sticky-bar">
+                        <div>
+                            <p class="text-xs font-semibold text-indigo-500 uppercase tracking-widest passage-part-badge" id="activePassageBadge">Passage 1</p>
+                            <h2 class="text-base font-bold text-gray-900 passage-part-title" id="activePassageTitle">Reading Passage</h2>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <button type="button" class="highlight-selection" title="Highlight text">Highlight</button>
+                            <button type="button" class="clear-highlights" title="Clear highlights">Clear</button>
+                        </div>
                     </div>
-                    {% if question.question_instructions %}<p class="question-instructions">{{ question.question_instructions|linebreaks }}</p>{% endif %}
-                    {% if section.passage and module.module_type != 'listening' %}
-                        {% if module.module_type == 'reading' %}
-                            <div class="reading-passage" aria-label="Reading passage">
-                                <div class="passage-toolbar">
-                                    <strong>Reading passage</strong>
-                                    <div class="tool-buttons">
-                                        <button type="button" class="highlight-selection">Highlight selected text</button>
-                                        <button type="button" class="clear-highlights">Clear highlights</button>
+                    <div class="px-6 pt-5 space-y-1">
+                        <p class="text-[15.5px] italic text-gray-800 leading-[1.9] passage-part-byline" id="activePassageByline">
+                            Read the text and answer questions
+                        </p>
+                    </div>
+                    <div class="px-6 py-6 space-y-6 selectable-passage text-[15.5px] leading-[1.9] text-gray-800 tracking-[0.01em]" id="activePassageText">
+                        {% for section in sections %}{% if forloop.first %}{{ section.passage|linebreaks }}{% endif %}{% endfor %}
+                    </div>
+                    <div class="px-6 pb-6 pt-2 border-t border-blue-100">
+                        <label class="notes-label block text-xs font-bold text-gray-500 mb-1" for="readingPassageNotes">Private passage notes (saved in this browser)</label>
+                        <textarea id="readingPassageNotes" class="passage-notes" rows="3" placeholder="Type your personal notes here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resizer Divider -->
+            <div class="split-resizer w-1 bg-gray-200 hover:bg-indigo-400 cursor-col-resize shrink-0 transition-colors" id="splitResizer"></div>
+
+            <!-- Right Pane: Questions -->
+            <div class="reading-question-column shrink-0 h-full flex flex-col" id="questionsCol" style="width: 50%;">
+                <div class="flex-1 overflow-y-auto bg-violet-50/40 relative p-5 sm:p-6 space-y-6 questions-scroll-pane" id="questionsScrollArea">
+                    {% for section in sections %}
+                        <div class="reading-section-group exam-section-group" data-section-id="{{ section.pk }}" data-section-order="{{ forloop.counter }}" data-section-title="{{ section.title }}" data-section-byline="{% if section.passage_instructions %}{{ section.passage_instructions }}{% else %}Read the text and answer questions{% endif %}" {% if not forloop.first %}hidden{% endif %}>
+                            <div class="passage-raw-source" hidden>{{ section.passage }}</div>
+                            {% for question in section.questions.all %}
+                                <section class="question-panel rounded-lg border bg-blue-50/50 border-blue-200 transition-colors p-4 shadow-2xs"
+                                         id="q-{{ question.pk }}"
+                                         data-question-id="{{ question.pk }}"
+                                         data-section-id="{{ section.pk }}"
+                                         data-question-type="{{ question.question_type }}">
+                                    
+                                    <div class="question-heading flex items-center justify-between mb-3 border-b border-blue-100 pb-2">
+                                        <div class="flex items-center gap-2">
+                                            <span class="q-number-badge shrink-0 w-6 h-6 flex items-center justify-center rounded text-xs font-bold bg-slate-100 text-slate-700">{{ forloop.counter }}</span>
+                                            <span class="text-xs font-bold text-indigo-500 uppercase tracking-wide">{{ question.get_question_type_display }}</span>
+                                        </div>
+                                        <label class="flag-label flex items-center gap-1.5 text-xs text-amber-700 cursor-pointer">
+                                            <input type="checkbox" class="flag-input accent-amber-600"> Flag
+                                        </label>
                                     </div>
-                                </div>
-                                <div class="passage-text selectable-passage">{{ section.passage|linebreaks }}</div>
-                                {% if section.passage_instructions %}
-                                    <p class="passage-instructions">{{ section.passage_instructions|linebreaks }}</p>
-                                {% endif %}
-                                <label class="notes-label" for="notes-{{ question.pk }}">Private passage notes (saved in this browser)</label>
-                                <textarea id="notes-{{ question.pk }}" class="passage-notes" data-section-id="{{ section.pk }}" rows="3" placeholder="Notes for this passage..." maxlength="5000"></textarea>
-                                <p class="helper">Notes stay in this browser only. Highlights are temporary and reset on refresh.</p>
-                            </div>
-                        {% else %}
-                            <details class="passage" open>
-                                <summary>Reference text</summary>
-                                <div class="passage-text">{{ section.passage|linebreaks }}</div>
-                            </details>
-                        {% endif %}
-                    {% endif %}
-                    {% if section.image %}<img class="section-image" src="{% url 'bcl:section_media' attempt.pk section.pk 'image' %}" alt="Section illustration">{% endif %}
-                    {% if section.audio_file and module.module_type != 'listening' %}
-                        <p class="notice">This section includes an audio attachment.</p>
-                    {% endif %}
-                    <div class="question-answer-area">
-                    {% if question.question_type == 'fill_blank' %}
-                        <div class="question-prompt fill-blank-prompt" data-answer-count="{{ question.answer_count }}">{{ question.question_text }}</div>
-                    {% else %}
-                        <h2 class="question-prompt">{{ question.question_text }}</h2>
-                    {% endif %}
-                    {% if question.question_type == 'mcq' %}
-                        <div class="answer-options">
-                            {% for option in question.options.all %}
-                                <label class="option">
-                                    <input type="radio" name="question-{{ question.pk }}" value="{{ option.option_key }}">
-                                    <span><b>{{ option.option_key }}.</b> {{ option.option_text }}</span>
-                                </label>
-                            {% empty %}
-                                <p class="notice">No answer options have been configured for this question.</p>
-                            {% endfor %}
-                        </div>
-                    {% elif question.question_type == 'tfng' %}
-                        <div class="answer-options">
-                            <label class="option"><input type="radio" name="question-{{ question.pk }}" value="TRUE"> True</label>
-                            <label class="option"><input type="radio" name="question-{{ question.pk }}" value="FALSE"> False</label>
-                            <label class="option"><input type="radio" name="question-{{ question.pk }}" value="NOT GIVEN"> Not Given</label>
-                        </div>
-                    {% elif question.question_type == 'ynng' %}
-                        <div class="answer-options">
-                            <label class="option"><input type="radio" name="question-{{ question.pk }}" value="YES"> Yes</label>
-                            <label class="option"><input type="radio" name="question-{{ question.pk }}" value="NO"> No</label>
-                            <label class="option"><input type="radio" name="question-{{ question.pk }}" value="NOT GIVEN"> Not Given</label>
-                        </div>
-                    {% elif question.question_type == 'matching_information' %}
-                        <div class="matching-information-options">
-                            <strong>List of options</strong>
-                            <div class="matching-option-list">
-                                {% for option in question.options.all %}
-                                    <span><b>{{ option.option_key }}</b> {{ option.option_text }}</span>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        <label for="answer-{{ question.pk }}">Choose the paragraph</label>
-                        <select id="answer-{{ question.pk }}" class="answer-field matching-field">
-                            <option value="">Select an answer</option>
-                            {% for option in question.options.all %}
-                                <option value="{{ option.option_key }}">{{ option.option_key }}</option>
-                            {% endfor %}
-                        </select>
-                    {% elif question.question_type == 'matching' %}
-                        <label for="answer-{{ question.pk }}">Choose the matching paragraph or item</label>
-                        <select id="answer-{{ question.pk }}" class="answer-field matching-field">
-                            <option value="">Select an answer</option>
-                            {% for option in question.options.all %}
-                                <option value="{{ option.option_key }}">{{ option.option_key }}{% if option.option_text %} — {{ option.option_text }}{% endif %}</option>
-                            {% endfor %}
-                        </select>
-                    {% elif question.question_type == 'essay' %}
-                        {% if module.module_type == 'writing' %}
-                            <div class="writing-task-info">
-                                <strong>{{ section.title }}</strong>
-                                <span class="writing-target">{% if section.order == 1 %}Suggested minimum: 150 words{% elif section.order == 2 %}Suggested minimum: 250 words{% else %}Writing response{% endif %}</span>
-                            </div>
-                        {% endif %}
-                        <label for="answer-{{ question.pk }}">Your writing response</label>
-                        <textarea id="answer-{{ question.pk }}" class="answer-field writing-editor" rows="17" maxlength="20000" spellcheck="true" placeholder="Write your response here..."></textarea>
-                        <p class="word-count" aria-live="polite">Words: <span>0</span> <span class="writing-save-note">· Saved automatically every 15 seconds</span></p>
-                    {% elif question.question_type != 'fill_blank' %}
-                        <label for="answer-{{ question.pk }}">Your answer</label>
-                        <input id="answer-{{ question.pk }}" class="answer-field" type="text" maxlength="20000" placeholder="Type your answer here...">
-                    {% else %}
-                        <label class="fill-blank-label">Type an answer in each blank</label>
-                    {% endif %}
-                    <label class="flag-label">
-                        <input type="checkbox" class="flag-input"> Flag for review
-                    </label>
-                    </div>
-                </section>
-            {% endfor %}
-        {% endfor %}
 
-        <section id="noQuestions" class="no-questions" hidden>
-            <h2>{% if module.module_type == 'writing' %}Writing tasks not configured{% else %}No questions available{% endif %}</h2>
-            <p>{% if module.module_type == 'writing' %}Ask an administrator to create two Writing sections (Task 1 and Task 2), each with one Essay question.{% else %}Ask an administrator to add questions to this module.{% endif %}</p>
+                                    {% if question.question_instructions %}
+                                    <div class="text-sm text-gray-600 leading-relaxed mb-3 instructions font-medium">
+                                        {{ question.question_instructions }}
+                                    </div>
+                                    {% endif %}
+
+                                    {% if question.image %}
+                                    <div class="question-figure mb-3 rounded-lg border border-blue-200 dark:border-zinc-700 bg-white/80 dark:bg-zinc-800 p-2.5 flex flex-col items-center">
+                                        <img src="{% url 'bcl:question_media' attempt.pk question.pk %}" alt="Figure for Question {{ question.order }}" class="max-h-72 object-contain rounded-md">
+                                        <span class="text-xs text-slate-500 mt-1">Figure for Question {{ question.order }}</span>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if question.table_content %}
+                                    <div class="question-table-wrapper mb-3 overflow-x-auto rounded-lg border border-blue-200 dark:border-zinc-700 bg-white/80 dark:bg-zinc-800 p-3 text-sm">
+                                        {{ question.table_content|safe }}
+                                    </div>
+                                    {% endif %}
+
+                                    <div class="question-answer-area">
+                                        {% if question.question_type == 'matching' or question.question_type == 'matching_information' %}
+                                            {% if question.options.all %}
+                                            <div class="matching-information-options mb-3 rounded-lg border border-blue-200 bg-white/70 p-3">
+                                                <strong class="text-xs font-bold text-slate-700 uppercase block mb-2">Options</strong>
+                                                <div class="flex flex-wrap gap-2">
+                                                    {% for opt in question.options.all %}
+                                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 text-xs text-slate-700 border border-slate-200">
+                                                        <b class="text-indigo-600">{{ opt.option_key }}</b> {{ opt.option_text }}
+                                                    </span>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                            <div class="flex items-start justify-between gap-3">
+                                                <div class="flex-1 text-base text-slate-800 leading-relaxed question-prompt">
+                                                    {{ question.question_text }}
+                                                </div>
+                                                <div class="shrink-0 flex items-center gap-1.5">
+                                                    <select class="answer-field matching-field w-16 h-9 text-center text-sm font-bold rounded border bg-white border-slate-300 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer" aria-label="Select match for Question {{ forloop.counter }}">
+                                                        <option value="">?</option>
+                                                        {% for opt in question.options.all %}
+                                                        <option value="{{ opt.option_key }}">{{ opt.option_key }}</option>
+                                                        {% empty %}
+                                                        <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        {% elif question.question_type == 'fill_blank' %}
+                                            <div class="fill-blank-prompt text-base text-slate-800 leading-loose" data-answer-count="{{ question.answer_count }}">
+                                                {{ question.question_text }}
+                                            </div>
+
+                                        {% elif question.question_type == 'mcq' %}
+                                            <h2 class="question-prompt text-base text-slate-800 font-semibold mb-3">{{ question.question_text }}</h2>
+                                            <div class="answer-options space-y-2">
+                                                {% for opt in question.options.all %}
+                                                <label class="option flex items-start gap-3 p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition-colors">
+                                                    <input type="radio" name="question-{{ question.pk }}" value="{{ opt.option_key }}" class="mt-0.5 accent-indigo-600">
+                                                    <span class="text-sm text-slate-700"><b class="text-indigo-600 mr-1">{{ opt.option_key }}.</b> {{ opt.option_text }}</span>
+                                                </label>
+                                                {% endfor %}
+                                            </div>
+
+                                        {% elif question.question_type == 'tfng' %}
+                                            <h2 class="question-prompt text-base text-slate-800 font-medium mb-3">{{ question.question_text }}</h2>
+                                            <div class="answer-options flex flex-wrap gap-2">
+                                                <label class="option flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer text-sm font-semibold text-slate-700">
+                                                    <input type="radio" name="question-{{ question.pk }}" value="TRUE" class="accent-indigo-600"> TRUE
+                                                </label>
+                                                <label class="option flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer text-sm font-semibold text-slate-700">
+                                                    <input type="radio" name="question-{{ question.pk }}" value="FALSE" class="accent-indigo-600"> FALSE
+                                                </label>
+                                                <label class="option flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer text-sm font-semibold text-slate-700">
+                                                    <input type="radio" name="question-{{ question.pk }}" value="NOT GIVEN" class="accent-indigo-600"> NOT GIVEN
+                                                </label>
+                                            </div>
+
+                                        {% elif question.question_type == 'ynng' %}
+                                            <h2 class="question-prompt text-base text-slate-800 font-medium mb-3">{{ question.question_text }}</h2>
+                                            <div class="answer-options flex flex-wrap gap-2">
+                                                <label class="option flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer text-sm font-semibold text-slate-700">
+                                                    <input type="radio" name="question-{{ question.pk }}" value="YES" class="accent-indigo-600"> YES
+                                                </label>
+                                                <label class="option flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer text-sm font-semibold text-slate-700">
+                                                    <input type="radio" name="question-{{ question.pk }}" value="NO" class="accent-indigo-600"> NO
+                                                </label>
+                                                <label class="option flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer text-sm font-semibold text-slate-700">
+                                                    <input type="radio" name="question-{{ question.pk }}" value="NOT GIVEN" class="accent-indigo-600"> NOT GIVEN
+                                                </label>
+                                            </div>
+
+                                        {% else %}
+                                            <h2 class="question-prompt text-base text-slate-800 font-medium mb-2">{{ question.question_text }}</h2>
+                                            <input type="text" class="answer-field w-full rounded-lg border border-slate-300 p-2 text-sm bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Type your answer here...">
+                                        {% endif %}
+                                    </div>
+                                </section>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        {% elif module.module_type == 'listening' %}
+        <!-- LISTENING WORKSPACE -->
+        <div class="listening-container flex flex-1 flex-col overflow-hidden" id="listeningArea">
+            <!-- Listening Audio Header Bar -->
+            <section class="listening-player-bar bg-white/95 dark:bg-[#2b2b2b]/95 backdrop-blur border-b border-indigo-100 dark:border-zinc-700 px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3 shadow-2xs shrink-0 z-10" aria-label="Listening examination audio">
+                <div class="flex items-center gap-3 min-w-0 flex-1">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-200/80 dark:border-indigo-800/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0 relative overflow-hidden" id="listeningAudioIconBox">
+                        <svg id="listeningStaticIcon" xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.757 3.63 8.25 4.51 8.25H6.75z" />
+                        </svg>
+                        <div id="listeningAudioWave" class="audio-wave-bars flex items-end gap-0.5 h-4 hidden" aria-hidden="true">
+                            <span></span><span></span><span></span><span></span>
+                        </div>
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Listening Examination Audio</span>
+                            <span id="listeningPulseDot" class="w-2 h-2 rounded-full bg-slate-300 dark:bg-zinc-600 transition-colors"></span>
+                            <span id="listeningPartBadge" class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800">Part 1</span>
+                        </div>
+                        <div class="flex items-center gap-3 mt-0.5">
+                            <p id="listeningStatus" role="status" class="text-xs sm:text-sm text-slate-700 dark:text-slate-200 font-medium truncate" aria-live="polite">
+                                {% if module_audio_url %}
+                                Continuous examination audio (covers all parts). Click "Start listening audio" to begin.
+                                {% else %}
+                                Audio ready. Click "Start listening audio" to begin Part 1.
+                                {% endif %}
+                            </p>
+                        </div>
+                        <!-- Progress Track and Time (Always visible, clean layout without height shifting) -->
+                        <div id="listeningProgressRow" class="flex items-center gap-2.5 mt-1 transition-opacity duration-200 opacity-60">
+                            <div class="h-1.5 flex-1 max-w-xs sm:max-w-md bg-slate-200 dark:bg-zinc-700 rounded-full overflow-hidden relative cursor-pointer group" id="listeningProgressTrack" title="Click anywhere to seek">
+                                <div id="listeningProgressBar" class="h-full bg-gradient-to-r from-indigo-500 to-emerald-500 w-0 transition-[width] duration-150"></div>
+                            </div>
+                            <span id="listeningTimeLabel" class="text-[11px] font-mono text-slate-500 dark:text-zinc-400 tabular-nums shrink-0">0:00 / --:--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 shrink-0">
+                    <!-- Volume Control (Mute Toggle + Range Slider + Label) -->
+                    <div class="flex items-center gap-1.5 bg-slate-100 dark:bg-zinc-800/80 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-zinc-700/80" title="Audio volume">
+                        <button id="listeningVolumeBtn" type="button" class="text-slate-500 hover:text-indigo-600 dark:text-zinc-400 dark:hover:text-indigo-400 transition-colors p-0.5 cursor-pointer" title="Mute/Unmute audio">
+                            <svg id="listeningVolumeIcon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.757 3.63 8.25 4.51 8.25H6.75z" />
+                            </svg>
+                        </button>
+                        <input id="listeningVolumeSlider" type="range" min="0" max="1" step="0.05" value="1" class="w-14 sm:w-20 accent-indigo-600 cursor-pointer h-1.5 bg-slate-200 dark:bg-zinc-600 rounded-lg" title="Audio volume">
+                        <span id="listeningVolumeLabel" class="text-[10px] font-mono text-slate-500 dark:text-zinc-400 w-7 text-right">100%</span>
+                    </div>
+
+                    <!-- Main Action Button -->
+                    <button id="startListening" type="button" class="listening-audio-btn state-ready">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        <span>Start listening audio</span>
+                    </button>
+
+                    <audio id="listeningAudio"
+                           data-module-audio-url="{{ module_audio_url }}"
+                           {% if module_audio_url %}src="{{ module_audio_url }}"{% else %}{% for sec in sections %}{% if sec.audio_file and forloop.first %}src="{% url 'bcl:section_media' attempt.pk sec.pk 'audio' %}"{% endif %}{% endfor %}{% endif %}
+                           preload="auto"
+                           playsinline></audio>
+
+                    <div id="listeningParts" hidden>
+                        {% for section in sections %}
+                        <span class="listening-part" data-section-id="{{ section.pk }}" data-section-order="{{ forloop.counter }}" data-audio-url="{% if section.audio_file %}{% url 'bcl:section_media' attempt.pk section.pk 'audio' %}{% endif %}" data-title="{{ section.title }}">Part {{ forloop.counter }} — {{ section.title }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+
+            <!-- Scrollable Questions Container for Active Part -->
+            <div class="listening-scroll-pane flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8" id="listeningScrollArea">
+                <div class="max-w-4xl mx-auto space-y-6">
+                    {% for section in sections %}
+                        <div class="listening-section-group exam-section-group space-y-6" data-section-id="{{ section.pk }}" data-section-order="{{ forloop.counter }}" data-section-title="{{ section.title }}" {% if not forloop.first %}hidden{% endif %}>
+                            <div class="section-banner p-4 sm:p-5 rounded-xl bg-white dark:bg-zinc-800/90 border border-blue-200/80 dark:border-zinc-700 shadow-2xs">
+                                <div class="flex items-center justify-between mb-1.5">
+                                    <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest">Part {{ forloop.counter }}</span>
+                                    <span class="text-xs text-slate-500 font-medium">{{ section.questions.count }} question{{ section.questions.count|pluralize }}</span>
+                                </div>
+                                <h2 class="text-lg font-bold text-slate-900 dark:text-white">{{ section.title }}</h2>
+                                {% if section.passage_instructions or section.instructions %}
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
+                                    {% if section.passage_instructions %}{{ section.passage_instructions }}{% else %}{{ section.instructions }}{% endif %}
+                                </p>
+                                {% endif %}
+                                {% if section.passage %}
+                                <div class="mt-3 p-3 rounded-lg bg-blue-50/50 dark:bg-zinc-900/50 border border-blue-100 dark:border-zinc-700/60 text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                                    {{ section.passage|linebreaks }}
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            {% if section.image %}
+                            <div class="section-image-card p-4 rounded-xl bg-white dark:bg-zinc-800 border border-blue-200 dark:border-zinc-700 shadow-2xs flex flex-col items-center">
+                                <img class="max-h-80 sm:max-h-96 object-contain rounded-lg" src="{% url 'bcl:section_media' attempt.pk section.pk 'image' %}" alt="{{ section.title }} illustration">
+                                <span class="text-xs text-slate-500 mt-2">Diagram / Map for {{ section.title }}</span>
+                            </div>
+                            {% endif %}
+
+                            {% for question in section.questions.all %}
+                                <section class="question-panel rounded-lg border bg-blue-50/50 border-blue-200 transition-colors p-4 shadow-2xs"
+                                         id="q-{{ question.pk }}"
+                                         data-question-id="{{ question.pk }}"
+                                         data-section-id="{{ section.pk }}"
+                                         data-question-type="{{ question.question_type }}">
+                                    
+                                    <div class="question-heading flex items-center justify-between mb-3 border-b border-blue-100 pb-2">
+                                        <div class="flex items-center gap-2">
+                                            <span class="q-number-badge shrink-0 w-6 h-6 flex items-center justify-center rounded text-xs font-bold bg-slate-100 text-slate-700">{{ forloop.counter }}</span>
+                                            <span class="text-xs font-bold text-indigo-500 uppercase tracking-wide">{{ question.get_question_type_display }}</span>
+                                        </div>
+                                        <label class="flag-label flex items-center gap-1.5 text-xs text-amber-700 cursor-pointer">
+                                            <input type="checkbox" class="flag-input accent-amber-600"> Flag
+                                        </label>
+                                    </div>
+
+                                    {% if question.question_instructions %}
+                                    <div class="text-sm text-gray-600 leading-relaxed mb-3 instructions font-medium">
+                                        {{ question.question_instructions }}
+                                    </div>
+                                    {% endif %}
+
+                                    {% if question.image %}
+                                    <div class="question-figure mb-3 rounded-lg border border-blue-200 dark:border-zinc-700 bg-white/80 dark:bg-zinc-800 p-2.5 flex flex-col items-center">
+                                        <img src="{% url 'bcl:question_media' attempt.pk question.pk %}" alt="Figure for Question {{ question.order }}" class="max-h-72 object-contain rounded-md">
+                                        <span class="text-xs text-slate-500 mt-1">Figure for Question {{ question.order }}</span>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if question.table_content %}
+                                    <div class="question-table-wrapper mb-3 overflow-x-auto rounded-lg border border-blue-200 dark:border-zinc-700 bg-white/80 dark:bg-zinc-800 p-3 text-sm">
+                                        {{ question.table_content|safe }}
+                                    </div>
+                                    {% endif %}
+
+                                    <div class="question-answer-area">
+                                        {% if question.question_type == 'matching' or question.question_type == 'matching_information' %}
+                                            {% if question.options.all %}
+                                            <div class="matching-information-options mb-3 rounded-lg border border-blue-200 bg-white/70 p-3">
+                                                <strong class="text-xs font-bold text-slate-700 uppercase block mb-2">Options</strong>
+                                                <div class="flex flex-wrap gap-2">
+                                                    {% for opt in question.options.all %}
+                                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 text-xs text-slate-700 border border-slate-200">
+                                                        <b class="text-indigo-600">{{ opt.option_key }}</b> {{ opt.option_text }}
+                                                    </span>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                            <div class="flex items-start justify-between gap-3">
+                                                <div class="flex-1 text-base text-slate-800 leading-relaxed question-prompt">
+                                                    {{ question.question_text }}
+                                                </div>
+                                                <div class="shrink-0 flex items-center gap-1.5">
+                                                    <select class="answer-field matching-field w-16 h-9 text-center text-sm font-bold rounded border bg-white border-slate-300 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer" aria-label="Select match for Question {{ forloop.counter }}">
+                                                        <option value="">?</option>
+                                                        {% for opt in question.options.all %}
+                                                        <option value="{{ opt.option_key }}">{{ opt.option_key }}</option>
+                                                        {% empty %}
+                                                        <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        {% elif question.question_type == 'fill_blank' %}
+                                            <div class="fill-blank-prompt text-base text-slate-800 leading-loose" data-answer-count="{{ question.answer_count }}">
+                                                {{ question.question_text }}
+                                            </div>
+
+                                        {% elif question.question_type == 'mcq' %}
+                                            <h2 class="question-prompt text-base text-slate-800 font-semibold mb-3">{{ question.question_text }}</h2>
+                                            <div class="answer-options space-y-2">
+                                                {% for opt in question.options.all %}
+                                                <label class="option flex items-start gap-3 p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition-colors">
+                                                    <input type="radio" name="question-{{ question.pk }}" value="{{ opt.option_key }}" class="mt-0.5 accent-indigo-600">
+                                                    <span class="text-sm text-slate-700"><b class="text-indigo-600 mr-1">{{ opt.option_key }}.</b> {{ opt.option_text }}</span>
+                                                </label>
+                                                {% endfor %}
+                                            </div>
+
+                                        {% elif question.question_type == 'tfng' %}
+                                            <h2 class="question-prompt text-base text-slate-800 font-medium mb-3">{{ question.question_text }}</h2>
+                                            <div class="answer-options flex flex-wrap gap-2">
+                                                <label class="option flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer text-sm font-semibold text-slate-700">
+                                                    <input type="radio" name="question-{{ question.pk }}" value="TRUE" class="accent-indigo-600"> TRUE
+                                                </label>
+                                                <label class="option flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer text-sm font-semibold text-slate-700">
+                                                    <input type="radio" name="question-{{ question.pk }}" value="FALSE" class="accent-indigo-600"> FALSE
+                                                </label>
+                                                <label class="option flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer text-sm font-semibold text-slate-700">
+                                                    <input type="radio" name="question-{{ question.pk }}" value="NOT GIVEN" class="accent-indigo-600"> NOT GIVEN
+                                                </label>
+                                            </div>
+
+                                        {% elif question.question_type == 'ynng' %}
+                                            <h2 class="question-prompt text-base text-slate-800 font-medium mb-3">{{ question.question_text }}</h2>
+                                            <div class="answer-options flex flex-wrap gap-2">
+                                                <label class="option flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer text-sm font-semibold text-slate-700">
+                                                    <input type="radio" name="question-{{ question.pk }}" value="YES" class="accent-indigo-600"> YES
+                                                </label>
+                                                <label class="option flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer text-sm font-semibold text-slate-700">
+                                                    <input type="radio" name="question-{{ question.pk }}" value="NO" class="accent-indigo-600"> NO
+                                                </label>
+                                                <label class="option flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer text-sm font-semibold text-slate-700">
+                                                    <input type="radio" name="question-{{ question.pk }}" value="NOT GIVEN" class="accent-indigo-600"> NOT GIVEN
+                                                </label>
+                                            </div>
+
+                                        {% elif question.question_type == 'multi_select' %}
+                                            <h2 class="question-prompt text-base text-slate-800 font-semibold mb-3">{{ question.question_text }}</h2>
+                                            <div class="answer-options space-y-2">
+                                                {% for opt in question.options.all %}
+                                                <label class="option flex items-start gap-3 p-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition-colors">
+                                                    <input type="checkbox" name="question-{{ question.pk }}" value="{{ opt.option_key }}" class="mt-0.5 accent-indigo-600">
+                                                    <span class="text-sm text-slate-700"><b class="text-indigo-600 mr-1">{{ opt.option_key }}.</b> {{ opt.option_text }}</span>
+                                                </label>
+                                                {% endfor %}
+                                            </div>
+
+                                        {% else %}
+                                            <h2 class="question-prompt text-base text-slate-800 font-medium mb-2">{{ question.question_text }}</h2>
+                                            <input type="text" class="answer-field w-full rounded-lg border border-slate-300 p-2 text-sm bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Type your answer here...">
+                                        {% endif %}
+                                    </div>
+                                </section>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        {% else %}
+        <!-- WRITING EXAM WORKSPACE -->
+        <div class="standard-exam-container flex flex-1 overflow-hidden">
+            <aside class="side-panel w-72 shrink-0 bg-white border-r border-slate-200 p-4 overflow-y-auto">
+                <h2 class="text-base font-bold text-slate-800 mb-1">Writing Tasks</h2>
+                <p class="helper text-xs text-slate-500 mb-3">Select Task 1 or Task 2 to switch editors. Your responses are saved separately.</p>
+                <div id="writingTotalWords" class="writing-total text-xs font-bold text-indigo-700 bg-indigo-50 p-2 rounded-lg mb-3">Total words: 0</div>
+                <div id="questionNav" class="question-nav grid grid-cols-2 gap-2 mb-4"></div>
+                <div class="legend flex flex-col gap-1.5 text-xs text-slate-600 mb-3">
+                    <span><i class="dot answered"></i> Completed</span>
+                    <span><i class="dot"></i> Incomplete</span>
+                </div>
+                <p id="answeredCount" class="helper text-xs text-slate-500 font-medium mb-2">0 completed</p>
+                <p class="helper text-xs text-slate-400">Responses autosave every 15 seconds and when you switch tasks.</p>
+            </aside>
+
+            <div class="exam-content flex-1 overflow-y-auto p-6 bg-slate-50">
+                <section class="writing-overview" aria-label="Writing exam information">
+                    <div>
+                        <strong class="text-base font-bold text-slate-800 block mb-1">IELTS Academic Writing</strong>
+                        <p class="text-sm text-slate-600">Complete both Task 1 and Task 2 within the shared exam time. You may switch between tasks at any time.</p>
+                    </div>
+                    <p class="helper text-xs text-slate-400 mt-2">Task 1: about 20 minutes · Task 2: about 40 minutes.</p>
+                </section>
+
+                <p class="integrity-hint text-xs text-amber-800 bg-amber-50 border border-amber-200 rounded-lg p-3 mb-4" id="integrityHint">
+                    Exam integrity: leaving this tab or switching windows triggers a warning; a 3rd recorded violation automatically submits this exam.
+                </p>
+
+                {% for section in sections %}
+                    {% for question in section.questions.all %}
+                        <section class="question-panel bg-white border border-slate-200 rounded-xl p-6 mb-6 shadow-sm" data-question-id="{{ question.pk }}" data-section-id="{{ section.pk }}" data-task-label="{{ section.title }}" hidden>
+                            <div class="question-heading flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+                                <span class="section-name text-xs font-bold text-indigo-600 uppercase">{{ section.title }}</span>
+                                <span class="question-number text-xs font-semibold text-slate-500">Task {{ forloop.parentloop.counter }}</span>
+                            </div>
+
+                            {% if question.question_instructions %}
+                            <p class="question-instructions text-sm text-slate-600 italic mb-4">{{ question.question_instructions }}</p>
+                            {% endif %}
+
+                            {% if section.image %}
+                            <img class="section-image max-h-72 object-contain rounded-lg mb-4" src="{% url 'bcl:section_media' attempt.pk section.pk 'image' %}" alt="Section illustration">
+                            {% endif %}
+
+                            {% if question.image %}
+                            <div class="question-figure mb-4 rounded-lg border border-slate-200 bg-white p-2.5 flex flex-col items-center">
+                                <img src="{% url 'bcl:question_media' attempt.pk question.pk %}" alt="Task illustration" class="max-h-72 object-contain rounded-md">
+                            </div>
+                            {% endif %}
+
+                            {% if question.table_content %}
+                            <div class="question-table-wrapper mb-4 overflow-x-auto rounded-lg border border-slate-200 bg-white p-3 text-sm">
+                                {{ question.table_content|safe }}
+                            </div>
+                            {% endif %}
+
+                            <div class="question-answer-area">
+                                <h2 class="question-prompt text-base font-semibold text-slate-800 mb-4">{{ question.question_text }}</h2>
+                                <div class="writing-task-info bg-indigo-50/60 border border-indigo-100 rounded-lg p-3 mb-3 flex items-center justify-between">
+                                    <strong class="text-xs font-bold text-indigo-900">{{ section.title }}</strong>
+                                    <span class="writing-target text-xs text-indigo-700 font-medium">{% if section.order == 1 %}Suggested minimum: 150 words{% elif section.order == 2 %}Suggested minimum: 250 words{% else %}Writing response{% endif %}</span>
+                                </div>
+                                <label for="answer-{{ question.pk }}" class="block text-xs font-bold text-slate-700 mb-1">Your writing response</label>
+                                <textarea id="answer-{{ question.pk }}" class="answer-field writing-editor" rows="16" maxlength="20000" spellcheck="true" placeholder="Write your response here..."></textarea>
+                                <p class="word-count text-xs font-bold text-indigo-600 mt-2" aria-live="polite">Words: <span>0</span> <span class="writing-save-note font-normal text-slate-400">· Saved automatically every 15 seconds</span></p>
+                            </div>
+                        </section>
+                    {% endfor %}
+                {% endfor %}
+
+                <nav class="question-controls flex items-center justify-between mt-6" aria-label="Question controls">
+                    <button type="button" id="prevQuestion" class="px-4 py-2 border border-slate-300 rounded-lg text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 transition-colors disabled:opacity-40">&larr; Previous Task</button>
+                    <button type="button" id="nextQuestion" class="px-4 py-2 border border-slate-300 rounded-lg text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 transition-colors disabled:opacity-40">Next Task &rarr;</button>
+                </nav>
+            </div>
+        </div>
+        {% endif %}
+
+        <section id="noQuestions" class="no-questions p-8 text-center bg-white rounded-xl border border-slate-200 m-6" hidden>
+            <h2 class="text-base font-bold text-slate-800 mb-1">{% if module.module_type == 'writing' %}Writing tasks not configured{% else %}No questions available{% endif %}</h2>
+            <p class="text-xs text-slate-500">{% if module.module_type == 'writing' %}Ask an administrator to create two Writing sections (Task 1 and Task 2).{% else %}Ask an administrator to add questions to this module.{% endif %}</p>
         </section>
 
-        <nav class="question-controls" aria-label="Question controls">
-            <button type="button" id="prevQuestion">← Previous</button>
-            <button type="button" id="nextQuestion">Next →</button>
-        </nav>
-        <form method="post" id="submitExamForm" action="{% url 'bcl:submit_exam' attempt.pk %}">
+        <!-- Fixed Hidden Submit Form for AJAX or Fallback submission -->
+        <form method="post" id="submitExamForm" action="{% url 'bcl:submit_exam' attempt.pk %}" class="hidden">
             {% csrf_token %}
             <button type="submit" class="submit-btn" id="submitButton">Submit examination</button>
         </form>
-    </div>
-</main>
+    </main>
+
+    <!-- Bottom Navigation Bar (Footer) -->
+    <footer class="exam-footer flex items-stretch h-14 bg-gradient-to-t from-blue-50 via-indigo-50 to-purple-50/95 backdrop-blur-xl border-t border-indigo-200 shrink-0 z-20">
+        <!-- Part Tabs (Part 1, Part 2, Part 3) -->
+        <div id="partNav" class="part-nav flex items-stretch flex-1 min-w-0" aria-label="Parts navigation">
+            {% for part in sections %}
+            <button type="button" class="part-tab-button flex items-center justify-center gap-2 flex-1 px-4 hover:bg-white/50 transition-colors group border-r border-indigo-100" data-section-id="{{ part.pk }}" data-part-index="{{ forloop.counter0 }}">
+                <span class="text-xs font-semibold text-gray-500 group-hover:text-gray-800 transition-colors">Part {{ forloop.counter }}</span>
+                <span class="part-count text-xs font-bold tabular-nums text-gray-400">0/{{ part.questions.count }}</span>
+            </button>
+            {% endfor %}
+        </div>
+
+        <!-- Active Part's Horizontal Question Pills Container -->
+        <div id="activePartPillContainer" class="flex items-center gap-2 px-4 bg-indigo-50/70 border-r border-blue-200 flex-[2] min-w-0">
+            <span class="text-xs font-bold text-gray-700 shrink-0" id="activePartPillLabel">Part 1</span>
+            <div class="w-px h-4 bg-gray-300 shrink-0"></div>
+            <div id="questionNavPills" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar min-w-0 py-1">
+                <!-- Dynamically populated 1, 2, 3... buttons -->
+            </div>
+        </div>
+
+        <div class="w-px bg-gray-200 shrink-0"></div>
+
+        <!-- Right Action Buttons -->
+        <div class="flex items-center gap-2 px-3 shrink-0">
+            <button type="button" id="submitExamBtn" class="flex items-center gap-1.5 px-3 h-7 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition-colors shadow-2xs">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                {% if attempt.full_mock %}
+                    {% if module.module_type == 'reading' %}Submit Reading &amp; Continue &rarr;
+                    {% elif module.module_type == 'listening' %}Submit Listening &amp; Continue &rarr;
+                    {% else %}Submit Full Mock &amp; Finish &check;
+                    {% endif %}
+                {% else %}
+                    Submit
+                {% endif %}
+            </button>
+        </div>
+    </footer>
+</div>
+
+<!-- Exam Integrity Modal -->
 <div class="violation-modal" id="violationModal" role="alertdialog" aria-modal="true" aria-labelledby="violationTitle" aria-describedby="violationMessage" hidden>
     <div class="violation-dialog">
-        <h2 id="violationTitle">Exam integrity warning</h2>
-        <p id="violationMessage">You left the examination window. This is your first warning. A second violation automatically submits the exam.</p>
-        <button id="acknowledgeViolation" type="button">I understand — return to exam</button>
+        <h2 id="violationTitle" class="text-base font-bold text-red-700 mb-2">Exam integrity warning</h2>
+        <p id="violationMessage" class="text-sm text-slate-700 mb-4">You left the examination window. A total of 3 tab switches will automatically submit your exam.</p>
+        <button id="acknowledgeViolation" type="button" class="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm rounded-lg transition-colors">I understand &mdash; return to exam</button>
     </div>
 </div>
+
 {{ saved_answers|json_script:"savedAnswersData" }}
 </body>
 </html>

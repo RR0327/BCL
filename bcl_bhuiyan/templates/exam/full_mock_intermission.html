@@ -1,0 +1,462 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intermission: Stage {{ step_info.stage_number }} of {{ step_info.total_stages }} | {{ mock_test.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/exam.css' %}">
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    <script>
+        (function() {
+            try {
+                var t = localStorage.getItem("test-theme") || "device";
+                var isDark = (t === "dark") || (t === "device" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+                if (isDark) {
+                    document.documentElement.classList.add("dark");
+                    document.documentElement.setAttribute("data-theme", "dark");
+                } else {
+                    document.documentElement.classList.remove("dark");
+                    document.documentElement.setAttribute("data-theme", "light");
+                }
+            } catch (e) {}
+        })();
+    </script>
+    <style>
+        :root {
+            --inter-bg: #f4f7fc;
+            --card-bg: #ffffff;
+            --text-title: #0f172a;
+            --text-subtitle: #475569;
+            --text-muted: #64748b;
+            --border-card: #e2e8f0;
+            --box-bg: #f8fafc;
+            --btn-next-bg: #1645a1;
+            --btn-next-hover: #10377f;
+        }
+
+        html.dark {
+            --inter-bg: #1c1c1e;
+            --card-bg: #2b2b2b;
+            --text-title: #f8fafc;
+            --text-subtitle: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-card: #3f3f46;
+            --box-bg: #1f1f22;
+            --btn-next-bg: #2563eb;
+            --btn-next-hover: #1d4ed8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--inter-bg);
+            font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+            color: var(--text-title);
+            padding: 32px 16px;
+            position: relative;
+        }
+
+        .theme-toggle-corner {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .theme-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--border-card);
+            border-radius: 10px;
+            padding: 8px;
+            cursor: pointer;
+            color: var(--text-subtitle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            color: var(--text-title);
+            border-color: #94a3b8;
+        }
+
+        .inter-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            max-width: 780px;
+            width: 100%;
+            padding: 40px;
+            box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.08);
+        }
+
+        @media (max-width: 600px) {
+            .inter-card {
+                padding: 24px;
+            }
+        }
+
+        /* Progress Steps */
+        .step-progress {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .step-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+
+        .step-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            background: var(--box-bg);
+            border: 2px solid var(--border-card);
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+
+        .step-item.completed .step-circle {
+            background: #10b981;
+            border-color: #10b981;
+            color: white;
+        }
+
+        .step-item.active .step-circle {
+            background: var(--btn-next-bg);
+            border-color: var(--btn-next-bg);
+            color: white;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+        }
+
+        .step-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .step-item.active .step-label {
+            color: var(--text-title);
+        }
+
+        .step-item.completed .step-label {
+            color: #10b981;
+        }
+
+        /* Completed Summary Pill */
+        .completed-summary {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            border-radius: 14px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        html.dark .completed-summary {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .completed-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #065f46;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        html.dark .completed-title {
+            color: #6ee7b7;
+        }
+
+        .score-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            border: 1px solid #6ee7b7;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #047857;
+        }
+
+        html.dark .score-pill {
+            background: #064e3b;
+            color: #a7f3d0;
+            border-color: #059669;
+        }
+
+        /* Next Module Details */
+        .next-module-card {
+            background: var(--box-bg);
+            border: 1px solid var(--border-card);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 28px;
+        }
+
+        .next-badge {
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--btn-next-bg);
+            margin-bottom: 6px;
+        }
+
+        .next-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-title);
+            margin-bottom: 12px;
+        }
+
+        .next-tips {
+            padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-subtitle);
+            line-height: 1.6;
+        }
+
+        /* Countdown display */
+        .countdown-notice {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 13.5px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .countdown-number {
+            font-weight: 800;
+            color: var(--text-title);
+            font-size: 15px;
+            font-mono: monospace;
+        }
+
+        /* Action Buttons */
+        .actions-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-begin {
+            background: var(--btn-next-bg);
+            color: white;
+            border: none;
+            padding: 14px 34px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-begin:hover {
+            background: var(--btn-next-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-exit {
+            color: var(--text-muted);
+            background: transparent;
+            border: 1px solid var(--border-card);
+            border-radius: 10px;
+            padding: 10px 18px;
+            font-size: 13.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-exit:hover {
+            color: #dc2626;
+            border-color: #fca5a5;
+            background: #fef2f2;
+        }
+
+        html.dark .btn-exit:hover {
+            background: rgba(220, 38, 38, 0.15);
+            border-color: rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="theme-toggle-corner">
+        <button type="button" id="themeToggleBtn" class="theme-toggle-btn" title="Toggle Theme" aria-label="Toggle Theme">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="14" x="2" y="3" rx="2"></rect>
+                <line x1="8" x2="16" y1="21" y2="21"></line>
+                <line x1="12" x2="12" y1="17" y2="21"></line>
+            </svg>
+        </button>
+    </div>
+
+    <div class="inter-card">
+        <!-- 3-Step Breadcrumbs -->
+        <div class="step-progress">
+            <!-- Step 1: Reading -->
+            <div class="step-item {% if full_mock.reading_attempt and full_mock.reading_attempt.status != 'in_progress' %}completed{% elif full_mock.current_step == 'reading' %}active{% endif %}">
+                <div class="step-circle">
+                    {% if full_mock.reading_attempt and full_mock.reading_attempt.status != 'in_progress' %}&check;{% else %}1{% endif %}
+                </div>
+                <span class="step-label">Reading</span>
+            </div>
+
+            <!-- Step 2: Listening -->
+            <div class="step-item {% if full_mock.listening_attempt and full_mock.listening_attempt.status != 'in_progress' %}completed{% elif full_mock.current_step == 'listening' %}active{% endif %}">
+                <div class="step-circle">
+                    {% if full_mock.listening_attempt and full_mock.listening_attempt.status != 'in_progress' %}&check;{% else %}2{% endif %}
+                </div>
+                <span class="step-label">Listening</span>
+            </div>
+
+            <!-- Step 3: Writing -->
+            <div class="step-item {% if full_mock.writing_attempt and full_mock.writing_attempt.status != 'in_progress' %}completed{% elif full_mock.current_step == 'writing' %}active{% endif %}">
+                <div class="step-circle">
+                    {% if full_mock.writing_attempt and full_mock.writing_attempt.status != 'in_progress' %}&check;{% else %}3{% endif %}
+                </div>
+                <span class="step-label">Writing</span>
+            </div>
+        </div>
+
+        <!-- Completed Stage Summary -->
+        {% if step_info.completed_attempt %}
+        <div class="completed-summary">
+            <div class="completed-title">
+                <span>&check;</span>
+                <span>{{ step_info.completed_module_name }} Module Submitted</span>
+            </div>
+            {% if step_info.completed_attempt.band_score is not None %}
+            <div class="score-pill">
+                <span>Score: {{ step_info.completed_attempt.raw_score }}/40</span>
+                <span>&bull;</span>
+                <span>Band {{ step_info.completed_attempt.band_score }}</span>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <!-- Next Module Details -->
+        <div class="next-module-card">
+            <div class="next-badge">Next Up &bull; Stage {{ step_info.stage_number }} of {{ step_info.total_stages }}</div>
+            <h2 class="next-title">
+                {% if step_info.next_module_type == 'listening' %}🎧{% elif step_info.next_module_type == 'writing' %}✍️{% endif %}
+                {{ step_info.next_module_name }} Module ({{ step_info.next_duration }} Minutes)
+            </h2>
+            <ul class="next-tips">
+                {% for tip in step_info.tips %}
+                    <li>{{ tip }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="countdown-notice">
+            <span>Taking a breather? You can launch the next stage whenever you are ready.</span>
+        </div>
+
+        <div class="actions-row">
+            <form method="POST" action="{% url 'bcl:full_mock_next_module' full_mock.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="btn-begin" id="beginNextBtn">
+                    Begin {{ step_info.next_module_name }} Module Now &rarr;
+                </button>
+            </form>
+
+            <form method="POST" action="{% url 'bcl:submit_exam' step_info.completed_attempt.pk %}">
+                {% csrf_token %}
+                <input type="hidden" name="exit_full_mock" value="true">
+                <button type="submit" class="btn-exit" onclick="return confirm('Exiting now will conclude your All-Module exam session and finalize your submitted modules. Are you sure you want to finish now?')">
+                    Finish &amp; View Partial Results
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            var themeBtn = document.getElementById("themeToggleBtn");
+            var modes = ["light", "dark", "device"];
+
+            var ICONS = {
+                light: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>',
+                dark: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>',
+                device: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg>'
+            };
+
+            function updateTheme(mode) {
+                var isDark = (mode === "dark") || (mode === "device" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+                if (isDark) {
+                    document.documentElement.classList.add("dark");
+                    document.documentElement.setAttribute("data-theme", "dark");
+                } else {
+                    document.documentElement.classList.remove("dark");
+                    document.documentElement.setAttribute("data-theme", "light");
+                }
+                if (themeBtn) {
+                    themeBtn.innerHTML = ICONS[mode] || ICONS.device;
+                }
+            }
+
+            var current = localStorage.getItem("test-theme") || "device";
+            updateTheme(current);
+
+            if (themeBtn) {
+                themeBtn.addEventListener("click", function() {
+                    var cur = localStorage.getItem("test-theme") || "device";
+                    var nextIdx = (modes.indexOf(cur) + 1) % modes.length;
+                    var nextMode = modes[nextIdx];
+                    localStorage.setItem("test-theme", nextMode);
+                    updateTheme(nextMode);
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

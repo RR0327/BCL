@@ -1,0 +1,187 @@
+/* ==========================================================================
+   IELTS Bhuiyan Admin - Question Setter UI Polish & Ergonomics
+   ========================================================================== */
+
+/* Modern typography & container breathing room */
+body.dashboard #content,
+body.change-form #content,
+body.change-list #content {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Status & Type Badges in List Views */
+.admin-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    font-size: 11.5px;
+    font-weight: 600;
+    border-radius: 4px;
+    line-height: 1.3;
+    white-space: nowrap;
+}
+
+.badge-listening {
+    background-color: #eff6ff;
+    color: #1d4ed8;
+    border: 1px solid #bfdbfe;
+}
+
+.badge-reading {
+    background-color: #ecfdf5;
+    color: #047857;
+    border: 1px solid #a7f3d0;
+}
+
+.badge-writing {
+    background-color: #fffbeb;
+    color: #b45309;
+    border: 1px solid #fde68a;
+}
+
+.badge-published {
+    background-color: #f0fdf4;
+    color: #15803d;
+    border: 1px solid #86efac;
+}
+
+.badge-draft {
+    background-color: #f8fafc;
+    color: #64748b;
+    border: 1px solid #cbd5e1;
+}
+
+.badge-qtype {
+    background-color: #f5f3ff;
+    color: #6d28d9;
+    border: 1px solid #ddd6fe;
+}
+
+.badge-neutral {
+    background-color: #f1f5f9;
+    color: #334155;
+    border: 1px solid #e2e8f0;
+}
+
+.badge-active {
+    background-color: #ecfdf5;
+    color: #065f46;
+    font-weight: 600;
+}
+
+/* Action Links inside List Views */
+.admin-action-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    background-color: #f1f5f9;
+    color: #0f172a !important;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 11.5px;
+    text-decoration: none !important;
+    transition: all 0.15s ease-in-out;
+}
+
+.admin-action-link:hover {
+    background-color: #2563eb;
+    color: #ffffff !important;
+    border-color: #1d4ed8;
+}
+
+/* Cheat-sheet & Question Setter Help Callout Boxes */
+.setter-guide-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-left: 5px solid #2563eb;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 12px 0 16px 0;
+    color: #334155;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.setter-guide-card h4 {
+    margin: 0 0 6px 0;
+    color: #0f172a;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.setter-guide-card pre {
+    background: #1e293b;
+    color: #f1f5f9;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 12px;
+    overflow-x: auto;
+    margin: 8px 0 0 0;
+}
+
+.setter-guide-card code {
+    background: #e2e8f0;
+    color: #0f172a;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-family: Consolas, monospace;
+    font-size: 12px;
+}
+
+/* Generous Passage Textarea */
+.passage-textarea {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
+    font-size: 13.5px !important;
+    line-height: 1.6 !important;
+    padding: 12px !important;
+    background-color: #fafbfc !important;
+    color: #1e293b !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 6px !important;
+    width: 100% !important;
+    max-width: 950px !important;
+    box-sizing: border-box !important;
+}
+
+.passage-textarea:focus {
+    background-color: #ffffff !important;
+    border-color: #2563eb !important;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12) !important;
+    outline: none !important;
+}
+
+/* Code Snippet Previews */
+.code-preview {
+    font-family: Consolas, Menlo, monospace;
+    font-size: 12px;
+    background: #f1f5f9;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid #e2e8f0;
+    color: #0f172a;
+}
+
+/* Question Option Inline Rows Polish */
+.inline-group .tabular td.field-option_key input {
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.inline-group .tabular td.field-is_correct input {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+/* Fieldset section headers */
+.module h2, .inline-group h2 {
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}

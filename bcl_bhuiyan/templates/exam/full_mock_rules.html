@@ -1,0 +1,433 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Modules Examination Rules | {{ mock_test.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/exam.css' %}">
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    <script>
+        (function() {
+            try {
+                var t = localStorage.getItem("test-theme") || "device";
+                var isDark = (t === "dark") || (t === "device" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+                if (isDark) {
+                    document.documentElement.classList.add("dark");
+                    document.documentElement.setAttribute("data-theme", "dark");
+                } else {
+                    document.documentElement.classList.remove("dark");
+                    document.documentElement.setAttribute("data-theme", "light");
+                }
+            } catch (e) {}
+        })();
+    </script>
+    <style>
+        :root {
+            --rules-bg: #f4f7fc;
+            --card-bg: #ffffff;
+            --text-title: #0f172a;
+            --text-subtitle: #475569;
+            --text-muted: #64748b;
+            --border-card: #e2e8f0;
+            --stage-bg: #f8fafc;
+            --stage-border: #cbd5e1;
+            --btn-start-bg: #1645a1;
+            --btn-start-hover: #10377f;
+        }
+
+        html.dark {
+            --rules-bg: #1c1c1e;
+            --card-bg: #2b2b2b;
+            --text-title: #f8fafc;
+            --text-subtitle: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-card: #3f3f46;
+            --stage-bg: #1f1f22;
+            --stage-border: #3f3f46;
+            --btn-start-bg: #2563eb;
+            --btn-start-hover: #1d4ed8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--rules-bg);
+            font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+            color: var(--text-title);
+            padding: 32px 16px;
+            position: relative;
+        }
+
+        .theme-toggle-corner {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .theme-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--border-card);
+            border-radius: 10px;
+            padding: 8px;
+            cursor: pointer;
+            color: var(--text-subtitle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            color: var(--text-title);
+            border-color: #94a3b8;
+        }
+
+        .rules-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            max-width: 820px;
+            width: 100%;
+            padding: 40px;
+            box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.08);
+        }
+
+        .rules-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%);
+            color: #1d4ed8;
+            border: 1px solid #c7d2fe;
+            border-radius: 9999px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        html.dark .rules-badge {
+            background: rgba(30, 58, 138, 0.4);
+            color: #93c5fd;
+            border-color: rgba(99, 102, 241, 0.4);
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .rules-subtitle {
+            font-size: 15px;
+            color: var(--text-subtitle);
+            margin-bottom: 24px;
+        }
+
+        .stages-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        @media (max-width: 700px) {
+            .stages-grid {
+                grid-template-columns: 1fr;
+            }
+            .rules-card {
+                padding: 24px;
+            }
+        }
+
+        .stage-box {
+            background: var(--stage-bg);
+            border: 1px solid var(--stage-border);
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            position: relative;
+        }
+
+        .stage-order {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #4f46e5;
+        }
+
+        html.dark .stage-order {
+            color: #a5b4fc;
+        }
+
+        .stage-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-title);
+        }
+
+        .stage-meta {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .rules-box {
+            background: var(--stage-bg);
+            border: 1px solid var(--border-card);
+            border-radius: 14px;
+            padding: 20px 24px;
+            margin-bottom: 28px;
+        }
+
+        .rules-box h3 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-title);
+        }
+
+        .rules-box ul {
+            padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--text-subtitle);
+            line-height: 1.6;
+        }
+
+        .notice-box {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            color: #92400e;
+            padding: 14px 18px;
+            border-radius: 12px;
+            font-size: 13.5px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        html.dark .notice-box {
+            background: rgba(146, 64, 14, 0.2);
+            border-color: rgba(245, 158, 11, 0.3);
+            color: #fcd34d;
+        }
+
+        .agreement-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
+            background: var(--stage-bg);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            margin-bottom: 28px;
+            cursor: pointer;
+        }
+
+        .agreement-box input[type="checkbox"] {
+            margin-top: 3px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--btn-start-bg);
+        }
+
+        .agreement-box label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-title);
+            cursor: pointer;
+        }
+
+        .actions-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-start {
+            background: var(--btn-start-bg);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(22, 69, 161, 0.25);
+        }
+
+        .btn-start:hover {
+            background: var(--btn-start-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-back {
+            color: var(--text-subtitle);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 18px;
+            border-radius: 10px;
+            border: 1px solid var(--border-card);
+            transition: all 0.2s ease;
+        }
+
+        .btn-back:hover {
+            color: var(--text-title);
+            border-color: #94a3b8;
+            background: var(--stage-bg);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="theme-toggle-corner">
+        <button type="button" id="themeToggleBtn" class="theme-toggle-btn" title="Toggle Theme" aria-label="Toggle Theme">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="14" x="2" y="3" rx="2"></rect>
+                <line x1="8" x2="16" y1="21" y2="21"></line>
+                <line x1="12" x2="12" y1="17" y2="21"></line>
+            </svg>
+        </button>
+    </div>
+
+    <div class="rules-card">
+        <div class="rules-badge">
+            FULL MOCK EXAMINATION (ALL 3 MODULES)
+        </div>
+
+        <h1>{{ mock_test.title }}</h1>
+        <p class="rules-subtitle">Sequential examination covering all three core IELTS modules &bull; Total Duration: {{ total_duration }} Minutes</p>
+
+        <!-- 3 Sequential Stages -->
+        <div class="stages-grid">
+            <div class="stage-box">
+                <span class="stage-order">Stage 1 &bull; 60 Mins</span>
+                <span class="stage-name">📖 Reading</span>
+                <span class="stage-meta">3 Passages, 40 Questions. Split-screen view with passage notes and highlighter.</span>
+            </div>
+            <div class="stage-box">
+                <span class="stage-order">Stage 2 &bull; 30 Mins</span>
+                <span class="stage-name">🎧 Listening</span>
+                <span class="stage-meta">4 Parts, 40 Questions. Continuous audio stream with synchronized answer saving.</span>
+            </div>
+            <div class="stage-box">
+                <span class="stage-order">Stage 3 &bull; 60 Mins</span>
+                <span class="stage-name">✍️ Writing</span>
+                <span class="stage-meta">Task 1 (min 150w) &amp; Task 2 (min 250w). Autosaved responses &amp; live word counters.</span>
+            </div>
+        </div>
+
+        <div class="rules-box">
+            <h3>Examination Rules &amp; Guidelines</h3>
+            <ul>
+                <li><strong>Sequential Order:</strong> You must complete the modules in the required order: Reading &rarr; Listening &rarr; Writing.</li>
+                <li><strong>Dedicated Module Timers:</strong> Each module has its own independent countdown timer (60m Reading, 30m Listening, 60m Writing).</li>
+                <li><strong>Intermission Screen:</strong> After submitting each module, you will see an intermission screen displaying your completion status and instructions before launching the next module.</li>
+                <li><strong>Listening Audio Notice:</strong> Listening audio plays continuously from the start and cannot be paused. Please ensure your audio or headphones are connected before proceeding.</li>
+                <li><strong>Integrity &amp; Exit:</strong> Navigating away or clicking the Back button will submit your active module and end your All-Module examination session.</li>
+                <li><strong>Writing Evaluation:</strong> Upon final submission, your Reading and Listening scores are calculated immediately. Writing responses will be queued for manual review by certified examiners.</li>
+            </ul>
+        </div>
+
+        <div class="notice-box">
+            <span style="font-size:18px;">⚠️</span>
+            <div>
+                <strong>Important:</strong> Ensure you have a reliable internet connection and an uninterrupted environment for the full 150-minute testing session.
+            </div>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="notice-box" style="background:#fee2e2;border-color:#fca5a5;color:#991b1b;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST" action="{% url 'bcl:start_full_mock' mock_test.id %}">
+            {% csrf_token %}
+
+            <label class="agreement-box" for="acceptRules">
+                <input type="checkbox" id="acceptRules" name="accept_rules" value="yes" required>
+                <span>I have read and agree to follow all examination rules. I am ready to begin with Stage 1 (Reading).</span>
+            </label>
+
+            <div class="actions-row">
+                <a href="{% url 'bcl:dashboard' %}" class="btn-back">
+                    &larr; Back to Dashboard
+                </a>
+                <button type="submit" class="btn-start" id="startExamBtn">
+                    Begin Full Mock Exam &rarr;
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        (function() {
+            var themeBtn = document.getElementById("themeToggleBtn");
+            var modes = ["light", "dark", "device"];
+
+            var ICONS = {
+                light: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>',
+                dark: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>',
+                device: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg>'
+            };
+
+            function updateTheme(mode) {
+                var isDark = (mode === "dark") || (mode === "device" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+                if (isDark) {
+                    document.documentElement.classList.add("dark");
+                    document.documentElement.setAttribute("data-theme", "dark");
+                } else {
+                    document.documentElement.classList.remove("dark");
+                    document.documentElement.setAttribute("data-theme", "light");
+                }
+                if (themeBtn) {
+                    themeBtn.innerHTML = ICONS[mode] || ICONS.device;
+                }
+            }
+
+            var current = localStorage.getItem("test-theme") || "device";
+            updateTheme(current);
+
+            if (themeBtn) {
+                themeBtn.addEventListener("click", function() {
+                    var cur = localStorage.getItem("test-theme") || "device";
+                    var nextIdx = (modes.indexOf(cur) + 1) % modes.length;
+                    var nextMode = modes[nextIdx];
+                    localStorage.setItem("test-theme", nextMode);
+                    updateTheme(nextMode);
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

@@ -16,6 +16,7 @@ from .forms import (
 from .models import (
     IELTSMockTest,
     CandidateAttempt,
+    FullMockAttempt,
 )
 
 
@@ -141,7 +142,7 @@ class CandidateLoginView(LoginView):
     redirect_authenticated_user = True
 
     def get_success_url(self):
-        return str(reverse_lazy("bcl:dashboard"))
+        return self.get_redirect_url() or str(reverse_lazy("bcl:dashboard"))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -190,11 +191,25 @@ def candidate_dashboard(request):
 
     recent_attempts = (
         CandidateAttempt.objects
-        .filter(candidate=candidate)
+        .filter(candidate=candidate, full_mock__isnull=True)
         .select_related(
             "module",
             "module__mock_test",
         )
+        .prefetch_related("task_evaluations")
+        .order_by("-started_at")[:10]
+    )
+
+    recent_full_mocks = (
+        FullMockAttempt.objects
+        .filter(candidate=candidate)
+        .select_related(
+            "mock_test",
+            "reading_attempt",
+            "listening_attempt",
+            "writing_attempt",
+        )
+        .prefetch_related("writing_attempt__task_evaluations")
         .order_by("-started_at")[:10]
     )
 
@@ -203,6 +218,7 @@ def candidate_dashboard(request):
         "candidate": candidate,
         "mock_tests": mock_tests,
         "recent_attempts": recent_attempts,
+        "recent_full_mocks": recent_full_mocks,
     }
 
     return render(

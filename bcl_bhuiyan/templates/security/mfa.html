@@ -1,9 +1,459 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>Staff verification</title></head>
-<body><main><h1>Staff two-factor authentication</h1>
-{% if enrolling %}<p>Add this account to your authenticator app using the provisioning URI below. Keep this secret private.</p>
-<p><code style="overflow-wrap:anywhere">{{ secret }}</code></p>{% endif %}
-{% if error %}<p role="alert">{{ error }}</p>{% endif %}
-<form method="post">{% csrf_token %}<label>6-digit authenticator code <input name="token" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" required></label><button type="submit">Verify</button></form>
-<form method="post" action="{% url 'bcl:logout' %}">{% csrf_token %}<button type="submit">Log out</button></form>
-</main></body></html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Staff verification | {{ platform_name|default:"IELTS Practice" }}</title>
+
+    <script>
+        (function() {
+            try {
+                var t = localStorage.getItem("test-theme") || "device";
+                var isDark = (t === "dark") || (t === "device" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+                if (isDark) {
+                    document.documentElement.classList.add("dark");
+                    document.documentElement.setAttribute("data-theme", "dark");
+                } else {
+                    document.documentElement.classList.remove("dark");
+                    document.documentElement.setAttribute("data-theme", "light");
+                }
+            } catch (e) {}
+        })();
+    </script>
+
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    <script src="{% static 'js/theme.js' %}" defer></script>
+
+    <style>
+        .mfa-card {
+            max-width: 480px;
+        }
+
+        .mfa-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .mfa-icon-badge {
+            width: 54px;
+            height: 54px;
+            border-radius: 14px;
+            background: #eff6ff;
+            color: #2563eb;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+            border: 1px solid #bfdbfe;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.12);
+        }
+
+        html.dark .mfa-icon-badge,
+        html[data-theme="dark"] .mfa-icon-badge {
+            background: rgba(37, 99, 235, 0.18);
+            border-color: rgba(96, 165, 250, 0.3);
+            color: #60a5fa;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+        }
+
+        .mfa-eyebrow {
+            display: block;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #2563eb;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        html.dark .mfa-eyebrow,
+        html[data-theme="dark"] .mfa-eyebrow {
+            color: #818cf8;
+        }
+
+        .mfa-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 8px;
+            letter-spacing: -0.5px;
+        }
+
+        html.dark .mfa-title,
+        html[data-theme="dark"] .mfa-title {
+            color: #f8fafc;
+        }
+
+        .mfa-subtitle {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        html.dark .mfa-subtitle,
+        html[data-theme="dark"] .mfa-subtitle {
+            color: #94a3b8;
+        }
+
+        /* Token Input Box */
+        .token-group {
+            margin: 22px 0 20px;
+        }
+
+        .token-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        html.dark .token-group label,
+        html[data-theme="dark"] .token-group label {
+            color: #e2e8f0;
+        }
+
+        .token-input {
+            width: 100%;
+            height: 56px;
+            font-size: 26px;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 10px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+            background: #ffffff;
+            color: #0f172a;
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .token-input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+        }
+
+        html.dark .token-input,
+        html[data-theme="dark"] .token-input {
+            background: #0f172a;
+            border-color: #334155;
+            color: #f8fafc;
+        }
+
+        html.dark .token-input:focus,
+        html[data-theme="dark"] .token-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25);
+        }
+
+        .token-hint {
+            display: block;
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 7px;
+            text-align: center;
+        }
+
+        html.dark .token-hint,
+        html[data-theme="dark"] .token-hint {
+            color: #94a3b8;
+        }
+
+        /* Primary Verify Button */
+        .btn-verify {
+            width: 100%;
+            padding: 13px 20px;
+            font-size: 15px;
+            font-weight: 700;
+            background: #1645a1;
+            color: #ffffff;
+            border: none;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            box-shadow: 0 4px 12px rgba(22, 69, 161, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-verify:hover {
+            background: #10377f;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(22, 69, 161, 0.35);
+        }
+
+        .btn-verify:active {
+            transform: translateY(0);
+        }
+
+        html.dark .btn-verify,
+        html[data-theme="dark"] .btn-verify {
+            background: #2563eb;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+        }
+
+        html.dark .btn-verify:hover,
+        html[data-theme="dark"] .btn-verify:hover {
+            background: #1d4ed8;
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.45);
+        }
+
+        /* Error Box */
+        .mfa-error-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #b91c1c;
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        html.dark .mfa-error-box,
+        html[data-theme="dark"] .mfa-error-box {
+            background: rgba(127, 29, 29, 0.35);
+            border-color: #991b1b;
+            color: #fca5a5;
+        }
+
+        /* Enrollment Secret Box */
+        .enroll-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        html.dark .enroll-box,
+        html[data-theme="dark"] .enroll-box {
+            background: #0f172a;
+            border-color: #334155;
+            color: #cbd5e1;
+        }
+
+        .enroll-box p {
+            margin: 0 0 10px;
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.5;
+        }
+
+        html.dark .enroll-box p,
+        html[data-theme="dark"] .enroll-box p {
+            color: #cbd5e1;
+        }
+
+        .secret-uri-wrap {
+            position: relative;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            padding: 10px;
+            font-family: ui-monospace, monospace;
+            font-size: 12px;
+            word-break: break-all;
+            color: #0f172a;
+        }
+
+        html.dark .secret-uri-wrap,
+        html[data-theme="dark"] .secret-uri-wrap {
+            background: #1e293b;
+            border-color: #334155;
+            color: #93c5fd;
+        }
+
+        /* Separated Footer / Logout */
+        .mfa-footer-divider {
+            height: 1px;
+            background: #e2e8f0;
+            margin: 24px 0 16px;
+        }
+
+        html.dark .mfa-footer-divider,
+        html[data-theme="dark"] .mfa-footer-divider {
+            background: #334155;
+        }
+
+        .mfa-footer-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .mfa-footer-note {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        html.dark .mfa-footer-note,
+        html[data-theme="dark"] .mfa-footer-note {
+            color: #94a3b8;
+        }
+
+        .btn-logout-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            background: transparent;
+            color: #64748b;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .btn-logout-ghost:hover {
+            color: #b91c1c;
+            border-color: #fca5a5;
+            background: #fef2f2;
+        }
+
+        html.dark .btn-logout-ghost,
+        html[data-theme="dark"] .btn-logout-ghost {
+            color: #94a3b8;
+            border-color: #334155;
+            background: #0f172a;
+        }
+
+        html.dark .btn-logout-ghost:hover,
+        html[data-theme="dark"] .btn-logout-ghost:hover {
+            color: #f87171;
+            border-color: #991b1b;
+            background: rgba(153, 27, 27, 0.22);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="auth-container">
+
+    <div class="auth-card mfa-card">
+
+        <!-- Top Navigation -->
+        <div class="auth-top-nav">
+            <a href="{% url 'bcl:home' %}" class="back-home-btn" title="Back to Home">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                <span>Back to Home</span>
+            </a>
+            <button type="button" id="themeToggleBtn" class="theme-toggle-btn" title="Toggle theme" aria-label="Toggle theme"></button>
+        </div>
+
+        <!-- Security Header -->
+        <div class="mfa-header">
+            <div class="mfa-icon-badge" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <path d="m9 12 2 2 4-4"></path>
+                </svg>
+            </div>
+            <span class="mfa-eyebrow">Staff Security</span>
+            <h1 class="mfa-title">Staff verification</h1>
+            <p class="mfa-subtitle">
+                {% if enrolling %}
+                    Link your authenticator app (Google Authenticator, Microsoft Authenticator, 1Password) using the key below.
+                {% else %}
+                    Enter the 6-digit verification code from your authenticator app to access the staff portal.
+                {% endif %}
+            </p>
+        </div>
+
+        <!-- Enrollment Secret Box -->
+        {% if enrolling %}
+            <div class="enroll-box">
+                <p><strong>Step 1:</strong> Scan or add this secret key into your authenticator app:</p>
+                <div class="secret-uri-wrap">
+                    <code>{{ secret }}</code>
+                </div>
+                <p style="margin-top: 10px; font-size: 12px; color: #64748b;">Keep this secret key safe and private.</p>
+            </div>
+        {% endif %}
+
+        <!-- Error Alert -->
+        {% if error %}
+            <div class="mfa-error-box" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <span>{{ error }}</span>
+            </div>
+        {% endif %}
+
+        <!-- Verification Form -->
+        <form method="post" autocomplete="off">
+            {% csrf_token %}
+            <div class="token-group">
+                <label for="id_token">6-digit authenticator code</label>
+                <input
+                    type="text"
+                    name="token"
+                    id="id_token"
+                    inputmode="numeric"
+                    autocomplete="one-time-code"
+                    pattern="[0-9]{6}"
+                    maxlength="6"
+                    placeholder="000000"
+                    required
+                    autofocus
+                    class="token-input">
+                <span class="token-hint">Enter the current 6 numbers shown in your authenticator app</span>
+            </div>
+
+            <button type="submit" class="btn-verify">
+                <span>Verify</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </button>
+        </form>
+
+        <!-- Divider and Secondary Logout Action -->
+        <div class="mfa-footer-divider"></div>
+
+        <div class="mfa-footer-row">
+            <span class="mfa-footer-note">Need to switch accounts?</span>
+            <form method="post" action="{% url 'bcl:logout' %}" style="margin: 0;">
+                {% csrf_token %}
+                <button type="submit" class="btn-logout-ghost" title="Log out of current account">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span>Log out</span>
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

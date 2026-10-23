@@ -1,0 +1,381 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Modules Examination Submitted | {{ mock_test.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/exam.css' %}">
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    <script>
+        (function() {
+            try {
+                var t = localStorage.getItem("test-theme") || "device";
+                var isDark = (t === "dark") || (t === "device" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+                if (isDark) {
+                    document.documentElement.classList.add("dark");
+                    document.documentElement.setAttribute("data-theme", "dark");
+                } else {
+                    document.documentElement.classList.remove("dark");
+                    document.documentElement.setAttribute("data-theme", "light");
+                }
+            } catch (e) {}
+        })();
+    </script>
+    <style>
+        :root {
+            --ended-bg: #f4f7fc;
+            --card-bg: #ffffff;
+            --text-title: #0f172a;
+            --text-subtitle: #475569;
+            --text-muted: #64748b;
+            --border-card: #e2e8f0;
+            --status-bg: #eff6ff;
+            --status-text: #1d4ed8;
+            --btn-dashboard-bg: #1645a1;
+            --btn-dashboard-hover: #10377f;
+            --btn-result-bg: #4f46e5;
+            --btn-result-hover: #4338ca;
+        }
+
+        html.dark {
+            --ended-bg: #1c1c1e;
+            --card-bg: #2b2b2b;
+            --text-title: #f8fafc;
+            --text-subtitle: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-card: #3f3f46;
+            --status-bg: rgba(30, 58, 138, 0.35);
+            --status-text: #93c5fd;
+            --btn-dashboard-bg: #2563eb;
+            --btn-dashboard-hover: #1d4ed8;
+            --btn-result-bg: #6366f1;
+            --btn-result-hover: #4f46e5;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--ended-bg);
+            font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+            color: var(--text-title);
+            padding: 24px 16px;
+            position: relative;
+        }
+
+        .theme-toggle-corner {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .theme-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--border-card);
+            border-radius: 10px;
+            padding: 8px;
+            cursor: pointer;
+            color: var(--text-subtitle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            color: var(--text-title);
+            border-color: #94a3b8;
+        }
+
+        .ended-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            padding: 44px 36px;
+            text-align: center;
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.07);
+        }
+
+        @media (max-width: 600px) {
+            .ended-card {
+                padding: 32px 20px;
+            }
+        }
+
+        .success-icon-wrap {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            background: #ecfdf5;
+            color: #10b981;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px auto;
+            border: 2px solid #a7f3d0;
+        }
+
+        html.dark .success-icon-wrap {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.3);
+            color: #34d399;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background-color: var(--status-bg);
+            color: var(--status-text);
+            border-radius: 9999px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .test-title {
+            font-size: 15px;
+            color: var(--text-subtitle);
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .modules-summary {
+            background: var(--ended-bg);
+            border: 1px solid var(--border-card);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            text-align: left;
+        }
+
+        .module-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+        .module-row-name {
+            font-weight: 700;
+            color: var(--text-title);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .module-row-status {
+            font-size: 12.5px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 6px;
+        }
+
+        .status-ready {
+            background: #ecfdf5;
+            color: #047857;
+        }
+
+        html.dark .status-ready {
+            background: rgba(16, 185, 129, 0.2);
+            color: #6ee7b7;
+        }
+
+        .status-review {
+            background: #fffbeb;
+            color: #b45309;
+        }
+
+        html.dark .status-review {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fde68a;
+        }
+
+        .btn-view-result {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            background-color: var(--btn-result-bg);
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 14px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+            transition: all 0.2s ease;
+            margin-bottom: 12px;
+        }
+
+        .btn-view-result:hover {
+            background-color: var(--btn-result-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-dashboard {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            background-color: transparent;
+            color: var(--text-subtitle);
+            border: 1px solid var(--border-card);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-dashboard:hover {
+            color: var(--text-title);
+            border-color: #94a3b8;
+            background: var(--ended-bg);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="theme-toggle-corner">
+        <button type="button" id="themeToggleBtn" class="theme-toggle-btn" title="Toggle Theme" aria-label="Toggle Theme">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="14" x="2" y="3" rx="2"></rect>
+                <line x1="8" x2="16" y1="21" y2="21"></line>
+                <line x1="12" x2="12" y1="17" y2="21"></line>
+            </svg>
+        </button>
+    </div>
+
+    <div class="ended-card">
+        <div class="success-icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+        </div>
+
+        <div class="status-badge">
+            FULL MOCK COMPLETED
+        </div>
+
+        <h1>Examination Submitted Successfully</h1>
+        <p class="test-title">
+            Your responses for <strong>{{ mock_test.title }}</strong> have been submitted securely.
+        </p>
+
+        <!-- 3 Module Summary -->
+        <div class="modules-summary">
+            <div class="module-row">
+                <span class="module-row-name">📖 Reading Module</span>
+                <span class="module-row-status status-ready">
+                    {% if full_mock.reading_attempt and full_mock.reading_attempt.band_score is not None %}
+                        Band {{ full_mock.reading_attempt.band_score }}
+                    {% elif full_mock.reading_attempt %}
+                        Submitted
+                    {% else %}
+                        Not Attempted
+                    {% endif %}
+                </span>
+            </div>
+            <div class="module-row">
+                <span class="module-row-name">🎧 Listening Module</span>
+                <span class="module-row-status status-ready">
+                    {% if full_mock.listening_attempt and full_mock.listening_attempt.band_score is not None %}
+                        Band {{ full_mock.listening_attempt.band_score }}
+                    {% elif full_mock.listening_attempt %}
+                        Submitted
+                    {% else %}
+                        Not Attempted
+                    {% endif %}
+                </span>
+            </div>
+            <div class="module-row">
+                <span class="module-row-name">✍️ Writing Module</span>
+                <span class="module-row-status status-review">
+                    {% if full_mock.writing_attempt and full_mock.writing_attempt.band_score is not None %}
+                        Band {{ full_mock.writing_attempt.band_score }} &bull; Evaluated
+                    {% elif full_mock.writing_attempt %}
+                        Queued for Examiner Review
+                    {% else %}
+                        Not Attempted
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+
+        <div class="actions">
+            <a href="{% url 'bcl:full_mock_result' full_mock.pk %}" class="btn-view-result" id="viewResultBtn">
+                View All Results &rarr;
+            </a>
+
+            <a href="{% url 'bcl:dashboard' %}" class="btn-dashboard">
+                Return to Candidate Dashboard
+            </a>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            var themeBtn = document.getElementById("themeToggleBtn");
+            var modes = ["light", "dark", "device"];
+
+            var ICONS = {
+                light: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>',
+                dark: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>',
+                device: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg>'
+            };
+
+            function updateTheme(mode) {
+                var isDark = (mode === "dark") || (mode === "device" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+                if (isDark) {
+                    document.documentElement.classList.add("dark");
+                    document.documentElement.setAttribute("data-theme", "dark");
+                } else {
+                    document.documentElement.classList.remove("dark");
+                    document.documentElement.setAttribute("data-theme", "light");
+                }
+                if (themeBtn) {
+                    themeBtn.innerHTML = ICONS[mode] || ICONS.device;
+                }
+            }
+
+            var current = localStorage.getItem("test-theme") || "device";
+            updateTheme(current);
+
+            if (themeBtn) {
+                themeBtn.addEventListener("click", function() {
+                    var cur = localStorage.getItem("test-theme") || "device";
+                    var nextIdx = (modes.indexOf(cur) + 1) % modes.length;
+                    var nextMode = modes[nextIdx];
+                    localStorage.setItem("test-theme", nextMode);
+                    updateTheme(nextMode);
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

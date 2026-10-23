@@ -1,29 +1,903 @@
+{% load static %}
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Writing Review | Attempt #{{ attempt.pk }}</title>
-<style>
-*{box-sizing:border-box}body{margin:0;background:#f3f6fb;font:15px/1.6 Arial,sans-serif;color:#172645}header{background:#142e62;padding:18px 5%;color:white}header a{color:#fff}main{max-width:1150px;margin:35px auto;padding:0 20px}.task{background:#fff;border:1px solid #dfe6f0;border-radius:12px;padding:25px;margin:25px 0}.layout{display:grid;grid-template-columns:1fr 1fr;gap:25px}.answer{white-space:pre-wrap;overflow-wrap:anywhere;background:#f6f8fb;border:1px solid #e4e9f2;padding:16px;border-radius:8px;max-height:520px;overflow:auto}.prompt{white-space:pre-wrap;overflow-wrap:anywhere}.field{margin-bottom:15px}label{display:block;font-weight:bold;margin-bottom:5px}select,textarea{width:100%;padding:10px;border:1px solid #bec9d9;border-radius:7px}button{padding:12px 20px;border:0;border-radius:7px;background:#1645a1;color:white;cursor:pointer;font-weight:bold}.errorlist{color:#ad2020}.info{background:#eaf2ff;padding:12px;border-radius:7px}.warning{background:#fff4dd;padding:12px;border-radius:7px}.muted{color:#59677b}@media(max-width:800px){.layout{grid-template-columns:1fr}}
-</style></head><body>
-<header><a href="{% url 'bcl:writing_review_list' %}">← All Writing attempts</a></header>
-<main><h1>Writing Assessment — Attempt #{{ attempt.pk }}</h1>
-<p><a href="{% url 'bcl:writing_export' attempt.pk 'pdf' %}">Download PDF report</a> · <a href="{% url 'bcl:writing_export' attempt.pk 'docx' %}">Download DOCX report</a></p>
-<p><strong>Candidate:</strong> {{ attempt.candidate.username }} · <strong>Test:</strong> {{ attempt.module.mock_test.title }} · <strong>Status:</strong> {{ attempt.get_status_display }}</p>
-{% if overall_band is not None %}<p class="info"><strong>Overall practice Writing band: {{ overall_band }}</strong> (Task 1 weighted 1/3, Task 2 weighted 2/3; illustrative calculation)</p>{% else %}<p class="warning">Overall Writing band pending until both tasks are graded.</p>{% endif %}
-{% if messages %}{% for message in messages %}<p role="status" class="info">{{ message }}</p>{% endfor %}{% endif %}
-{% for task in task_cards %}
-<section class="task"><h2>Task {{ task.number }}</h2>
-{% if task.configuration_error %}<p class="warning">Admin setup required: configure exactly one Essay question in Writing section order {{ task.number }}.</p>{% else %}
-<div class="layout"><div>
-<h3>Candidate response</h3><p class="prompt"><strong>Prompt:</strong> {{ task.question.question_text }}</p>
-{% if task.question.section.image %}<img src="{% url 'bcl:staff_section_image' attempt.pk task.question.section.pk %}" alt="Writing task visual" style="max-width:100%;height:auto">{% endif %}
-<div class="answer">{% if task.answer %}{{ task.answer.answer_text }}{% else %}No response submitted.{% endif %}</div>
-</div><div><h3>Examiner grading</h3>
-{% if task.evaluation %}<p class="muted">Last assessed by {{ task.evaluation.examiner.username }} on {{ task.evaluation.evaluated_at|date:'M d, Y H:i' }} · Criterion average {{ task.evaluation.criterion_average }}</p>{% endif %}
-<form method="post">{% csrf_token %}<input type="hidden" name="task_number" value="{{ task.number }}">
-{{ task.form.non_field_errors }}
-{% for field in task.form %}<div class="field"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{{ field.errors }}</div>{% endfor %}
-<button type="submit">Save Task {{ task.number }} evaluation</button></form>
-</div></div>{% endif %}
-</section>
-{% endfor %}
-<p class="muted">Manual examiner feedback only. This platform does not automatically grade Writing essays.</p>
-</main></body></html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Writing Assessment — Attempt #{{ attempt.pk }} | IELTS Admin</title>
+    <script>
+        (function() {
+            try {
+                var t = localStorage.getItem("test-theme") || localStorage.getItem("theme") || "device";
+                var isDark = (t === "dark") || ((t === "device" || t === "auto") && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+                if (isDark) {
+                    document.documentElement.classList.add("dark");
+                    document.documentElement.setAttribute("data-theme", "dark");
+                    document.documentElement.dataset.theme = "dark";
+                } else {
+                    document.documentElement.classList.remove("dark");
+                    document.documentElement.setAttribute("data-theme", "light");
+                    document.documentElement.dataset.theme = "light";
+                }
+            } catch (e) {}
+        })();
+    </script>
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    <script src="{% static 'js/theme.js' %}" defer></script>
+    <style>
+        :root {
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --border-card: #e2e8f0;
+            --text-main: #0f172a;
+            --text-sub: #475569;
+            --text-muted: #64748b;
+            --bg-input: #ffffff;
+            --border-input: #cbd5e1;
+            --bg-answer: #f8fafc;
+            --bg-header: #0f172a;
+            --accent: #4f46e5;
+            --accent-hover: #4338ca;
+            --success-bg: #ecfdf5;
+            --success-text: #065f46;
+            --success-border: #a7f3d0;
+            --warning-bg: #fffbeb;
+            --warning-text: #92400e;
+            --warning-border: #fde68a;
+            --danger-bg: #fef2f2;
+            --danger-text: #991b1b;
+            --danger-border: #fecaca;
+        }
+
+        html.dark, html[data-theme="dark"] {
+            --bg-page: #0b0f19;
+            --bg-card: #1e293b;
+            --border-card: #334155;
+            --text-main: #f8fafc;
+            --text-sub: #cbd5e1;
+            --text-muted: #94a3b8;
+            --bg-input: #0f172a;
+            --border-input: #334155;
+            --bg-answer: #0f172a;
+            --bg-header: #0f172a;
+            --accent: #6366f1;
+            --accent-hover: #4f46e5;
+            --success-bg: rgba(6, 95, 70, 0.3);
+            --success-text: #6ee7b7;
+            --success-border: rgba(5, 150, 105, 0.4);
+            --warning-bg: rgba(146, 64, 14, 0.3);
+            --warning-text: #fde68a;
+            --warning-border: rgba(217, 119, 6, 0.4);
+            --danger-bg: rgba(153, 27, 27, 0.3);
+            --danger-text: #fca5a5;
+            --danger-border: rgba(220, 38, 38, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header.top-navbar {
+            background-color: var(--bg-header);
+            color: #ffffff;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13.5px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #e2e8f0;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            transition: all 0.15s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .main-container {
+            max-width: 1240px;
+            margin: 28px auto 60px;
+            padding: 0 20px;
+        }
+
+        .top-info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .info-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .title-group h1 {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+            margin-bottom: 4px;
+        }
+
+        .meta-pills {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            font-size: 13.5px;
+            color: var(--text-sub);
+        }
+
+        .meta-tag {
+            background: var(--bg-answer);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            color: var(--text-sub);
+        }
+
+        .export-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-export {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            color: #ffffff;
+            transition: opacity 0.15s, transform 0.15s;
+        }
+
+        .btn-export:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .btn-pdf {
+            background: #dc2626;
+        }
+
+        .btn-docx {
+            background: #2563eb;
+        }
+
+        .btn-result-view {
+            background: #0284c7;
+        }
+
+        .status-banner {
+            padding: 14px 18px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-top: 12px;
+        }
+
+        .status-banner.evaluated {
+            background: var(--success-bg);
+            color: var(--success-text);
+            border: 1px solid var(--success-border);
+            font-weight: 600;
+        }
+
+        .status-banner.pending {
+            background: var(--warning-bg);
+            color: var(--warning-text);
+            border: 1px solid var(--warning-border);
+        }
+
+        .task-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .task-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-card);
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .task-header h2 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .task-badge {
+            font-size: 12.5px;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-weight: 700;
+        }
+
+        .task-badge.graded {
+            background: var(--success-bg);
+            color: var(--success-text);
+            border: 1px solid var(--success-border);
+        }
+
+        .task-badge.ungraded {
+            background: var(--warning-bg);
+            color: var(--warning-text);
+            border: 1px solid var(--warning-border);
+        }
+
+        .task-layout {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        @media (max-width: 960px) {
+            .task-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Distinct Section Header Bars (Question, Candidate Answer, Examiner Form) */
+        .section-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            border-radius: 10px 10px 0 0;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .bar-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bar-left h4 {
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            margin: 0;
+        }
+
+        .badge-pill {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            padding: 3px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            color: #ffffff;
+            display: inline-block;
+        }
+
+        /* 1. Question (Blue) */
+        .question-bar {
+            background: #eff6ff;
+            color: #1e40af;
+            border: 1px solid #bfdbfe;
+            border-bottom: none;
+        }
+        html.dark .question-bar, html[data-theme="dark"] .question-bar {
+            background: #172554;
+            color: #93c5fd;
+            border-color: #1e3a8a;
+        }
+
+        .badge-pill.question {
+            background: #2563eb;
+        }
+
+        .question-panel-body {
+            background: var(--bg-answer);
+            border: 1px solid var(--border-card);
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+            padding: 16px 18px;
+            border-left: 4px solid #2563eb;
+            margin-bottom: 22px;
+        }
+
+        .prompt-content-text {
+            font-size: 14px;
+            line-height: 1.65;
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            text-align: left;
+            white-space: pre-line;
+        }
+
+        /* Visual Graphic Container */
+        .task-visual-wrap {
+            margin-top: 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .visual-bar {
+            background: var(--bg-page);
+            border-bottom: 1px solid var(--border-card);
+            padding: 7px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-sub);
+        }
+
+        .visual-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 11.5px;
+            font-weight: 600;
+        }
+        .visual-link:hover {
+            text-decoration: underline;
+        }
+
+        .task-visual-box {
+            padding: 10px;
+            text-align: center;
+            background: #ffffff;
+        }
+        html.dark .task-visual-box, html[data-theme="dark"] .task-visual-box {
+            background: #1e293b;
+        }
+
+        .task-visual-box img {
+            max-height: 240px;
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        /* 2. Candidate Answer (Green if present, Amber if empty) */
+        .answer-bar {
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+            border-bottom: none;
+        }
+        html.dark .answer-bar, html[data-theme="dark"] .answer-bar {
+            background: #064e3b;
+            color: #6ee7b7;
+            border-color: #047857;
+        }
+
+        .answer-bar.is-empty {
+            background: #fffbeb;
+            color: #92400e;
+            border-color: #fde68a;
+        }
+        html.dark .answer-bar.is-empty, html[data-theme="dark"] .answer-bar.is-empty {
+            background: #451a03;
+            color: #fde68a;
+            border-color: #78350f;
+        }
+
+        .badge-pill.answer {
+            background: #059669;
+        }
+        .answer-bar.is-empty .badge-pill.answer {
+            background: #d97706;
+        }
+
+        .word-count-badge {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 9999px;
+            background: #d1fae5;
+            color: #065f46;
+        }
+        html.dark .word-count-badge, html[data-theme="dark"] .word-count-badge {
+            background: #065f46;
+            color: #a7f3d0;
+        }
+
+        .word-count-badge.empty {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        html.dark .word-count-badge.empty, html[data-theme="dark"] .word-count-badge.empty {
+            background: #78350f;
+            color: #fde68a;
+        }
+
+        .answer-panel-body {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+            padding: 20px;
+            border-left: 4px solid #10b981;
+            min-height: 160px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .answer-panel-body.is-empty {
+            border-left-color: #f59e0b;
+            background: var(--bg-answer);
+        }
+
+        .essay-content-text {
+            font-size: 14.5px;
+            line-height: 1.8;
+            color: var(--text-main);
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            margin: 0;
+        }
+
+        .empty-answer-notice {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 6px;
+        }
+
+        .empty-answer-icon {
+            font-size: 24px;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .empty-answer-text strong {
+            display: block;
+            font-size: 14px;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .empty-answer-text p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* 3. Examiner Form (Purple) */
+        .eval-bar {
+            background: #f1f5f9;
+            color: #334155;
+            border: 1px solid #cbd5e1;
+            border-bottom: none;
+        }
+        html.dark .eval-bar, html[data-theme="dark"] .eval-bar {
+            background: #1e293b;
+            color: #e2e8f0;
+            border-color: #334155;
+        }
+
+        .badge-pill.eval {
+            background: #4f46e5;
+        }
+
+        .eval-panel-body {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+            padding: 20px;
+            border-left: 4px solid #6366f1;
+        }
+
+        .scoring-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        @media (max-width: 500px) {
+            .scoring-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-field {
+            margin-bottom: 14px;
+        }
+
+        .form-field label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        select.score-select, input.score-input, textarea.feedback-textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-input);
+            background: var(--bg-input);
+            color: var(--text-main);
+            font-size: 14px;
+            font-weight: 600;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        select.score-select:focus, input.score-input:focus, textarea.feedback-textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .score-help-text {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: -10px;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        textarea.feedback-textarea {
+            resize: vertical;
+            min-height: 110px;
+            font-family: inherit;
+        }
+
+        .btn-submit-eval {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 13px 20px;
+            border-radius: 10px;
+            background: var(--accent);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: background 0.15s, transform 0.15s;
+        }
+
+        .btn-submit-eval:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .eval-history {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+            background: var(--bg-answer);
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        .config-error-box {
+            background: var(--warning-bg);
+            border: 1px solid var(--warning-border);
+            color: var(--warning-text);
+            border-radius: 12px;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .config-error-box a {
+            color: var(--accent);
+            font-weight: 700;
+            text-decoration: underline;
+        }
+
+        .notice-footer {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-navbar">
+        <div class="nav-links">
+            <a href="{% url 'admin:index' %}" title="Return to Django Admin Dashboard">
+                &larr; Admin Dashboard
+            </a>
+            <a href="{% url 'bcl:writing_review_list' %}" title="View all student writing submissions">
+                &larr; Writing Review Hub
+            </a>
+            <a href="{% url 'bcl:dashboard' %}" target="_blank" title="Candidate portal preview">
+                Candidate Portal ↗
+            </a>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:12px;">
+            <button type="button" id="themeToggleBtn" class="theme-toggle-btn" title="Toggle Theme" aria-label="Toggle Theme"></button>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- Candidate & Exam Header Summary -->
+        <div class="top-info-card">
+            <div class="info-header">
+                <div class="title-group">
+                    <h1>Writing Assessment — Attempt #{{ attempt.pk }}</h1>
+                    <div class="meta-pills">
+                        <span>Candidate: <strong>{{ attempt.candidate.get_full_name|default:attempt.candidate.username }}</strong> ({{ attempt.candidate.username }})</span>
+                        <span>&bull;</span>
+                        <span>Test: <strong>{{ attempt.module.mock_test.title }}</strong></span>
+                        <span>&bull;</span>
+                        <span class="meta-tag">Status: {{ attempt.get_status_display }}</span>
+                    </div>
+                </div>
+
+                <div class="export-actions">
+                    <a href="{% url 'bcl:exam_result' attempt.pk %}" target="_blank" class="btn-export btn-result-view" title="Open student detailed result review page">
+                        👁️ View Result
+                    </a>
+                    <a href="{% url 'bcl:export_candidate_attempt' attempt.pk 'pdf' %}" target="_blank" class="btn-export btn-pdf" title="Export clean PDF result report">
+                        📄 Export PDF
+                    </a>
+                    <a href="{% url 'bcl:export_candidate_attempt' attempt.pk 'docx' %}" target="_blank" class="btn-export btn-docx" title="Export official Word DOCX result report">
+                        📝 Export DOCX
+                    </a>
+                </div>
+            </div>
+
+            {% if overall_band is not None %}
+                <div class="status-banner evaluated">
+                    🎉 <strong>Overall Practice Writing Band: {{ overall_band }}</strong> &mdash; Calculated with official standard weighting (Task 1: 1/3, Task 2: 2/3).
+                </div>
+            {% else %}
+                <div class="status-banner pending">
+                    ⏳ <strong>Writing Band Pending:</strong> Both Task 1 and Task 2 must be evaluated by an examiner to compute the final combined writing band.
+                </div>
+            {% endif %}
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="status-banner evaluated" style="margin-top:10px;">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <!-- Task 1 and Task 2 Evaluation Cards -->
+        {% for task in task_cards %}
+        <section class="task-card">
+            <div class="task-header">
+                <h2>Task {{ task.number }}: {% if task.number == 1 %}Graph / Diagram Summary{% else %}Discursive / Argumentative Essay{% endif %}</h2>
+                {% if task.evaluation %}
+                    <span class="task-badge graded">
+                        ✓ Graded: Criterion Avg {{ task.evaluation.criterion_average }}
+                    </span>
+                {% else %}
+                    <span class="task-badge ungraded">
+                        ● Pending Examiner Score
+                    </span>
+                {% endif %}
+            </div>
+
+            {% if task.configuration_error %}
+                <div class="config-error-box">
+                    <strong>⚠️ Section Configuration Notice:</strong>
+                    <p style="margin: 8px 0;">
+                        Writing section order <strong>{{ task.number }}</strong> for this module does not yet have an Essay question configured.
+                    </p>
+                    <p>
+                        To enable grading for this task, please open the <a href="{% url 'admin:bcl_examsection_changelist' %}" target="_blank">Django Admin Exam Sections</a> and ensure Section order {{ task.number }} of <em>{{ attempt.module }}</em> has exactly one Question with type <code>Writing Task (Essay)</code>.
+                    </p>
+                </div>
+            {% else %}
+                <div class="task-layout">
+                    <!-- Left Column: Explicit Question vs Candidate Answer -->
+                    <div class="submission-and-prompt-col">
+
+                        <!-- 1. EXPLICIT QUESTION PANEL -->
+                        <div class="section-bar question-bar">
+                            <div class="bar-left">
+                                <span class="badge-pill question">QUESTION</span>
+                                <h4>Task {{ task.number }} Official Exam Prompt</h4>
+                            </div>
+                            <span style="font-size: 11.5px; opacity: 0.85;">Instructions given to student</span>
+                        </div>
+                        <div class="question-panel-body">
+                            <p class="prompt-content-text">{{ task.question.question_text|linebreaksbr }}</p>
+
+                            {% if task.question.section.image %}
+                                <div class="task-visual-wrap">
+                                    <div class="visual-bar">
+                                        <span>📊 Reference Graphic / Diagram</span>
+                                        <a href="{% url 'bcl:staff_section_image' attempt.pk task.question.section.pk %}" target="_blank" class="visual-link" title="Open full resolution in new tab">
+                                            🔍 View Full Diagram ↗
+                                        </a>
+                                    </div>
+                                    <div class="task-visual-box">
+                                        <img src="{% url 'bcl:staff_section_image' attempt.pk task.question.section.pk %}" alt="Writing Task {{ task.number }} Visual Graphic">
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- 2. EXPLICIT CANDIDATE ANSWER PANEL -->
+                        <div class="section-bar answer-bar {% if not task.answer or not task.answer.answer_text.strip %}is-empty{% endif %}">
+                            <div class="bar-left">
+                                <span class="badge-pill answer">CANDIDATE ANSWER</span>
+                                <h4>Candidate's Written Essay</h4>
+                            </div>
+                            {% if task.answer and task.answer.answer_text.strip %}
+                                <span class="word-count-badge">📝 {{ task.answer.answer_text|wordcount }} words submitted</span>
+                            {% else %}
+                                <span class="word-count-badge empty">⚠️ 0 words submitted</span>
+                            {% endif %}
+                        </div>
+
+                        {% if task.answer and task.answer.answer_text.strip %}
+                            <div class="answer-panel-body">
+                                <p class="essay-content-text">{{ task.answer.answer_text|linebreaksbr }}</p>
+                            </div>
+                        {% else %}
+                            <div class="answer-panel-body is-empty">
+                                <div class="empty-answer-notice">
+                                    <div class="empty-answer-icon">⚠️</div>
+                                    <div class="empty-answer-text">
+                                        <strong>No written response was submitted for Task {{ task.number }}.</strong>
+                                        <p>The candidate submitted this attempt without writing an essay response (0 words). You may grade accordingly or provide examiner guidance.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+                    <!-- Right Column: Examiner Scoring & Rubric Form -->
+                    <div class="examiner-side-col">
+                        <div class="section-bar eval-bar">
+                            <div class="bar-left">
+                                <span class="badge-pill eval">EXAMINER FORM</span>
+                                <h4>Examiner Scoring &amp; Rubric</h4>
+                            </div>
+                            {% if task.evaluation %}
+                                <span style="font-size:12px;font-weight:700;color:#10b981;">✓ Graded</span>
+                            {% else %}
+                                <span style="font-size:12px;font-weight:700;color:#f59e0b;">● Pending</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="eval-panel-body">
+                            {% if task.evaluation %}
+                                <div class="eval-history">
+                                    ℹ️ Last evaluated by <strong>{{ task.evaluation.examiner.username }}</strong> on {{ task.evaluation.evaluated_at|date:"M d, Y H:i" }}. Criterion average: <strong>{{ task.evaluation.criterion_average }}</strong>.
+                                </div>
+                            {% endif %}
+
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="task_number" value="{{ task.number }}">
+
+                                {% if task.form.non_field_errors %}
+                                    <div class="status-banner pending" style="margin-bottom:12px;">
+                                        {{ task.form.non_field_errors }}
+                                    </div>
+                                {% endif %}
+
+                                <div class="scoring-grid">
+                                    <div class="form-field">
+                                        <label for="{{ task.form.task_achievement.id_for_label }}">
+                                            {% if task.number == 1 %}Task Achievement (0-9){% else %}Task Response (0-9){% endif %}:
+                                        </label>
+                                        {{ task.form.task_achievement }}
+                                        {{ task.form.task_achievement.errors }}
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="{{ task.form.coherence_cohesion.id_for_label }}">
+                                            Coherence &amp; Cohesion (0-9):
+                                        </label>
+                                        {{ task.form.coherence_cohesion }}
+                                        {{ task.form.coherence_cohesion.errors }}
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="{{ task.form.lexical_resource.id_for_label }}">
+                                            Lexical Resource (0-9):
+                                        </label>
+                                        {{ task.form.lexical_resource }}
+                                        {{ task.form.lexical_resource.errors }}
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="{{ task.form.grammatical_range_accuracy.id_for_label }}">
+                                            Grammar Range &amp; Accuracy (0-9):
+                                        </label>
+                                        {{ task.form.grammatical_range_accuracy }}
+                                        {{ task.form.grammatical_range_accuracy.errors }}
+                                    </div>
+                                </div>
+                                <div class="score-help-text">
+                                    💡 Type numeric band score from 0.0 to 9.0 in steps of 0.5 (e.g. 6.0, 6.5, 7.0).
+                                </div>
+
+                                <div class="form-field">
+                                    <label for="{{ task.form.feedback.id_for_label }}">
+                                        Examiner Constructive Feedback:
+                                    </label>
+                                    {{ task.form.feedback }}
+                                    {{ task.form.feedback.errors }}
+                                </div>
+
+                                <button type="submit" class="btn-submit-eval">
+                                    💾 Save Task {{ task.number }} Evaluation
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </section>
+        {% endfor %}
+
+        <p class="notice-footer">
+            Official IELTS Writing Examiner Portal &bull; Scores entered here update candidate band scores and aggregated mock report cards in real-time.
+        </p>
+    </main>
+</body>
+</html>

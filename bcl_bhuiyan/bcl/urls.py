@@ -1,5 +1,6 @@
 from django.urls import path
-from . import exam_views, views, writing_views, writing_exports, private_media, mfa_views
+from django.views.generic import RedirectView
+from . import exam_views, views, writing_views, writing_exports, private_media, mfa_views, result_exports
 
 app_name = "bcl"
 
@@ -8,10 +9,18 @@ urlpatterns = [
     path("security/mfa/verify/", mfa_views.mfa_verify, name="mfa_verify"),
     path("writing/reviews/<int:attempt_id>/section/<int:section_id>/image/", private_media.staff_section_image, name="staff_section_image"),
     path("exam/session/<int:attempt_id>/media/<int:section_id>/<str:kind>/", private_media.section_media, name="section_media"),
+    path("exam/session/<int:attempt_id>/module-media/<str:kind>/", private_media.module_media, name="module_media"),
+    path("exam/session/<int:attempt_id>/question-media/<int:question_id>/", private_media.question_media, name="question_media"),
+    path("exam/review/<int:attempt_id>/media/<int:section_id>/<str:kind>/", private_media.review_section_media, name="review_section_media"),
+    path("exam/review/<int:attempt_id>/module-media/<str:kind>/", private_media.review_module_media, name="review_module_media"),
+    path("exam/review/<int:attempt_id>/question-media/<int:question_id>/", private_media.review_question_media, name="review_question_media"),
     path("", views.home, name="home"),
     path("register/", views.candidate_register, name="register"),
     path("login/", views.CandidateLoginView.as_view(), name="login"),
     path("logout/", views.candidate_logout, name="logout"),
+    path("accounts/login/", RedirectView.as_view(pattern_name="bcl:login", permanent=False, query_string=True)),
+    path("accounts/logout/", RedirectView.as_view(pattern_name="bcl:login", permanent=False, query_string=True)),
+    path("accounts/profile/", RedirectView.as_view(pattern_name="bcl:dashboard", permanent=False)),
     path("dashboard/", views.candidate_dashboard, name="dashboard"),
     path("exam/<int:module_id>/rules/", exam_views.exam_rules, name="exam_rules"),
     path("exam/<int:module_id>/start/", exam_views.start_exam, name="start_exam"),
@@ -20,8 +29,17 @@ urlpatterns = [
     path("exam/session/<int:attempt_id>/save-answer/", exam_views.save_exam_answer, name="save_exam_answer"),
     path("exam/session/<int:attempt_id>/violation/", exam_views.report_exam_violation, name="report_exam_violation"),
     path("exam/session/<int:attempt_id>/submit/", exam_views.submit_exam, name="submit_exam"),
+    path("exam/session/<int:attempt_id>/ended/", exam_views.exam_ended, name="exam_ended"),
     path("exam/session/<int:attempt_id>/result/", exam_views.exam_result, name="exam_result"),
+    path("exam/full-mock/<int:mock_test_id>/rules/", exam_views.full_mock_rules, name="full_mock_rules"),
+    path("exam/full-mock/<int:mock_test_id>/start/", exam_views.start_full_mock, name="start_full_mock"),
+    path("exam/full-mock/<int:full_attempt_id>/intermission/", exam_views.full_mock_intermission, name="full_mock_intermission"),
+    path("exam/full-mock/<int:full_attempt_id>/next/", exam_views.full_mock_next_module, name="full_mock_next_module"),
+    path("exam/full-mock/<int:full_attempt_id>/ended/", exam_views.full_mock_ended, name="full_mock_ended"),
+    path("exam/full-mock/<int:full_attempt_id>/result/", exam_views.full_mock_result, name="full_mock_result"),
     path("writing/reviews/", writing_views.writing_review_list, name="writing_review_list"),
     path("writing/reviews/<int:attempt_id>/", writing_views.writing_review_detail, name="writing_review_detail"),
     path("writing/reviews/<int:attempt_id>/export/<str:format>/", writing_exports.writing_export, name="writing_export"),
+    path("admin-tools/export/attempt/<int:attempt_id>/<str:format>/", result_exports.export_candidate_attempt, name="export_candidate_attempt"),
+    path("admin-tools/export/full-mock/<int:full_attempt_id>/<str:format>/", result_exports.export_full_mock_attempt, name="export_full_mock_attempt"),
 ]

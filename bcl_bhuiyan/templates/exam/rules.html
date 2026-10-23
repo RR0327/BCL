@@ -1,4 +1,5 @@
 
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +10,25 @@
           content="width=device-width, initial-scale=1.0">
 
     <title>Exam Rules | IELTS Mock Test</title>
+
+    <script>
+        (function() {
+            try {
+                var t = localStorage.getItem("test-theme") || "device";
+                var isDark = (t === "dark") || (t === "device" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+                if (isDark) {
+                    document.documentElement.classList.add("dark");
+                    document.documentElement.setAttribute("data-theme", "dark");
+                } else {
+                    document.documentElement.classList.remove("dark");
+                    document.documentElement.setAttribute("data-theme", "light");
+                }
+            } catch (e) {}
+        })();
+    </script>
+
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    <script src="{% static 'js/theme.js' %}" defer></script>
 
     <style>
         * {
@@ -109,6 +129,11 @@
 
     <div class="rules-card">
 
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+            <a href="{% url 'bcl:dashboard' %}" class="back-link" style="margin: 0; font-weight: 600; text-decoration: none;">&larr; Back to Dashboard</a>
+            <button type="button" id="themeToggleBtn" class="theme-toggle-btn" title="Toggle theme" aria-label="Toggle theme"></button>
+        </div>
+
         <h1>Examination Rules</h1>
 
         <p>
@@ -153,11 +178,8 @@
             </li>
 
             <li>
-                The platform's planned examination
-                policy permits one tab-switch warning.
-                A second violation will end the
-                attempt once violation tracking
-                is implemented.
+                The examination integrity policy permits two tab-switch warnings.
+                A third violation will automatically submit and end your attempt.
             </li>
 
             <li>

@@ -117,3 +117,8 @@ AXES_ENABLED = True
 SESSION_COOKIE_AGE = config('SESSION_COOKIE_AGE', default=3600, cast=int)
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Authentication routing
+LOGIN_URL = 'bcl:login'
+LOGIN_REDIRECT_URL = 'bcl:dashboard'
+LOGOUT_REDIRECT_URL = 'bcl:login'

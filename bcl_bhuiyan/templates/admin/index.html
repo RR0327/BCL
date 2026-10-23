@@ -1,0 +1,911 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static "admin/css/dashboard.css" %}">
+<style>
+  :root {
+    --adm-primary: #4f46e5;
+    --adm-primary-hover: #4338ca;
+    --adm-accent: #0284c7;
+    --adm-card-bg: #ffffff;
+    --adm-card-border: #e2e8f0;
+    --adm-text: #0f172a;
+    --adm-text-muted: #64748b;
+    --adm-bg-subtle: #f8fafc;
+    --adm-table-hover: #f1f5f9;
+  }
+
+  /* Support both system dark and Django admin manual dark theme toggling */
+  html.dark,
+  html[data-theme="dark"],
+  body[data-theme="dark"],
+  [data-theme="dark"],
+  body.theme-dark {
+    --adm-primary: #6366f1;
+    --adm-primary-hover: #4f46e5;
+    --adm-accent: #38bdf8;
+    --adm-card-bg: #1e293b;
+    --adm-card-border: #334155;
+    --adm-text: #f1f5f9;
+    --adm-text-muted: #94a3b8;
+    --adm-bg-subtle: #0f172a;
+    --adm-table-hover: rgba(255, 255, 255, 0.04);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]):not(.theme-light) {
+      --adm-primary: #6366f1;
+      --adm-primary-hover: #4f46e5;
+      --adm-accent: #38bdf8;
+      --adm-card-bg: #1e293b;
+      --adm-card-border: #334155;
+      --adm-text: #f1f5f9;
+      --adm-text-muted: #94a3b8;
+      --adm-bg-subtle: #0f172a;
+      --adm-table-hover: rgba(255, 255, 255, 0.04);
+    }
+  }
+
+  /* Full-width responsive layout override */
+  #content {
+    padding: 20px 24px !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  #content-main {
+    width: 100% !important;
+    max-width: 100% !important;
+    float: none !important;
+  }
+
+  .admin-dashboard-container {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 30px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  /* Quick Actions Toolbar */
+  .quick-action-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    background: var(--adm-card-bg);
+    border: 1px solid var(--adm-card-border);
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 22px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .quick-bar-label {
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--adm-text-muted);
+    margin-right: 4px;
+    white-space: nowrap;
+  }
+
+  .btn-quick-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+
+  /* Prominent Writing Reviews Button */
+  .btn-writing-reviews {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    color: #ffffff !important;
+    box-shadow: 0 3px 10px rgba(79, 70, 229, 0.35);
+  }
+
+  .btn-writing-reviews:hover {
+    background: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%);
+    box-shadow: 0 5px 14px rgba(79, 70, 229, 0.45);
+    transform: translateY(-1px);
+    color: #ffffff !important;
+  }
+
+  .writing-pending-badge {
+    background: #ef4444;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 9999px;
+    line-height: 1;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+
+  .btn-action-secondary {
+    background: var(--adm-bg-subtle);
+    color: var(--adm-text) !important;
+    border-color: var(--adm-card-border);
+  }
+
+  .btn-action-secondary:hover {
+    background: var(--adm-card-border);
+    transform: translateY(-1px);
+    color: var(--adm-text) !important;
+  }
+
+  .btn-action-portal {
+    background: #059669;
+    color: #ffffff !important;
+  }
+
+  .btn-action-portal:hover {
+    background: #047857;
+    color: #ffffff !important;
+  }
+
+  /* KPI Statistics Grid */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 14px;
+    margin-bottom: 24px;
+    width: 100%;
+  }
+
+  .kpi-card {
+    background: var(--adm-card-bg);
+    border: 1px solid var(--adm-card-border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .kpi-card.kpi-alert {
+    border-color: #f59e0b;
+    background: linear-gradient(to bottom, var(--adm-card-bg), rgba(245, 158, 11, 0.08));
+  }
+
+  .kpi-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .kpi-title {
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--adm-text-muted);
+  }
+
+  .kpi-icon {
+    font-size: 18px;
+  }
+
+  .kpi-value {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--adm-text);
+    line-height: 1.1;
+  }
+
+  .kpi-subtext {
+    font-size: 11.5px;
+    color: var(--adm-text-muted);
+    margin-top: 6px;
+  }
+
+  .kpi-subtext a {
+    color: var(--adm-primary);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  /* Results Hub Section */
+  .results-hub-card {
+    background: var(--adm-card-bg);
+    border: 1px solid var(--adm-card-border);
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .hub-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--adm-card-border);
+    padding-bottom: 14px;
+  }
+
+  .hub-title-group h2 {
+    font-size: 18px;
+    font-weight: 800;
+    margin: 0;
+    color: var(--adm-text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hub-title-group p {
+    font-size: 12.5px;
+    color: var(--adm-text-muted);
+    margin: 4px 0 0 0;
+  }
+
+  .hub-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .hub-search-input {
+    padding: 7px 12px;
+    border: 1px solid var(--adm-card-border);
+    border-radius: 8px;
+    font-size: 13px;
+    background: var(--adm-bg-subtle);
+    color: var(--adm-text);
+    width: 220px;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+
+  .hub-search-input:focus {
+    border-color: var(--adm-primary);
+  }
+
+  .tab-buttons {
+    display: inline-flex;
+    background: var(--adm-bg-subtle);
+    border: 1px solid var(--adm-card-border);
+    border-radius: 8px;
+    padding: 3px;
+  }
+
+  .tab-btn {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    font-weight: 700;
+    border: none;
+    background: transparent;
+    color: var(--adm-text-muted);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .tab-btn.active {
+    background: var(--adm-card-bg);
+    color: var(--adm-text);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  /* Results Tables & Scroll Wrapper - PREVENTS VERTICAL CRUSHING */
+  .results-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 8px;
+    border: 1px solid var(--adm-card-border);
+    box-sizing: border-box;
+  }
+
+  .results-table {
+    width: 100%;
+    min-width: 860px; /* Crucial! Ensures table never crunches character-by-character */
+    border-collapse: collapse;
+    font-size: 13px;
+    text-align: left;
+  }
+
+  .results-table th {
+    background: var(--adm-bg-subtle);
+    color: var(--adm-text-muted);
+    font-weight: 700;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--adm-card-border);
+    white-space: nowrap; /* Crucial! Keeps headers readable */
+  }
+
+  .results-table td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--adm-card-border);
+    color: var(--adm-text);
+    vertical-align: middle;
+    white-space: nowrap; /* Crucial! Keeps rows legible */
+  }
+
+  .results-table tbody tr:hover {
+    background: var(--adm-table-hover);
+  }
+
+  /* Badges */
+  .badge-module {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-size: 11.5px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .badge-reading {
+    background: #ecfdf5;
+    color: #047857;
+    border: 1px solid #a7f3d0;
+  }
+
+  .badge-listening {
+    background: #eff6ff;
+    color: #1d4ed8;
+    border: 1px solid #bfdbfe;
+  }
+
+  .badge-writing {
+    background: #fffbeb;
+    color: #b45309;
+    border: 1px solid #fde68a;
+  }
+
+  .badge-band {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 7px;
+    background: #4f46e5;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 11.5px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .badge-pending {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 7px;
+    background: #f59e0b;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 11px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  /* Action Buttons in Rows */
+  .action-btn-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: nowrap;
+  }
+
+  .btn-row-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 9px;
+    border-radius: 5px;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-decoration: none;
+    line-height: 1.2;
+    white-space: nowrap;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+
+  .btn-row-action:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  .btn-view-res {
+    background: #0284c7;
+    color: #ffffff !important;
+  }
+
+  .btn-export-pdf {
+    background: #dc2626;
+    color: #ffffff !important;
+  }
+
+  .btn-export-docx {
+    background: #2563eb;
+    color: #ffffff !important;
+  }
+
+  .btn-review-essay {
+    background: #d97706;
+    color: #ffffff !important;
+  }
+
+  .hub-footer-links {
+    margin-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12.5px;
+    color: var(--adm-text-muted);
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .hub-footer-links a {
+    color: var(--adm-primary);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .hub-footer-links a:hover {
+    text-decoration: underline;
+  }
+
+  /* Bottom Section: Recent Audit Log */
+  .recent-actions-card {
+    background: var(--adm-card-bg);
+    border: 1px solid var(--adm-card-border);
+    border-radius: 14px;
+    padding: 22px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 24px;
+  }
+
+  .recent-actions-card h2 {
+    font-size: 16px;
+    font-weight: 800;
+    margin: 0 0 16px 0;
+    color: var(--adm-text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .recent-actions-card ul.actionlist {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+  }
+
+  .recent-actions-card ul.actionlist li {
+    padding: 12px 14px;
+    border: 1px solid var(--adm-card-border);
+    border-radius: 8px;
+    background: var(--adm-bg-subtle);
+    font-size: 12.5px;
+    line-height: 1.4;
+  }
+
+  .recent-actions-card ul.actionlist li:last-child {
+    border-bottom: 1px solid var(--adm-card-border);
+  }
+
+  @media (max-width: 640px) {
+    .kpi-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .quick-action-bar {
+      padding: 12px 14px;
+    }
+    .btn-quick-action {
+      flex: 1 1 calc(50% - 10px);
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .kpi-grid {
+      grid-template-columns: 1fr;
+    }
+    .btn-quick-action {
+      flex: 1 1 100%;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block coltype %}colM{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block nav-breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div id="content-main" class="admin-dashboard-container">
+
+  <!-- 1. QUICK ACTIONS BAR -->
+  <div class="quick-action-bar">
+    <span class="quick-bar-label">Quick Actions:</span>
+
+    <!-- PROMINENT WRITING REVIEWS REDIRECT BUTTON -->
+    <a href="{% url 'bcl:writing_review_list' %}" class="btn-quick-action btn-writing-reviews" title="Direct access to manual IELTS Writing assessment workflow">
+      <span>✍️ Writing Reviews</span>
+      {% if pending_writing > 0 %}
+      <span class="writing-pending-badge">{{ pending_writing }} Pending</span>
+      {% else %}
+      <span style="font-size:11px;opacity:0.85;background:rgba(255,255,255,0.2);padding:2px 6px;border-radius:4px;">Up to date</span>
+      {% endif %}
+    </a>
+
+    <!-- QUESTION SETTER SHORTCUTS -->
+    <a href="{% url 'admin:bcl_ieltsmocktest_add' %}" class="btn-quick-action btn-action-secondary" title="Create a new IELTS Mock Test">
+      <span>🎯 Create Mock Test</span>
+    </a>
+    <a href="{% url 'admin:bcl_question_add' %}" class="btn-quick-action btn-action-secondary" title="Add a question to any test section">
+      <span>❓ Add Question</span>
+    </a>
+    <a href="{% url 'admin:bcl_candidateattempt_changelist' %}" class="btn-quick-action btn-action-secondary" title="View changelist of all module attempts">
+      <span>📋 All Attempts</span>
+    </a>
+    <a href="{% url 'admin:bcl_fullmockattempt_changelist' %}" class="btn-quick-action btn-action-secondary" title="View changelist of all full mock attempts">
+      <span>🏆 Full Mocks</span>
+    </a>
+
+    <!-- PORTAL LINK -->
+    <a href="{% url 'bcl:dashboard' %}" target="_blank" class="btn-quick-action btn-action-portal" title="Open Candidate Dashboard view">
+      <span>🌐 Candidate Dashboard &rarr;</span>
+    </a>
+  </div>
+
+  <!-- 2. KPI METRICS CARDS -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-top">
+        <span class="kpi-title">Registered Students</span>
+        <span class="kpi-icon">👥</span>
+      </div>
+      <div class="kpi-value">{{ total_students }}</div>
+      <div class="kpi-subtext">Active student candidates</div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-top">
+        <span class="kpi-title">Mock Tests</span>
+        <span class="kpi-icon">📚</span>
+      </div>
+      <div class="kpi-value">{{ total_mock_tests }}</div>
+      <div class="kpi-subtext"><a href="{% url 'admin:bcl_ieltsmocktest_changelist' %}">Manage Mock Tests &rarr;</a></div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-top">
+        <span class="kpi-title">Completed Module Exams</span>
+        <span class="kpi-icon">📝</span>
+      </div>
+      <div class="kpi-value">{{ total_module_attempts }}</div>
+      <div class="kpi-subtext">Reading, Listening &amp; Writing</div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-top">
+        <span class="kpi-title">Full Mocks Completed</span>
+        <span class="kpi-icon">🏆</span>
+      </div>
+      <div class="kpi-value">{{ total_full_mocks }}</div>
+      <div class="kpi-subtext">3-in-1 consolidated tests</div>
+    </div>
+
+    <div class="kpi-card {% if pending_writing > 0 %}kpi-alert{% endif %}">
+      <div class="kpi-top">
+        <span class="kpi-title">Writing Reviews</span>
+        <span class="kpi-icon">✍️</span>
+      </div>
+      <div class="kpi-value" style="color: {% if pending_writing > 0 %}#d97706{% else %}var(--adm-text){% endif %};">
+        {{ pending_writing }}
+      </div>
+      <div class="kpi-subtext">
+        {% if pending_writing > 0 %}
+        <a href="{% url 'bcl:writing_review_list' %}" style="color:#d97706;font-weight:800;">Review {{ pending_writing }} essays now &rarr;</a>
+        {% else %}
+        All submissions evaluated
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. ALL STUDENT EXAM RESULTS HUB -->
+  <div class="results-hub-card">
+    <div class="hub-header">
+      <div class="hub-title-group">
+        <h2>📊 All Student Exam Results &amp; Export Hub</h2>
+        <p>Review real-time test outcomes across candidates and instantly export official reports as PDF or Word DOCX.</p>
+      </div>
+
+      <div class="hub-controls">
+        <input type="text" id="resultSearchInput" class="hub-search-input" placeholder="🔍 Filter results...">
+        <div class="tab-buttons">
+          <button type="button" class="tab-btn active" id="tabBtnModules" onclick="switchResultTab('modules')">Module Attempts ({{ recent_student_results|length }})</button>
+          <button type="button" class="tab-btn" id="tabBtnFullMocks" onclick="switchResultTab('fullmocks')">Full Mocks ({{ recent_full_mocks|length }})</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 1: INDIVIDUAL MODULE RESULTS -->
+    <div id="tabContentModules">
+      <div class="results-table-wrap">
+        <table class="results-table" id="moduleResultsTable">
+          <thead>
+            <tr>
+              <th style="width: 60px;">ID</th>
+              <th style="min-width: 160px;">Student Candidate</th>
+              <th style="min-width: 220px;">Mock Test</th>
+              <th style="width: 110px;">Module</th>
+              <th style="width: 140px;">Score / Status</th>
+              <th style="width: 130px;">Submitted At</th>
+              <th style="text-align: right; min-width: 180px;">Actions &amp; Exports</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for att in recent_student_results %}
+            <tr class="searchable-row" data-text="{{ att.candidate.username }} {{ att.candidate.email }} {{ att.module.mock_test.title }} {{ att.module.get_module_type_display }}">
+              <td style="font-weight:700;color:var(--adm-text-muted);">#{{ att.id }}</td>
+              <td>
+                <div style="font-weight:700;">{{ att.candidate.username }}</div>
+                <div style="font-size:11.5px;color:var(--adm-text-muted);">{{ att.candidate.email|default:"No email" }}</div>
+              </td>
+              <td style="max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="{{ att.module.mock_test.title }}">
+                {{ att.module.mock_test.title }}
+              </td>
+              <td>
+                {% if att.module.module_type == 'reading' %}
+                  <span class="badge-module badge-reading">📖 Reading</span>
+                {% elif att.module.module_type == 'listening' %}
+                  <span class="badge-module badge-listening">🎧 Listening</span>
+                {% else %}
+                  <span class="badge-module badge-writing">✍️ Writing</span>
+                {% endif %}
+              </td>
+              <td>
+                {% if att.module.module_type == 'writing' %}
+                  {% if att.band_score is not None %}
+                    <span class="badge-band">Band {{ att.band_score }}</span>
+                  {% else %}
+                    <span class="badge-pending">Pending Review</span>
+                  {% endif %}
+                {% else %}
+                  <div>
+                    <span class="badge-band">Band {{ att.band_score|default:"0.0" }}</span>
+                    <span style="font-size:11.5px;color:var(--adm-text-muted);margin-left:4px;">({{ att.raw_score|default:"0" }}/40)</span>
+                  </div>
+                {% endif %}
+              </td>
+              <td style="font-size:12px;color:var(--adm-text-muted);">
+                {{ att.submitted_at|date:"M d, Y H:i"|default:att.started_at|date:"M d, Y H:i" }}
+              </td>
+              <td>
+                <div class="action-btn-group" style="justify-content: flex-end;">
+                  <!-- View Result -->
+                  <a href="{% url 'bcl:exam_result' att.pk %}" target="_blank" class="btn-row-action btn-view-res" title="View interactive results page">
+                    👁️ View
+                  </a>
+                  <!-- Export PDF -->
+                  <a href="{% url 'bcl:export_candidate_attempt' att.pk 'pdf' %}" target="_blank" class="btn-row-action btn-export-pdf" title="Export clean PDF result document">
+                    📄 PDF
+                  </a>
+                  <!-- Export DOCX -->
+                  <a href="{% url 'bcl:export_candidate_attempt' att.pk 'docx' %}" target="_blank" class="btn-row-action btn-export-docx" title="Export Microsoft Word DOCX result document">
+                    📝 DOCX
+                  </a>
+                  <!-- Writing Review shortcut -->
+                  {% if att.module.module_type == 'writing' %}
+                  <a href="{% url 'bcl:writing_review_detail' att.pk %}" target="_blank" class="btn-row-action btn-review-essay" title="Evaluate this student essay">
+                    ✍️ Grade
+                  </a>
+                  {% endif %}
+                </div>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="7" style="text-align:center;padding:24px;color:var(--adm-text-muted);">
+                No completed student module attempts found yet.
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="hub-footer-links">
+        <span>Showing up to 30 recent completed module exams.</span>
+        <a href="{% url 'admin:bcl_candidateattempt_changelist' %}">Open Full Candidate Attempts Changelist &rarr;</a>
+      </div>
+    </div>
+
+    <!-- TAB 2: FULL MOCK 3-IN-1 RESULTS -->
+    <div id="tabContentFullMocks" style="display: none;">
+      <div class="results-table-wrap">
+        <table class="results-table" id="fullMockResultsTable">
+          <thead>
+            <tr>
+              <th style="width: 60px;">ID</th>
+              <th style="min-width: 160px;">Student Candidate</th>
+              <th style="min-width: 220px;">Mock Test</th>
+              <th style="width: 90px;">Reading</th>
+              <th style="width: 90px;">Listening</th>
+              <th style="width: 100px;">Writing</th>
+              <th style="width: 130px;">Overall Band</th>
+              <th style="width: 130px;">Submitted At</th>
+              <th style="text-align: right; min-width: 180px;">Actions &amp; Exports</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for fm in recent_full_mocks %}
+            <tr class="searchable-row" data-text="{{ fm.candidate.username }} {{ fm.candidate.email }} {{ fm.mock_test.title }}">
+              <td style="font-weight:700;color:var(--adm-text-muted);">#{{ fm.id }}</td>
+              <td>
+                <div style="font-weight:700;">{{ fm.candidate.username }}</div>
+                <div style="font-size:11.5px;color:var(--adm-text-muted);">{{ fm.candidate.email|default:"No email" }}</div>
+              </td>
+              <td style="max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="{{ fm.mock_test.title }}">
+                {{ fm.mock_test.title }}
+              </td>
+              <td>
+                {% if fm.reading_attempt and fm.reading_attempt.band_score is not None %}
+                  <span class="badge-band" style="background:#059669;">{{ fm.reading_attempt.band_score }}</span>
+                {% else %}&mdash;{% endif %}
+              </td>
+              <td>
+                {% if fm.listening_attempt and fm.listening_attempt.band_score is not None %}
+                  <span class="badge-band" style="background:#0284c7;">{{ fm.listening_attempt.band_score }}</span>
+                {% else %}&mdash;{% endif %}
+              </td>
+              <td>
+                {% if fm.writing_attempt and fm.writing_attempt.band_score is not None %}
+                  <span class="badge-band" style="background:#7c3aed;">{{ fm.writing_attempt.band_score }}</span>
+                {% elif fm.writing_attempt %}
+                  <span class="badge-pending">Reviewing</span>
+                {% else %}&mdash;{% endif %}
+              </td>
+              <td>
+                {% if fm.overall_band_score is not None %}
+                  <span class="badge-band" style="background:#4f46e5;font-size:13px;padding:3px 9px;">Band {{ fm.overall_band_score }}</span>
+                {% else %}
+                  <span class="badge-pending">Pending Review</span>
+                {% endif %}
+              </td>
+              <td style="font-size:12px;color:var(--adm-text-muted);">
+                {{ fm.submitted_at|date:"M d, Y H:i"|default:fm.started_at|date:"M d, Y H:i" }}
+              </td>
+              <td>
+                <div class="action-btn-group" style="justify-content: flex-end;">
+                  <!-- View Result -->
+                  <a href="{% url 'bcl:full_mock_result' fm.pk %}" target="_blank" class="btn-row-action btn-view-res" title="View Full Mock 3-in-1 consolidated result">
+                    👁️ View
+                  </a>
+                  <!-- Export PDF -->
+                  <a href="{% url 'bcl:export_full_mock_attempt' fm.pk 'pdf' %}" target="_blank" class="btn-row-action btn-export-pdf" title="Export complete Full Mock PDF report">
+                    📄 PDF
+                  </a>
+                  <!-- Export DOCX -->
+                  <a href="{% url 'bcl:export_full_mock_attempt' fm.pk 'docx' %}" target="_blank" class="btn-row-action btn-export-docx" title="Export complete Full Mock DOCX report">
+                    📝 DOCX
+                  </a>
+                </div>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="9" style="text-align:center;padding:24px;color:var(--adm-text-muted);">
+                No completed Full Mock attempts recorded yet.
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="hub-footer-links">
+        <span>Showing up to 20 recent completed Full Mock tests.</span>
+        <a href="{% url 'admin:bcl_fullmockattempt_changelist' %}">Open Full Mock Attempts Changelist &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. BOTTOM SECTION: RECENT AUDIT LOG -->
+  <div class="recent-actions-card">
+    <h2>🕒 Recent Actions</h2>
+    {% load log %}
+    {% get_admin_log 10 as admin_log for_user user %}
+    {% if not admin_log %}
+      <p style="color:var(--adm-text-muted);font-size:13px;">{% translate 'None available' %}</p>
+    {% else %}
+      <ul class="actionlist">
+        {% for entry in admin_log %}
+          <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">
+            {% if entry.is_deletion or not entry.get_admin_url %}
+              <span style="font-weight:600;">{{ entry.object_repr }}</span>
+            {% else %}
+              <a href="{{ entry.get_admin_url }}" style="font-weight:600;color:var(--adm-primary);">{{ entry.object_repr }}</a>
+            {% endif %}
+            <br>
+            {% if entry.content_type %}
+              <span class="mini quiet" style="font-size:11px;color:var(--adm-text-muted);">{% filter capfirst %}{{ entry.content_type.name }}{% endfilter %}</span>
+            {% else %}
+              <span class="mini quiet" style="font-size:11px;color:var(--adm-text-muted);">{% translate 'Unknown content' %}</span>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+
+</div>
+
+<script>
+  function switchResultTab(tab) {
+    const modulesTab = document.getElementById("tabContentModules");
+    const fullMocksTab = document.getElementById("tabContentFullMocks");
+    const tabBtnModules = document.getElementById("tabBtnModules");
+    const tabBtnFullMocks = document.getElementById("tabBtnFullMocks");
+
+    if (tab === "modules") {
+      modulesTab.style.display = "block";
+      fullMocksTab.style.display = "none";
+      tabBtnModules.classList.add("active");
+      tabBtnFullMocks.classList.remove("active");
+    } else {
+      modulesTab.style.display = "none";
+      fullMocksTab.style.display = "block";
+      tabBtnModules.classList.remove("active");
+      tabBtnFullMocks.classList.add("active");
+    }
+  }
+
+  // Client-side quick filter
+  document.getElementById("resultSearchInput").addEventListener("input", function(e) {
+    const query = e.target.value.toLowerCase().trim();
+    const rows = document.querySelectorAll(".searchable-row");
+    rows.forEach(function(row) {
+      const dataText = (row.getAttribute("data-text") || "").toLowerCase();
+      if (!query || dataText.includes(query)) {
+        row.style.display = "";
+      } else {
+        row.style.display = "none";
+      }
+    });
+  });
+</script>
+{% endblock %}
+
+{% block sidebar %}
+{# Intentionally empty: Recent Actions are rendered responsively inside .admin-bottom-grid to avoid squeezing the dashboard #}
+{% endblock %}

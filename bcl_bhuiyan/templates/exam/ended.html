@@ -1,0 +1,435 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examination Session Ended | {{ mock_test.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/exam.css' %}">
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    <script>
+        (function() {
+            try {
+                var t = localStorage.getItem("test-theme") || "device";
+                var isDark = (t === "dark") || (t === "device" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+                if (isDark) {
+                    document.documentElement.classList.add("dark");
+                    document.documentElement.setAttribute("data-theme", "dark");
+                } else {
+                    document.documentElement.classList.remove("dark");
+                    document.documentElement.setAttribute("data-theme", "light");
+                }
+            } catch (e) {}
+        })();
+    </script>
+    <style>
+        :root {
+            --ended-bg: #f4f7fc;
+            --card-bg: #ffffff;
+            --text-title: #0f172a;
+            --text-subtitle: #475569;
+            --text-muted: #64748b;
+            --border-card: #e2e8f0;
+            --status-bg: #eff6ff;
+            --status-text: #1d4ed8;
+            --btn-dashboard-bg: #1645a1;
+            --btn-dashboard-hover: #10377f;
+            --btn-result-bg: #4f46e5;
+            --btn-result-hover: #4338ca;
+        }
+
+        html.dark {
+            --ended-bg: #1c1c1e;
+            --card-bg: #2b2b2b;
+            --text-title: #f8fafc;
+            --text-subtitle: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-card: #3f3f46;
+            --status-bg: rgba(30, 58, 138, 0.35);
+            --status-text: #93c5fd;
+            --btn-dashboard-bg: #2563eb;
+            --btn-dashboard-hover: #1d4ed8;
+            --btn-result-bg: #6366f1;
+            --btn-result-hover: #4f46e5;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--ended-bg);
+            font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+            color: var(--text-title);
+            padding: 24px 16px;
+            position: relative;
+        }
+
+        .theme-toggle-corner {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .theme-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--border-card);
+            border-radius: 10px;
+            padding: 8px;
+            cursor: pointer;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .theme-toggle-btn:hover {
+            background: rgba(0, 0, 0, 0.05);
+            color: var(--text-title);
+        }
+
+        html.dark .theme-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .ended-card {
+            width: min(540px, 100%);
+            background: var(--card-bg);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 44px 36px;
+            text-align: center;
+            box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.06), 0 4px 12px -2px rgba(15, 23, 42, 0.03);
+            animation: cardAppear 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(12px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .success-icon-badge {
+            width: 58px;
+            height: 58px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            box-shadow: 0 6px 16px -2px rgba(16, 185, 129, 0.35);
+        }
+
+        .success-icon-badge svg {
+            width: 30px;
+            height: 30px;
+            color: #ffffff;
+            stroke-width: 3;
+        }
+
+        h1.ended-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-title);
+            margin-bottom: 14px;
+            letter-spacing: -0.02em;
+        }
+
+        .meta-test-title {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-subtitle);
+            margin-bottom: 6px;
+        }
+
+        .meta-module {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .meta-attempt {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .status-pill-wrap {
+            margin-bottom: 16px;
+        }
+
+        .status-pill {
+            display: inline-block;
+            background: var(--status-bg);
+            color: var(--status-text);
+            padding: 7px 18px;
+            border-radius: 9999px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            border: 1px solid rgba(29, 78, 216, 0.12);
+        }
+
+        html.dark .status-pill {
+            border-color: rgba(147, 197, 253, 0.2);
+        }
+
+        .ended-time {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .auto-submitted-alert {
+            font-size: 13px;
+            color: #b45309;
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+
+        html.dark .auto-submitted-alert {
+            background: rgba(120, 53, 15, 0.25);
+            border-color: rgba(217, 119, 6, 0.35);
+            color: #fde68a;
+        }
+
+        .info-note {
+            font-size: 13.5px;
+            line-height: 1.65;
+            color: var(--text-muted);
+            max-width: 440px;
+            margin: 0 auto 28px;
+        }
+
+        .action-button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: stretch;
+            justify-content: center;
+        }
+
+        @media (min-width: 480px) {
+            .action-button-group {
+                flex-direction: row;
+            }
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 13px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-dashboard {
+            background-color: var(--btn-dashboard-bg);
+            color: #ffffff;
+            box-shadow: 0 4px 12px -2px rgba(22, 69, 161, 0.28);
+        }
+
+        .btn-dashboard:hover {
+            background-color: var(--btn-dashboard-hover);
+            box-shadow: 0 6px 18px -2px rgba(22, 69, 161, 0.35);
+            color: #ffffff;
+        }
+
+        .btn-result {
+            background-color: var(--btn-result-bg);
+            color: #ffffff;
+            box-shadow: 0 4px 12px -2px rgba(79, 70, 229, 0.28);
+        }
+
+        .btn-result:hover {
+            background-color: var(--btn-result-hover);
+            box-shadow: 0 6px 18px -2px rgba(79, 70, 229, 0.35);
+            color: #ffffff;
+        }
+
+        .secondary-home-link {
+            margin-top: 18px;
+            display: inline-block;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .secondary-home-link:hover {
+            color: var(--text-title);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="theme-toggle-corner">
+        <button id="themeToggleBtn" type="button" class="theme-toggle-btn" title="Theme: Device / System (click for Light)" aria-label="Theme mode: Device default">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="14" x="2" y="3" rx="2"></rect>
+                <line x1="8" x2="16" y1="21" y2="21"></line>
+                <line x1="12" x2="12" y1="17" y2="21"></line>
+            </svg>
+        </button>
+    </aside>
+
+    <main class="ended-card">
+        <div class="success-icon-badge" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+        </div>
+
+        <h1 class="ended-title">Examination Session Ended</h1>
+
+        <p class="meta-test-title">{{ mock_test.title }}</p>
+        <p class="meta-module">Module: {{ module.get_module_type_display }}</p>
+        <p class="meta-attempt">Attempt ID: {{ attempt.pk }}</p>
+
+        <div class="status-pill-wrap">
+            <span class="status-pill">{{ attempt.get_status_display }}</span>
+        </div>
+
+        {% if attempt.submitted_at %}
+        <p class="ended-time">Ended: {{ attempt.submitted_at|date:"M d, Y H:i:s" }}</p>
+        {% endif %}
+
+        {% if attempt.status == "auto_submitted" %}
+        <div class="auto-submitted-alert" role="status">
+            This session was automatically ended after its examination deadline or integrity limit.
+        </div>
+        {% endif %}
+
+        <p class="info-note">
+            Reading and Listening scoring and Writing evaluation will be available after the assessment engine is implemented.
+        </p>
+
+        <div class="action-button-group">
+            <a href="{% url 'bcl:dashboard' %}" class="btn btn-dashboard" id="backToHomeBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                </svg>
+                Return to Dashboard
+            </a>
+
+            <a href="{% url 'bcl:exam_result' attempt.pk %}" class="btn btn-result" id="viewResultBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                View Result
+            </a>
+        </div>
+
+        <div>
+            <a href="{% url 'bcl:home' %}" class="secondary-home-link">
+                &larr; Back to Home
+            </a>
+        </div>
+    </main>
+
+    <script>
+        (function() {
+            const themeToggleBtn = document.getElementById("themeToggleBtn");
+            const THEME_ICONS = {
+                light: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-500"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>`,
+                dark: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>`,
+                device: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg>`
+            };
+            const THEME_LABELS = {
+                light: { title: "Theme: Light (click for Dark)", aria: "Theme mode: Light" },
+                dark: { title: "Theme: Dark (click for Device)", aria: "Theme mode: Dark" },
+                device: { title: "Theme: Device / System (click for Light)", aria: "Theme mode: Device default" }
+            };
+
+            function applyTheme(theme) {
+                const isDark = (theme === "dark") || (theme === "device" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+                if (isDark) {
+                    document.documentElement.classList.add("dark");
+                    document.documentElement.setAttribute("data-theme", "dark");
+                } else {
+                    document.documentElement.classList.remove("dark");
+                    document.documentElement.setAttribute("data-theme", "light");
+                }
+            }
+
+            function updateThemeUI(theme) {
+                applyTheme(theme);
+                if (!themeToggleBtn) return;
+                themeToggleBtn.innerHTML = THEME_ICONS[theme] || THEME_ICONS.device;
+                const meta = THEME_LABELS[theme] || THEME_LABELS.device;
+                themeToggleBtn.title = meta.title;
+                themeToggleBtn.setAttribute("aria-label", meta.aria);
+            }
+
+            try {
+                const savedTheme = localStorage.getItem("test-theme") || "device";
+                updateThemeUI(savedTheme);
+            } catch (e) {
+                updateThemeUI("device");
+            }
+
+            if (window.matchMedia) {
+                const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+                const handleMediaChange = () => {
+                    try {
+                        const currentTheme = localStorage.getItem("test-theme") || "device";
+                        if (currentTheme === "device") {
+                            applyTheme("device");
+                        }
+                    } catch (e) {}
+                };
+                if (mediaQuery.addEventListener) {
+                    mediaQuery.addEventListener("change", handleMediaChange);
+                } else if (mediaQuery.addListener) {
+                    mediaQuery.addListener(handleMediaChange);
+                }
+            }
+
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener("click", () => {
+                    try {
+                        const currentTheme = localStorage.getItem("test-theme") || "device";
+                        const nextTheme = currentTheme === "light" ? "dark" : (currentTheme === "dark" ? "device" : "light");
+                        localStorage.setItem("test-theme", nextTheme);
+                        updateThemeUI(nextTheme);
+                    } catch (e) {
+                        console.warn("Could not save theme", e);
+                    }
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

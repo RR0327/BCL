@@ -243,6 +243,66 @@ a {
     font-size: 14px;
 }
 
+/* Back to Home Navigation */
+.auth-top-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.back-home-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 7px 13px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    transition: all 0.2s ease;
+}
+
+.back-home-btn:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+    background: rgba(22, 69, 161, 0.05);
+    transform: translateX(-2px);
+}
+
+.back-home-btn svg {
+    transition: transform 0.2s ease;
+}
+
+.back-home-btn:hover svg {
+    transform: translateX(-2px);
+}
+
+.back-home-footer {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--border);
+}
+
+.back-home-footer a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+.back-home-footer a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
 /* Candidate Dashboard */
 
 .dashboard-body {

@@ -1,62 +1,937 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Exam Result | IELTS Mock Test</title>
-  <style>
-    * {box-sizing:border-box}
-    body {margin:0;min-height:100vh;background:#f4f7fc;font-family:Arial,sans-serif;color:#14213d;display:grid;place-items:center;padding:20px}
-    .card {width:min(650px,100%);background:white;border:1px solid #e2e8f0;border-radius:16px;padding:38px;box-shadow:0 10px 30px #14213d0b}
-    .eyebrow {color:#1645a1;font-size:12px;text-transform:uppercase;font-weight:700;letter-spacing:1.5px}
-    h1 {margin:10px 0 8px} p {color:#526178;line-height:1.65}
-    .grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:24px 0}
-    .stat {background:#f4f7fc;border-radius:10px;padding:20px}
-    .stat strong {display:block;font-size:28px;margin-top:7px;color:#1645a1}
-    .status {font-weight:700;color:#1645a1}
-    .notice {background:#fffbeb;border:1px solid #fde68a;padding:16px;border-radius:9px}
-    a.button {display:inline-block;background:#1645a1;color:white;text-decoration:none;padding:13px 20px;border-radius:8px;margin-top:14px;font-weight:bold}
-    @media(max-width:480px){.grid{grid-template-columns:1fr}.card{padding:24px}}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Review Result | {{ mock_test.title }} — {{ module.get_module_type_display }}</title>
+    <link rel="stylesheet" href="{% static 'css/exam.css' %}">
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    <script>
+        (function() {
+            try {
+                var t = localStorage.getItem("test-theme") || "device";
+                var isDark = (t === "dark") || (t === "device" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+                if (isDark) {
+                    document.documentElement.classList.add("dark");
+                    document.documentElement.setAttribute("data-theme", "dark");
+                } else {
+                    document.documentElement.classList.remove("dark");
+                    document.documentElement.setAttribute("data-theme", "light");
+                }
+            } catch (e) {}
+        })();
+    </script>
+    <style>
+        .review-q-pill {
+            width: 28px;
+            height: 28px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.15s, opacity 0.15s;
+            flex-shrink: 0;
+        }
+        .review-q-pill:hover {
+            transform: scale(1.1);
+        }
+        .review-q-pill.correct {
+            background-color: #10b981;
+        }
+        .review-q-pill.wrong {
+            background-color: #ef4444;
+        }
+        .review-q-pill.active {
+            outline: 2px solid #6366f1;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.35);
+        }
+
+        /* Selection styling */
+        ::selection {
+            background-color: rgba(99, 102, 241, 0.22);
+            color: inherit;
+        }
+        ::-moz-selection {
+            background-color: rgba(99, 102, 241, 0.22);
+            color: inherit;
+        }
+
+        /* Review Question Cards */
+        .review-question-card {
+            scroll-margin-top: 1rem;
+            border-radius: 0.75rem;
+            border: 1.5px solid #e2e8f0;
+            padding: 1.25rem;
+            transition: all 0.2s ease;
+            background-color: #ffffff;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+        }
+        .review-question-card.is-wrong {
+            background-color: #fef2f2 !important;
+            border-color: #fca5a5 !important;
+        }
+        .review-question-card.is-correct {
+            background-color: #f0fdf4 !important;
+            border-color: #86efac !important;
+        }
+        html.dark .review-question-card {
+            background-color: #2b2b2b;
+            border-color: #3f3f46;
+        }
+        html.dark .review-question-card.is-wrong {
+            background-color: rgba(239, 68, 68, 0.12) !important;
+            border-color: rgba(239, 68, 68, 0.45) !important;
+        }
+        html.dark .review-question-card.is-correct {
+            background-color: rgba(16, 185, 129, 0.12) !important;
+            border-color: rgba(16, 185, 129, 0.45) !important;
+        }
+        .review-question-card.active-target {
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.45), 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+            border-color: #6366f1 !important;
+        }
+
+        /* Question Number Badge */
+        .q-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #ffffff !important;
+            flex-shrink: 0;
+            margin-top: 2px;
+            user-select: none;
+            -webkit-user-select: none;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+        }
+        .q-badge.is-wrong {
+            background-color: #ef4444 !important;
+        }
+        .q-badge.is-correct {
+            background-color: #10b981 !important;
+        }
+
+        /* Options rows */
+        .review-opt-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: background 0.15s;
+        }
+        .review-opt-correct {
+            background-color: #ecfdf5 !important;
+            border: 1.5px solid #34d399 !important;
+            color: #065f46 !important;
+        }
+        .review-opt-wrong {
+            background-color: #fef2f2 !important;
+            border: 1.5px solid #f87171 !important;
+            color: #991b1b !important;
+        }
+        .review-opt-neutral {
+            background-color: #ffffff !important;
+            border: 1px solid #e2e8f0 !important;
+            color: #334155 !important;
+        }
+        html.dark .review-opt-correct {
+            background-color: rgba(16, 185, 129, 0.2) !important;
+            border-color: #059669 !important;
+            color: #a7f3d0 !important;
+        }
+        html.dark .review-opt-wrong {
+            background-color: rgba(239, 68, 68, 0.2) !important;
+            border-color: #dc2626 !important;
+            color: #fecaca !important;
+        }
+        html.dark .review-opt-neutral {
+            background-color: #333333 !important;
+            border-color: #3f3f46 !important;
+            color: #cbd5e1 !important;
+        }
+
+        .review-part-tab.active {
+            background-color: #f1f5f9;
+            border-bottom: 2px solid #4f46e5;
+            color: #4f46e5;
+        }
+        html.dark .review-part-tab.active {
+            background-color: #333333;
+            border-bottom: 2px solid #818cf8;
+            color: #818cf8;
+        }
+        .explanation-btn svg {
+            width: 16px !important;
+            height: 16px !important;
+            max-width: 16px !important;
+            max-height: 16px !important;
+            min-width: 16px !important;
+            min-height: 16px !important;
+            flex-shrink: 0 !important;
+            display: inline-block !important;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            transition: transform 0.2s ease;
+        }
+        .explanation-btn.open svg {
+            transform: rotate(180deg);
+        }
+        #progressTrack {
+            height: 6px !important;
+            background-color: #e2e8f0;
+            border-radius: 9999px;
+            cursor: pointer;
+            position: relative;
+        }
+        html.dark #progressTrack {
+            background-color: #444444;
+        }
+        #progressBar {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            background-color: #6366f1;
+            border-radius: 9999px;
+        }
+        #progressThumb {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            background-color: #4f46e5;
+            border-radius: 9999px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            margin-left: -6px;
+        }
+        .review-input-box {
+            display: inline-block;
+            min-width: 80px;
+            max-width: 260px;
+            padding: 4px 8px;
+            text-align: center;
+            font-size: 14px;
+            outline: none;
+            border-radius: 4px;
+            border: 1px solid transparent;
+            border-bottom: 2px solid #f87171;
+            color: #b91c1c;
+            background-color: rgba(254, 242, 242, 0.7);
+            font-family: inherit;
+        }
+        .review-input-box.correct {
+            border-bottom-color: #10b981;
+            color: #047857;
+            background-color: rgba(236, 253, 245, 0.7);
+        }
+        html.dark .review-input-box {
+            border-bottom-color: #f87171;
+            color: #fca5a5;
+            background-color: rgba(127, 29, 29, 0.25);
+        }
+        html.dark .review-input-box.correct {
+            border-bottom-color: #10b981;
+            color: #6ee7b7;
+            background-color: rgba(6, 78, 59, 0.25);
+        }
+        .table-responsive table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        .table-responsive th, .table-responsive td {
+            border: 1px solid #cbd5e1;
+            padding: 6px 10px;
+        }
+        html.dark .table-responsive th, html.dark .table-responsive td {
+            border-color: #4b5563;
+        }
+        .table-responsive th {
+            background-color: #f8fafc;
+        }
+        html.dark .table-responsive th {
+            background-color: #374151;
+        }
+    </style>
 </head>
-<body>
-  <main class="card">
-    <span class="eyebrow">IELTS Mock Test Platform</span>
-    <h1>Examination session ended</h1>
-    <p><strong>{{ attempt.module.mock_test.title }}</strong> — {{ attempt.module.get_module_type_display }}</p>
-    <p>Attempt #{{ attempt.pk }} · <span class="status">{{ attempt.get_status_display }}</span></p>
-    {% if attempt.submitted_at %}<p>Ended: {{ attempt.submitted_at|date:"M d, Y H:i:s" }}</p>{% endif %}
-    {% if attempt.module.module_type == 'writing' %}
-      {% if attempt.band_score is not None and task_evaluations|length == 2 %}
-        <div class="stat"><span>Overall practice Writing band</span><strong>{{ attempt.band_score }}</strong></div>
-        <p class="notice">Manually graded by examiners. Task 1 contributes one-third and Task 2 two-thirds to this practice result. This is not an official IELTS score.</p>
-      {% else %}
-        <div class="notice"><strong>Writing evaluation pending.</strong><p>Both tasks require manual evaluation before an overall practice band is released.</p></div>
-      {% endif %}
-      {% for grade in task_evaluations %}
-        <div class="stat" style="margin-top:12px">
-          <strong style="font-size:18px">Task {{ grade.task_number }} assessment</strong>
-          <p>Task achievement/response: {{ grade.task_achievement }} · Coherence and cohesion: {{ grade.coherence_cohesion }} · Lexical resource: {{ grade.lexical_resource }} · Grammar: {{ grade.grammatical_range_accuracy }}</p>
-          <p><strong style="font-size:16px">Task average: {{ grade.criterion_average }}</strong></p>
-          <p>Examiner feedback: {{ grade.feedback|default:"No feedback entered." }}</p>
+<body class="antialiased select-text">
+<div class="flex flex-col h-screen overflow-hidden">
+
+    <!-- Top Header Bar (Matching NextBand result view) -->
+    <header class="flex items-center justify-between px-4 sm:px-8 lg:px-12 py-2.5 bg-gradient-to-b from-blue-50 via-indigo-50 to-purple-50/95 backdrop-blur-xl dark:bg-[#2B2B2B] dark:from-[#2B2B2B] dark:via-[#2B2B2B] dark:to-[#2B2B2B] border-b border-indigo-200 dark:border-zinc-700 shadow-xs shrink-0 z-10">
+        <div class="flex items-center gap-2 min-w-0">
+            {% if request.user.is_staff %}
+            <a href="{% url 'admin:index' %}" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-indigo-700 bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-300 dark:border-indigo-800 transition-colors shrink-0">
+                &larr; Admin
+            </a>
+            {% else %}
+            <a href="{% url 'bcl:dashboard' %}" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors shrink-0">
+                &larr; Back
+            </a>
+            {% endif %}
+            <span class="text-sm font-semibold text-gray-800 dark:text-[#E1E1E1] truncate max-w-[200px] sm:max-w-xs lg:max-w-md">
+                {{ mock_test.title }} &mdash; {{ module.get_module_type_display }} Review
+            </span>
+            {% if request.user.is_staff and attempt.candidate %}
+            <span class="hidden xl:inline text-xs px-2 py-0.5 rounded bg-slate-200 dark:bg-zinc-700 text-slate-700 dark:text-zinc-200 font-medium">
+                Student: {{ attempt.candidate.username }}
+            </span>
+            {% endif %}
         </div>
-      {% endfor %}
-    {% elif attempt.raw_score is not None %}
-      <div class="grid">
-        <div class="stat"><span>Raw score</span><strong>{{ attempt.raw_score }} / {{ total_marks }}</strong></div>
-        <div class="stat"><span>Practice band</span><strong>{% if attempt.band_score is not None %}{{ attempt.band_score }}{% else %}Pending{% endif %}</strong></div>
-      </div>
-      {% if attempt.band_score is not None %}
-        <p class="notice">Practice band calculated with the platform's configurable, illustrative conversion table. It is not an official IELTS result.</p>
-      {% else %}
-        <p class="notice">A practice band is shown only for a full set of 40 one-mark questions. Your raw score is available for this shorter test.</p>
-      {% endif %}
-    {% else %}
-      <p class="notice">Score pending. Ask an administrator to check the answer keys, question types, and marking configuration. No score has been estimated.</p>
+
+        <div class="flex items-center gap-2 sm:gap-4">
+            <div class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-medium">
+                {% if module_type == 'writing' %}
+                    {% if is_evaluated %}
+                        <span class="px-2.5 py-0.5 bg-emerald-600 text-white rounded-full text-xs sm:text-sm font-bold">Band {{ attempt.band_score }}</span>
+                        <span class="text-emerald-600 dark:text-emerald-400 font-bold hidden sm:inline">&check; Evaluated</span>
+                    {% else %}
+                        <span class="px-2.5 py-0.5 bg-amber-500 text-white rounded-full text-xs sm:text-sm font-bold">Pending Evaluation</span>
+                    {% endif %}
+                {% else %}
+                    <span class="text-emerald-600 dark:text-emerald-400 font-bold">&check; {{ correct_count }} Correct</span>
+                    <span class="text-red-500 dark:text-red-400 font-bold">&cross; {{ wrong_count }} Wrong</span>
+                    <span class="text-slate-600 dark:text-slate-300 font-medium text-xs sm:text-sm hidden lg:inline">Raw score: <strong>{{ correct_count }} / {{ total_marks }}</strong></span>
+                    <span class="px-2.5 py-0.5 bg-indigo-600 text-white rounded-full text-xs sm:text-sm font-bold">
+                        Band {% if attempt.band_score is not None %}{{ attempt.band_score }}{% else %}0.0{% endif %}
+                    </span>
+                {% endif %}
+                <span class="flex items-center gap-1 font-mono text-slate-500 dark:text-[#9E9E9E] hidden md:inline-flex">⏱ {{ time_taken }}</span>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-2 shrink-0">
+            <button id="themeToggleBtn" type="button" class="p-2 rounded-lg text-gray-600 dark:text-[#BFBFBF] hover:bg-gray-100 dark:hover:bg-[#444444] transition-colors" title="Theme: Device / System (click for Light)" aria-label="Theme mode: Device default">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-600 dark:text-slate-300">
+                    <rect width="20" height="14" x="2" y="3" rx="2"></rect>
+                    <line x1="8" x2="16" y1="21" y2="21"></line>
+                    <line x1="12" x2="12" y1="17" y2="21"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    {% if module_type == 'listening' and review_module_audio_url %}
+    <!-- Listening Audio Review Player Bar -->
+    <div class="flex items-center justify-center h-10 px-4 bg-blue-50/70 dark:bg-[#333333] border-b border-blue-200 dark:border-zinc-700 shrink-0 z-10 select-none">
+        <audio id="reviewAudio" src="{{ review_module_audio_url }}" preload="metadata"></audio>
+        <div class="flex items-center gap-2.5 w-full max-w-[80rem]">
+            <button id="playPauseBtn" type="button" class="w-7 h-7 flex items-center justify-center rounded-full bg-indigo-600 hover:bg-indigo-700 text-white transition-colors shrink-0 cursor-pointer">
+                <svg id="playIcon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <polygon points="6,3 20,12 6,21"></polygon>
+                </svg>
+                <svg id="pauseIcon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" class="hidden">
+                    <rect x="6" y="4" width="4" height="16"></rect>
+                    <rect x="14" y="4" width="4" height="16"></rect>
+                </svg>
+            </button>
+            <span id="currentTime" class="text-[11px] font-mono text-gray-500 dark:text-[#BFBFBF] tabular-nums w-10 text-right shrink-0">00:00</span>
+            <div id="progressTrack" class="flex-1 h-1.5 bg-gray-200 dark:bg-[#444444] rounded-full cursor-pointer relative group">
+                <div id="progressBar" class="absolute inset-y-0 left-0 bg-indigo-500 rounded-full transition-[width] duration-75" style="width: 0%;"></div>
+                <div id="progressThumb" class="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-indigo-600 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity z-20" style="left: calc(0% - 6px);"></div>
+            </div>
+            <span id="durationTime" class="text-[11px] font-mono text-gray-500 dark:text-[#BFBFBF] tabular-nums w-10 shrink-0">00:00</span>
+            <div class="w-px h-5 bg-gray-200 dark:bg-zinc-600 shrink-0"></div>
+            <button id="speedBtn" type="button" class="flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold transition-colors tabular-nums border bg-indigo-50/60 dark:bg-indigo-900/10 text-indigo-500 dark:text-indigo-400/70 border-indigo-100 dark:border-indigo-900/40 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 cursor-pointer">
+                1x
+            </button>
+        </div>
+    </div>
     {% endif %}
-    {% if attempt.status == 'auto_submitted' %}<p>This attempt was automatically closed because the deadline or exam-integrity limit was reached.</p>{% endif %}
-    <p>Answers cannot be edited after submission.</p>
-    <a class="button" href="{% url 'bcl:dashboard' %}">Return to dashboard</a>
-  </main>
+
+    {% if module_type == 'writing' %}
+    <!-- WRITING REVIEW WORKSPACE -->
+    <div class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-slate-50 dark:bg-[#222222]">
+        <div class="max-w-4xl mx-auto space-y-6">
+
+            {% if not is_evaluated %}
+            <div class="p-5 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-200">
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="text-base font-bold">Writing Evaluation Pending</span>
+                </div>
+                <p class="text-sm leading-relaxed">
+                    Both Writing tasks require manual evaluation by an official examiner. Your submitted responses are safely preserved below. Once marked by an admin/examiner, your final practice band score and detailed criterion breakdown will appear here and on your dashboard.
+                </p>
+            </div>
+            {% else %}
+            <div class="p-6 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-md">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <span class="text-xs uppercase tracking-widest text-indigo-100 font-bold">Overall Writing Result</span>
+                        <h2 class="text-2xl font-bold mt-1">Practice Band {{ attempt.band_score }}</h2>
+                        <p class="text-xs text-indigo-100 mt-1">Evaluated by an examiner. Task 1 counts 1/3 and Task 2 counts 2/3.</p>
+                    </div>
+                    <div class="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center text-2xl font-black">
+                        {{ attempt.band_score }}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Tasks & Responses -->
+            {% for s_data in sections_data %}
+            <section class="p-6 rounded-xl bg-white dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 shadow-2xs space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-100 dark:border-zinc-700 pb-3">
+                    <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest">Part {{ forloop.counter }} &mdash; {{ s_data.section.title }}</span>
+                    <span class="text-xs text-slate-500 font-medium">{% if s_data.section.order == 1 %}Suggested min 150 words{% else %}Suggested min 250 words{% endif %}</span>
+                </div>
+
+                {% if s_data.section.passage_instructions or s_data.section.instructions %}
+                <p class="text-sm text-slate-600 dark:text-slate-300 italic">
+                    {% if s_data.section.passage_instructions %}{{ s_data.section.passage_instructions }}{% else %}{{ s_data.section.instructions }}{% endif %}
+                </p>
+                {% endif %}
+
+                {% if s_data.section.image %}
+                <div class="p-3 rounded-lg border border-slate-200 dark:border-zinc-700 bg-slate-50 dark:bg-zinc-900 flex flex-col items-center">
+                    <img src="{% url 'bcl:review_section_media' attempt.pk s_data.section.pk 'image' %}" alt="Section illustration" class="max-h-72 object-contain rounded-md">
+                </div>
+                {% endif %}
+
+                {% for q_data in s_data.questions %}
+                    {% if q_data.question.image %}
+                    <div class="p-3 rounded-lg border border-slate-200 dark:border-zinc-700 bg-slate-50 dark:bg-zinc-900 flex flex-col items-center">
+                        <img src="{% url 'bcl:review_question_media' attempt.pk q_data.question.pk %}" alt="Question illustration" class="max-h-72 object-contain rounded-md">
+                    </div>
+                    {% endif %}
+
+                    {% if q_data.question.table_content %}
+                    <div class="table-responsive p-3 rounded-lg border border-slate-200 dark:border-zinc-700 bg-slate-50 dark:bg-zinc-900 overflow-x-auto">
+                        {{ q_data.question.table_content|safe }}
+                    </div>
+                    {% endif %}
+
+                    <h3 class="text-base font-semibold text-slate-800 dark:text-white">{{ q_data.question.question_text }}</h3>
+
+                    <div class="mt-3">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <label class="text-xs font-bold text-slate-700 dark:text-slate-300">Your Submitted Response:</label>
+                            <span class="text-xs font-semibold text-indigo-600 dark:text-indigo-400">{{ q_data.word_count }} words</span>
+                        </div>
+                        <div class="p-4 rounded-lg bg-slate-50 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 text-sm leading-relaxed text-slate-800 dark:text-slate-200 whitespace-pre-wrap">
+                            {% if q_data.answer_text %}{{ q_data.answer_text }}{% else %}<em class="text-slate-400">No response entered.</em>{% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <!-- Task Evaluation Details (if available) -->
+                {% for eval in task_evaluations %}
+                    {% if eval.task_number == s_data.section.order %}
+                    <div class="mt-4 pt-4 border-t border-slate-200 dark:border-zinc-700 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Examiner Evaluation</span>
+                            <span class="text-sm font-bold text-emerald-600 dark:text-emerald-400">Task Average: {{ eval.criterion_average }}</span>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
+                            <div class="p-2 rounded-lg bg-slate-50 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700">
+                                <span class="text-slate-500 block text-[10px]">Task Achievement</span>
+                                <strong class="text-sm text-slate-800 dark:text-white">{{ eval.task_achievement }}</strong>
+                            </div>
+                            <div class="p-2 rounded-lg bg-slate-50 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700">
+                                <span class="text-slate-500 block text-[10px]">Coherence & Cohesion</span>
+                                <strong class="text-sm text-slate-800 dark:text-white">{{ eval.coherence_cohesion }}</strong>
+                            </div>
+                            <div class="p-2 rounded-lg bg-slate-50 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700">
+                                <span class="text-slate-500 block text-[10px]">Lexical Resource</span>
+                                <strong class="text-sm text-slate-800 dark:text-white">{{ eval.lexical_resource }}</strong>
+                            </div>
+                            <div class="p-2 rounded-lg bg-slate-50 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700">
+                                <span class="text-slate-500 block text-[10px]">Grammar & Accuracy</span>
+                                <strong class="text-sm text-slate-800 dark:text-white">{{ eval.grammatical_range_accuracy }}</strong>
+                            </div>
+                        </div>
+                        {% if eval.feedback %}
+                        <div class="p-3 rounded-lg bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/50 text-xs text-slate-800 dark:text-slate-200 leading-relaxed">
+                            <strong class="font-bold text-emerald-800 dark:text-emerald-300 block mb-1">Feedback:</strong>
+                            {{ eval.feedback|linebreaks }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </section>
+            {% endfor %}
+
+            <div class="text-center pt-4">
+                <a href="{% url 'bcl:dashboard' %}" class="inline-flex items-center gap-1.5 px-6 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm transition-colors shadow-xs">
+                    Return to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+    <!-- OBJECTIVE REVIEW (READING & LISTENING SPLIT SCREEN) -->
+    <main class="flex flex-1 overflow-hidden" id="reviewMain">
+        <!-- Left Pane: Passage or Transcript -->
+        <div class="shrink-0 h-full flex flex-col" id="reviewLeftCol" style="width: 50%;">
+            <div class="flex-1 overflow-y-auto bg-blue-50/50 dark:bg-[#2B2B2B] border-r border-blue-200 dark:border-zinc-700 relative" id="reviewLeftScroll">
+                {% for s_data in sections_data %}
+                <div class="review-section-transcript" id="transcript-part-{{ forloop.counter0 }}" {% if not forloop.first %}hidden{% endif %}>
+                    <div class="sticky top-0 bg-blue-50/90 backdrop-blur dark:bg-[#333333] border-b border-blue-200 dark:border-zinc-700 px-5 py-3 flex items-center justify-between z-10">
+                        <div>
+                            <p class="text-xs font-semibold text-indigo-500 dark:text-indigo-400 uppercase tracking-widest">
+                                Part {{ forloop.counter }} &mdash; {% if module_type == 'listening' %}Transcript{% else %}Reading Passage{% endif %}
+                            </p>
+                            <h2 class="text-base font-bold text-gray-900 dark:text-[#E1E1E1]">{{ s_data.section.title }}</h2>
+                        </div>
+                    </div>
+
+                    <div class="px-6 py-6 space-y-5 text-[15px] leading-[1.85] text-gray-800 dark:text-[#E1E1E1] tracking-[0.01em]">
+                        {% if s_data.section.image %}
+                        <div class="p-3 rounded-xl bg-white dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 flex flex-col items-center">
+                            <img src="{% url 'bcl:review_section_media' attempt.pk s_data.section.pk 'image' %}" alt="{{ s_data.section.title }} map/diagram" class="max-h-80 object-contain rounded-lg">
+                            <span class="text-xs text-slate-400 mt-2">Diagram / Map for {{ s_data.section.title }}</span>
+                        </div>
+                        {% endif %}
+
+                        {% if s_data.section.passage %}
+                        <div class="passage-body">
+                            {{ s_data.section.passage|linebreaks }}
+                        </div>
+                        {% else %}
+                        <p class="text-slate-400 italic">No passage text available for this part.</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Resizer Divider -->
+        <div class="w-1 bg-gray-200 dark:bg-zinc-700 hover:bg-indigo-400 dark:hover:bg-indigo-500 cursor-col-resize shrink-0 transition-colors" id="reviewSplitResizer"></div>
+
+        <!-- Right Pane: Questions & Review Feedback -->
+        <div class="shrink-0 h-full flex flex-col" id="reviewRightCol" style="width: 50%;">
+            <div class="flex-1 overflow-y-auto bg-violet-50/40 dark:bg-[#2B2B2B] relative" id="reviewRightScroll">
+                <div class="px-6 sm:px-8 lg:px-12 py-6 space-y-8">
+                    {% for s_data in sections_data %}
+                    <div class="review-section-questions" id="questions-part-{{ forloop.counter0 }}" {% if not forloop.first %}hidden{% endif %}>
+                        <div class="mb-4">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-xs font-bold text-indigo-500 dark:text-indigo-400 uppercase tracking-wide">Part {{ forloop.counter }}</span>
+                                <span class="text-xs text-gray-400 dark:text-[#9E9E9E]">{{ s_data.questions|length }} question{{ s_data.questions|length|pluralize }}</span>
+                            </div>
+                            {% if s_data.section.instructions or s_data.section.passage_instructions %}
+                            <p class="text-sm text-gray-600 dark:text-[#D0D0D0] leading-relaxed whitespace-pre-line mb-3">
+                                {% if s_data.section.passage_instructions %}{{ s_data.section.passage_instructions }}{% else %}{{ s_data.section.instructions }}{% endif %}
+                            </p>
+                            {% endif %}
+                        </div>
+
+                        <div class="border-t border-gray-100 dark:border-zinc-700 mb-4"></div>
+
+                        <div class="space-y-6 max-w-5xl">
+                            {% for q_item in s_data.questions %}
+                            <div id="q-{{ q_item.global_num }}" class="review-question-card {% if q_item.is_correct %}is-correct{% else %}is-wrong{% endif %}">
+                                <div class="flex items-start gap-3">
+                                    <span class="q-badge {% if q_item.is_correct %}is-correct{% else %}is-wrong{% endif %}" aria-hidden="true">
+                                        {{ q_item.global_num }}
+                                    </span>
+                                    <div class="flex-1 min-w-0">
+                                        {% if q_item.question.question_instructions %}
+                                        <p class="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5 italic">
+                                            {{ q_item.question.question_instructions }}
+                                        </p>
+                                        {% endif %}
+
+                                        <!-- Optional Question Figure Image -->
+                                        {% if q_item.question.image %}
+                                        <div class="mb-3 rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 p-2.5 flex flex-col items-center">
+                                            <img src="{% url 'bcl:review_question_media' attempt.pk q_item.question.pk %}" alt="Figure for Question {{ q_item.global_num }}" class="max-h-72 object-contain rounded-md">
+                                            <span class="text-xs text-slate-400 mt-1">Figure for Question {{ q_item.global_num }}</span>
+                                        </div>
+                                        {% endif %}
+
+                                        <!-- Optional Question Table Content -->
+                                        {% if q_item.question.table_content %}
+                                        <div class="table-responsive mb-3 overflow-x-auto rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 p-3">
+                                            {{ q_item.question.table_content|safe }}
+                                        </div>
+                                        {% endif %}
+
+                                        <!-- Prompt & Answer Evaluation -->
+                                        <div class="text-sm text-slate-800 dark:text-[#E1E1E1] leading-relaxed">
+                                            <span class="font-medium">{{ q_item.question.question_text }}</span>
+                                        </div>
+
+                                        <!-- Fill in the blank / Short answer feedback -->
+                                        {% if q_item.question.question_type == 'fill_blank' or q_item.question.question_type == 'short_answer' %}
+                                        <div class="mt-2.5">
+                                            <input spellcheck="false" autocorrect="off" readonly class="review-input-box {% if q_item.is_correct %}correct{% endif %}" type="text" value="{{ q_item.candidate_answer }}" placeholder="{% if not q_item.candidate_answer %}(blank){% endif %}">
+                                            
+                                            <p class="text-sm mt-1.5 mb-1">
+                                                {% if q_item.is_correct %}
+                                                <span class="text-emerald-600 dark:text-emerald-400 font-bold">&check; {{ q_item.candidate_answer }}</span>
+                                                {% else %}
+                                                <span class="text-red-600 dark:text-red-400">&cross; <strong>{% if q_item.candidate_answer %}{{ q_item.candidate_answer }}{% else %}(blank){% endif %}</strong></span>
+                                                <span class="text-emerald-600 dark:text-emerald-400 font-bold ml-1.5">&rarr; {{ q_item.question.correct_answer }}</span>
+                                                {% endif %}
+                                            </p>
+                                        </div>
+
+                                        <!-- MCQ / TFNG / YNNG Options Display -->
+                                        {% elif q_item.options %}
+                                        <div class="mt-2.5 space-y-1.5">
+                                            {% for opt in q_item.options %}
+                                            <div class="review-opt-row {% if opt.is_correct %}review-opt-correct{% elif q_item.candidate_answer == opt.option_key %}review-opt-wrong{% else %}review-opt-neutral{% endif %}">
+                                                <span class="font-bold w-5">{{ opt.option_key }}.</span>
+                                                <span class="flex-1">{{ opt.option_text }}</span>
+                                                {% if opt.is_correct %}
+                                                    <span class="text-emerald-600 dark:text-emerald-400 font-bold">&check; Correct</span>
+                                                {% elif q_item.candidate_answer == opt.option_key %}
+                                                    <span class="text-red-500 dark:text-red-400 font-bold">&cross; Your Answer</span>
+                                                {% endif %}
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+
+                                        <!-- Other types (Matching, Map Labelling, etc.) -->
+                                        {% else %}
+                                        <div class="mt-2">
+                                            <p class="text-sm">
+                                                {% if q_item.is_correct %}
+                                                <span class="text-emerald-600 dark:text-emerald-400 font-bold">&check; {{ q_item.candidate_answer }}</span>
+                                                {% else %}
+                                                <span class="text-red-600 dark:text-red-400">&cross; <strong>{% if q_item.candidate_answer %}{{ q_item.candidate_answer }}{% else %}(blank){% endif %}</strong></span>
+                                                <span class="text-emerald-600 dark:text-emerald-400 font-bold ml-1.5">&rarr; {{ q_item.question.correct_answer }}</span>
+                                                {% endif %}
+                                            </p>
+                                        </div>
+                                        {% endif %}
+
+                                        <!-- Explanation Button -->
+                                        <div class="mt-3">
+                                            <button type="button" class="explanation-btn w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg border text-xs sm:text-sm font-medium transition-colors bg-sky-50 dark:bg-sky-900/20 border-sky-200 dark:border-sky-700/50 text-sky-600 dark:text-sky-400 hover:bg-sky-100 dark:hover:bg-sky-900/30 cursor-pointer" data-target="exp-{{ q_item.global_num }}">
+                                                <span class="flex items-center gap-1.5">
+                                                    <span>💡</span>
+                                                    <span>Show explanation &mdash; Q{{ q_item.global_num }}</span>
+                                                </span>
+                                                <svg width="16" height="16" class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px;max-width:16px;max-height:16px;">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                                                </svg>
+                                            </button>
+                                            <div id="exp-{{ q_item.global_num }}" class="explanation-box mt-2 p-3 rounded-lg bg-sky-50/60 dark:bg-zinc-800 border border-sky-100 dark:border-zinc-700 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed" hidden>
+                                                {% if q_item.explanation %}
+                                                    {{ q_item.explanation|linebreaks }}
+                                                {% else %}
+                                                    <p class="italic text-slate-400">Correct answer: <strong>{{ q_item.question.correct_answer }}</strong></p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Footer (NextBand Question Pills + Part Tabs) -->
+    <footer class="flex items-stretch h-14 bg-gradient-to-t from-blue-50 via-indigo-50 to-purple-50/95 backdrop-blur-xl dark:bg-[#2B2B2B] dark:from-[#2B2B2B] dark:via-[#2B2B2B] dark:to-[#2B2B2B] border-t border-indigo-200 dark:border-zinc-700 shrink-0 z-20">
+        <!-- Active Part pills container -->
+        <div class="flex items-center gap-2 flex-1 pl-4 pr-3 bg-gray-50 dark:bg-[#3C3C3C] border-r border-gray-200 dark:border-zinc-700 min-w-0">
+            <span class="text-xs font-bold text-gray-600 dark:text-[#D0D0D0] shrink-0" id="activePartFooterLabel">Part 1</span>
+            <div class="w-px h-4 bg-gray-300 dark:bg-[#606060] shrink-0"></div>
+            <div id="reviewQuestionPills" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar min-w-0 py-1">
+                <!-- Dynamically updated with active part pills -->
+            </div>
+        </div>
+
+        <!-- Part Tabs (Part 1, Part 2, Part 3, Part 4) -->
+        <div class="flex items-stretch flex-1">
+            {% for s_data in sections_data %}
+            <button type="button" class="review-part-tab flex items-center justify-center gap-2 flex-1 px-3 sm:px-4 hover:bg-gray-50 dark:hover:bg-[#333333]/60 transition-colors border-r border-gray-100 dark:border-zinc-800 cursor-pointer {% if forloop.first %}active{% endif %}" data-part-index="{{ forloop.counter0 }}">
+                <span class="text-xs font-semibold text-gray-500 dark:text-[#9E9E9E]">Part {{ forloop.counter }}</span>
+                <span class="text-xs font-bold tabular-nums text-gray-500 dark:text-[#9E9E9E]">{{ s_data.correct_count }}/{{ s_data.total_count }}</span>
+            </button>
+            {% endfor %}
+        </div>
+    </footer>
+    {% endif %}
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Theme toggle (Light / Dark / Device)
+    const themeToggleBtn = document.getElementById("themeToggleBtn");
+    const THEME_ICONS = {
+        light: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-500"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>`,
+        dark: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>`,
+        device: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-600 dark:text-slate-300"><rect width="20" height="14" x="2" y="3" rx="2"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg>`
+    };
+    const THEME_LABELS = {
+        light: { title: "Theme: Light (click for Dark)", aria: "Theme mode: Light" },
+        dark: { title: "Theme: Dark (click for Device)", aria: "Theme mode: Dark" },
+        device: { title: "Theme: Device / System (click for Light)", aria: "Theme mode: Device default" }
+    };
+
+    function applyTheme(theme) {
+        const isDark = (theme === "dark") || (theme === "device" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        if (isDark) {
+            document.documentElement.classList.add("dark");
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+            document.documentElement.setAttribute("data-theme", "light");
+        }
+    }
+
+    function updateThemeUI(theme) {
+        applyTheme(theme);
+        if (!themeToggleBtn) return;
+        themeToggleBtn.innerHTML = THEME_ICONS[theme] || THEME_ICONS.device;
+        const meta = THEME_LABELS[theme] || THEME_LABELS.device;
+        themeToggleBtn.title = meta.title;
+        themeToggleBtn.setAttribute("aria-label", meta.aria);
+    }
+
+    try {
+        const savedTheme = localStorage.getItem("test-theme") || "device";
+        updateThemeUI(savedTheme);
+    } catch (e) {
+        updateThemeUI("device");
+    }
+
+    if (window.matchMedia) {
+        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+        const handleMediaChange = () => {
+            try {
+                const currentTheme = localStorage.getItem("test-theme") || "device";
+                if (currentTheme === "device") {
+                    applyTheme("device");
+                }
+            } catch (e) {}
+        };
+        if (mediaQuery.addEventListener) {
+            mediaQuery.addEventListener("change", handleMediaChange);
+        } else if (mediaQuery.addListener) {
+            mediaQuery.addListener(handleMediaChange);
+        }
+    }
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener("click", () => {
+            try {
+                const currentTheme = localStorage.getItem("test-theme") || "device";
+                const nextTheme = currentTheme === "light" ? "dark" : (currentTheme === "dark" ? "device" : "light");
+                localStorage.setItem("test-theme", nextTheme);
+                updateThemeUI(nextTheme);
+            } catch (e) {
+                console.warn("Could not save theme", e);
+            }
+        });
+    }
+
+    // Explanations Toggle
+    document.querySelectorAll(".explanation-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const targetId = btn.dataset.target;
+            const target = document.getElementById(targetId);
+            if (target) {
+                target.hidden = !target.hidden;
+                btn.classList.toggle("open", !target.hidden);
+            }
+        });
+    });
+
+    // Objective Review Tabs & Pills Navigation
+    const partTabs = Array.from(document.querySelectorAll(".review-part-tab"));
+    const transcripts = Array.from(document.querySelectorAll(".review-section-transcript"));
+    const questionSections = Array.from(document.querySelectorAll(".review-section-questions"));
+    const pillsContainer = document.getElementById("reviewQuestionPills");
+    const activePartFooterLabel = document.getElementById("activePartFooterLabel");
+
+    let currentPartIndex = 0;
+
+    function renderPills(partIdx) {
+        if (!pillsContainer) return;
+        pillsContainer.innerHTML = "";
+        const targetSection = questionSections[partIdx];
+        if (!targetSection) return;
+
+        const qPanels = Array.from(targetSection.querySelectorAll(".review-question-card"));
+        qPanels.forEach(panel => {
+            const qNum = panel.id.replace("q-", "");
+            const isCorrect = panel.classList.contains("is-correct");
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = `review-q-pill ${isCorrect ? "correct" : "wrong"}`;
+            btn.textContent = qNum;
+            btn.title = `Question ${qNum}`;
+            btn.addEventListener("click", () => {
+                panel.scrollIntoView({ behavior: "smooth", block: "start" });
+                document.querySelectorAll(".review-q-pill").forEach(p => p.classList.remove("active"));
+                btn.classList.add("active");
+                document.querySelectorAll(".review-question-card").forEach(c => c.classList.remove("active-target"));
+                panel.classList.add("active-target");
+            });
+            pillsContainer.appendChild(btn);
+
+            panel.addEventListener("click", () => {
+                document.querySelectorAll(".review-question-card").forEach(c => c.classList.remove("active-target"));
+                panel.classList.add("active-target");
+                document.querySelectorAll(".review-q-pill").forEach(p => {
+                    p.classList.toggle("active", p.textContent.trim() === qNum);
+                });
+            });
+        });
+
+        if (qPanels.length > 0) {
+            qPanels[0].classList.add("active-target");
+            pillsContainer.querySelector(".review-q-pill")?.classList.add("active");
+        }
+    }
+
+    function switchReviewPart(partIdx) {
+        currentPartIndex = partIdx;
+        partTabs.forEach((tab, idx) => {
+            tab.classList.toggle("active", idx === partIdx);
+        });
+        transcripts.forEach((t, idx) => {
+            t.hidden = idx !== partIdx;
+        });
+        questionSections.forEach((q, idx) => {
+            q.hidden = idx !== partIdx;
+        });
+        if (activePartFooterLabel) {
+            activePartFooterLabel.textContent = `Part ${partIdx + 1}`;
+        }
+        renderPills(partIdx);
+        document.getElementById("reviewLeftScroll")?.scrollTo({ top: 0, behavior: "smooth" });
+        document.getElementById("reviewRightScroll")?.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    partTabs.forEach((tab, idx) => {
+        tab.addEventListener("click", () => switchReviewPart(idx));
+    });
+
+    if (partTabs.length > 0) {
+        renderPills(0);
+    }
+
+    // Audio Player Logic
+    const audio = document.getElementById("reviewAudio");
+    const playPauseBtn = document.getElementById("playPauseBtn");
+    const playIcon = document.getElementById("playIcon");
+    const pauseIcon = document.getElementById("pauseIcon");
+    const currentTimeEl = document.getElementById("currentTime");
+    const durationTimeEl = document.getElementById("durationTime");
+    const progressBar = document.getElementById("progressBar");
+    const progressThumb = document.getElementById("progressThumb");
+    const progressTrack = document.getElementById("progressTrack");
+    const speedBtn = document.getElementById("speedBtn");
+
+    if (audio && playPauseBtn) {
+        function formatSeconds(sec) {
+            if (isNaN(sec) || sec < 0) return "00:00";
+            const m = Math.floor(sec / 60);
+            const s = Math.floor(sec % 60);
+            return `${m < 10 ? "0" : ""}${m}:${s < 10 ? "0" : ""}${s}`;
+        }
+
+        playPauseBtn.addEventListener("click", () => {
+            if (audio.paused) {
+                audio.play();
+                playIcon?.classList.add("hidden");
+                pauseIcon?.classList.remove("hidden");
+            } else {
+                audio.pause();
+                playIcon?.classList.remove("hidden");
+                pauseIcon?.classList.add("hidden");
+            }
+        });
+
+        audio.addEventListener("timeupdate", () => {
+            if (currentTimeEl) currentTimeEl.textContent = formatSeconds(audio.currentTime);
+            if (audio.duration) {
+                const pct = (audio.currentTime / audio.duration) * 100;
+                if (progressBar) progressBar.style.width = `${pct}%`;
+                if (progressThumb) progressThumb.style.left = `calc(${pct}% - 6px)`;
+            }
+        });
+
+        audio.addEventListener("loadedmetadata", () => {
+            if (durationTimeEl) durationTimeEl.textContent = formatSeconds(audio.duration);
+        });
+
+        audio.addEventListener("ended", () => {
+            playIcon?.classList.remove("hidden");
+            pauseIcon?.classList.add("hidden");
+        });
+
+        if (progressTrack) {
+            progressTrack.addEventListener("click", (e) => {
+                if (!audio.duration) return;
+                const rect = progressTrack.getBoundingClientRect();
+                const pos = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+                audio.currentTime = pos * audio.duration;
+            });
+        }
+
+        const speeds = [1, 1.25, 1.5, 0.75];
+        let speedIdx = 0;
+        if (speedBtn) {
+            speedBtn.addEventListener("click", () => {
+                speedIdx = (speedIdx + 1) % speeds.length;
+                const s = speeds[speedIdx];
+                audio.playbackRate = s;
+                speedBtn.textContent = `${s}x`;
+            });
+        }
+    }
+
+    // Split screen resizer
+    const resizer = document.getElementById("reviewSplitResizer");
+    const leftCol = document.getElementById("reviewLeftCol");
+    const rightCol = document.getElementById("reviewRightCol");
+    const container = document.getElementById("reviewMain");
+
+    if (resizer && leftCol && rightCol && container) {
+        let isResizing = false;
+        resizer.addEventListener("mousedown", (e) => {
+            isResizing = true;
+            document.body.style.cursor = "col-resize";
+            document.body.style.userSelect = "none";
+        });
+        window.addEventListener("mousemove", (e) => {
+            if (!isResizing) return;
+            const containerRect = container.getBoundingClientRect();
+            const pct = Math.max(20, Math.min(80, ((e.clientX - containerRect.left) / containerRect.width) * 100));
+            leftCol.style.width = `${pct}%`;
+            rightCol.style.width = `${100 - pct}%`;
+        });
+        window.addEventListener("mouseup", () => {
+            if (isResizing) {
+                isResizing = false;
+                document.body.style.cursor = "";
+                document.body.style.userSelect = "";
+            }
+        });
+    }
+});
+</script>
 </body>
 </html>
