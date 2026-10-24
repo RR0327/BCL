@@ -586,7 +586,13 @@ def exam_result(request, attempt_id):
                 "explanation": q.explanation,
                 "options": list(q.options.order_by("order", "option_key")),
             })
-            global_counter += 1
+            blank_step = 1
+            if q.question_type == Question.QuestionType.FILL_BLANK:
+                import re
+                p_count = len(re.findall(r"_{3,}", q.question_text))
+                a_count = len([x for x in q.correct_answer.split(";;;") if x.strip()])
+                blank_step = max(p_count, a_count, q.answer_count or 1, 1)
+            global_counter += blank_step
 
         sections_data.append({
             "section": section,

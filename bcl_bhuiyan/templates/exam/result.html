@@ -52,6 +52,9 @@
             outline-offset: 2px;
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.35);
         }
+        .explanation-btn.open svg {
+            transform: rotate(180deg);
+        }
 
         /* Selection styling */
         ::selection {
@@ -93,6 +96,14 @@
         html.dark .review-question-card.is-correct {
             background-color: rgba(16, 185, 129, 0.12) !important;
             border-color: rgba(16, 185, 129, 0.45) !important;
+        }
+        .review-question-card.is-fill-blank {
+            background-color: #f8fafc !important;
+            border-color: #e2e8f0 !important;
+        }
+        html.dark .review-question-card.is-fill-blank {
+            background-color: #2b2b2b !important;
+            border-color: #3f3f46 !important;
         }
         .review-question-card.active-target {
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.45), 0 4px 14px rgba(0, 0, 0, 0.08) !important;
@@ -417,7 +428,7 @@
                     </div>
                     {% endif %}
 
-                    <h3 class="text-base font-semibold text-slate-800 dark:text-white">{{ q_data.question.question_text }}</h3>
+                    <h3 class="text-base font-semibold text-slate-800 dark:text-white question-prompt whitespace-pre-line">{{ q_data.question.question_text }}</h3>
 
                     <div class="mt-3">
                         <div class="flex items-center justify-between mb-1.5">
@@ -539,11 +550,13 @@
 
                         <div class="space-y-6 max-w-5xl">
                             {% for q_item in s_data.questions %}
-                            <div id="q-{{ q_item.global_num }}" class="review-question-card {% if q_item.is_correct %}is-correct{% else %}is-wrong{% endif %}">
+                            <div id="q-{{ q_item.global_num }}" class="review-question-card {% if q_item.question.question_type == 'fill_blank' %}is-fill-blank{% elif q_item.is_correct %}is-correct{% else %}is-wrong{% endif %}" data-question-type="{{ q_item.question.question_type }}">
                                 <div class="flex items-start gap-3">
+                                    {% if q_item.question.question_type != 'fill_blank' %}
                                     <span class="q-badge {% if q_item.is_correct %}is-correct{% else %}is-wrong{% endif %}" aria-hidden="true">
                                         {{ q_item.global_num }}
                                     </span>
+                                    {% endif %}
                                     <div class="flex-1 min-w-0">
                                         {% if q_item.question.question_instructions %}
                                         <p class="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5 italic">
@@ -566,13 +579,36 @@
                                         </div>
                                         {% endif %}
 
-                                        <!-- Prompt & Answer Evaluation -->
-                                        <div class="text-sm text-slate-800 dark:text-[#E1E1E1] leading-relaxed">
-                                            <span class="font-medium">{{ q_item.question.question_text }}</span>
+                                        {% if q_item.question.question_type == 'fill_blank' %}
+                                        <!-- Interactive Fill-In-The-Blanks Review Layout matching Image 3 -->
+                                        <div class="fill-blank-review-interactive"
+                                             data-global-num="{{ q_item.global_num }}"
+                                             data-prompt="{{ q_item.question.question_text|escape }}"
+                                             data-candidate-answer="{{ q_item.candidate_answer|default:''|escape }}"
+                                             data-correct-answer="{{ q_item.question.correct_answer|default:''|escape }}"
+                                             data-explanation="{{ q_item.explanation|default:''|escape }}">
+                                            <!-- Fallback while script executes -->
+                                            <div class="font-medium question-prompt whitespace-pre-line">{{ q_item.question.question_text }}</div>
+                                            <div class="mt-2.5">
+                                                <p class="text-sm">
+                                                    {% if q_item.is_correct %}
+                                                    <span class="text-emerald-600 dark:text-emerald-400 font-bold">&check; {{ q_item.candidate_answer }}</span>
+                                                    {% else %}
+                                                    <span class="text-red-600 dark:text-red-400">&cross; <strong>{% if q_item.candidate_answer %}{{ q_item.candidate_answer }}{% else %}(blank){% endif %}</strong></span>
+                                                    <span class="text-emerald-600 dark:text-emerald-400 font-bold ml-1.5">&rarr; {{ q_item.question.correct_answer }}</span>
+                                                    {% endif %}
+                                                </p>
+                                            </div>
                                         </div>
 
-                                        <!-- Fill in the blank / Short answer feedback -->
-                                        {% if q_item.question.question_type == 'fill_blank' or q_item.question.question_type == 'short_answer' %}
+                                        {% else %}
+                                        <!-- Prompt & Answer Evaluation for other types -->
+                                        <div class="text-sm text-slate-800 dark:text-[#E1E1E1] leading-relaxed">
+                                            <div class="font-medium question-prompt whitespace-pre-line">{{ q_item.question.question_text }}</div>
+                                        </div>
+
+                                        <!-- Short answer feedback -->
+                                        {% if q_item.question.question_type == 'short_answer' %}
                                         <div class="mt-2.5">
                                             <input spellcheck="false" autocorrect="off" readonly class="review-input-box {% if q_item.is_correct %}correct{% endif %}" type="text" value="{{ q_item.candidate_answer }}" placeholder="{% if not q_item.candidate_answer %}(blank){% endif %}">
                                             
@@ -623,7 +659,7 @@
                                                     <span>💡</span>
                                                     <span>Show explanation &mdash; Q{{ q_item.global_num }}</span>
                                                 </span>
-                                                <svg width="16" height="16" class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px;max-width:16px;max-height:16px;">
+                                                <svg width="16" height="16" class="w-4 h-4 shrink-0 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px;max-width:16px;max-height:16px;">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
                                                 </svg>
                                             </button>
@@ -635,6 +671,7 @@
                                                 {% endif %}
                                             </div>
                                         </div>
+                                        {% endif %}
 
                                     </div>
                                 </div>
@@ -745,17 +782,219 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Explanations Toggle
-    document.querySelectorAll(".explanation-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-            const targetId = btn.dataset.target;
-            const target = document.getElementById(targetId);
-            if (target) {
-                target.hidden = !target.hidden;
-                btn.classList.toggle("open", !target.hidden);
-            }
-        });
+    // Explanations Toggle (with event delegation to handle per-blank explanations)
+    document.addEventListener("click", (e) => {
+        const btn = e.target.closest(".explanation-btn");
+        if (!btn) return;
+        const targetId = btn.dataset.target;
+        const target = document.getElementById(targetId);
+        if (target) {
+            target.hidden = !target.hidden;
+            btn.classList.toggle("open", !target.hidden);
+        }
     });
+
+    // Helper utilities for Fill-in-the-blanks review breakdown matching Image 3
+    function escapeHtml(str) {
+        if (!str) return "";
+        return String(str)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    function normalizeAnswer(val) {
+        return (val || "").trim().toLowerCase().replace(/\s+/g, " ");
+    }
+
+    function splitAlternatives(text) {
+        return (text || "").split(/\s*\|\|\s*|\s*\/\s*|\s*\|\s*/).map(p => p.trim()).filter(Boolean);
+    }
+
+    function isBlankCorrect(actual, expected) {
+        if (!actual || !expected) return false;
+        const normActual = normalizeAnswer(actual);
+        if (!normActual) return false;
+        const alts = splitAlternatives(expected);
+        return alts.some(alt => normalizeAnswer(alt) === normActual);
+    }
+
+    function initFillBlankReviews() {
+        document.querySelectorAll(".fill-blank-review-interactive").forEach(container => {
+            const globalNum = Number(container.dataset.globalNum) || 1;
+            const prompt = container.dataset.prompt || "";
+            const rawCand = container.dataset.candidateAnswer || "";
+            const rawCorr = container.dataset.correctAnswer || "";
+            const rawExp = container.dataset.explanation || "";
+
+            const candList = rawCand ? rawCand.split(";;;").map(s => s.trim()) : [];
+            const corrList = rawCorr ? rawCorr.split(";;;").map(s => s.trim()) : [];
+            const expList = rawExp ? rawExp.split(";;;").map(s => s.trim()) : [];
+
+            const lines = prompt.split(/\r?\n/);
+            let currentBlankIdx = 0;
+            const outputNodes = [];
+
+            lines.forEach(line => {
+                const trimmed = line.trim();
+                if (!/_{3,}/.test(line)) {
+                    if (!trimmed) {
+                        const spacer = document.createElement("div");
+                        spacer.className = "h-2.5";
+                        outputNodes.push(spacer);
+                        return;
+                    }
+                    const textEl = document.createElement("div");
+                    const isHeading = !trimmed.startsWith("•") && !trimmed.startsWith("-") && trimmed.length < 50;
+                    textEl.className = isHeading
+                        ? "text-base font-bold text-slate-900 dark:text-white mt-3 mb-1"
+                        : "text-sm text-slate-700 dark:text-slate-300 leading-relaxed my-1 font-medium";
+                    textEl.textContent = line.replace(/^•(\S)/, "• $1");
+                    outputNodes.push(textEl);
+                    return;
+                }
+
+                // Line has one or more blanks
+                const blanksOnLine = [];
+                const parts = line.split(/(_{3,})/);
+                const lineWrapper = document.createElement("div");
+                lineWrapper.className = "text-sm text-slate-800 dark:text-slate-200 leading-loose my-2 font-normal";
+
+                parts.forEach(part => {
+                    if (!/^_{3,}$/.test(part)) {
+                        const cleanPart = part.replace(/^•(\S)/, "• $1");
+                        lineWrapper.appendChild(document.createTextNode(cleanPart));
+                    } else {
+                        const bIdx = currentBlankIdx;
+                        currentBlankIdx += 1;
+                        const blankNum = globalNum + bIdx;
+                        const candVal = candList[bIdx] || "";
+                        const corrVal = corrList[bIdx] || "";
+                        const isCorrect = isBlankCorrect(candVal, corrVal);
+
+                        blanksOnLine.push({
+                            blankNum,
+                            candVal,
+                            corrVal,
+                            isCorrect,
+                            explanation: expList[bIdx] || rawExp
+                        });
+
+                        // Inline replacement matching Image 3: __[blankNum]__ (correct answer)
+                        const inlineSpan = document.createElement("span");
+                        inlineSpan.className = "inline-flex items-center gap-1.5 mx-1 align-baseline";
+
+                        const inputSpan = document.createElement("span");
+                        if (isCorrect) {
+                            inputSpan.className = "inline-block px-3 py-0.5 border-b-2 border-emerald-500 text-emerald-600 dark:text-emerald-400 font-bold text-sm min-w-9 text-center";
+                            inputSpan.textContent = candVal;
+                        } else if (candVal) {
+                            inputSpan.className = "inline-block px-3 py-0.5 border-b-2 border-red-500 text-red-600 dark:text-red-400 font-bold text-sm min-w-9 text-center";
+                            inputSpan.textContent = candVal;
+                        } else {
+                            // Empty/unanswered blank: red underline with muted grey [num] matching Image 3
+                            inputSpan.className = "inline-block px-3 py-0.5 border-b-2 border-red-500 text-slate-400 dark:text-slate-500 font-medium text-sm min-w-9 text-center";
+                            inputSpan.textContent = `[${blankNum}]`;
+                        }
+                        inlineSpan.appendChild(inputSpan);
+
+                        if (corrVal) {
+                            const corrSpan = document.createElement("span");
+                            corrSpan.className = "text-emerald-600 dark:text-emerald-400 font-semibold text-sm";
+                            corrSpan.textContent = `(${corrVal})`;
+                            inlineSpan.appendChild(corrSpan);
+                        }
+
+                        lineWrapper.appendChild(inlineSpan);
+                    }
+                });
+
+                outputNodes.push(lineWrapper);
+
+                // Feedback and explanation block under this line matching Image 3
+                blanksOnLine.forEach(b => {
+                    const fbContainer = document.createElement("div");
+                    fbContainer.className = "my-2 max-w-2xl";
+
+                    // Status line: Q7: (blank) -> Correct: water
+                    const fbRow = document.createElement("div");
+                    fbRow.className = "text-xs sm:text-sm font-semibold flex flex-wrap items-center gap-1.5 mb-1.5";
+                    if (b.isCorrect) {
+                        fbRow.innerHTML = `
+                            <span class="text-slate-800 dark:text-white font-bold">Q${b.blankNum}:</span>
+                            <span class="text-emerald-600 dark:text-emerald-400 font-bold">&check; ${escapeHtml(b.candVal)}</span>
+                        `;
+                    } else {
+                        const userText = b.candVal ? escapeHtml(b.candVal) : "(blank)";
+                        fbRow.innerHTML = `
+                            <span class="text-red-600 dark:text-red-400 font-bold">Q${b.blankNum}:</span>
+                            <span class="text-red-600 dark:text-red-400 font-bold">${userText}</span>
+                            <span class="text-emerald-600 dark:text-emerald-400 font-bold ml-1.5">&rarr; Correct: <strong>${escapeHtml(b.corrVal || "N/A")}</strong></span>
+                        `;
+                    }
+                    fbContainer.appendChild(fbRow);
+
+                    // Explanation Toggle Button matching Image 3
+                    const expBtn = document.createElement("button");
+                    expBtn.type = "button";
+                    expBtn.className = "explanation-btn w-full flex items-center justify-between gap-2 px-3.5 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all bg-indigo-50/70 dark:bg-zinc-800 border-indigo-200/80 dark:border-zinc-700 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100/70 dark:hover:bg-zinc-700 cursor-pointer shadow-2xs";
+                    expBtn.dataset.target = `exp-${b.blankNum}`;
+                    expBtn.innerHTML = `
+                        <span class="flex items-center gap-2">
+                            <span>💡</span>
+                            <span>Show explanation &mdash; Q${b.blankNum}</span>
+                        </span>
+                        <svg width="16" height="16" class="w-4 h-4 shrink-0 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    `;
+                    fbContainer.appendChild(expBtn);
+
+                    // Explanation Box
+                    const expBox = document.createElement("div");
+                    expBox.id = `exp-${b.blankNum}`;
+                    expBox.className = "explanation-box mt-2 p-3.5 rounded-xl bg-slate-50 dark:bg-zinc-800/90 border border-slate-200 dark:border-zinc-700 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed shadow-xs";
+                    expBox.hidden = true;
+                    if (b.explanation && b.explanation.trim()) {
+                        expBox.innerHTML = escapeHtml(b.explanation).replace(/\n/g, "<br>");
+                    } else {
+                        expBox.innerHTML = `<p class="italic text-slate-500 dark:text-slate-400">Correct answer: <strong class="text-emerald-600 dark:text-emerald-400">${escapeHtml(b.corrVal)}</strong></p>`;
+                    }
+                    fbContainer.appendChild(expBox);
+
+                    outputNodes.push(fbContainer);
+                });
+            });
+
+            // Handle any remaining blanks that weren't in the prompt text
+            while (currentBlankIdx < corrList.length) {
+                const bIdx = currentBlankIdx;
+                currentBlankIdx += 1;
+                const blankNum = globalNum + bIdx;
+                const candVal = candList[bIdx] || "";
+                const corrVal = corrList[bIdx] || "";
+                const isCorrect = isBlankCorrect(candVal, corrVal);
+
+                const extraBlock = document.createElement("div");
+                extraBlock.className = "my-2 max-w-2xl";
+                const userText = candVal ? escapeHtml(candVal) : "(blank)";
+                extraBlock.innerHTML = `
+                    <div class="text-xs sm:text-sm font-semibold flex flex-wrap items-center gap-1.5">
+                        <span class="${isCorrect ? 'text-slate-800 dark:text-white' : 'text-red-600 dark:text-red-400'} font-bold">Q${blankNum}:</span>
+                        ${isCorrect ? `<span class="text-emerald-600 dark:text-emerald-400 font-bold">&check; ${escapeHtml(candVal)}</span>` : `<span class="text-red-600 dark:text-red-400 font-bold">${userText}</span><span class="text-emerald-600 dark:text-emerald-400 font-bold ml-1.5">&rarr; Correct: <strong>${escapeHtml(corrVal)}</strong></span>`}
+                    </div>
+                `;
+                outputNodes.push(extraBlock);
+            }
+
+            container.innerHTML = "";
+            outputNodes.forEach(node => container.appendChild(node));
+        });
+    }
+
+    initFillBlankReviews();
 
     // Objective Review Tabs & Pills Navigation
     const partTabs = Array.from(document.querySelectorAll(".review-part-tab"));
@@ -774,6 +1013,35 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const qPanels = Array.from(targetSection.querySelectorAll(".review-question-card"));
         qPanels.forEach(panel => {
+            const isFillBlank = panel.dataset.questionType === "fill_blank";
+            const interactiveFill = panel.querySelector(".fill-blank-review-interactive");
+
+            if (isFillBlank && interactiveFill) {
+                const expBtns = Array.from(interactiveFill.querySelectorAll(".explanation-btn"));
+                if (expBtns.length > 0) {
+                    expBtns.forEach(btn => {
+                        const targetId = btn.dataset.target || "";
+                        const bNum = targetId.replace("exp-", "");
+                        const isCorrect = Boolean(btn.parentElement?.querySelector(".text-emerald-600")?.textContent?.includes("✓"));
+
+                        const pillBtn = document.createElement("button");
+                        pillBtn.type = "button";
+                        pillBtn.className = `review-q-pill ${isCorrect ? "correct" : "wrong"}`;
+                        pillBtn.textContent = bNum;
+                        pillBtn.title = `Question ${bNum}`;
+                        pillBtn.addEventListener("click", () => {
+                            btn.scrollIntoView({ behavior: "smooth", block: "center" });
+                            document.querySelectorAll(".review-q-pill").forEach(p => p.classList.remove("active"));
+                            pillBtn.classList.add("active");
+                            document.querySelectorAll(".review-question-card").forEach(c => c.classList.remove("active-target"));
+                            panel.classList.add("active-target");
+                        });
+                        pillsContainer.appendChild(pillBtn);
+                    });
+                    return;
+                }
+            }
+
             const qNum = panel.id.replace("q-", "");
             const isCorrect = panel.classList.contains("is-correct");
             const btn = document.createElement("button");

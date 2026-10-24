@@ -185,3 +185,10 @@ body.change-list #content {
     font-weight: 600;
     letter-spacing: 0.3px;
 }
+
+/* Question Prompt & Instructions multi-line support */
+.question-prompt,
+.question-instructions,
+.instructions {
+    white-space: pre-line;
+}

@@ -662,6 +662,13 @@ html[data-theme="dark"] .question-prompt {
     color: #f8fafc !important;
 }
 
+.question-prompt,
+.fill-blank-prompt,
+.question-instructions,
+.instructions {
+    white-space: pre-line;
+}
+
 html.dark .blank-input,
 html[data-theme="dark"] .blank-input {
     border-bottom: 2px solid #818cf8 !important;

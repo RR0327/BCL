@@ -1029,6 +1029,16 @@ html[data-theme="dark"] .fill-blank-prompt {
     color: #f8fafc !important;
 }
 
+/* Multi-line & Linebreak Support for Question Prompts & Instructions */
+.question-prompt,
+.fill-blank-prompt,
+.question-instructions,
+.instructions,
+.writing-task-prompt,
+.prompt-content-text {
+    white-space: pre-line;
+}
+
 /* Question Options (MCQ, TFNG, YNNG, Multi-Select) */
 .option {
     background-color: #ffffff;

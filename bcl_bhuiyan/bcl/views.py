@@ -46,6 +46,7 @@ def home(request):
                 "Multiple question types",
                 "Timed practice",
             ],
+            "badge": "MCQ · TFNG · Matching",
         },
         {
             "name": "Listening",
@@ -60,6 +61,7 @@ def home(request):
                 "Section-based questions",
                 "Automatic scoring",
             ],
+            "badge": "Audio · Form Fill · MCQ",
         },
         {
             "name": "Writing",
@@ -74,6 +76,7 @@ def home(request):
                 "Writing Task 2",
                 "Manual evaluation",
             ],
+            "badge": "Task 1 & Task 2 Essays",
         },
     ]
 

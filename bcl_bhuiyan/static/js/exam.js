@@ -384,6 +384,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const groupPanels = Array.from(currentGroup.querySelectorAll(".question-panel"));
             groupPanels.forEach((panel, pIdx) => {
+                const baseQNum = Number(panel.dataset.globalQuestionNumber) || (pIdx + 1);
+                const blankPrompt = panel.querySelector(".fill-blank-prompt");
+                const count = blankPrompt ? Math.max(1, (blankPrompt.textContent.match(/_{3,}/g) || []).length) : 1;
+
+                if (blankPrompt && count > 1) {
+                    for (let bIdx = 0; bIdx < count; bIdx++) {
+                        const qNum = String(baseQNum + bIdx);
+                        const btn = document.createElement("button");
+                        btn.type = "button";
+                        btn.className = "q-pill";
+                        btn.textContent = qNum;
+                        btn.title = `Question ${qNum}`;
+                        btn.dataset.questionId = panel.dataset.questionId;
+                        btn.dataset.blankIndex = String(bIdx);
+
+                        const inputs = panel.querySelectorAll(".blank-input");
+                        const hasAnswer = Boolean(inputs[bIdx] && inputs[bIdx].value.trim().length > 0);
+                        const isFlagged = Boolean(panel.querySelector(".flag-input")?.checked);
+                        btn.classList.toggle("answered", hasAnswer);
+                        btn.classList.toggle("flagged", isFlagged);
+                        if (pIdx === 0 && bIdx === 0) btn.classList.add("active");
+
+                        btn.addEventListener("click", () => {
+                            const currentInputs = panel.querySelectorAll(".blank-input");
+                            if (currentInputs[bIdx]) {
+                                currentInputs[bIdx].scrollIntoView({ behavior: "smooth", block: "center" });
+                                currentInputs[bIdx].focus();
+                            } else {
+                                panel.scrollIntoView({ behavior: "smooth", block: "start" });
+                            }
+                            highlightActivePill(btn);
+                        });
+
+                        questionNavPills.appendChild(btn);
+                    }
+                    return;
+                }
+
                 const qNum = panel.dataset.globalQuestionNumber || panel.querySelector(".q-number-badge")?.textContent.trim();
                 const btn = document.createElement("button");
                 btn.type = "button";
@@ -466,7 +504,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 panel.dataset.globalQuestionNumber = String(globalCounter);
                 const badge = panel.querySelector(".q-number-badge");
                 if (badge) badge.textContent = String(globalCounter);
-                globalCounter += 1;
+                
+                const blankPrompt = panel.querySelector(".fill-blank-prompt");
+                if (blankPrompt) {
+                    const matches = blankPrompt.textContent.match(/_{3,}/g) || [];
+                    const count = Math.max(1, Number(blankPrompt.dataset.answerCount) || matches.length);
+                    globalCounter += count;
+                } else {
+                    globalCounter += 1;
+                }
             });
         });
 
@@ -565,7 +611,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (blankPrompt && !blankPrompt.querySelector(".blank-input")) {
             const count = Math.max(1, Number(blankPrompt.dataset.answerCount) || 1);
             let found = 0;
-            const parts = blankPrompt.textContent.split(/(_{3,})/);
+            const parts = blankPrompt.textContent.trim().split(/(_{3,})/);
             const rendered = parts.map(part => {
                 if (!/^_{3,}$/.test(part)) return part;
                 found += 1;
@@ -631,7 +677,14 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".q-pill").forEach(pill => {
             const panel = panels.find(p => p.dataset.questionId === pill.dataset.questionId);
             if (panel) {
-                const hasAnswer = getAnswer(panel).trim().length > 0;
+                const bIdx = pill.dataset.blankIndex;
+                let hasAnswer = false;
+                if (bIdx !== undefined) {
+                    const inputs = panel.querySelectorAll(".blank-input");
+                    hasAnswer = Boolean(inputs[Number(bIdx)] && inputs[Number(bIdx)].value.trim().length > 0);
+                } else {
+                    hasAnswer = getAnswer(panel).trim().length > 0;
+                }
                 const isFlagged = Boolean(panel.querySelector(".flag-input")?.checked);
                 pill.classList.toggle("answered", hasAnswer);
                 pill.classList.toggle("flagged", isFlagged);

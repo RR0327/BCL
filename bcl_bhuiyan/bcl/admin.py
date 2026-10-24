@@ -228,6 +228,17 @@ class QuestionAdminForm(forms.ModelForm):
         }
 
 
+# Question types that use selectable options (MCQ, matching, multi-select)
+MCQ_OPTION_TYPES = (
+    Question.QuestionType.MCQ,
+    Question.QuestionType.MATCHING,
+    Question.QuestionType.MATCHING_INFORMATION,
+    Question.QuestionType.MULTI_SELECT,
+    Question.QuestionType.TRUE_FALSE_NOT_GIVEN,
+    Question.QuestionType.YES_NO_NOT_GIVEN,
+)
+
+
 # ==============================================================================
 # 2. INLINES
 # ==============================================================================
@@ -278,20 +289,40 @@ class ExamSectionInline(admin.StackedInline):
     )
 
 
-class QuestionOptionInline(admin.TabularInline):
+class QuestionOptionInlineForQuestion(admin.TabularInline):
+    """Options inline used inside the standalone Question admin page."""
     model = QuestionOption
     extra = 4
-    fields = (
-        "order",
-        "option_key",
-        "option_text",
-        "is_correct",
-    )
+    fields = ("order", "option_key", "option_text", "is_correct")
     verbose_name = "Option / Choice"
-    verbose_name_plural = "Options / Choices (For Multiple Choice, Matching, Multi-Select)"
+    verbose_name_plural = "⬇ Options / Choices  (MCQ · Matching · Multi-Select · TFNG · YNNG)"
     formfield_overrides = {
-        models.CharField: {"widget": forms.TextInput(attrs={"placeholder": "e.g. A"})},
+        models.CharField: {"widget": forms.TextInput(attrs={"size": "6"})},
     }
+
+    def get_extra(self, request, obj=None, **kwargs):
+        """Pre-populate 4 rows for new MCQ questions; 0 for existing that already have options."""
+        if obj and obj.pk and obj.options.exists():
+            return 1
+        return 4
+
+
+# Pre-built A/B/C/D option form for MCQ questions created from ExamSection inline
+class MCQOptionInlineForSection(admin.TabularInline):
+    """Lightweight options inline shown when editing a Question directly (not nested)."""
+    model = QuestionOption
+    extra = 4
+    max_num = 8
+    fields = ("order", "option_key", "option_text", "is_correct")
+    verbose_name = "MCQ Option"
+    verbose_name_plural = "⬇ MCQ / Matching Options  — fill in A, B, C, D and tick the correct one"
+    formfield_overrides = {
+        models.CharField: {"widget": forms.TextInput(attrs={"size": "6"})},
+    }
+
+
+# Keep old name as alias so nothing else breaks
+QuestionOptionInline = QuestionOptionInlineForQuestion
 
 
 class QuestionInline(admin.StackedInline):
@@ -299,7 +330,7 @@ class QuestionInline(admin.StackedInline):
     form = QuestionAdminForm
     formset = QuestionInlineFormSet
     extra = 0
-    show_change_link = True
+    show_change_link = True  # ← Click "Change" to open the full Question page with MCQ options
     classes = ("collapse",)
     fields = (
         "order",
@@ -312,7 +343,62 @@ class QuestionInline(admin.StackedInline):
         "explanation",
         "image",
         "table_content",
+        "options_preview",
     )
+    readonly_fields = ("options_preview",)
+
+    @admin.display(description="MCQ Options (current)")
+    def options_preview(self, obj):
+        """Show existing MCQ options inline so setter can verify without leaving ExamSection."""
+        if not obj or not obj.pk:
+            return format_html(
+                '<span style="color:#64748b;font-size:12px;">'
+                "Save question first, then click <b>Change ↗</b> above to add MCQ options."
+                "</span>"
+            )
+        if obj.question_type not in MCQ_OPTION_TYPES:
+            return format_html(
+                '<span style="color:#64748b;font-size:12px;">'
+                "No options needed for {} questions."
+                "</span>",
+                obj.get_question_type_display(),
+            )
+        opts = list(obj.options.order_by("order", "option_key"))
+        if not opts:
+            url = reverse("admin:bcl_question_change", args=[obj.pk])
+            return format_html(
+                '<span style="color:#dc2626;font-weight:600;">'
+                "⚠ No options added yet — "
+                '<a href="{}" target="_blank">click here to add A / B / C / D options ↗</a>'
+                "</span>",
+                url,
+            )
+        rows = []
+        for o in opts:
+            badge_color = "#16a34a" if o.is_correct else "#64748b"
+            tick = " ✓" if o.is_correct else ""
+            rows.append(
+                format_html(
+                    '<span style="display:inline-block;margin:2px 6px 2px 0;padding:2px 10px;'
+                    'border-radius:4px;background:#f1f5f9;border:1px solid #e2e8f0;'
+                    'font-size:12.5px;color:{};font-weight:600;">'
+                    "{}: {}{}"
+                    "</span>",
+                    badge_color,
+                    o.option_key,
+                    o.option_text or "(no text)",
+                    tick,
+                )
+            )
+        url = reverse("admin:bcl_question_change", args=[obj.pk])
+        rows.append(
+            format_html(
+                ' &nbsp;<a href="{}" target="_blank" style="font-size:11px;color:#3b82f6;">'
+                "Edit options ↗</a>",
+                url,
+            )
+        )
+        return mark_safe("".join(str(r) for r in rows))
 
 
 # ==============================================================================
