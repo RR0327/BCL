@@ -386,7 +386,8 @@ document.addEventListener("DOMContentLoaded", () => {
             groupPanels.forEach((panel, pIdx) => {
                 const baseQNum = Number(panel.dataset.globalQuestionNumber) || (pIdx + 1);
                 const blankPrompt = panel.querySelector(".fill-blank-prompt");
-                const count = blankPrompt ? Math.max(1, (blankPrompt.textContent.match(/_{3,}/g) || []).length) : 1;
+                const blankInputs = panel.querySelectorAll(".blank-input");
+                const count = blankPrompt ? Math.max(1, blankInputs.length || Number(panel.dataset.answerCount) || Number(blankPrompt.dataset.answerCount) || (blankPrompt.textContent.match(/_{3,}/g) || []).length) : 1;
 
                 if (blankPrompt && count > 1) {
                     for (let bIdx = 0; bIdx < count; bIdx++) {
@@ -414,6 +415,35 @@ document.addEventListener("DOMContentLoaded", () => {
                             } else {
                                 panel.scrollIntoView({ behavior: "smooth", block: "start" });
                             }
+                            highlightActivePill(btn);
+                        });
+
+                        questionNavPills.appendChild(btn);
+                    }
+                    return;
+                }
+
+                const msCount = (panel.dataset.questionType === "multi_select") ? (Number(panel.dataset.answerCount) || 1) : 1;
+                if (msCount > 1) {
+                    for (let mIdx = 0; mIdx < msCount; mIdx++) {
+                        const qNum = String(baseQNum + mIdx);
+                        const btn = document.createElement("button");
+                        btn.type = "button";
+                        btn.className = "q-pill";
+                        btn.textContent = qNum;
+                        btn.title = `Question ${qNum}`;
+                        btn.dataset.questionId = panel.dataset.questionId;
+                        btn.dataset.msIndex = String(mIdx);
+
+                        const checkboxes = panel.querySelectorAll('input[type="checkbox"]:not(.flag-input):checked');
+                        const hasAnswer = (checkboxes.length >= mIdx + 1);
+                        const isFlagged = Boolean(panel.querySelector(".flag-input")?.checked);
+                        btn.classList.toggle("answered", hasAnswer);
+                        btn.classList.toggle("flagged", isFlagged);
+                        if (pIdx === 0 && mIdx === 0) btn.classList.add("active");
+
+                        btn.addEventListener("click", () => {
+                            panel.scrollIntoView({ behavior: "smooth", block: "start" });
                             highlightActivePill(btn);
                         });
 
@@ -504,17 +534,135 @@ document.addEventListener("DOMContentLoaded", () => {
                 panel.dataset.globalQuestionNumber = String(globalCounter);
                 const badge = panel.querySelector(".q-number-badge");
                 if (badge) badge.textContent = String(globalCounter);
+                const inlineNum = panel.querySelector(".q-num-inline");
+                if (inlineNum) inlineNum.textContent = String(globalCounter) + ".";
                 
                 const blankPrompt = panel.querySelector(".fill-blank-prompt");
                 if (blankPrompt) {
                     const matches = blankPrompt.textContent.match(/_{3,}/g) || [];
-                    const count = Math.max(1, Number(blankPrompt.dataset.answerCount) || matches.length);
+                    const count = Math.max(1, Number(panel.dataset.answerCount) || Number(blankPrompt.dataset.answerCount) || matches.length);
                     globalCounter += count;
+                } else if (panel.dataset.questionType === "multi_select" && (Number(panel.dataset.answerCount) || 1) > 1) {
+                    const msCount = Number(panel.dataset.answerCount) || 1;
+                    if (inlineNum) inlineNum.textContent = `${globalCounter}–${globalCounter + msCount - 1}.`;
+                    globalCounter += msCount;
                 } else {
                     globalCounter += 1;
                 }
             });
         });
+
+        function setupPanelsAndAnswers() {
+            panels.forEach((panel, position) => {
+                const qNum = panel.dataset.globalQuestionNumber || String(position + 1);
+                panel.dataset.questionNumber = qNum;
+
+                // Fill-in-the-blank / Summary Completion formatting matching Image 5
+                const blankPrompt = panel.querySelector(".fill-blank-prompt");
+                if (blankPrompt && !blankPrompt.querySelector(".blank-input")) {
+                    const count = Math.max(1, Number(panel.dataset.answerCount) || Number(blankPrompt.dataset.answerCount) || 1);
+                    const container = panel.querySelector(".fill-blank-container");
+                    const rawText = container?.dataset?.rawPrompt || blankPrompt.textContent;
+                    
+                    // Normalize text: fix encoding diamonds, Windows CRLF, and newlines before blanks
+                    let clean = rawText
+                        .replace(/\ufffd/g, "•")
+                        .replace(/\r\n/g, "\n")
+                        .replace(/\r/g, "\n");
+                    
+                    // Fix newlines around blanks or orphan bullets
+                    clean = clean.replace(/([^\n])\n(\s*_{3,})/g, "$1 $2");
+                    clean = clean.replace(/(_{3,})\n(\s*[a-zA-Z0-9])/g, "$1 $2");
+                    clean = clean.replace(/([•\-]|•)\s*\n\s*/g, "• ");
+
+                    const rawLines = clean.split("\n").map(l => l.trim()).filter(Boolean);
+                    let html = "";
+                    let found = 0;
+                    let startIndex = 0;
+
+                    // Check if first line is a Title (e.g. "Baobabs Under Threat")
+                    if (rawLines.length > 0) {
+                        const first = rawLines[0];
+                        const isTitle = !first.includes("___") && !first.startsWith("•") && !first.startsWith("-") && first.length < 80;
+                        if (isTitle) {
+                            html += `<h3 class="text-base sm:text-lg font-bold text-slate-800 dark:text-white text-center pb-3 border-b border-slate-100 dark:border-zinc-700/60 mb-5">${first}</h3>`;
+                            startIndex = 1;
+                        }
+                    }
+
+                    for (let i = startIndex; i < rawLines.length; i++) {
+                        let line = rawLines[i];
+                        const hasBlank = /_{3,}/.test(line);
+                        let isBullet = line.startsWith("•") || line.startsWith("- ");
+                        if (isBullet) {
+                            line = line.replace(/^[•\-]\s*/, "");
+                        }
+
+                        // Replace blanks with underline inputs
+                        if (hasBlank) {
+                            line = line.replace(/_{3,}/g, () => {
+                                found += 1;
+                                const blankNum = Number(qNum) + found - 1;
+                                return `<input class="blank-input" type="text" maxlength="200" placeholder="[${blankNum}]" aria-label="Answer ${blankNum}">`;
+                            });
+                        }
+
+                        const isSubheading = !isBullet && !hasBlank && (line.endsWith(":") || line.length < 50);
+
+                        if (isSubheading) {
+                            html += `<div class="font-bold text-slate-800 dark:text-white text-sm sm:text-base mt-4 mb-2">${line}</div>`;
+                        } else if (isBullet || hasBlank) {
+                            html += `<div class="my-2.5 flex items-baseline gap-2 text-slate-700 dark:text-slate-200 text-sm sm:text-base leading-relaxed"><span class="text-slate-400 font-bold select-none shrink-0">•</span><span>${line}</span></div>`;
+                        } else {
+                            html += `<div class="my-2 text-slate-700 dark:text-slate-200 text-sm sm:text-base leading-relaxed">${line}</div>`;
+                        }
+                    }
+
+                    while (found < count) {
+                        found += 1;
+                        const blankNum = Number(qNum) + found - 1;
+                        html += `<div class="my-2"><input class="blank-input" type="text" maxlength="200" placeholder="[${blankNum}]" aria-label="Answer ${blankNum}"></div>`;
+                    }
+
+                    blankPrompt.innerHTML = html;
+                }
+
+                // Restore saved answer
+                const row = saved.get(panel.dataset.questionId);
+                if (row) {
+                    const blankFields = panel.querySelectorAll(".blank-input");
+                    if (blankFields.length) {
+                        row.answer_text.split(";;;").forEach((val, idx) => {
+                            if (blankFields[idx]) blankFields[idx].value = val;
+                        });
+                    }
+                    const matchingField = panel.querySelector(".matching-field");
+                    if (matchingField) matchingField.value = row.answer_text;
+
+                    const radios = panel.querySelectorAll('input[type="radio"]');
+                    radios.forEach(radio => { radio.checked = (radio.value === row.answer_text); });
+
+                    const checkboxes = panel.querySelectorAll('input[type="checkbox"]:not(.flag-input)');
+                    if (checkboxes.length) {
+                        const checkedValues = row.answer_text.split(";;;");
+                        checkboxes.forEach(cb => { cb.checked = checkedValues.includes(cb.value); });
+                    }
+
+                    const textField = panel.querySelector(".answer-field:not(.matching-field)");
+                    if (textField) textField.value = row.answer_text;
+
+                    const flag = panel.querySelector(".flag-input");
+                    if (flag) flag.checked = row.is_flagged;
+                }
+
+                // Bind input listeners for autosave dirty tracking
+                panel.querySelectorAll("input, select, textarea").forEach(input => {
+                    const eventName = (input.type === "radio" || input.type === "checkbox" || input.tagName === "SELECT") ? "change" : "input";
+                    input.addEventListener(eventName, () => markDirty(panel));
+                });
+            });
+        }
+        setupPanelsAndAnswers();
 
         // Initialize First Part
         if (sectionGroups.length) {
@@ -599,68 +747,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (nextBtn) nextBtn.addEventListener("click", () => showWritingTask(currentIndex + 1));
     }
 
-    // =========================================================================
-    // POPULATE BLANKS, RESTORE ANSWERS, BIND INPUT LISTENERS
-    // =========================================================================
-    panels.forEach((panel, position) => {
-        const qNum = panel.dataset.globalQuestionNumber || String(position + 1);
-        panel.dataset.questionNumber = qNum;
-
-        // Fill-in-the-blank inline inputs formatting
-        const blankPrompt = panel.querySelector(".fill-blank-prompt");
-        if (blankPrompt && !blankPrompt.querySelector(".blank-input")) {
-            const count = Math.max(1, Number(blankPrompt.dataset.answerCount) || 1);
-            let found = 0;
-            const parts = blankPrompt.textContent.trim().split(/(_{3,})/);
-            const rendered = parts.map(part => {
-                if (!/^_{3,}$/.test(part)) return part;
-                found += 1;
-                const blankNum = Number(qNum) + found - 1;
-                return `<input class="blank-input" type="text" maxlength="200" placeholder="[${blankNum}]" aria-label="Answer ${blankNum}">`;
-            }).join("");
-            blankPrompt.innerHTML = rendered;
-
-            while (found < count) {
-                found += 1;
-                const blankNum = Number(qNum) + found - 1;
-                blankPrompt.insertAdjacentHTML("beforeend", ` <input class="blank-input" type="text" maxlength="200" placeholder="[${blankNum}]" aria-label="Answer ${blankNum}">`);
-            }
-        }
-
-        // Restore saved answer
-        const row = saved.get(panel.dataset.questionId);
-        if (row) {
-            const blankFields = panel.querySelectorAll(".blank-input");
-            if (blankFields.length) {
-                row.answer_text.split(";;;").forEach((val, idx) => {
-                    if (blankFields[idx]) blankFields[idx].value = val;
-                });
-            }
-            const matchingField = panel.querySelector(".matching-field");
-            if (matchingField) matchingField.value = row.answer_text;
-
-            const radios = panel.querySelectorAll('input[type="radio"]');
-            radios.forEach(radio => { radio.checked = (radio.value === row.answer_text); });
-
-            const checkboxes = panel.querySelectorAll('input[type="checkbox"]:not(.flag-input)');
-            if (checkboxes.length) {
-                const checkedValues = row.answer_text.split(";;;");
-                checkboxes.forEach(cb => { cb.checked = checkedValues.includes(cb.value); });
-            }
-
-            const textField = panel.querySelector(".answer-field:not(.matching-field)");
-            if (textField) textField.value = row.answer_text;
-
-            const flag = panel.querySelector(".flag-input");
-            if (flag) flag.checked = row.is_flagged;
-        }
-
-        // Bind input listeners for autosave dirty tracking
-        panel.querySelectorAll("input, select, textarea").forEach(input => {
-            const eventName = (input.type === "radio" || input.type === "checkbox" || input.tagName === "SELECT") ? "change" : "input";
-            input.addEventListener(eventName, () => markDirty(panel));
-        });
-    });
 
     // Update pills and part progress counters
     function updatePillsState() {
@@ -678,10 +764,14 @@ document.addEventListener("DOMContentLoaded", () => {
             const panel = panels.find(p => p.dataset.questionId === pill.dataset.questionId);
             if (panel) {
                 const bIdx = pill.dataset.blankIndex;
+                const mIdx = pill.dataset.msIndex;
                 let hasAnswer = false;
                 if (bIdx !== undefined) {
                     const inputs = panel.querySelectorAll(".blank-input");
                     hasAnswer = Boolean(inputs[Number(bIdx)] && inputs[Number(bIdx)].value.trim().length > 0);
+                } else if (mIdx !== undefined) {
+                    const checkboxes = panel.querySelectorAll('input[type="checkbox"]:not(.flag-input):checked');
+                    hasAnswer = (checkboxes.length >= Number(mIdx) + 1);
                 } else {
                     hasAnswer = getAnswer(panel).trim().length > 0;
                 }

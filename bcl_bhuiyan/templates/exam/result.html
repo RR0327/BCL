@@ -78,11 +78,11 @@
             cursor: pointer;
         }
         .review-question-card.is-wrong {
-            background-color: #fef2f2 !important;
+            background-color: #ffffff !important;
             border-color: #fca5a5 !important;
         }
         .review-question-card.is-correct {
-            background-color: #f0fdf4 !important;
+            background-color: #ffffff !important;
             border-color: #86efac !important;
         }
         html.dark .review-question-card {
@@ -90,21 +90,240 @@
             border-color: #3f3f46;
         }
         html.dark .review-question-card.is-wrong {
-            background-color: rgba(239, 68, 68, 0.12) !important;
+            background-color: #2b2b2b !important;
             border-color: rgba(239, 68, 68, 0.45) !important;
         }
         html.dark .review-question-card.is-correct {
-            background-color: rgba(16, 185, 129, 0.12) !important;
+            background-color: #2b2b2b !important;
             border-color: rgba(16, 185, 129, 0.45) !important;
         }
         .review-question-card.is-fill-blank {
-            background-color: #f8fafc !important;
+            background-color: #ffffff !important;
             border-color: #e2e8f0 !important;
         }
         html.dark .review-question-card.is-fill-blank {
             background-color: #2b2b2b !important;
             border-color: #3f3f46 !important;
         }
+
+        /* Matching Question Card (matching Image 1) */
+        .review-question-card[data-question-type="matching"],
+        .review-question-card[data-question-type="matching_information"] {
+            border: 1.5px dashed #c7d2fe !important;
+            background-color: #ffffff !important;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        html.dark .review-question-card[data-question-type="matching"],
+        html.dark .review-question-card[data-question-type="matching_information"] {
+            border: 1.5px dashed #4b5563 !important;
+            background-color: #27272a !important;
+        }
+
+        /* Fill-in-the-Blanks Review Component (matching Image 2) */
+        .fb-heading-main {
+            font-size: 17px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-top: 4px;
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+        html.dark .fb-heading-main {
+            color: #ffffff;
+        }
+
+        .fb-heading-sub {
+            font-size: 15.5px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-top: 26px;
+            margin-bottom: 8px;
+        }
+        html.dark .fb-heading-sub {
+            color: #f8fafc;
+        }
+
+        .fb-line-item {
+            margin: 6px 0;
+            line-height: 2.1;
+            color: #334155;
+            font-size: 14.5px;
+        }
+        html.dark .fb-line-item {
+            color: #e2e8f0;
+        }
+
+        .fb-bullet-dot {
+            color: #94a3b8;
+            margin-right: 6px;
+            font-weight: bold;
+            user-select: none;
+        }
+
+        /* The prominent Red / Green Underline */
+        .fb-blank-underline {
+            display: inline-block !important;
+            min-width: 80px !important;
+            border-bottom: 2px solid #ef4444 !important;
+            text-align: center !important;
+            padding: 0 14px 1px 14px !important;
+            margin: 0 5px !important;
+            color: #94a3b8 !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            vertical-align: baseline !important;
+            line-height: 1.4 !important;
+        }
+        .fb-blank-underline.is-correct {
+            border-bottom: 2px solid #10b981 !important;
+            color: #10b981 !important;
+            font-weight: 700 !important;
+        }
+        .fb-blank-underline.is-wrong-text {
+            border-bottom: 2px solid #ef4444 !important;
+            color: #ef4444 !important;
+            font-weight: 700 !important;
+        }
+        html.dark .fb-blank-underline {
+            border-bottom: 2px solid #f87171 !important;
+            color: #94a3b8 !important;
+        }
+        html.dark .fb-blank-underline.is-correct {
+            border-bottom: 2px solid #34d399 !important;
+            color: #34d399 !important;
+        }
+        html.dark .fb-blank-underline.is-wrong-text {
+            border-bottom: 2px solid #f87171 !important;
+            color: #f87171 !important;
+        }
+
+        /* Correct answer in green parenthesis right after underline */
+        .fb-correct-parenthesis {
+            color: #10b981 !important;
+            font-weight: 600 !important;
+            font-size: 14px !important;
+            margin-left: 4px !important;
+        }
+        html.dark .fb-correct-parenthesis {
+            color: #34d399 !important;
+        }
+
+        /* Status line: Q8: (blank) -> Correct: cyclones */
+        .fb-status-row {
+            margin-top: 6px;
+            margin-bottom: 8px;
+            font-size: 13.5px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+        .fb-status-row .fb-q-num {
+            color: #ef4444;
+            font-weight: 700;
+        }
+        .fb-status-row .fb-cand-val {
+            color: #ef4444;
+            font-weight: 700;
+        }
+        .fb-status-row .fb-arrow {
+            color: #10b981;
+            margin: 0 4px;
+            font-weight: 600;
+        }
+        .fb-status-row .fb-correct-val {
+            color: #10b981;
+            font-weight: 700;
+        }
+        .fb-status-row.is-correct .fb-q-num {
+            color: #0f172a;
+        }
+        html.dark .fb-status-row.is-correct .fb-q-num {
+            color: #ffffff;
+        }
+        .fb-status-row.is-correct .fb-cand-val {
+            color: #10b981;
+        }
+        html.dark .fb-status-row .fb-q-num,
+        html.dark .fb-status-row .fb-cand-val {
+            color: #f87171;
+        }
+        html.dark .fb-status-row .fb-arrow,
+        html.dark .fb-status-row .fb-correct-val,
+        html.dark .fb-status-row.is-correct .fb-cand-val {
+            color: #34d399;
+        }
+
+        /* Explanation Toggle Button & Block Item (matching Image 2 & 3) */
+        .fb-block-item {
+            margin-top: 6px;
+            margin-bottom: 20px;
+        }
+        .fb-exp-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 14px;
+            border-radius: 10px;
+            border: 1px solid #bae6fd;
+            background-color: #f0f9ff;
+            color: #0284c7;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            box-shadow: 0 1px 2px rgba(2, 132, 199, 0.05);
+            margin-top: 4px;
+            margin-bottom: 0;
+        }
+        .fb-exp-btn:hover {
+            background-color: #e0f2fe;
+            border-color: #7dd3fc;
+        }
+        html.dark .fb-exp-btn {
+            background-color: rgba(14, 116, 144, 0.18) !important;
+            border-color: rgba(14, 116, 144, 0.45) !important;
+            color: #38bdf8 !important;
+            box-shadow: none;
+        }
+        html.dark .fb-exp-btn:hover {
+            background-color: rgba(14, 116, 144, 0.3) !important;
+            color: #7dd3fc !important;
+        }
+        .fb-exp-btn svg {
+            width: 15px;
+            height: 15px;
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
+            stroke-width: 2.5;
+        }
+        .fb-exp-btn.open svg {
+            transform: rotate(180deg);
+        }
+
+        /* Explanation Content Box */
+        .fb-exp-box {
+            margin-top: 8px;
+            margin-bottom: 0;
+            padding: 16px;
+            border-radius: 10px;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            font-size: 13.5px;
+            line-height: 1.7;
+            color: #334155;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+        html.dark .fb-exp-box {
+            background-color: #18181b !important;
+            border-color: #27272a !important;
+            color: #cbd5e1 !important;
+            box-shadow: none;
+        }
+
         .review-question-card.active-target {
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.45), 0 4px 14px rgba(0, 0, 0, 0.08) !important;
             border-color: #6366f1 !important;
@@ -550,131 +769,192 @@
 
                         <div class="space-y-6 max-w-5xl">
                             {% for q_item in s_data.questions %}
-                            <div id="q-{{ q_item.global_num }}" class="review-question-card {% if q_item.question.question_type == 'fill_blank' %}is-fill-blank{% elif q_item.is_correct %}is-correct{% else %}is-wrong{% endif %}" data-question-type="{{ q_item.question.question_type }}">
-                                <div class="flex items-start gap-3">
-                                    {% if q_item.question.question_type != 'fill_blank' %}
-                                    <span class="q-badge {% if q_item.is_correct %}is-correct{% else %}is-wrong{% endif %}" aria-hidden="true">
-                                        {{ q_item.global_num }}
+                            {% if q_item.group_header %}
+                            <!-- Question Group Instruction Header -->
+                            <div class="question-group-header pt-4 pb-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs sm:text-sm font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wide">
+                                        {{ q_item.group_header.type_display }}
                                     </span>
-                                    {% endif %}
-                                    <div class="flex-1 min-w-0">
-                                        {% if q_item.question.question_instructions %}
-                                        <p class="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5 italic">
-                                            {{ q_item.question.question_instructions }}
+                                    <span class="text-xs sm:text-sm font-semibold text-slate-400 dark:text-zinc-400">
+                                        {{ q_item.group_header.range_label }}
+                                    </span>
+                                </div>
+                                {% if q_item.group_header.instruction %}
+                                <p class="text-sm sm:text-base text-slate-700 dark:text-slate-200 mt-1 leading-relaxed font-normal whitespace-pre-line">
+                                    {{ q_item.group_header.instruction }}
+                                </p>
+                                {% endif %}
+                                {% if q_item.group_header.matching_options %}
+                                <!-- Matching Options shown ONCE at group header matching Image 1 -->
+                                <div class="mt-4 mb-4 flex flex-col gap-2">
+                                    {% for opt in q_item.group_header.matching_options %}
+                                    <div class="px-4 py-2.5 rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 shadow-2xs text-sm text-slate-800 dark:text-slate-200 flex items-baseline gap-2">
+                                        <b class="font-bold text-slate-900 dark:text-white shrink-0">{{ opt.option_key }}.</b>
+                                        <span>{{ opt.option_text }}</span>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+
+                            <div id="q-{{ q_item.global_num }}" class="review-question-card {% if q_item.question.question_type == 'fill_blank' %}is-fill-blank{% elif q_item.is_correct %}is-correct{% else %}is-wrong{% endif %}" data-question-type="{{ q_item.question.question_type }}">
+                                {% if q_item.question.question_type == 'fill_blank' %}
+                                <!-- Interactive Fill-In-The-Blanks Review Layout matching Image 3 -->
+                                <div class="fill-blank-review-interactive"
+                                     data-global-num="{{ q_item.global_num }}"
+                                     data-prompt="{{ q_item.question.question_text|escape }}"
+                                     data-candidate-answer="{{ q_item.candidate_answer|default:''|escape }}"
+                                     data-correct-answer="{{ q_item.question.correct_answer|default:''|escape }}"
+                                     data-explanation="{{ q_item.explanation|default:''|escape }}">
+                                    <!-- Fallback while script executes -->
+                                    <div class="font-medium question-prompt whitespace-pre-line">{{ q_item.question.question_text }}</div>
+                                    <div class="mt-2.5">
+                                        <p class="text-sm">
+                                            {% if q_item.is_correct %}
+                                            <span class="text-emerald-600 dark:text-emerald-400 font-bold">&check; {{ q_item.candidate_answer }}</span>
+                                            {% else %}
+                                            <span class="text-red-600 dark:text-red-400">&cross; <strong>{% if q_item.candidate_answer %}{{ q_item.candidate_answer }}{% else %}(blank){% endif %}</strong></span>
+                                            <span class="text-emerald-600 dark:text-emerald-400 font-bold ml-1.5">&rarr; {{ q_item.question.correct_answer }}</span>
+                                            {% endif %}
                                         </p>
-                                        {% endif %}
-
-                                        <!-- Optional Question Figure Image -->
-                                        {% if q_item.question.image %}
-                                        <div class="mb-3 rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 p-2.5 flex flex-col items-center">
-                                            <img src="{% url 'bcl:review_question_media' attempt.pk q_item.question.pk %}" alt="Figure for Question {{ q_item.global_num }}" class="max-h-72 object-contain rounded-md">
-                                            <span class="text-xs text-slate-400 mt-1">Figure for Question {{ q_item.global_num }}</span>
-                                        </div>
-                                        {% endif %}
-
-                                        <!-- Optional Question Table Content -->
-                                        {% if q_item.question.table_content %}
-                                        <div class="table-responsive mb-3 overflow-x-auto rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 p-3">
-                                            {{ q_item.question.table_content|safe }}
-                                        </div>
-                                        {% endif %}
-
-                                        {% if q_item.question.question_type == 'fill_blank' %}
-                                        <!-- Interactive Fill-In-The-Blanks Review Layout matching Image 3 -->
-                                        <div class="fill-blank-review-interactive"
-                                             data-global-num="{{ q_item.global_num }}"
-                                             data-prompt="{{ q_item.question.question_text|escape }}"
-                                             data-candidate-answer="{{ q_item.candidate_answer|default:''|escape }}"
-                                             data-correct-answer="{{ q_item.question.correct_answer|default:''|escape }}"
-                                             data-explanation="{{ q_item.explanation|default:''|escape }}">
-                                            <!-- Fallback while script executes -->
-                                            <div class="font-medium question-prompt whitespace-pre-line">{{ q_item.question.question_text }}</div>
-                                            <div class="mt-2.5">
-                                                <p class="text-sm">
-                                                    {% if q_item.is_correct %}
-                                                    <span class="text-emerald-600 dark:text-emerald-400 font-bold">&check; {{ q_item.candidate_answer }}</span>
-                                                    {% else %}
-                                                    <span class="text-red-600 dark:text-red-400">&cross; <strong>{% if q_item.candidate_answer %}{{ q_item.candidate_answer }}{% else %}(blank){% endif %}</strong></span>
-                                                    <span class="text-emerald-600 dark:text-emerald-400 font-bold ml-1.5">&rarr; {{ q_item.question.correct_answer }}</span>
-                                                    {% endif %}
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        {% else %}
-                                        <!-- Prompt & Answer Evaluation for other types -->
-                                        <div class="text-sm text-slate-800 dark:text-[#E1E1E1] leading-relaxed">
-                                            <div class="font-medium question-prompt whitespace-pre-line">{{ q_item.question.question_text }}</div>
-                                        </div>
-
-                                        <!-- Short answer feedback -->
-                                        {% if q_item.question.question_type == 'short_answer' %}
-                                        <div class="mt-2.5">
-                                            <input spellcheck="false" autocorrect="off" readonly class="review-input-box {% if q_item.is_correct %}correct{% endif %}" type="text" value="{{ q_item.candidate_answer }}" placeholder="{% if not q_item.candidate_answer %}(blank){% endif %}">
-                                            
-                                            <p class="text-sm mt-1.5 mb-1">
-                                                {% if q_item.is_correct %}
-                                                <span class="text-emerald-600 dark:text-emerald-400 font-bold">&check; {{ q_item.candidate_answer }}</span>
-                                                {% else %}
-                                                <span class="text-red-600 dark:text-red-400">&cross; <strong>{% if q_item.candidate_answer %}{{ q_item.candidate_answer }}{% else %}(blank){% endif %}</strong></span>
-                                                <span class="text-emerald-600 dark:text-emerald-400 font-bold ml-1.5">&rarr; {{ q_item.question.correct_answer }}</span>
-                                                {% endif %}
-                                            </p>
-                                        </div>
-
-                                        <!-- MCQ / TFNG / YNNG Options Display -->
-                                        {% elif q_item.options %}
-                                        <div class="mt-2.5 space-y-1.5">
-                                            {% for opt in q_item.options %}
-                                            <div class="review-opt-row {% if opt.is_correct %}review-opt-correct{% elif q_item.candidate_answer == opt.option_key %}review-opt-wrong{% else %}review-opt-neutral{% endif %}">
-                                                <span class="font-bold w-5">{{ opt.option_key }}.</span>
-                                                <span class="flex-1">{{ opt.option_text }}</span>
-                                                {% if opt.is_correct %}
-                                                    <span class="text-emerald-600 dark:text-emerald-400 font-bold">&check; Correct</span>
-                                                {% elif q_item.candidate_answer == opt.option_key %}
-                                                    <span class="text-red-500 dark:text-red-400 font-bold">&cross; Your Answer</span>
-                                                {% endif %}
-                                            </div>
-                                            {% endfor %}
-                                        </div>
-
-                                        <!-- Other types (Matching, Map Labelling, etc.) -->
-                                        {% else %}
-                                        <div class="mt-2">
-                                            <p class="text-sm">
-                                                {% if q_item.is_correct %}
-                                                <span class="text-emerald-600 dark:text-emerald-400 font-bold">&check; {{ q_item.candidate_answer }}</span>
-                                                {% else %}
-                                                <span class="text-red-600 dark:text-red-400">&cross; <strong>{% if q_item.candidate_answer %}{{ q_item.candidate_answer }}{% else %}(blank){% endif %}</strong></span>
-                                                <span class="text-emerald-600 dark:text-emerald-400 font-bold ml-1.5">&rarr; {{ q_item.question.correct_answer }}</span>
-                                                {% endif %}
-                                            </p>
-                                        </div>
-                                        {% endif %}
-
-                                        <!-- Explanation Button -->
-                                        <div class="mt-3">
-                                            <button type="button" class="explanation-btn w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg border text-xs sm:text-sm font-medium transition-colors bg-sky-50 dark:bg-sky-900/20 border-sky-200 dark:border-sky-700/50 text-sky-600 dark:text-sky-400 hover:bg-sky-100 dark:hover:bg-sky-900/30 cursor-pointer" data-target="exp-{{ q_item.global_num }}">
-                                                <span class="flex items-center gap-1.5">
-                                                    <span>💡</span>
-                                                    <span>Show explanation &mdash; Q{{ q_item.global_num }}</span>
-                                                </span>
-                                                <svg width="16" height="16" class="w-4 h-4 shrink-0 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px;max-width:16px;max-height:16px;">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
-                                                </svg>
-                                            </button>
-                                            <div id="exp-{{ q_item.global_num }}" class="explanation-box mt-2 p-3 rounded-lg bg-sky-50/60 dark:bg-zinc-800 border border-sky-100 dark:border-zinc-700 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed" hidden>
-                                                {% if q_item.explanation %}
-                                                    {{ q_item.explanation|linebreaks }}
-                                                {% else %}
-                                                    <p class="italic text-slate-400">Correct answer: <strong>{{ q_item.question.correct_answer }}</strong></p>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                        {% endif %}
-
                                     </div>
                                 </div>
+
+                                {% elif q_item.question.question_type == 'matching' or q_item.question.question_type == 'matching_information' %}
+                                <!-- Compact Matching Question Card matching Image 1 -->
+                                <div class="flex items-start justify-between gap-3">
+                                    <h3 class="text-sm sm:text-base font-semibold text-slate-900 dark:text-white leading-relaxed flex-1 flex items-center">
+                                        <span class="inline-block px-2.5 py-0.5 rounded bg-slate-100 dark:bg-zinc-700 text-slate-700 dark:text-slate-200 font-bold text-xs mr-2.5 shrink-0">Q{{ q_item.global_num }}</span>
+                                        <span>{{ q_item.question.question_text }}</span>
+                                    </h3>
+                                    <span class="shrink-0 text-sm font-bold flex items-center gap-1.5 whitespace-nowrap">
+                                        {% if q_item.is_correct %}
+                                        <span class="text-emerald-500 dark:text-emerald-400 font-bold text-base">&check;</span>
+                                        <span class="text-slate-400 dark:text-zinc-500 font-mono">&mdash;&rarr;</span>
+                                        <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">{{ q_item.question.correct_answer }}</span>
+                                        {% else %}
+                                        <span class="text-red-500 dark:text-red-400 font-bold text-base">&cross;</span>
+                                        <span class="text-slate-400 dark:text-zinc-500 font-mono">&mdash;&rarr;</span>
+                                        <span class="text-emerald-600 dark:text-emerald-400 font-bold text-base">{{ q_item.question.correct_answer }}</span>
+                                        {% endif %}
+                                    </span>
+                                </div>
+                                <!-- Candidate answer status -->
+                                <div class="mt-1 text-xs text-slate-500 dark:text-zinc-400 italic">
+                                    {% if q_item.candidate_answer and not q_item.is_blank %}
+                                    Your answer: <strong class="{% if q_item.is_correct %}text-emerald-600 dark:text-emerald-400{% else %}text-red-500 dark:text-red-400{% endif %} not-italic">{{ q_item.candidate_answer }}</strong>
+                                    {% else %}
+                                    <span class="text-red-400 dark:text-red-500">(not answered)</span>
+                                    {% endif %}
+                                </div>
+
+                                <!-- Explanation Button -->
+                                <div class="mt-2.5">
+                                    <button type="button" class="explanation-btn w-full flex items-center justify-between gap-2 px-3.5 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-colors bg-sky-50 dark:bg-sky-900/20 border-sky-200 dark:border-sky-700/50 text-sky-600 dark:text-sky-400 hover:bg-sky-100 dark:hover:bg-sky-900/30 cursor-pointer" data-target="exp-{{ q_item.global_num }}">
+                                        <span class="flex items-center gap-2">
+                                            <span>💡</span>
+                                            <span>Show explanation &mdash; Q{{ q_item.global_num }}</span>
+                                        </span>
+                                        <svg width="16" height="16" class="w-4 h-4 shrink-0 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px;max-width:16px;max-height:16px;">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                                        </svg>
+                                    </button>
+                                    <div id="exp-{{ q_item.global_num }}" class="explanation-box mt-2 p-3.5 rounded-xl bg-sky-50/60 dark:bg-zinc-800 border border-sky-100 dark:border-zinc-700 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed" hidden>
+                                        {% if q_item.explanation %}
+                                            {{ q_item.explanation|linebreaks }}
+                                        {% else %}
+                                            <p class="italic text-slate-400">Correct answer: <strong>{{ q_item.question.correct_answer }}</strong></p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                {% else %}
+                                <!-- Header row: Question Number + Question text + right-aligned correct/wrong symbol -->
+                                <div class="flex items-start justify-between gap-3 mb-2.5">
+                                    <h3 class="text-sm sm:text-base font-medium text-slate-900 dark:text-white leading-relaxed flex-1">
+                                        <span class="font-bold mr-1.5">{% if q_item.blank_count and q_item.blank_count > 1 and q_item.question.question_type == 'multi_select' %}{{ q_item.global_num }}–{{ q_item.global_num|add:q_item.blank_count|add:"-1" }}.{% else %}{{ q_item.global_num }}.{% endif %}</span><span>{{ q_item.question.question_text }}</span>
+                                    </h3>
+                                    <span class="shrink-0 text-base font-bold {% if q_item.is_correct %}text-emerald-500 dark:text-emerald-400{% else %}text-red-500 dark:text-red-400{% endif %}">
+                                        {% if q_item.is_correct %}&check;{% else %}&cross;{% endif %}
+                                    </span>
+                                </div>
+
+                                <!-- Optional Question Figure Image -->
+                                {% if q_item.question.image %}
+                                <div class="mb-3 rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 p-2.5 flex flex-col items-center">
+                                    <img src="{% url 'bcl:review_question_media' attempt.pk q_item.question.pk %}" alt="Figure for Question {{ q_item.global_num }}" class="max-h-72 object-contain rounded-md">
+                                    <span class="text-xs text-slate-400 mt-1">Figure for Question {{ q_item.global_num }}</span>
+                                </div>
+                                {% endif %}
+
+                                <!-- Optional Question Table Content -->
+                                {% if q_item.question.table_content %}
+                                <div class="table-responsive mb-3 overflow-x-auto rounded-lg border border-slate-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 p-3">
+                                    {{ q_item.question.table_content|safe }}
+                                </div>
+                                {% endif %}
+
+                                <!-- Options Display (TFNG, YNNG, MCQ, Multi-Select) -->
+                                {% if q_item.display_options %}
+                                <div class="mt-3.5 space-y-2">
+                                    {% for opt in q_item.display_options %}
+                                    <div class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl border transition-colors {% if opt.is_correct %}border-emerald-300 dark:border-emerald-700/80 bg-emerald-50/50 dark:bg-emerald-950/20 text-slate-800 dark:text-emerald-200 font-semibold{% elif opt.is_selected %}border-red-300 dark:border-red-700/80 bg-red-50/50 dark:bg-red-950/20 text-red-700 dark:text-red-300 font-semibold{% else %}border-slate-200/80 dark:border-zinc-700 bg-white/50 dark:bg-zinc-800/50 text-slate-700 dark:text-slate-300{% endif %}">
+                                        <span class="w-4 h-4 rounded-full border border-slate-300 dark:border-zinc-500 flex items-center justify-center shrink-0">
+                                            {% if opt.is_selected %}
+                                            <span class="w-2 h-2 rounded-full bg-slate-700 dark:bg-slate-200"></span>
+                                            {% endif %}
+                                        </span>
+                                        <span class="text-sm flex-1">{{ opt.text }}</span>
+                                        {% if opt.is_correct %}
+                                        <span class="text-emerald-600 dark:text-emerald-400 font-bold text-sm">&check;</span>
+                                        {% elif opt.is_selected %}
+                                        <span class="text-red-500 dark:text-red-400 font-bold text-sm">&cross;</span>
+                                        {% endif %}
+                                    </div>
+                                    {% endfor %}
+                                </div>
+
+                                <!-- Short answer feedback -->
+                                {% elif q_item.question.question_type == 'short_answer' %}
+                                <div class="mt-2.5">
+                                    <input spellcheck="false" autocorrect="off" readonly class="review-input-box {% if q_item.is_correct %}correct{% endif %}" type="text" value="{{ q_item.candidate_answer }}" placeholder="{% if not q_item.candidate_answer %}(blank){% endif %}">
+                                </div>
+                                {% endif %}
+
+                                <!-- Answer status summary row -->
+                                <div class="mt-3.5 text-xs sm:text-sm">
+                                    {% if q_item.is_correct %}
+                                    <span class="text-emerald-600 dark:text-emerald-400 font-medium">&check; Correct: <strong class="font-bold">{{ q_item.question.correct_answer }}</strong></span>
+                                    {% else %}
+                                    <span class="text-red-500 dark:text-red-400 font-medium">Your answer: <strong class="font-bold text-red-600 dark:text-red-400">{% if q_item.candidate_answer %}{{ q_item.candidate_answer }}{% else %}(blank){% endif %}</strong></span>
+                                    <span class="text-slate-400 mx-1.5">&mdash;</span>
+                                    <span class="text-emerald-600 dark:text-emerald-400 font-medium">Correct: <strong class="font-bold text-emerald-700 dark:text-emerald-300">{{ q_item.question.correct_answer }}</strong></span>
+                                    {% endif %}
+                                </div>
+
+                                <!-- Explanation Button -->
+                                <div class="mt-3">
+                                    <button type="button" class="explanation-btn w-full flex items-center justify-between gap-2 px-3.5 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-colors bg-sky-50 dark:bg-sky-900/20 border-sky-200 dark:border-sky-700/50 text-sky-600 dark:text-sky-400 hover:bg-sky-100 dark:hover:bg-sky-900/30 cursor-pointer" data-target="exp-{{ q_item.global_num }}">
+                                        <span class="flex items-center gap-2">
+                                            <span>💡</span>
+                                            <span>Show explanation &mdash; Q{{ q_item.global_num }}</span>
+                                        </span>
+                                        <svg width="16" height="16" class="w-4 h-4 shrink-0 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px;max-width:16px;max-height:16px;">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                                        </svg>
+                                    </button>
+                                    <div id="exp-{{ q_item.global_num }}" class="explanation-box mt-2 p-3.5 rounded-xl bg-sky-50/60 dark:bg-zinc-800 border border-sky-100 dark:border-zinc-700 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed" hidden>
+                                        {% if q_item.explanation %}
+                                            {{ q_item.explanation|linebreaks }}
+                                        {% else %}
+                                            <p class="italic text-slate-400">Correct answer: <strong>{{ q_item.question.correct_answer }}</strong></p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% endif %}
+
                             </div>
                             {% endfor %}
                         </div>
@@ -813,6 +1093,41 @@ document.addEventListener("DOMContentLoaded", function() {
         return (text || "").split(/\s*\|\|\s*|\s*\/\s*|\s*\|\s*/).map(p => p.trim()).filter(Boolean);
     }
 
+    function splitExplanations(rawExp, globalNum, totalBlanks) {
+        if (!rawExp || !rawExp.trim()) return [];
+        const text = rawExp.trim();
+
+        // 1. Explicit delimiter ;;;
+        if (text.includes(";;;")) {
+            return text.split(";;;").map(s => s.trim()).filter(Boolean);
+        }
+
+        // 2. Question headers: Q7 ... Q8 ... Q9 ... or Question 7 ... or [7] ...
+        const qHeaderRegex = /(?:^|\r?\n)\s*(?:Q|Question\s*|\[)\d+[\]:\.\s]/i;
+        if (qHeaderRegex.test(text)) {
+            const parts = text.split(/(?:^|\r?\n)(?=\s*(?:Q|Question\s*|\[)\d+[\]:\.\s])/i)
+                .map(s => s.trim())
+                .filter(Boolean);
+            if (parts.length >= 2) {
+                return parts;
+            }
+        }
+
+        // 3. Double quotes delimiter: "explanation 1" "explanation 2"
+        const quoteRegex = /["“]([\s\S]*?)["”]/g;
+        const quoteMatches = [];
+        let m;
+        while ((m = quoteRegex.exec(text)) !== null) {
+            const inner = m[1].trim();
+            if (inner) quoteMatches.push(inner);
+        }
+        if (quoteMatches.length >= 2) {
+            return quoteMatches;
+        }
+
+        return [text];
+    }
+
     function isBlankCorrect(actual, expected) {
         if (!actual || !expected) return false;
         const normActual = normalizeAnswer(actual);
@@ -831,27 +1146,49 @@ document.addEventListener("DOMContentLoaded", function() {
 
             const candList = rawCand ? rawCand.split(";;;").map(s => s.trim()) : [];
             const corrList = rawCorr ? rawCorr.split(";;;").map(s => s.trim()) : [];
-            const expList = rawExp ? rawExp.split(";;;").map(s => s.trim()) : [];
+            const expList = splitExplanations(rawExp, globalNum, corrList.length);
 
-            const lines = prompt.split(/\r?\n/);
+            // Normalize raw prompt: collapse broken newlines inside sentences or bullets
+            const normalizedPrompt = prompt
+                .replace(/[•\-\*]\s*\r?\n\s*/g, "• ")
+                .replace(/([^\n\r\.\:\?\!])\r?\n\s*(_{3,})/g, "$1 $2")
+                .replace(/(_{3,})\s*\r?\n\s*([a-z])/g, "$1 $2");
+
+            const lines = normalizedPrompt.split(/\r?\n/);
             let currentBlankIdx = 0;
             const outputNodes = [];
 
-            lines.forEach(line => {
+            lines.forEach((line, lineIdx) => {
                 const trimmed = line.trim();
                 if (!/_{3,}/.test(line)) {
                     if (!trimmed) {
                         const spacer = document.createElement("div");
-                        spacer.className = "h-2.5";
+                        spacer.className = "h-2";
                         outputNodes.push(spacer);
                         return;
                     }
                     const textEl = document.createElement("div");
-                    const isHeading = !trimmed.startsWith("•") && !trimmed.startsWith("-") && trimmed.length < 50;
-                    textEl.className = isHeading
-                        ? "text-base font-bold text-slate-900 dark:text-white mt-3 mb-1"
-                        : "text-sm text-slate-700 dark:text-slate-300 leading-relaxed my-1 font-medium";
-                    textEl.textContent = line.replace(/^•(\S)/, "• $1");
+                    const isFirstTitle = (lineIdx === 0 && !trimmed.startsWith("•") && !trimmed.startsWith("-") && trimmed.length < 50);
+                    const isHeading = !trimmed.startsWith("•") && !trimmed.startsWith("-") && !trimmed.startsWith("*") && (trimmed.endsWith(":") || trimmed.length < 75);
+
+                    if (isFirstTitle) {
+                        textEl.className = "fb-heading-main";
+                        textEl.textContent = trimmed;
+                    } else if (isHeading) {
+                        textEl.className = "fb-heading-sub";
+                        textEl.textContent = trimmed;
+                    } else {
+                        textEl.className = "fb-line-item";
+                        if (/^[•\-\*]/.test(trimmed)) {
+                            const bulletSpan = document.createElement("span");
+                            bulletSpan.className = "fb-bullet-dot";
+                            bulletSpan.textContent = "• ";
+                            textEl.appendChild(bulletSpan);
+                            textEl.appendChild(document.createTextNode(trimmed.replace(/^[•\-\*]\s*/, "")));
+                        } else {
+                            textEl.textContent = trimmed;
+                        }
+                    }
                     outputNodes.push(textEl);
                     return;
                 }
@@ -860,13 +1197,23 @@ document.addEventListener("DOMContentLoaded", function() {
                 const blanksOnLine = [];
                 const parts = line.split(/(_{3,})/);
                 const lineWrapper = document.createElement("div");
-                lineWrapper.className = "text-sm text-slate-800 dark:text-slate-200 leading-loose my-2 font-normal";
+                lineWrapper.className = "fb-line-item";
 
+                let isFirstPart = true;
                 parts.forEach(part => {
                     if (!/^_{3,}$/.test(part)) {
-                        const cleanPart = part.replace(/^•(\S)/, "• $1");
+                        let cleanPart = part;
+                        if (isFirstPart && /^[•\-\*]/.test(cleanPart)) {
+                            cleanPart = cleanPart.replace(/^[•\-\*]\s*/, "");
+                            const bulletSpan = document.createElement("span");
+                            bulletSpan.className = "fb-bullet-dot";
+                            bulletSpan.textContent = "• ";
+                            lineWrapper.appendChild(bulletSpan);
+                        }
                         lineWrapper.appendChild(document.createTextNode(cleanPart));
+                        isFirstPart = false;
                     } else {
+                        isFirstPart = false;
                         const bIdx = currentBlankIdx;
                         currentBlankIdx += 1;
                         const blankNum = globalNum + bIdx;
@@ -879,75 +1226,62 @@ document.addEventListener("DOMContentLoaded", function() {
                             candVal,
                             corrVal,
                             isCorrect,
-                            explanation: expList[bIdx] || rawExp
+                            explanation: expList[bIdx] || (expList.length === 1 ? rawExp : "")
                         });
 
-                        // Inline replacement matching Image 3: __[blankNum]__ (correct answer)
-                        const inlineSpan = document.createElement("span");
-                        inlineSpan.className = "inline-flex items-center gap-1.5 mx-1 align-baseline";
-
-                        const inputSpan = document.createElement("span");
-                        if (isCorrect) {
-                            inputSpan.className = "inline-block px-3 py-0.5 border-b-2 border-emerald-500 text-emerald-600 dark:text-emerald-400 font-bold text-sm min-w-9 text-center";
-                            inputSpan.textContent = candVal;
-                        } else if (candVal) {
-                            inputSpan.className = "inline-block px-3 py-0.5 border-b-2 border-red-500 text-red-600 dark:text-red-400 font-bold text-sm min-w-9 text-center";
-                            inputSpan.textContent = candVal;
-                        } else {
-                            // Empty/unanswered blank: red underline with muted grey [num] matching Image 3
-                            inputSpan.className = "inline-block px-3 py-0.5 border-b-2 border-red-500 text-slate-400 dark:text-slate-500 font-medium text-sm min-w-9 text-center";
-                            inputSpan.textContent = `[${blankNum}]`;
-                        }
-                        inlineSpan.appendChild(inputSpan);
+                        // Inline replacement: red/green underline with text
+                        const underlineSpan = document.createElement("span");
+                        underlineSpan.className = "fb-blank-underline" + (isCorrect ? " is-correct" : (candVal ? " is-wrong-text" : ""));
+                        underlineSpan.textContent = candVal ? candVal : `[${blankNum}]`;
+                        lineWrapper.appendChild(underlineSpan);
 
                         if (corrVal) {
                             const corrSpan = document.createElement("span");
-                            corrSpan.className = "text-emerald-600 dark:text-emerald-400 font-semibold text-sm";
+                            corrSpan.className = "fb-correct-parenthesis";
                             corrSpan.textContent = `(${corrVal})`;
-                            inlineSpan.appendChild(corrSpan);
+                            lineWrapper.appendChild(corrSpan);
                         }
-
-                        lineWrapper.appendChild(inlineSpan);
                     }
                 });
 
                 outputNodes.push(lineWrapper);
 
-                // Feedback and explanation block under this line matching Image 3
+                // Feedback and explanation block under this line matching Image 2 & 3
                 blanksOnLine.forEach(b => {
                     const fbContainer = document.createElement("div");
-                    fbContainer.className = "my-2 max-w-2xl";
+                    fbContainer.className = "fb-block-item";
 
                     // Status line: Q7: (blank) -> Correct: water
                     const fbRow = document.createElement("div");
-                    fbRow.className = "text-xs sm:text-sm font-semibold flex flex-wrap items-center gap-1.5 mb-1.5";
+                    fbRow.className = "fb-status-row" + (b.isCorrect ? " is-correct" : "");
                     if (b.isCorrect) {
                         fbRow.innerHTML = `
-                            <span class="text-slate-800 dark:text-white font-bold">Q${b.blankNum}:</span>
-                            <span class="text-emerald-600 dark:text-emerald-400 font-bold">&check; ${escapeHtml(b.candVal)}</span>
+                            <span class="fb-q-num">Q${b.blankNum}:</span>
+                            <span class="fb-cand-val">&check; ${escapeHtml(b.candVal)}</span>
                         `;
                     } else {
                         const userText = b.candVal ? escapeHtml(b.candVal) : "(blank)";
                         fbRow.innerHTML = `
-                            <span class="text-red-600 dark:text-red-400 font-bold">Q${b.blankNum}:</span>
-                            <span class="text-red-600 dark:text-red-400 font-bold">${userText}</span>
-                            <span class="text-emerald-600 dark:text-emerald-400 font-bold ml-1.5">&rarr; Correct: <strong>${escapeHtml(b.corrVal || "N/A")}</strong></span>
+                            <span class="fb-q-num">Q${b.blankNum}:</span>
+                            <span class="fb-cand-val">${userText}</span>
+                            <span class="fb-arrow">&rarr;</span>
+                            <span class="fb-correct-val">Correct: <strong>${escapeHtml(b.corrVal || "N/A")}</strong></span>
                         `;
                     }
                     fbContainer.appendChild(fbRow);
 
-                    // Explanation Toggle Button matching Image 3
+                    // Explanation Toggle Button matching Image 2 & 3
                     const expBtn = document.createElement("button");
                     expBtn.type = "button";
-                    expBtn.className = "explanation-btn w-full flex items-center justify-between gap-2 px-3.5 py-2 rounded-xl border text-xs sm:text-sm font-medium transition-all bg-indigo-50/70 dark:bg-zinc-800 border-indigo-200/80 dark:border-zinc-700 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100/70 dark:hover:bg-zinc-700 cursor-pointer shadow-2xs";
+                    expBtn.className = "fb-exp-btn explanation-btn";
                     expBtn.dataset.target = `exp-${b.blankNum}`;
                     expBtn.innerHTML = `
-                        <span class="flex items-center gap-2">
+                        <span style="display:flex;align-items:center;gap:6px;">
                             <span>💡</span>
                             <span>Show explanation &mdash; Q${b.blankNum}</span>
                         </span>
-                        <svg width="16" height="16" class="w-4 h-4 shrink-0 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 9l-7 7-7-7"></path>
                         </svg>
                     `;
                     fbContainer.appendChild(expBtn);
@@ -955,7 +1289,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     // Explanation Box
                     const expBox = document.createElement("div");
                     expBox.id = `exp-${b.blankNum}`;
-                    expBox.className = "explanation-box mt-2 p-3.5 rounded-xl bg-slate-50 dark:bg-zinc-800/90 border border-slate-200 dark:border-zinc-700 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed shadow-xs";
+                    expBox.className = "fb-exp-box explanation-box";
                     expBox.hidden = true;
                     if (b.explanation && b.explanation.trim()) {
                         expBox.innerHTML = escapeHtml(b.explanation).replace(/\n/g, "<br>");
@@ -978,12 +1312,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 const isCorrect = isBlankCorrect(candVal, corrVal);
 
                 const extraBlock = document.createElement("div");
-                extraBlock.className = "my-2 max-w-2xl";
+                extraBlock.className = "fb-block-item";
                 const userText = candVal ? escapeHtml(candVal) : "(blank)";
                 extraBlock.innerHTML = `
-                    <div class="text-xs sm:text-sm font-semibold flex flex-wrap items-center gap-1.5">
-                        <span class="${isCorrect ? 'text-slate-800 dark:text-white' : 'text-red-600 dark:text-red-400'} font-bold">Q${blankNum}:</span>
-                        ${isCorrect ? `<span class="text-emerald-600 dark:text-emerald-400 font-bold">&check; ${escapeHtml(candVal)}</span>` : `<span class="text-red-600 dark:text-red-400 font-bold">${userText}</span><span class="text-emerald-600 dark:text-emerald-400 font-bold ml-1.5">&rarr; Correct: <strong>${escapeHtml(corrVal)}</strong></span>`}
+                    <div class="fb-status-row ${isCorrect ? 'is-correct' : ''}">
+                        <span class="fb-q-num">Q${blankNum}:</span>
+                        ${isCorrect ? `<span class="fb-cand-val">&check; ${escapeHtml(candVal)}</span>` : `<span class="fb-cand-val">${userText}</span><span class="fb-arrow">&rarr;</span><span class="fb-correct-val">Correct: <strong>${escapeHtml(corrVal)}</strong></span>`}
                     </div>
                 `;
                 outputNodes.push(extraBlock);
@@ -1022,7 +1356,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     expBtns.forEach(btn => {
                         const targetId = btn.dataset.target || "";
                         const bNum = targetId.replace("exp-", "");
-                        const isCorrect = Boolean(btn.parentElement?.querySelector(".text-emerald-600")?.textContent?.includes("✓"));
+                        const isCorrect = Boolean(btn.parentElement?.querySelector(".fb-status-row.is-correct"));
 
                         const pillBtn = document.createElement("button");
                         pillBtn.type = "button";

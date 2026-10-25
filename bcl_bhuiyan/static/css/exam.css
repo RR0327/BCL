@@ -420,34 +420,49 @@ html[data-theme="dark"] .q-number-badge {
     color: #f8fafc !important;
 }
 
-/* Fill blank inline inputs */
+/* Fill blank inline inputs matching Image 5 */
 .blank-input {
     display: inline-block;
-    min-width: 5rem;
-    width: 64px;
+    min-width: 4.5rem;
+    width: 68px;
     height: 1.75rem;
-    margin: 0 0.25rem;
+    margin: 0 0.35rem;
     border: 0;
-    border-bottom: 2px solid #6366f1;
-    background: rgba(99, 102, 241, 0.04);
+    border-bottom: 1.5px solid #94a3b8;
+    background: transparent;
     padding: 0 0.25rem;
     text-align: center;
-    font-size: 0.875rem;
+    font-size: 0.95rem;
     font-family: inherit;
-    color: inherit;
-    transition: border-color 0.15s ease, width 0.15s ease, background-color 0.15s ease;
-    border-radius: 4px 4px 0 0;
+    font-weight: 500;
+    color: #1e293b;
+    vertical-align: baseline;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.blank-input::placeholder {
+    color: #94a3b8;
+    font-size: 0.85rem;
+    font-weight: 500;
 }
 .blank-input:focus {
     outline: none;
-    border-bottom-color: #4f46e5;
-    background-color: rgba(99, 102, 241, 0.1);
+    border-bottom-color: #6366f1;
+    background: rgba(99, 102, 241, 0.05);
 }
 html.dark .blank-input,
 html[data-theme="dark"] .blank-input {
-    border-bottom: 2px solid #818cf8 !important;
+    border-bottom: 1.5px solid #64748b !important;
     color: #f8fafc !important;
-    background-color: rgba(99, 102, 241, 0.15) !important;
+    background: transparent !important;
+}
+html.dark .blank-input::placeholder,
+html[data-theme="dark"] .blank-input::placeholder {
+    color: #64748b !important;
+}
+html.dark .blank-input:focus,
+html[data-theme="dark"] .blank-input:focus {
+    border-bottom-color: #818cf8 !important;
+    background: rgba(99, 102, 241, 0.12) !important;
 }
 html.dark .blank-input:focus,
 html[data-theme="dark"] .blank-input:focus {
@@ -1030,7 +1045,6 @@ html[data-theme="dark"] .fill-blank-prompt {
 }
 
 /* Multi-line & Linebreak Support for Question Prompts & Instructions */
-.question-prompt,
 .fill-blank-prompt,
 .question-instructions,
 .instructions,
@@ -1038,37 +1052,44 @@ html[data-theme="dark"] .fill-blank-prompt {
 .prompt-content-text {
     white-space: pre-line;
 }
+.question-prompt {
+    white-space: normal;
+}
 
-/* Question Options (MCQ, TFNG, YNNG, Multi-Select) */
+/* Question Options (MCQ, TFNG, YNNG, Multi-Select) - Clean Layout matching Image 4 */
 .option {
-    background-color: #ffffff;
-    border: 1px solid #e2e8f0;
+    background-color: transparent !important;
+    border: none !important;
     color: #1e293b;
-    transition: background-color 0.15s ease, border-color 0.15s ease;
+    padding: 0.15rem 0;
+    transition: color 0.15s ease;
 }
 .option:hover {
-    background-color: #f8fafc;
-    border-color: #cbd5e1;
+    background-color: transparent !important;
+    border: none !important;
 }
 .option:has(input:checked) {
-    background-color: #eef2ff !important;
-    border-color: #6366f1 !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-color: transparent !important;
 }
 html.dark .option,
 html[data-theme="dark"] .option {
-    background-color: #0f172a !important;
-    border-color: #334155 !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-color: transparent !important;
     color: #f8fafc !important;
 }
 html.dark .option:hover,
 html[data-theme="dark"] .option:hover {
-    background-color: #1e293b !important;
-    border-color: #6366f1 !important;
+    background-color: transparent !important;
+    border: none !important;
 }
 html.dark .option:has(input:checked),
 html[data-theme="dark"] .option:has(input:checked) {
-    background-color: rgba(99, 102, 241, 0.22) !important;
-    border-color: #818cf8 !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-color: transparent !important;
     color: #ffffff !important;
 }
 html.dark .option span,
@@ -1080,6 +1101,15 @@ html[data-theme="dark"] .option b {
 html.dark .option b.text-indigo-600,
 html[data-theme="dark"] .option b.text-indigo-600 {
     color: #818cf8 !important;
+}
+
+/* Fill Blank Card Container matching Image 5 */
+.fill-blank-card {
+    border-color: rgba(191, 219, 254, 0.9);
+}
+html.dark .fill-blank-card,
+html[data-theme="dark"] .fill-blank-card {
+    border-color: #3f3f46 !important;
 }
 
 /* Matching / Select questions */

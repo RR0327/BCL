@@ -156,6 +156,85 @@ def start_exam(request, module_id):
     return redirect("bcl:exam_session", attempt_id=active.pk)
 
 
+def annotate_question_groups(questions, start_counter=1):
+    """
+    Groups consecutive questions in a section by question_type and question_instructions.
+    Calculates global question numbers and attaches group_header to the first question of each group.
+    """
+    import re
+    q_list = list(questions)
+    groups = []
+    current_group = None
+    global_counter = start_counter
+
+    for q in q_list:
+        b_count = 1
+        if q.question_type == Question.QuestionType.FILL_BLANK:
+            p_c = len(re.findall(r"_{3,}", q.question_text))
+            a_c = len([x for x in (q.correct_answer or "").split(";;;") if x.strip()])
+            b_count = max(p_c, a_c, q.answer_count or 1, 1)
+        elif q.question_type == Question.QuestionType.MULTI_SELECT and (q.answer_count or 1) > 1:
+            b_count = q.answer_count
+
+        inst = (q.question_instructions or "").strip()
+        is_new = (
+            current_group is None
+            or q.question_type != current_group["type"]
+            or (bool(inst) and bool(current_group["instruction"]) and inst != current_group["instruction"])
+        )
+
+        q.global_num = global_counter
+        q.blank_count = b_count
+
+        if is_new:
+            type_display = q.get_question_type_display().upper()
+            if q.question_type == "tfng":
+                type_display = "TRUE / FALSE / NOT GIVEN"
+            elif q.question_type == "ynng":
+                type_display = "YES / NO / NOT GIVEN"
+            elif q.question_type == "mcq":
+                type_display = "MULTIPLE CHOICE"
+            elif q.question_type == "fill_blank":
+                type_display = "FILL IN THE BLANK"
+
+            current_group = {
+                "type": q.question_type,
+                "type_display": type_display,
+                "instruction": inst,
+                "start_num": global_counter,
+                "end_num": global_counter + b_count - 1,
+                "first_question": q,
+            }
+            groups.append(current_group)
+        else:
+            if inst and not current_group["instruction"]:
+                current_group["instruction"] = inst
+            current_group["end_num"] = global_counter + b_count - 1
+
+        global_counter += b_count
+
+    for g in groups:
+        r = f"Q{g['start_num']}" if g["start_num"] == g["end_num"] else f"Q{g['start_num']}–Q{g['end_num']}"
+        header = {
+            "type_display": g["type_display"],
+            "range_label": r,
+            "instruction": g["instruction"],
+        }
+        # For matching/matching_information groups, attach the options from
+        # the first question so the template can render them once at the
+        # group header level rather than repeating for every question.
+        if g["type"] in (
+            Question.QuestionType.MATCHING,
+            Question.QuestionType.MATCHING_INFORMATION,
+        ):
+            header["matching_options"] = list(
+                g["first_question"].options.order_by("order", "option_key")
+            )
+        g["first_question"].group_header = header
+
+    return q_list, global_counter
+
+
 @login_required
 @require_GET
 def exam_session(request, attempt_id):
@@ -168,7 +247,15 @@ def exam_session(request, attempt_id):
     if is_superseded_active_attempt(attempt):
         return redirect("bcl:exam_rules", module_id=attempt.module_id)
 
-    sections = attempt.module.sections.order_by("order", "pk").prefetch_related("questions__options")
+    sections = list(attempt.module.sections.order_by("order", "pk").prefetch_related("questions__options"))
+    global_counter = 1
+    for section in sections:
+        q_list, global_counter = annotate_question_groups(
+            section.questions.order_by("order", "pk"),
+            start_counter=global_counter
+        )
+        section.annotated_questions = q_list
+
     saved_answers = list(
         CandidateAnswer.objects.filter(attempt=attempt).values(
             "question_id", "answer_text", "is_flagged"
@@ -563,8 +650,14 @@ def exam_result(request, attempt_id):
     for section in sections:
         sec_correct = 0
         sec_total = 0
+        questions_list, next_counter = annotate_question_groups(
+            section.questions.order_by("order", "pk"),
+            start_counter=global_counter
+        )
+        global_counter = next_counter
+
         questions_data = []
-        for q in section.questions.order_by("order", "pk"):
+        for q in questions_list:
             ans = answers.get(q.pk)
             candidate_answer = ans.answer_text if ans else ""
             is_correct = bool(ans and ans.is_correct)
@@ -577,22 +670,51 @@ def exam_result(request, attempt_id):
                 wrong_count += 1
             sec_total += 1
 
+            cand_norm = candidate_answer.strip().upper()
+            corr_norm = (q.correct_answer or "").strip().upper()
+
+            if q.question_type == Question.QuestionType.TRUE_FALSE_NOT_GIVEN:
+                display_options = [
+                    {"key": "TRUE", "text": "TRUE", "is_correct": corr_norm == "TRUE"},
+                    {"key": "FALSE", "text": "FALSE", "is_correct": corr_norm == "FALSE"},
+                    {"key": "NOT GIVEN", "text": "NOT GIVEN", "is_correct": corr_norm == "NOT GIVEN"},
+                ]
+            elif q.question_type == Question.QuestionType.YES_NO_NOT_GIVEN:
+                display_options = [
+                    {"key": "YES", "text": "YES", "is_correct": corr_norm == "YES"},
+                    {"key": "NO", "text": "NO", "is_correct": corr_norm == "NO"},
+                    {"key": "NOT GIVEN", "text": "NOT GIVEN", "is_correct": corr_norm == "NOT GIVEN"},
+                ]
+            elif q.options.exists():
+                cand_keys = [x.strip().upper() for x in candidate_answer.split(";;;") if x.strip()]
+                display_options = [
+                    {
+                        "key": opt.option_key,
+                        "text": f"{opt.option_key}. {opt.option_text}",
+                        "is_correct": opt.is_correct,
+                        "is_selected": opt.option_key.strip().upper() in cand_keys,
+                    }
+                    for opt in q.options.order_by("order", "option_key")
+                ]
+            else:
+                display_options = []
+
+            if display_options and q.question_type in (Question.QuestionType.TRUE_FALSE_NOT_GIVEN, Question.QuestionType.YES_NO_NOT_GIVEN):
+                for opt in display_options:
+                    opt["is_selected"] = (opt["key"] == cand_norm)
+
             questions_data.append({
                 "question": q,
-                "global_num": global_counter,
+                "global_num": q.global_num,
+                "blank_count": getattr(q, "blank_count", 1),
+                "group_header": getattr(q, "group_header", None),
                 "candidate_answer": candidate_answer,
                 "is_correct": is_correct,
                 "is_blank": is_blank,
                 "explanation": q.explanation,
+                "display_options": display_options,
                 "options": list(q.options.order_by("order", "option_key")),
             })
-            blank_step = 1
-            if q.question_type == Question.QuestionType.FILL_BLANK:
-                import re
-                p_count = len(re.findall(r"_{3,}", q.question_text))
-                a_count = len([x for x in q.correct_answer.split(";;;") if x.strip()])
-                blank_step = max(p_count, a_count, q.answer_count or 1, 1)
-            global_counter += blank_step
 
         sections_data.append({
             "section": section,

@@ -221,8 +221,12 @@ class QuestionAdminForm(forms.ModelForm):
                 "style": "width: 100%; max-width: 850px; font-family: monospace; font-size: 12.5px; box-sizing: border-box;",
             }),
             "explanation": forms.Textarea(attrs={
-                "rows": 3,
-                "placeholder": "Explanation shown to candidates on their test result page explaining why this is the correct answer.",
+                "rows": 4,
+                "placeholder": (
+                    "Explanation shown to candidates on their test result page.\n"
+                    "• Single question: Enter the explanation text.\n"
+                    "• Multiple blanks in one question: Wrap each blank's explanation in double quotes \"...\" \"...\" or separate with ;;; or prefix with Q{num} headers (e.g. Q23: ... Q24: ...)."
+                ),
                 "style": "width: 100%; max-width: 850px; box-sizing: border-box;",
             }),
         }
