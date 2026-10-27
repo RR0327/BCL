@@ -15,6 +15,7 @@ class Command(BaseCommand):
         group.add_argument('--audit', action='store_true', help='Check readiness of all test slots')
         group.add_argument('--import-json', metavar='FILE', help='Import one new test from a JSON file')
         parser.add_argument('--publish', action='store_true', help='Publish only if imported test is complete')
+        parser.add_argument('--overwrite', action='store_true', help='Allow overwriting an existing populated or published test slot')
         parser.add_argument('--dry-run', action='store_true', help='Roll back changes after validation')
 
     def handle(self, *args, **options):
@@ -30,7 +31,7 @@ class Command(BaseCommand):
                 elif options['import_json']:
                     path = Path(options['import_json'])
                     data = json.loads(path.read_text(encoding='utf-8'))
-                    test = import_test(data, publish=options['publish'])
+                    test = import_test(data, publish=options['publish'], overwrite=options.get('overwrite', False))
                     self.stdout.write(f'Imported test {test.test_number}; published={test.is_published}')
                 else:
                     for test in IELTSMockTest.objects.all():

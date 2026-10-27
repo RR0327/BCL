@@ -49,6 +49,24 @@ class TestBankTests(TestCase):
             import_test(payload)
         self.assertEqual(IELTSMockTest.objects.get(test_number=1).modules.count(), 1)
 
+    def test_overwrite_unpublishes_existing_test(self):
+        test = import_test({
+            'test_number': 1,
+            'title': 'Original',
+            'modules': [{'module_type': 'reading', 'sections': []}],
+        })
+        test.is_published = True
+        test.save(update_fields=['is_published'])
+
+        updated = import_test({
+            'test_number': 1,
+            'title': 'Replacement',
+            'modules': [{'module_type': 'reading', 'sections': []}],
+        }, overwrite=True)
+
+        self.assertEqual(updated.title, 'Replacement')
+        self.assertFalse(updated.is_published)
+
     def test_failed_publish_rolls_back(self):
         with self.assertRaises(ValidationError):
             import_test({'test_number': 1, 'title': 'Incomplete', 'modules': []}, publish=True)

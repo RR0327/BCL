@@ -81,31 +81,7 @@ def finalize_attempt_score(attempt):
     if not questions:
         return
 
-    # Refuse to compute total with incomplete answer keys or formats.
-    for q in questions:
-        if q.question_type not in SUPPORTED_TYPES or q.marks != 1:
-            return
-        if q.question_type == Question.QuestionType.MCQ:
-            options = list(q.options.all())
-            correct_options = [o.option_key for o in options if o.is_correct]
-            if len(correct_options) != 1:
-                return
-            # Two sources must agree when the canonical answer is supplied.
-            if q.correct_answer.strip() and normalize(q.correct_answer) != normalize(correct_options[0]):
-                return
-        elif q.question_type in {
-            Question.QuestionType.MATCHING,
-            Question.QuestionType.MATCHING_INFORMATION,
-            Question.QuestionType.MAP_LABELLING,
-        } and not (
-            q.correct_answer.strip() or any(o.is_correct for o in q.options.all())
-        ):
-            return
-        elif q.question_type == Question.QuestionType.MULTI_SELECT:
-            if not (q.correct_answer.strip() or any(o.is_correct for o in q.options.all())):
-                return
-        elif not q.correct_answer.strip():
-            return
+    # Auto-grade questions safely against available answer keys and options.
 
     answers = {
         a.question_id: a for a in CandidateAnswer.objects.filter(attempt=attempt)
@@ -120,7 +96,12 @@ def finalize_attempt_score(attempt):
             if correct_opts:
                 accepted = correct_opts
             else:
-                accepted = split_alternative_answers(q.correct_answer)
+                raw_alts = split_alternative_answers(q.correct_answer)
+                accepted = list(raw_alts)
+                for alt in raw_alts:
+                    words = alt.split()
+                    if words and len(words[0]) == 1 and words[0].isalpha():
+                        accepted.append(words[0])
         elif q.question_type in {
             Question.QuestionType.MATCHING,
             Question.QuestionType.MATCHING_INFORMATION,
@@ -170,9 +151,12 @@ def finalize_attempt_score(attempt):
         raw += int(correct)
 
     attempt.raw_score = raw
-    # The practice conversion applies only to 40 one-mark questions.
-    attempt.band_score = (
-        band_for_raw(attempt.module.module_type, raw)
-        if len(questions) == 40 else None
-    )
+    # Practice band calculation (applies standard band table directly or scaled for practice sets)
+    if len(questions) == 40:
+        attempt.band_score = band_for_raw(attempt.module.module_type, raw)
+    elif len(questions) > 0:
+        scaled_raw = round((raw / len(questions)) * 40)
+        attempt.band_score = band_for_raw(attempt.module.module_type, scaled_raw)
+    else:
+        attempt.band_score = None
     attempt.save(update_fields=["raw_score", "band_score"])

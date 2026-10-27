@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 from django.core.management.base import BaseCommand, CommandError
 from bcl.models import Question
-from bcl.testbank import MODULES, EXPECTED_SECTIONS, EXPECTED_QUESTIONS
+from bcl.testbank import MODULES, EXPECTED_SECTIONS, EXPECTED_QUESTIONS, QUESTION_TYPE_ALIASES
 
 PLACEHOLDERS = ('insert ', 'placeholder', 'lorem ipsum', 'todo:')
 
@@ -59,7 +59,8 @@ def validate_payload(data):
                 if not isinstance(question, dict):
                     issues.append(f'{qlabel}: must be an object')
                     continue
-                qtype = question.get('question_type')
+                raw_qtype = str(question.get('question_type', '')).strip().lower()
+                qtype = QUESTION_TYPE_ALIASES.get(raw_qtype, raw_qtype)
                 if qtype not in Question.QuestionType.values:
                     issues.append(f'{qlabel}: unsupported question type')
                 if not _valid_text(question.get('question_text')):

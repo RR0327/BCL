@@ -23,6 +23,23 @@
         })();
     </script>
     <style>
+        .passage-excerpt-highlight {
+            background-color: rgba(56, 189, 248, 0.18);
+            border: 1px solid rgba(56, 189, 248, 0.5);
+            border-radius: 6px;
+            padding: 2px 4px;
+            margin: 0 1px;
+            display: inline;
+            transition: all 0.2s ease;
+        }
+        .passage-excerpt-highlight:hover {
+            background-color: rgba(56, 189, 248, 0.32);
+            box-shadow: 0 2px 6px rgba(56, 189, 248, 0.25);
+        }
+        .dark .passage-excerpt-highlight {
+            background-color: rgba(14, 165, 233, 0.22);
+            border-color: rgba(14, 165, 233, 0.5);
+        }
         .review-q-pill {
             width: 28px;
             height: 28px;
@@ -799,7 +816,7 @@
                             </div>
                             {% endif %}
 
-                            <div id="q-{{ q_item.global_num }}" class="review-question-card {% if q_item.question.question_type == 'fill_blank' %}is-fill-blank{% elif q_item.is_correct %}is-correct{% else %}is-wrong{% endif %}" data-question-type="{{ q_item.question.question_type }}">
+                            <div id="q-{{ q_item.global_num }}" class="review-question-card {% if q_item.question.question_type == 'fill_blank' %}is-fill-blank{% elif q_item.is_correct %}is-correct{% else %}is-wrong{% endif %}" data-question-type="{{ q_item.question.question_type }}" data-passage-excerpt="{{ q_item.question.passage_excerpt|default:''|escape }}" data-global-num="{{ q_item.global_num }}" data-answer-location="{{ q_item.question.answer_location|default:''|escape }}">
                                 {% if q_item.question.question_type == 'fill_blank' %}
                                 <!-- Interactive Fill-In-The-Blanks Review Layout matching Image 3 -->
                                 <div class="fill-blank-review-interactive"
@@ -861,8 +878,86 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
                                         </svg>
                                     </button>
-                                    <div id="exp-{{ q_item.global_num }}" class="explanation-box mt-2 p-3.5 rounded-xl bg-sky-50/60 dark:bg-zinc-800 border border-sky-100 dark:border-zinc-700 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed" hidden>
-                                        {% if q_item.explanation %}
+                                    <div id="exp-{{ q_item.global_num }}" class="explanation-box mt-2 p-4 rounded-xl bg-sky-50/60 dark:bg-zinc-800 border border-sky-100 dark:border-zinc-700 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed" hidden>
+                                        {% if q_item.question.has_rich_explanation %}
+                                        <div class="space-y-3.5">
+                                            {% if q_item.question.answer_location %}
+                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                                                <span>📖</span>
+                                                <span>Answer location &mdash; {{ q_item.question.answer_location }}</span>
+                                            </div>
+                                            {% endif %}
+
+                                            {% if q_item.question.passage_excerpt %}
+                                            <div>
+                                                <div class="text-[11px] font-bold uppercase tracking-wider text-teal-600 dark:text-teal-400 mb-1 flex items-center justify-between">
+                                                    <span>Passage Excerpt</span>
+                                                    <button type="button" class="text-[11px] font-normal normal-case text-sky-600 hover:underline cursor-pointer locate-passage-btn" data-target-q="{{ q_item.global_num }}">
+                                                        Highlight in passage &rarr;
+                                                    </button>
+                                                </div>
+                                                <div class="border-l-4 border-teal-500 pl-3.5 py-1.5 text-slate-700 dark:text-slate-200 italic bg-teal-50/40 dark:bg-teal-950/20 rounded-r-lg">
+                                                    &ldquo;{{ q_item.question.passage_excerpt }}&rdquo;
+                                                </div>
+                                            </div>
+                                            {% endif %}
+
+                                            {% if q_item.question.what_question_asks %}
+                                            <div>
+                                                <div class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-rose-600 dark:text-rose-400 mb-1">
+                                                    <span>❓</span>
+                                                    <span>What the question asks</span>
+                                                </div>
+                                                <div class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed pl-5">
+                                                    {{ q_item.question.what_question_asks|linebreaksbr }}
+                                                </div>
+                                            </div>
+                                            {% endif %}
+
+                                            {% if q_item.question.what_passage_says %}
+                                            <div>
+                                                <div class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-slate-700 dark:text-slate-300 mb-1">
+                                                    <span>📄</span>
+                                                    <span>What the passage says</span>
+                                                </div>
+                                                <div class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed pl-5">
+                                                    {{ q_item.question.what_passage_says|linebreaksbr }}
+                                                </div>
+                                            </div>
+                                            {% endif %}
+
+                                            {% if q_item.question.why_answer %}
+                                            <div>
+                                                <div class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-emerald-600 dark:text-emerald-400 mb-1">
+                                                    <span>✅</span>
+                                                    <span>Why this is the answer</span>
+                                                </div>
+                                                <div class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed pl-5">
+                                                    {{ q_item.question.why_answer|linebreaksbr }}
+                                                </div>
+                                            </div>
+                                            {% endif %}
+
+                                            {% if q_item.question.paraphrase %}
+                                            <div>
+                                                <span class="text-[11px] font-bold uppercase tracking-wider text-teal-600 dark:text-teal-400 block mb-1">Paraphrase</span>
+                                                <div class="p-2.5 rounded-lg bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 font-mono text-xs text-slate-800 dark:text-slate-200 overflow-x-auto whitespace-pre-wrap">
+                                                    {{ q_item.question.paraphrase }}
+                                                </div>
+                                            </div>
+                                            {% endif %}
+
+                                            {% if q_item.question.tip %}
+                                            <div>
+                                                <span class="text-[11px] font-bold uppercase tracking-wider text-teal-600 dark:text-teal-400 block mb-1">Tip</span>
+                                                <div class="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/60 text-xs sm:text-sm text-amber-900 dark:text-amber-200 leading-relaxed flex items-start gap-2">
+                                                    <span class="text-base shrink-0">💡</span>
+                                                    <div>{{ q_item.question.tip }}</div>
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                        {% elif q_item.explanation %}
                                             {{ q_item.explanation|linebreaks }}
                                         {% else %}
                                             <p class="italic text-slate-400">Correct answer: <strong>{{ q_item.question.correct_answer }}</strong></p>
@@ -945,8 +1040,86 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
                                         </svg>
                                     </button>
-                                    <div id="exp-{{ q_item.global_num }}" class="explanation-box mt-2 p-3.5 rounded-xl bg-sky-50/60 dark:bg-zinc-800 border border-sky-100 dark:border-zinc-700 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed" hidden>
-                                        {% if q_item.explanation %}
+                                    <div id="exp-{{ q_item.global_num }}" class="explanation-box mt-2 p-4 rounded-xl bg-sky-50/60 dark:bg-zinc-800 border border-sky-100 dark:border-zinc-700 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed" hidden>
+                                        {% if q_item.question.has_rich_explanation %}
+                                        <div class="space-y-3.5">
+                                            {% if q_item.question.answer_location %}
+                                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                                                <span>📖</span>
+                                                <span>Answer location &mdash; {{ q_item.question.answer_location }}</span>
+                                            </div>
+                                            {% endif %}
+
+                                            {% if q_item.question.passage_excerpt %}
+                                            <div>
+                                                <div class="text-[11px] font-bold uppercase tracking-wider text-teal-600 dark:text-teal-400 mb-1 flex items-center justify-between">
+                                                    <span>Passage Excerpt</span>
+                                                    <button type="button" class="text-[11px] font-normal normal-case text-sky-600 hover:underline cursor-pointer locate-passage-btn" data-target-q="{{ q_item.global_num }}">
+                                                        Highlight in passage &rarr;
+                                                    </button>
+                                                </div>
+                                                <div class="border-l-4 border-teal-500 pl-3.5 py-1.5 text-slate-700 dark:text-slate-200 italic bg-teal-50/40 dark:bg-teal-950/20 rounded-r-lg">
+                                                    &ldquo;{{ q_item.question.passage_excerpt }}&rdquo;
+                                                </div>
+                                            </div>
+                                            {% endif %}
+
+                                            {% if q_item.question.what_question_asks %}
+                                            <div>
+                                                <div class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-rose-600 dark:text-rose-400 mb-1">
+                                                    <span>❓</span>
+                                                    <span>What the question asks</span>
+                                                </div>
+                                                <div class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed pl-5">
+                                                    {{ q_item.question.what_question_asks|linebreaksbr }}
+                                                </div>
+                                            </div>
+                                            {% endif %}
+
+                                            {% if q_item.question.what_passage_says %}
+                                            <div>
+                                                <div class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-slate-700 dark:text-slate-300 mb-1">
+                                                    <span>📄</span>
+                                                    <span>What the passage says</span>
+                                                </div>
+                                                <div class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed pl-5">
+                                                    {{ q_item.question.what_passage_says|linebreaksbr }}
+                                                </div>
+                                            </div>
+                                            {% endif %}
+
+                                            {% if q_item.question.why_answer %}
+                                            <div>
+                                                <div class="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-emerald-600 dark:text-emerald-400 mb-1">
+                                                    <span>✅</span>
+                                                    <span>Why this is the answer</span>
+                                                </div>
+                                                <div class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed pl-5">
+                                                    {{ q_item.question.why_answer|linebreaksbr }}
+                                                </div>
+                                            </div>
+                                            {% endif %}
+
+                                            {% if q_item.question.paraphrase %}
+                                            <div>
+                                                <span class="text-[11px] font-bold uppercase tracking-wider text-teal-600 dark:text-teal-400 block mb-1">Paraphrase</span>
+                                                <div class="p-2.5 rounded-lg bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700 font-mono text-xs text-slate-800 dark:text-slate-200 overflow-x-auto whitespace-pre-wrap">
+                                                    {{ q_item.question.paraphrase }}
+                                                </div>
+                                            </div>
+                                            {% endif %}
+
+                                            {% if q_item.question.tip %}
+                                            <div>
+                                                <span class="text-[11px] font-bold uppercase tracking-wider text-teal-600 dark:text-teal-400 block mb-1">Tip</span>
+                                                <div class="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/60 text-xs sm:text-sm text-amber-900 dark:text-amber-200 leading-relaxed flex items-start gap-2">
+                                                    <span class="text-base shrink-0">💡</span>
+                                                    <div>{{ q_item.question.tip }}</div>
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                        {% elif q_item.explanation %}
                                             {{ q_item.explanation|linebreaks }}
                                         {% else %}
                                             <p class="italic text-slate-400">Correct answer: <strong>{{ q_item.question.correct_answer }}</strong></p>
@@ -1533,7 +1706,73 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
-});
+        // Initialize passage excerpt highlighting
+        highlightPassageExcerpts();
+    });
+
+    function highlightPassageExcerpts() {
+        document.querySelectorAll(".passage-body").forEach((passageEl) => {
+            const partSection = passageEl.closest(".review-part-content");
+            const partId = partSection ? partSection.id : "";
+            const partIndex = partId.replace("part-content-", "");
+            const questionsPart = document.getElementById("questions-part-" + partIndex);
+            if (!questionsPart) return;
+
+            const cards = questionsPart.querySelectorAll(".review-question-card[data-passage-excerpt]");
+            let html = passageEl.innerHTML;
+
+            cards.forEach((card) => {
+                const excerpt = card.dataset.passageExcerpt ? card.dataset.passageExcerpt.trim() : "";
+                const qNum = card.dataset.globalNum;
+                if (!excerpt || excerpt.length < 5) return;
+
+                // Escape regex special chars & match with flexible whitespace
+                const escaped = excerpt.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+");
+                const regex = new RegExp(`(${escaped})`, "i");
+
+                if (regex.test(html)) {
+                    html = html.replace(regex, (match) => {
+                        return `<mark class="passage-excerpt-highlight cursor-pointer" data-q="${qNum}" id="passage-hl-${qNum}" title="Click to view explanation for Question ${qNum}"><span class="q-badge inline-flex items-center justify-center text-[10px] font-bold px-1.5 py-0.5 rounded mr-1 shadow-sm bg-sky-500 text-white">Q${qNum}</span><span class="hl-content">${match}</span></mark>`;
+                    });
+                }
+            });
+
+            passageEl.innerHTML = html;
+        });
+
+        // Clicking a passage highlight scrolls to question & opens explanation
+        document.addEventListener("click", (e) => {
+            const mark = e.target.closest(".passage-excerpt-highlight");
+            if (!mark) return;
+            const qNum = mark.dataset.q;
+            const qCard = document.getElementById("q-" + qNum);
+            if (qCard) {
+                qCard.scrollIntoView({ behavior: "smooth", block: "center" });
+                qCard.classList.add("ring-2", "ring-sky-500");
+                setTimeout(() => qCard.classList.remove("ring-2", "ring-sky-500"), 2000);
+
+                const expBtn = qCard.querySelector(".explanation-btn");
+                const expBox = document.getElementById("exp-" + qNum);
+                if (expBox && expBox.hidden && expBtn) {
+                    expBtn.click();
+                }
+            }
+        });
+
+        // Clicking "Highlight in passage" inside explanation scrolls to the highlight
+        document.addEventListener("click", (e) => {
+            const btn = e.target.closest(".locate-passage-btn");
+            if (!btn) return;
+            const qNum = btn.dataset.targetQ;
+            const hl = document.getElementById("passage-hl-" + qNum);
+            if (hl) {
+                hl.scrollIntoView({ behavior: "smooth", block: "center" });
+                hl.classList.add("ring-4", "ring-amber-400");
+                setTimeout(() => hl.classList.remove("ring-4", "ring-amber-400"), 2500);
+            }
+        });
+    }
+
 </script>
 </body>
 </html>

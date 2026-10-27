@@ -229,6 +229,36 @@ class QuestionAdminForm(forms.ModelForm):
                 ),
                 "style": "width: 100%; max-width: 850px; box-sizing: border-box;",
             }),
+            "passage_excerpt": forms.Textarea(attrs={
+                "rows": 3,
+                "placeholder": "Exact passage excerpt/sentence to highlight in the passage on review.",
+                "style": "width: 100%; max-width: 850px; box-sizing: border-box;",
+            }),
+            "what_question_asks": forms.Textarea(attrs={
+                "rows": 3,
+                "placeholder": "Key requirements or keywords of what the question asks.",
+                "style": "width: 100%; max-width: 850px; box-sizing: border-box;",
+            }),
+            "what_passage_says": forms.Textarea(attrs={
+                "rows": 3,
+                "placeholder": "What the passage states related to this question.",
+                "style": "width: 100%; max-width: 850px; box-sizing: border-box;",
+            }),
+            "why_answer": forms.Textarea(attrs={
+                "rows": 3,
+                "placeholder": "Detailed justification of why this answer is correct.",
+                "style": "width: 100%; max-width: 850px; box-sizing: border-box;",
+            }),
+            "paraphrase": forms.Textarea(attrs={
+                "rows": 2,
+                "placeholder": "e.g. question: 'unique to the island' -> passage: 'six are found only there'",
+                "style": "width: 100%; max-width: 850px; font-family: monospace; box-sizing: border-box;",
+            }),
+            "tip": forms.Textarea(attrs={
+                "rows": 2,
+                "placeholder": "Exam tip or trap warning for this question.",
+                "style": "width: 100%; max-width: 850px; box-sizing: border-box;",
+            }),
         }
 
 
@@ -813,6 +843,25 @@ class QuestionAdmin(QuestionSetterBaseAdmin):
                     "• YES / NO / NOT GIVEN: Enter YES, NO, or NOT GIVEN.\n"
                     "• MATCHING / MATCHING INFO: Enter the matching option key (e.g. B or iv).\n"
                     "• WRITING / ESSAY: Leave blank (evaluated manually by staff examiner)."
+                ),
+            },
+        ),
+        (
+            "5. Detailed Explanation & Passage Highlighting (Optional)",
+            {
+                "fields": (
+                    "answer_location",
+                    "passage_excerpt",
+                    "what_question_asks",
+                    "what_passage_says",
+                    "why_answer",
+                    "paraphrase",
+                    "tip",
+                ),
+                "classes": ("collapse",),
+                "description": (
+                    "Structured explanation fields for interactive candidate review. "
+                    "When provided, 'passage_excerpt' is automatically highlighted in the reading passage."
                 ),
             },
         ),

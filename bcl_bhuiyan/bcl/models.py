@@ -134,6 +134,47 @@ class Question(models.Model):
     marks = models.PositiveIntegerField(default=1)
     correct_answer = models.TextField(blank=True, help_text="Canonical answer for auto-marked questions. Leave blank for manually evaluated writing.")
     explanation = models.TextField(blank=True)
+    passage_excerpt = models.TextField(
+        blank=True,
+        help_text="Exact excerpt from the passage used to highlight the text in the passage.",
+    )
+    answer_location = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="Location in passage, e.g. 'Paragraph 1'.",
+    )
+    what_question_asks = models.TextField(
+        blank=True,
+        help_text="Analysis of what the question asks.",
+    )
+    what_passage_says = models.TextField(
+        blank=True,
+        help_text="Breakdown of relevant passage statement.",
+    )
+    why_answer = models.TextField(
+        blank=True,
+        help_text="Detailed justification of why this answer is correct.",
+    )
+    paraphrase = models.TextField(
+        blank=True,
+        help_text="Paraphrase mapping, e.g. question -> passage.",
+    )
+    tip = models.TextField(
+        blank=True,
+        help_text="Exam tip or trap alert.",
+    )
+
+    @property
+    def has_rich_explanation(self):
+        return bool(
+            self.passage_excerpt
+            or self.answer_location
+            or self.what_question_asks
+            or self.what_passage_says
+            or self.why_answer
+            or self.paraphrase
+            or self.tip
+        )
 
     class Meta:
         ordering = ["order", "id"]

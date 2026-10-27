@@ -360,30 +360,49 @@ def save_exam_answer(request, attempt_id):
         value = answer_text.strip()
         if question.question_type == Question.QuestionType.MCQ and value:
             valid_keys = {option.option_key for option in question.options.all()}
-            if value not in valid_keys:
-                return JsonResponse({"error": "Invalid option selection."}, status=400)
+            if valid_keys and value not in valid_keys:
+                if value.upper() in {k.upper() for k in valid_keys}:
+                    value = value.upper()
+                else:
+                    return JsonResponse({"error": "Invalid option selection."}, status=400)
         if question.question_type == Question.QuestionType.MULTI_SELECT and value:
             valid_keys = {option.option_key for option in question.options.all()}
             selected_keys = [k.strip() for k in value.split(";;;") if k.strip()]
-            if not selected_keys or any(k not in valid_keys for k in selected_keys):
+            if valid_keys and (not selected_keys or any(k not in valid_keys and k.upper() not in {vk.upper() for vk in valid_keys} for k in selected_keys)):
                 return JsonResponse({"error": "Invalid multi-select selection."}, status=400)
         if question.question_type == Question.QuestionType.MAP_LABELLING and value:
             valid_keys = {option.option_key for option in question.options.all()}
             if valid_keys and value not in valid_keys:
-                return JsonResponse({"error": "Invalid map label selection."}, status=400)
+                if value.upper() in {k.upper() for k in valid_keys}:
+                    value = value.upper()
+                else:
+                    return JsonResponse({"error": "Invalid map label selection."}, status=400)
         if question.question_type == Question.QuestionType.TRUE_FALSE_NOT_GIVEN and value:
-            if value not in {"TRUE", "FALSE", "NOT GIVEN"}:
+            val_upper = value.upper()
+            if val_upper in {"TRUE", "FALSE", "NOT GIVEN"}:
+                value = val_upper
+            elif val_upper in {"T", "F", "NG"}:
+                value = {"T": "TRUE", "F": "FALSE", "NG": "NOT GIVEN"}[val_upper]
+            else:
                 return JsonResponse({"error": "Invalid TFNG answer."}, status=400)
         if question.question_type == Question.QuestionType.YES_NO_NOT_GIVEN and value:
-            if value not in {"YES", "NO", "NOT GIVEN"}:
+            val_upper = value.upper()
+            if val_upper in {"YES", "NO", "NOT GIVEN"}:
+                value = val_upper
+            elif val_upper in {"Y", "N", "NG"}:
+                value = {"Y": "YES", "N": "NO", "NG": "NOT GIVEN"}[val_upper]
+            else:
                 return JsonResponse({"error": "Invalid YNNG answer."}, status=400)
         if question.question_type in {
             Question.QuestionType.MATCHING,
             Question.QuestionType.MATCHING_INFORMATION,
         } and value:
             valid_keys = {option.option_key for option in question.options.all()}
-            if value not in valid_keys:
-                return JsonResponse({"error": "Invalid matching selection."}, status=400)
+            if valid_keys and value not in valid_keys:
+                if value.upper() in {k.upper() for k in valid_keys}:
+                    value = value.upper()
+                else:
+                    return JsonResponse({"error": "Invalid matching selection."}, status=400)
 
         saved, _ = CandidateAnswer.objects.update_or_create(
             attempt=attempt,
@@ -637,6 +656,9 @@ def exam_result(request, attempt_id):
         })
 
     # Objective: Reading or Listening
+    if attempt.status != CandidateAttempt.AttemptStatus.IN_PROGRESS and attempt.raw_score is None:
+        finalize_attempt_score(attempt)
+        attempt.refresh_from_db()
     sections = list(module.sections.order_by("order", "pk").prefetch_related("questions__options"))
     answers = {
         a.question_id: a for a in CandidateAnswer.objects.filter(attempt=attempt)

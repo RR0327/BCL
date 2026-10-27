@@ -4,6 +4,7 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 from django_otp.plugins.otp_totp.models import TOTPDevice
 
+@override_settings(STAFF_MFA_REQUIRED=True)
 class StaffSecurityTests(TestCase):
     def setUp(self):
         U = get_user_model()
@@ -50,3 +51,14 @@ class StaffSecurityTests(TestCase):
         self.assertEqual(response.status_code, 302)
         device.refresh_from_db()
         self.assertTrue(device.confirmed)
+
+
+class StaffLoginWithoutMFATests(TestCase):
+    """When STAFF_MFA_REQUIRED is False, staff can access admin with only username and password."""
+
+    def test_staff_can_access_admin_without_mfa(self):
+        U = get_user_model()
+        staff = U.objects.create_user(username='admin_user', password='SafePass123!', is_staff=True, is_superuser=True)
+        self.client.force_login(staff)
+        response = self.client.get('/admin/')
+        self.assertEqual(response.status_code, 200)
