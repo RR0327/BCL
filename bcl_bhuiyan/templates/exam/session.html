@@ -62,10 +62,7 @@
                     <line x1="12" x2="12" y1="17" y2="21"></line>
                 </svg>
             </button>
-            <button type="button" class="ask-aria-btn flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-200/60 hover:from-indigo-500/20 hover:to-purple-500/20 hover:shadow-sm transition-all duration-200" title="AI Exam Assistant">
-                <span class="text-sm font-semibold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Ask Aria</span>
-            </button>
-            <div class="relative inline-block">
+            {% comment %}
                 <button type="button" class="help-btn flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/10 to-green-500/10 border border-emerald-200/60 hover:from-emerald-500/20 hover:to-green-500/20 hover:shadow-sm transition-all duration-200" title="Support assistance">
                     <span class="text-emerald-600">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -74,7 +71,7 @@
                     </span>
                     <span class="text-sm font-semibold bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">Help</span>
                 </button>
-            </div>
+            {% endcomment %}
         </div>
     </header>
 
@@ -381,7 +378,7 @@
                                     {% if section.passage_instructions %}{{ section.passage_instructions }}{% else %}{{ section.instructions }}{% endif %}
                                 </p>
                                 {% endif %}
-                                {% if section.passage %}
+                                {% if section.passage and module.module_type != 'listening' %}
                                 <div class="mt-3 p-3 rounded-lg bg-blue-50/50 dark:bg-zinc-900/50 border border-blue-100 dark:border-zinc-700/60 text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
                                     {{ section.passage|linebreaks }}
                                 </div>
