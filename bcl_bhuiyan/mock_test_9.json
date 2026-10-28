@@ -1,0 +1,1480 @@
+{
+  "test_number": 9,
+  "title": "IELTS Academic Mock Test 9",
+  "description": "IELTS Academic Reading test transcribed from the supplied PBI Reading Test PDF. Includes The Blockbuster Phenomenon, How Do We Find Our Way?, and How a Prehistoric Predator Took to the Skies. The printed key lists unavailable choices for Passage 1 Questions 11?13; those were checked against the passage and keyed to the supported options.",
+  "modules": [
+    {
+      "module_type": "reading",
+      "duration_minutes": 60,
+      "instructions": "Read each passage and answer the questions.",
+      "sections": [
+        {
+          "order": 1,
+          "title": "Reading Passage 1: The Blockbuster Phenomenon: A New Museum Trend",
+          "passage_instructions": "You should spend about 20 minutes on Questions 1?13, which are based on Reading Passage 1 below.",
+          "passage": "A. Since the 1980s, the term \"blockbuster\" has become the fashionable word for special spectacular museum, art gallery or science centre exhibitions. These exhibitions have the ability to attract large crowds and often large corporate sponsors. Here is one of some existing definitions of blockbuster: Put by Elsen (1984), a blockbuster is a \"large scale loan exhibition that people who normally don't go to museums will stand in line for hours to see\". James Rosenfield, writing in Direct Marketing in 1993, has described a successful blockbuster exhibition as a \"triumph of both curatorial and marketing skills\".\n\nMy own definition for blockbuster is \"a popular, high profile exhibition on display for a limited period, that attracts the general public, who are prepared to both stand in line and pay a fee in order to partake in the exhibition.\" What both Elsen and Rosenfield omit in the descriptions of blockbusters is that people are prepared to pay a fee to see a blockbuster, and that the term blockbuster can just as easily apply to a movie or a museum exhibition.\n\nB. Merely naming an exhibition or movie a blockbuster, however, does not make it a blockbuster. The term can only apply when the item in question has had an overwhelmingly successful response from the public. However, in literature from both the UK and USA, the other words that also start to appear in descriptions of blockbusters are \"less scholarly\", \"non-elitist\" and \"popularist\".\n\nDetractors argue that blockbusters are designed to appeal to the lowest common denominator, while others extol the virtues of encouraging scholars to cooperate on projects, and to provide exhibitions that cater for a broad selection of the community rather than an elite sector.\n\nC. Maintaining and increasing visitor levels is paramount in the new museology. This requires continued product development. Not only the creation or hiring of blockbuster exhibitions, but regular exhibition changes and innovations. In addition, the visiting publics have become customers rather than visitors, and the skills that are valued in museums, science centres and galleries to keep the new customers coming through the door have changed.\n\nHigh on the list of requirements are commercial, business, marketing and entrepreneurial skills. Curators are now administrators. Being a director of an art gallery no longer requires an Art Degree. As succinctly summarised in the Economist in 1994, \"business nous and public relation skills\" were essential requirements for a director, and the ability to compete with other museums to stage travelling exhibitions which draw huge crowds.\n\nD. The new museology has resulted in the convergence of museums, the heritage industry, and tourism, profit-making and pleasure-giving. This has given rise to much debate about the appropriateness of adapting the activities of institutions so that they more closely reflect the priorities of the market place and whether it is appropriate to see museums primarily as tourist attractions. At many institutions you can now hold office functions in the display areas, or have dinner with the dinosaurs.\n\nWhatever commentators may think, managers of museums, art galleries and science centres worldwide are looking for artful ways to blend culture and commerce, and blockbuster exhibitions are at the top of the list. But while blockbusters are all part of the new museology, there is proof that you don't need a museum, science centre or art gallery to benefit from the drawing power of a blockbuster.\n\nE. But do blockbusters held in public institutions really create a surplus to fund other activities? If the bottom line is profit, then according to the accounting records of many major museums and galleries, blockbusters do make money. For some museums overseas, it may be the money that they need to update parts of their collections or to repair buildings that are in need of attention.\n\nFor others in Australia, it may be the opportunity to illustrate that they are attempting to pay their way, by recovering part of their operating costs, or funding other operating activities with off budget revenue. This makes the economic rationalists cheerful. However, not all exhibitions that are hailed to be blockbusters will be blockbusters, and some will not make money. It is also unlikely that the accounting systems of most institutions will recognise the real cost of either creating or hiring a blockbuster.\n\nF. Blockbusters require large capital expenditure, and draw on resources across all branches of an organisation; however, the costs don't end there. There is a Human Resource Management cost in addition to a measurable \"real\" dollar cost. Receiving a touring exhibition involves large expenditure as well, and draws resources from across functional management structures in project management style. Everyone from a general labourer to a building servicing unit, the front of house, technical, promotion, education and administration staff are required to perform additional tasks.\n\nFurthermore, as an increasing number of institutions in Australia try their hand at increasing visitor numbers, memberships (and therefore revenue), by staging blockbuster exhibitions, it may be less likely that blockbusters will continue to provide a surplus to subsidise other activities due to the competitive nature of the market. There are only so many consumer dollars to go around, and visitors will need to choose between blockbuster products.\n\nG. Unfortunately, when the bottom-line is the most important objective to the mounting of blockbuster exhibitions, this same objective can be hard to maintain. Creating, mounting or hiring blockbusters is exhausting for staff, with the real costs throughout an institution difficult to calculate. Although the direct aims may be financial, creating or hiring a blockbuster has many positive spinoffs; by raising their profile through a popular blockbuster exhibition, a museum will be seen in a more favourable light at budget time. Blockbusters mean crowds, and crowds are good for the local economy, providing increased employment for shops, hotels, restaurants, the transport industry and retailers.\n\nBlockbusters expose staff to the vagaries and pressures of the market place, and may lead to creative excellence. Either the success or failure of a blockbuster may highlight the need for managers and policy makers to rethink their strategies. However, the new museology and the apparent trend towards blockbusters make it likely that museums, art galleries and particularly science centres will be seen as part of the entertainment and tourism industry, rather than as cultural icons deserving of government and philanthropic support.\n\nH. Perhaps the best pathway to take is one that balances both blockbusters and regular exhibitions. However, this easy middle ground may only work if you have enough space, and have alternate sources of funding to continue to support the regular less exciting fare. Perhaps the advice should be to make sure that your regular activities and exhibitions are more enticing, and find out what your local community wants from you. The question (trend) now at most museums and science centres is \"What blockbusters can we tour to overseas venues and will it be cost effective?\"",
+          "questions": [
+            {
+              "order": 1,
+              "question_type": "matching_information",
+              "question_text": "A reason for changing the exhibition programmes.",
+              "correct_answer": "C",
+              "question_instructions": "Which paragraph, A?H, contains the information? A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "Paragraph G",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "Paragraph H",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph C contains the relevant information: \"Not only the creation or hiring of blockbuster exhibitions, but regular exhibition changes and innovations.\" It describes A reason for changing the exhibition programmes, which is why this paragraph is the match.",
+              "why_answer": "Paragraph C contains the relevant information: \"Not only the creation or hiring of blockbuster exhibitions, but regular exhibition changes and innovations.\" It describes A reason for changing the exhibition programmes, which is why this paragraph is the match."
+            },
+            {
+              "order": 2,
+              "question_type": "matching_information",
+              "question_text": "The time people have to wait in a queue in order to enjoy exhibitions.",
+              "correct_answer": "A",
+              "question_instructions": "Which paragraph, A?H, contains the information? A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "Paragraph G",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "Paragraph H",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph A contains the relevant information: \"Here is one of some existing definitions of blockbuster: Put by Elsen (1984), a blockbuster is a \"large scale loan exhibition that people who normally don't go to museums will stand in line for hours to see\".\" It describes The time people have to wait in a queue in order to enjoy exhibitions, which is why this paragraph is the match.",
+              "why_answer": "Paragraph A contains the relevant information: \"Here is one of some existing definitions of blockbuster: Put by Elsen (1984), a blockbuster is a \"large scale loan exhibition that people who normally don't go to museums will stand in line for hours to see\".\" It describes The time people have to wait in a queue in order to enjoy exhibitions, which is why this paragraph is the match."
+            },
+            {
+              "order": 3,
+              "question_type": "matching_information",
+              "question_text": "Terms people used when referring to blockbuster.",
+              "correct_answer": "D",
+              "question_instructions": "Which paragraph, A?H, contains the information? A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "Paragraph G",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "Paragraph H",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph D contains the relevant information: \"The new museology has resulted in the convergence of museums, the heritage industry, and tourism, profit-making and pleasure-giving.\" It describes Terms people used when referring to blockbuster, which is why this paragraph is the match.",
+              "why_answer": "Paragraph D contains the relevant information: \"The new museology has resulted in the convergence of museums, the heritage industry, and tourism, profit-making and pleasure-giving.\" It describes Terms people used when referring to blockbuster, which is why this paragraph is the match."
+            },
+            {
+              "order": 4,
+              "question_type": "matching_information",
+              "question_text": "Controversy over confining the target groups of blockbusters.",
+              "correct_answer": "C",
+              "question_instructions": "Which paragraph, A?H, contains the information? A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "Paragraph G",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "Paragraph H",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph C contains the relevant information: \"Maintaining and increasing visitor levels is paramount in the new museology.\" It describes Controversy over confining the target groups of blockbusters, which is why this paragraph is the match.",
+              "why_answer": "Paragraph C contains the relevant information: \"Maintaining and increasing visitor levels is paramount in the new museology.\" It describes Controversy over confining the target groups of blockbusters, which is why this paragraph is the match."
+            },
+            {
+              "order": 5,
+              "question_type": "fill_blank",
+              "question_text": "Instead of being visitors, people have become ___.",
+              "correct_answer": "customers",
+              "question_instructions": "Complete the summary. Use NO MORE THAN THREE WORDS from the passage for each answer.",
+              "explanation": "The passage states, \"In addition, the visiting publics have become customers rather than visitors, and the skills that are valued in museums, science centres and galleries to keep the new customers coming through the door have changed.\" This provides \"customers\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"In addition, the visiting publics have become customers rather than visitors, and the skills that are valued in museums, science centres and galleries to keep the new customers coming through the door have changed.\" This provides \"customers\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 6,
+              "question_type": "fill_blank",
+              "question_text": "A director needs business nous and ___ to attract audiences.",
+              "correct_answer": "public relation skills",
+              "question_instructions": "Complete the summary. Use NO MORE THAN THREE WORDS from the passage for each answer.",
+              "explanation": "The passage states, \"As succinctly summarised in the Economist in 1994, \"business nous and public relation skills\" were essential requirements for a director, and the ability to compete with other museums to stage travelling exhibitions which draw huge crowds.\" This provides \"public relation skills\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"As succinctly summarised in the Economist in 1994, \"business nous and public relation skills\" were essential requirements for a director, and the ability to compete with other museums to stage travelling exhibitions which draw huge crowds.\" This provides \"public relation skills\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 7,
+              "question_type": "fill_blank",
+              "question_text": "The linking of museums, heritage industry, tourism, profit-making and pleasure-giving is called ___.",
+              "correct_answer": "museology",
+              "question_instructions": "Complete the summary. Use NO MORE THAN THREE WORDS from the passage for each answer.",
+              "explanation": "The passage states, \"The new museology has resulted in the convergence of museums, the heritage industry, and tourism, profit-making and pleasure-giving.\" This provides \"museology\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"The new museology has resulted in the convergence of museums, the heritage industry, and tourism, profit-making and pleasure-giving.\" This provides \"museology\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 8,
+              "question_type": "fill_blank",
+              "question_text": "There is debate over whether museums should mainly be viewed as ___.",
+              "correct_answer": "tourist attractions",
+              "question_instructions": "Complete the summary. Use NO MORE THAN THREE WORDS from the passage for each answer.",
+              "explanation": "The passage states, \"This has given rise to much debate about the appropriateness of adapting the activities of institutions so that they more closely reflect the priorities of the market place and whether it is appropriate to see museums primarily as tourist attractions.\" This provides \"tourist attractions\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"This has given rise to much debate about the appropriateness of adapting the activities of institutions so that they more closely reflect the priorities of the market place and whether it is appropriate to see museums primarily as tourist attractions.\" This provides \"tourist attractions\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 9,
+              "question_type": "mcq",
+              "question_text": "Which advantage of blockbusters is mentioned by the writer? (First answer.)",
+              "correct_answer": "A",
+              "question_instructions": "The source asks you to choose TWO letters for Questions 9?10; select one answer for each question.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "To provide enough money to repair buildings.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "To maintain and increase visitor levels.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "To blend culture and commerce.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "To benefit local businesses.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "To benefit directors.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"For some museums overseas, it may be the money that they need to update parts of their collections or to repair buildings that are in need of attention.\" This evidence supports option(s) A (To provide enough money to repair buildings.), which answer the question.",
+              "why_answer": "The passage states, \"For some museums overseas, it may be the money that they need to update parts of their collections or to repair buildings that are in need of attention.\" This evidence supports option(s) A (To provide enough money to repair buildings.), which answer the question."
+            },
+            {
+              "order": 10,
+              "question_type": "mcq",
+              "question_text": "Which other advantage of blockbusters is mentioned by the writer?",
+              "correct_answer": "C",
+              "question_instructions": "The source asks you to choose TWO letters for Questions 9?10; select one answer for each question.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "To provide enough money to repair buildings.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "To maintain and increase visitor levels.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "To blend culture and commerce.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "To benefit local businesses.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "To benefit directors.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Whatever commentators may think, managers of museums, art galleries and science centres worldwide are looking for artful ways to blend culture and commerce, and blockbuster exhibitions are at the top of the list.\" This evidence supports option(s) C (To blend culture and commerce.), which answer the question.",
+              "why_answer": "The passage states, \"Whatever commentators may think, managers of museums, art galleries and science centres worldwide are looking for artful ways to blend culture and commerce, and blockbuster exhibitions are at the top of the list.\" This evidence supports option(s) C (To blend culture and commerce.), which answer the question."
+            },
+            {
+              "order": 11,
+              "question_type": "mcq",
+              "question_text": "Which disadvantage of blockbusters is mentioned by the writer? (First answer.)",
+              "correct_answer": "C",
+              "question_instructions": "The source asks you to choose THREE letters for Questions 11?13; one answer is recorded per numbered question.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "People felt hesitant to choose exhibitions.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Workers have become tired of workloads.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "The content has become more entertaining rather than cultural.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "General labourers are required to perform additional tasks.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Huge amounts of capital are invested in specialists.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Staff are exposed to the vagaries and pressures of the marketplace.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"However, the new museology and the apparent trend towards blockbusters make it likely that museums, art galleries and particularly science centres will be seen as part of the entertainment and tourism industry, rather than as cultural icons deserving of government and philanthropic support.\" This evidence supports option(s) C (The content has become more entertaining rather than cultural.), which answer the question.",
+              "why_answer": "The passage states, \"However, the new museology and the apparent trend towards blockbusters make it likely that museums, art galleries and particularly science centres will be seen as part of the entertainment and tourism industry, rather than as cultural icons deserving of government and philanthropic support.\" This evidence supports option(s) C (The content has become more entertaining rather than cultural.), which answer the question."
+            },
+            {
+              "order": 12,
+              "question_type": "mcq",
+              "question_text": "Which other disadvantage is mentioned by the writer? (Second answer.)",
+              "correct_answer": "D",
+              "question_instructions": "The source asks you to choose THREE letters for Questions 11?13; one answer is recorded per numbered question.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "People felt hesitant to choose exhibitions.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Workers have become tired of workloads.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "The content has become more entertaining rather than cultural.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "General labourers are required to perform additional tasks.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Huge amounts of capital are invested in specialists.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Staff are exposed to the vagaries and pressures of the marketplace.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Everyone from a general labourer to a building servicing unit, the front of house, technical, promotion, education and administration staff are required to perform additional tasks.\" This evidence supports option(s) D (General labourers are required to perform additional tasks.), which answer the question.",
+              "why_answer": "The passage states, \"Everyone from a general labourer to a building servicing unit, the front of house, technical, promotion, education and administration staff are required to perform additional tasks.\" This evidence supports option(s) D (General labourers are required to perform additional tasks.), which answer the question."
+            },
+            {
+              "order": 13,
+              "question_type": "mcq",
+              "question_text": "Which further disadvantage is mentioned by the writer? (Third answer.)",
+              "correct_answer": "F",
+              "question_instructions": "The source asks you to choose THREE letters for Questions 11?13; one answer is recorded per numbered question.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "People felt hesitant to choose exhibitions.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Workers have become tired of workloads.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "The content has become more entertaining rather than cultural.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "General labourers are required to perform additional tasks.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Huge amounts of capital are invested in specialists.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Staff are exposed to the vagaries and pressures of the marketplace.",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage states, \"Blockbusters expose staff to the vagaries and pressures of the market place, and may lead to creative excellence.\" This evidence supports option(s) F (Staff are exposed to the vagaries and pressures of the marketplace.), which answer the question.",
+              "why_answer": "The passage states, \"Blockbusters expose staff to the vagaries and pressures of the market place, and may lead to creative excellence.\" This evidence supports option(s) F (Staff are exposed to the vagaries and pressures of the marketplace.), which answer the question."
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Reading Passage 2: How Do We Find Our Way?",
+          "passage_instructions": "You should spend about 20 minutes on Questions 14?26, which are based on Reading Passage 2 below.",
+          "passage": "A. Most modern navigation, such as the Global Positioning System (GPS), relies primarily on positions determined electronically by receivers collecting information from satellites. Yet if the satellite service's digital maps become even slightly outdated, we can become lost. Then we have to rely on the ancient human skill of navigating in three-dimensional space. Luckily, our biological finder has an important advantage over GPS: we can ask questions of people on the sidewalk, or follow a street that looks familiar, or rely on a navigational rubric. The human positioning system is flexible and capable of learning. Anyone who knows the way from point A to point B, and from A to C, can probably figure out how to get from B to C, too.\n\nB. But how does this complex cognitive system really work? Researchers are looking at several strategies people use to orient themselves in space: guidance, path integration and route following. We may use all three or combinations thereof, and as experts learn more about these navigational skills, they are making the case that our abilities may underlie our powers of memory and logical thinking. For example, you come to New York City for the first time and you get off the train at Grand Central Terminal in midtown Manhattan. You have a few hours to see popular spots you have been told about: Rockefeller Center, Central Park, and the Metropolitan Museum of Art. You meander in and out of shops along the way. Suddenly, it is time to get back to the station. But how?\n\nC. If you ask passersby for help, most likely you will receive information in many different forms. A person who orients herself by a prominent landmark would gesture southward: \"Look down there. See the tall, broad MetLife Building? Head for that - the station is right below it.\" Neurologists call this navigational approach \"guidance\", meaning that a landmark visible from a distance serves as the marker for one's destination.\n\nD. Another city dweller might say: \"What places do you remember passing? Okay. Go toward the end of Central Park, then walk down to St. Patrick's Cathedral. A few more blocks, and Grand Central will be off to your left.\" In this case, you are pointed toward the most recent place you recall, and you aim for it. Once there you head for the next notable place and so on, retracing your path. Your brain is adding together the individual legs of your trek into a cumulative progress report. Researchers call this strategy \"path integration.\" Many animals rely primarily on path integration to get around, including insects, spiders, crabs and rodents. The desert ants of the genus Cataglyphis employ this method to return from foraging as far as 100 yards away. They note the general direction they came from and retrace their steps, using the polarization of sunlight to orient themselves even under overcast skies. On their way back they are faithful to this inner homing vector. Even when a scientist picks up an ant and puts it in a totally different spot, the insect stubbornly proceeds in the originally determined direction until it has gone \"back\" all of the distance it wandered from its nest. Only then does the ant realize it has not succeeded, and it begins to walk in successively larger loops to find its way home.\n\nE. Whether it is trying to get back to the anthill or the train station, any animal using path integration must keep track of its own movements so it knows, while returning, which segments it has already completed. As you move, your brain gathers data from your environment - sights, sounds, smells, lighting, muscle contractions, a sense of time passing - to determine which way your body has gone. The church spire, the sizzling sausages on that vendor's grill, the open courtyard, and the train station all represent snapshots of memorable junctures during your journey.\n\nF. In addition to guidance and path integration, we use a third method for finding our way. An office worker you approach for help on a Manhattan street corner might say: \"Walk straight down Fifth, turn left on 47th, turn right on Park, go through the walkway under the Helmsley Building, then cross the street to the MetLife Building into Grand Central.\" This strategy, called route following, uses landmarks such as buildings and street names, plus directions straight, turn, go through - for reaching intermediate points. Route following is more precise than guidance or path integration, but if you forget the details and take a wrong turn, the only way to recover is to backtrack until you reach a familiar spot, because you do not know the general direction or have a reference landmark for your goal. The route following navigation strategy truly challenges the brain. We have to keep all the landmarks and intermediate directions in our head. It is the most detailed and therefore most reliable method, but it can be undone by routine memory lapses. With path integration, our cognitive memory is less burdened; it has to deal with only a few general instructions and the homing vector. Path integration works because it relies most fundamentally on our knowledge of our body's general direction of movement, and we always have access to these inputs. Nevertheless, people often choose to give route-following directions, in part because saying \"Go straight that way!\" just does not work in our complex, man-made surroundings.\n\nG. Road Map or Metaphor? On your next visit to Manhattan, you will rely on your memory to get around, though visually seductive maps are also available. Most likely you will use guidance, path integration and route following in various combinations. But how exactly do these constructs deliver concrete directions? Do we humans have, as an image of the real world, a kind of road map in our heads? Neurobiologists and cognitive psychologists do call the portion of our memory that controls navigation a \"cognitive map\". The map metaphor is the easiest way to inspect. Yet the notion of a literal map in our heads may be misleading; a growing body of research implies that the cognitive map is mostly a metaphor. It may be more like a hierarchical structure of relationships.",
+          "questions": [
+            {
+              "order": 14,
+              "question_type": "matching",
+              "question_text": "Split the route up into several smaller parts.",
+              "correct_answer": "B",
+              "question_instructions": "Match each statement with the navigation method, A?C. A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Guidance",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Path integration",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Route following",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Researchers are looking at several strategies people use to orient themselves in space: guidance, path integration and route following.\" This connects \"Split the route up into several smaller parts.\" with \"Path integration\", so the correct match is B.",
+              "why_answer": "The passage states, \"Researchers are looking at several strategies people use to orient themselves in space: guidance, path integration and route following.\" This connects \"Split the route up into several smaller parts.\" with \"Path integration\", so the correct match is B."
+            },
+            {
+              "order": 15,
+              "question_type": "matching",
+              "question_text": "When mistakes are made, a person needs to go back.",
+              "correct_answer": "C",
+              "question_instructions": "Match each statement with the navigation method, A?C. A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Guidance",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Path integration",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Route following",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage states, \"Nevertheless, people often choose to give route-following directions, in part because saying \"Go straight that way!\" just does not work in our complex, man-made surroundings.\" This connects \"When mistakes are made, a person needs to go back.\" with \"Route following\", so the correct match is C.",
+              "why_answer": "The passage states, \"Nevertheless, people often choose to give route-following directions, in part because saying \"Go straight that way!\" just does not work in our complex, man-made surroundings.\" This connects \"When mistakes are made, a person needs to go back.\" with \"Route following\", so the correct match is C."
+            },
+            {
+              "order": 16,
+              "question_type": "matching",
+              "question_text": "Find a building that can be seen from far away.",
+              "correct_answer": "A",
+              "question_instructions": "Match each statement with the navigation method, A?C. A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Guidance",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Path integration",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Route following",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"The desert ants of the genus Cataglyphis employ this method to return from foraging as far as 100 yards away.\" This connects \"Find a building that can be seen from far away.\" with \"Guidance\", so the correct match is A.",
+              "why_answer": "The passage states, \"The desert ants of the genus Cataglyphis employ this method to return from foraging as far as 100 yards away.\" This connects \"Find a building that can be seen from far away.\" with \"Guidance\", so the correct match is A."
+            },
+            {
+              "order": 17,
+              "question_type": "matching",
+              "question_text": "Recall all the details along the way.",
+              "correct_answer": "C",
+              "question_instructions": "Match each statement with the navigation method, A?C. A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Guidance",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Path integration",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Route following",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage states, \"Route following is more precise than guidance or path integration, but if you forget the details and take a wrong turn, the only way to recover is to backtrack until you reach a familiar spot, because you do not know the general direction or have a reference landmark for your goal.\" This connects \"Recall all the details along the way.\" with \"Route following\", so the correct match is C.",
+              "why_answer": "The passage states, \"Route following is more precise than guidance or path integration, but if you forget the details and take a wrong turn, the only way to recover is to backtrack until you reach a familiar spot, because you do not know the general direction or have a reference landmark for your goal.\" This connects \"Recall all the details along the way.\" with \"Route following\", so the correct match is C."
+            },
+            {
+              "order": 18,
+              "question_type": "matching",
+              "question_text": "Memorize the buildings that you have passed by.",
+              "correct_answer": "B",
+              "question_instructions": "Match each statement with the navigation method, A?C. A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Guidance",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Path integration",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Route following",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"An office worker you approach for help on a Manhattan street corner might say: \"Walk straight down Fifth, turn left on 47th, turn right on Park, go through the walkway under the Helmsley Building, then cross the street to the MetLife Building into Grand Central.\" This strategy, called route following, uses landmarks such as buildings and street names, plus directions straight, turn, go through - for reaching intermediate points.\" This connects \"Memorize the buildings that you have passed by.\" with \"Path integration\", so the correct match is B.",
+              "why_answer": "The passage states, \"An office worker you approach for help on a Manhattan street corner might say: \"Walk straight down Fifth, turn left on 47th, turn right on Park, go through the walkway under the Helmsley Building, then cross the street to the MetLife Building into Grand Central.\" This strategy, called route following, uses landmarks such as buildings and street names, plus directions straight, turn, go through - for reaching intermediate points.\" This connects \"Memorize the buildings that you have passed by.\" with \"Path integration\", so the correct match is B."
+            },
+            {
+              "order": 19,
+              "question_type": "mcq",
+              "question_text": "According to the passage, how does the Cataglyphis ant respond if it is taken to a different location?",
+              "correct_answer": "C",
+              "question_instructions": "Choose the correct letter, A?D.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Changes its orientation sensors to adapt.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Releases biological scent for help from others.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Continues to move according to its original orientation.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Gets completely lost once disturbed.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"As you move, your brain gathers data from your environment - sights, sounds, smells, lighting, muscle contractions, a sense of time passing - to determine which way your body has gone.\" This evidence supports option(s) C (Continues to move according to its original orientation.), which answer the question.",
+              "why_answer": "The passage states, \"As you move, your brain gathers data from your environment - sights, sounds, smells, lighting, muscle contractions, a sense of time passing - to determine which way your body has gone.\" This evidence supports option(s) C (Continues to move according to its original orientation.), which answer the question."
+            },
+            {
+              "order": 20,
+              "question_type": "mcq",
+              "question_text": "What does the author say about the route-following method?",
+              "correct_answer": "B",
+              "question_instructions": "Choose the correct letter, A?D.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Dependent on directions to move on.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Dependent on memory and reasoning.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Dependent on man-made settings.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Dependent on the homing vector.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"An office worker you approach for help on a Manhattan street corner might say: \"Walk straight down Fifth, turn left on 47th, turn right on Park, go through the walkway under the Helmsley Building, then cross the street to the MetLife Building into Grand Central.\" This strategy, called route following, uses landmarks such as buildings and street names, plus directions straight, turn, go through - for reaching intermediate points.\" This evidence supports option(s) B (Dependent on memory and reasoning.), which answer the question.",
+              "why_answer": "The passage states, \"An office worker you approach for help on a Manhattan street corner might say: \"Walk straight down Fifth, turn left on 47th, turn right on Park, go through the walkway under the Helmsley Building, then cross the street to the MetLife Building into Grand Central.\" This strategy, called route following, uses landmarks such as buildings and street names, plus directions straight, turn, go through - for reaching intermediate points.\" This evidence supports option(s) B (Dependent on memory and reasoning.), which answer the question."
+            },
+            {
+              "order": 21,
+              "question_type": "mcq",
+              "question_text": "Which statement is true about the ?cognitive map? in this passage?",
+              "correct_answer": "D",
+              "question_instructions": "Choose the correct letter, A?D.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "There is no obvious difference between it and a real map.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "It exists in our heads and is always correct.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "It only exists in some cultures.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "It is managed by a portion of our memory.",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage states, \"Neurobiologists and cognitive psychologists do call the portion of our memory that controls navigation a \"cognitive map\".\" This evidence supports option(s) D (It is managed by a portion of our memory.), which answer the question.",
+              "why_answer": "The passage states, \"Neurobiologists and cognitive psychologists do call the portion of our memory that controls navigation a \"cognitive map\".\" This evidence supports option(s) D (It is managed by a portion of our memory.), which answer the question."
+            },
+            {
+              "order": 22,
+              "question_type": "tfng",
+              "question_text": "Biological navigation is flexible.",
+              "correct_answer": "TRUE",
+              "question_instructions": "Choose TRUE if the statement agrees with the passage, FALSE if it contradicts it, or NOT GIVEN if there is no information.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Luckily, our biological finder has an important advantage over GPS: we can ask questions of people on the sidewalk, or follow a street that looks familiar, or rely on a navigational rubric.\" This supports the statement that Biological navigation is flexible, so the answer is TRUE.",
+              "why_answer": "The passage states, \"Luckily, our biological finder has an important advantage over GPS: we can ask questions of people on the sidewalk, or follow a street that looks familiar, or rely on a navigational rubric.\" This supports the statement that Biological navigation is flexible, so the answer is TRUE."
+            },
+            {
+              "order": 23,
+              "question_type": "tfng",
+              "question_text": "Insects have many ways to navigate that are in common with many other animals.",
+              "correct_answer": "NOT GIVEN",
+              "question_instructions": "Choose TRUE if the statement agrees with the passage, FALSE if it contradicts it, or NOT GIVEN if there is no information.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage does not state whether \"Insects have many ways to navigate that are in common with many other animals.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN.",
+              "why_answer": "The passage does not state whether \"Insects have many ways to navigate that are in common with many other animals.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN."
+            },
+            {
+              "order": 24,
+              "question_type": "tfng",
+              "question_text": "When someone follows a route, they collect comprehensive perceptual information in the mind along the way.",
+              "correct_answer": "TRUE",
+              "question_instructions": "Choose TRUE if the statement agrees with the passage, FALSE if it contradicts it, or NOT GIVEN if there is no information.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"You meander in and out of shops along the way.\" This supports the statement that When someone follows a route, they collect comprehensive perceptual information in the mind along the way, so the answer is TRUE.",
+              "why_answer": "The passage states, \"You meander in and out of shops along the way.\" This supports the statement that When someone follows a route, they collect comprehensive perceptual information in the mind along the way, so the answer is TRUE."
+            },
+            {
+              "order": 25,
+              "question_type": "tfng",
+              "question_text": "Path integration requires more memory than route following.",
+              "correct_answer": "FALSE",
+              "question_instructions": "Choose TRUE if the statement agrees with the passage, FALSE if it contradicts it, or NOT GIVEN if there is no information.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The statement claims that Path integration requires more memory than route following; however, the passage says, \"Route following is more precise than guidance or path integration, but if you forget the details and take a wrong turn, the only way to recover is to backtrack until you reach a familiar spot, because you do not know the general direction or have a reference landmark for your goal.\" The passage gives conflicting information, so the answer is FALSE.",
+              "why_answer": "The statement claims that Path integration requires more memory than route following; however, the passage says, \"Route following is more precise than guidance or path integration, but if you forget the details and take a wrong turn, the only way to recover is to backtrack until you reach a familiar spot, because you do not know the general direction or have a reference landmark for your goal.\" The passage gives conflicting information, so the answer is FALSE."
+            },
+            {
+              "order": 26,
+              "question_type": "tfng",
+              "question_text": "When people find their way, they have an exact map in their mind.",
+              "correct_answer": "FALSE",
+              "question_instructions": "Choose TRUE if the statement agrees with the passage, FALSE if it contradicts it, or NOT GIVEN if there is no information.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The statement claims that When people find their way, they have an exact map in their mind; however, the passage says, \"Only then does the ant realize it has not succeeded, and it begins to walk in successively larger loops to find its way home.\" The passage gives conflicting information, so the answer is FALSE.",
+              "why_answer": "The statement claims that When people find their way, they have an exact map in their mind; however, the passage says, \"Only then does the ant realize it has not succeeded, and it begins to walk in successively larger loops to find its way home.\" The passage gives conflicting information, so the answer is FALSE."
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Reading Passage 3: How a Prehistoric Predator Took to the Skies",
+          "passage_instructions": "You should spend about 20 minutes on Questions 27?40, which are based on Reading Passage 3 below.",
+          "passage": "Is that a bird in the sky? A plane? No, it's a pterosaur. Kate Thomas meets Professor Matthew Wilkinson, who built a life-size model to find out how this prehistoric predator ever got off the ground.\n\nPterosaurs existed from the Triassic period, 220 million years ago, to the end of the Cretaceous period, 65 million years ago, when South America pulled away from Africa and the South Atlantic was formed. They are among the least understood of all the extinct reptiles that once spent their lives in the skies while the dinosaurs dominated the land. Pterosaurs had no feathers, but at least part of their bodies was covered in hair, not unlike bats. Some believe this is an indication they were warm-blooded. Researchers also debate whether pterosaurs travelled on the ground by walking on their hind legs, like birds, or by using all fours, relying on their three-toed front feet as well as their four-toed rear feet.\n\nPterosaurs were vertebrates, meaning they were the first species possessing backbones to become airborne, but scientists have never quite understood their flight technique. How, they wondered, did such a heavy creature ever manage to take off? How could a wing that appears to have been supported by fine, hollow bones have carried one into the sky? Then came the discovery of a site in Brazil's Araripe basin. Here, not only were hundreds of fossils of amphibians and other reptiles found, but archaeologists unearthed a number of very well-preserved pterosaurs. The anhanguera - a fish-eating sub-species of pterosaur that ruled the skies in the Cretaceous period - was among them. With a wingspan of up to 12 metres, they would have made an amazing sight in the sky - had any human been there to witness it. \"I've been studying pterosaurs for about eight years now,\" says Dr Matthew Wilkinson, a professor of zoology at Cambridge University. With an anhanguera fossil as his model, Wilkinson began gradually reconstructing its skeletal structure in his Cambridge studio. The probability of finding three-dimensional pterosaur fossils anywhere is slim. \"That was quite a find,\" he says. \"Their bones are usually crushed to dust.\" Once the structure was complete, it inspired him to make a robot version as a way to understand the animal's locomotion. With a team of model-makers, he has built a remote-controlled pterosaur in his studio. \"Fossils show just how large these creatures were. I've always been interested in how they managed to launch themselves, so I thought the real test would be to actually build one and fly it.\"\n\nWilkinson hasn't been alone in his desire to recreate a prehistoric beast. Swiss scientists recently announced they had built an amphibious robot that could walk on land and swim in water using the sort of backbone movements that must have been employed by the first creatures to crawl from the sea. But Wilkinson had the added complication of working out his beast's flight technique. Unlike those of bats or flying squirrels, pterosaur wings - soft, stretchy membranes of skin tissue - are thought to have reached from the chest right to the ankle, reinforced by fibers that stiffened the wing and prevented tearing. Smaller subspecies flapped their wings during takeoff. That may have explained the creatures' flexibility, but it did not answer the most pressing question: how did such heavy animals manage to launch themselves into the sky? Working with researchers in London and Berlin, Wilkinson began to piece together the puzzle.\n\nIt emerged that the anhanguera had an elongated limb called the pteroid. It had previously been thought the pteroid pointed towards the shoulder of the creature and supported a soft forewing in front of the arm. But if that were the case, the forewing would have been too small and ineffectual for flight. However, to the surprise of many scientists, fossils from the Araripe basin showed the pteroid possibly faced the opposite way, creating a much greater forewing that would have caught the air, working in the same way as the flaps on the wings of an aeroplane. So, with both feet on the ground, the anhanguera might have simply faced into the wind, spread its wings and risen up into the sky. Initial trials in wind tunnels proved the point - models of pterosaurs with forward-facing pteroids were not only adept at gliding, but were agile flyers in spite of their size. \"This high-lift capability would have significantly reduced the minimum flight speed, allowing even the largest forms to take off without difficulty,\" Wilkinson says. \"It would have enabled them to glide very slowly and may have been instrumental in the evolution of large size by the pterosaurs.\"\n\nResting in the grass at the test site near Cambridge, the robot-model's wings ripple in the wind. In flight, the flexible membrane, while much stiffer than the real thing, allows for a smooth takeoff and landing. But the model has been troubled by other mechanical problems. \"Unlike an aircraft, which is stabilized by the tail wing at the back, the model is stabilized by its head, which means it can start spinning around. That's the most problematic bit as far as we are concerned,\" Wilkinson says. \"We've had to take it flying without the head so far. When it flies with its head attached, Wilkinson will finally have proved his point.\"\n\nSo what's next for the zoologist - perhaps a full-size Tyrannosaurus rex? \"No,\" he tells me. \"We're desperate to build really big pterosaurs. I'm talking creatures with even greater wingspans, weighing a quarter of a ton. But,\" he adds, just as one begins to fear for the safety and stress levels of pilots landing nearby at Cambridge City Airport, \"it's more likely we'll start off with one of the smaller, flapping pterosaurs.\" This is certainly reassuring. Let's hope he is content to leave it at that.",
+          "questions": [
+            {
+              "order": 27,
+              "question_type": "mcq",
+              "question_text": "Pterosaurs were classified as ___ capable of flight.",
+              "correct_answer": "D",
+              "question_instructions": "Complete the summary by choosing the correct letter, A?L, for each answer.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "front feet",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "fish",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "dinosaurs",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "reptiles",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "flexibility",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "hind legs",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "amphibians",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "birds",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "I",
+                  "option_text": "strength",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "J",
+                  "option_text": "weight",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "K",
+                  "option_text": "tail",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "L",
+                  "option_text": "hair",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Here, not only were hundreds of fossils of amphibians and other reptiles found, but archaeologists unearthed a number of very well-preserved pterosaurs.\" This gives the information represented by option D (reptiles), completing the sentence.",
+              "why_answer": "The passage states, \"Here, not only were hundreds of fossils of amphibians and other reptiles found, but archaeologists unearthed a number of very well-preserved pterosaurs.\" This gives the information represented by option D (reptiles), completing the sentence."
+            },
+            {
+              "order": 28,
+              "question_type": "mcq",
+              "question_text": "Unlike modern species, they had some ___, evidence that they may have been warm-blooded.",
+              "correct_answer": "L",
+              "question_instructions": "Complete the summary by choosing the correct letter, A?L, for each answer.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "front feet",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "fish",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "dinosaurs",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "reptiles",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "flexibility",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "hind legs",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "amphibians",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "birds",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "I",
+                  "option_text": "strength",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "J",
+                  "option_text": "weight",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "K",
+                  "option_text": "tail",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "L",
+                  "option_text": "hair",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage states, \"Pterosaurs had no feathers, but at least part of their bodies was covered in hair, not unlike bats.\" This gives the information represented by option L (hair), completing the sentence.",
+              "why_answer": "The passage states, \"Pterosaurs had no feathers, but at least part of their bodies was covered in hair, not unlike bats.\" This gives the information represented by option L (hair), completing the sentence."
+            },
+            {
+              "order": 29,
+              "question_type": "mcq",
+              "question_text": "One theory is that pterosaurs walked using their ___ only.",
+              "correct_answer": "F",
+              "question_instructions": "Complete the summary by choosing the correct letter, A?L, for each answer.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "front feet",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "fish",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "dinosaurs",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "reptiles",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "flexibility",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "hind legs",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "amphibians",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "birds",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "I",
+                  "option_text": "strength",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "J",
+                  "option_text": "weight",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "K",
+                  "option_text": "tail",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "L",
+                  "option_text": "hair",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Researchers also debate whether pterosaurs travelled on the ground by walking on their hind legs, like birds, or by using all fours, relying on their three-toed front feet as well as their four-toed rear feet.\" This gives the information represented by option F (hind legs), completing the sentence.",
+              "why_answer": "The passage states, \"Researchers also debate whether pterosaurs travelled on the ground by walking on their hind legs, like birds, or by using all fours, relying on their three-toed front feet as well as their four-toed rear feet.\" This gives the information represented by option F (hind legs), completing the sentence."
+            },
+            {
+              "order": 30,
+              "question_type": "mcq",
+              "question_text": "A mystery was how they flew despite their immense ___.",
+              "correct_answer": "J",
+              "question_instructions": "Complete the summary by choosing the correct letter, A?L, for each answer.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "front feet",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "fish",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "dinosaurs",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "reptiles",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "flexibility",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "hind legs",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "amphibians",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "birds",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "I",
+                  "option_text": "strength",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "J",
+                  "option_text": "weight",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "K",
+                  "option_text": "tail",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "L",
+                  "option_text": "hair",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Is that a bird in the sky?\" This gives the information represented by option J (weight), completing the sentence.",
+              "why_answer": "The passage states, \"Is that a bird in the sky?\" This gives the information represented by option J (weight), completing the sentence."
+            },
+            {
+              "order": 31,
+              "question_type": "mcq",
+              "question_text": "The bones making up the wing did not have great ___.",
+              "correct_answer": "I",
+              "question_instructions": "Complete the summary by choosing the correct letter, A?L, for each answer.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "front feet",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "fish",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "dinosaurs",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "reptiles",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "flexibility",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "hind legs",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "amphibians",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "birds",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "I",
+                  "option_text": "strength",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "J",
+                  "option_text": "weight",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "K",
+                  "option_text": "tail",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "L",
+                  "option_text": "hair",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"How could a wing that appears to have been supported by fine, hollow bones have carried one into the sky?\" This gives the information represented by option I (strength), completing the sentence.",
+              "why_answer": "The passage states, \"How could a wing that appears to have been supported by fine, hollow bones have carried one into the sky?\" This gives the information represented by option I (strength), completing the sentence."
+            },
+            {
+              "order": 32,
+              "question_type": "mcq",
+              "question_text": "The anhanguera mainly survived on ___.",
+              "correct_answer": "B",
+              "question_instructions": "Complete the summary by choosing the correct letter, A?L, for each answer.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "front feet",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "fish",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "dinosaurs",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "reptiles",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "flexibility",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "hind legs",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "amphibians",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "birds",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "I",
+                  "option_text": "strength",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "J",
+                  "option_text": "weight",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "K",
+                  "option_text": "tail",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "L",
+                  "option_text": "hair",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"The anhanguera - a fish-eating sub-species of pterosaur that ruled the skies in the Cretaceous period - was among them.\" This gives the information represented by option B (fish), completing the sentence.",
+              "why_answer": "The passage states, \"The anhanguera - a fish-eating sub-species of pterosaur that ruled the skies in the Cretaceous period - was among them.\" This gives the information represented by option B (fish), completing the sentence."
+            },
+            {
+              "order": 33,
+              "question_type": "ynng",
+              "question_text": "It is rare to find a fossil of a pterosaur that clearly shows its skeleton.",
+              "correct_answer": "NO",
+              "question_instructions": "Choose YES if the statement agrees with the writer, NO if it contradicts the writer, or NOT GIVEN if the writer?s view is not stated.",
+              "options": [
+                {
+                  "option_key": "YES",
+                  "option_text": "YES",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NO",
+                  "option_text": "NO",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The statement claims that It is rare to find a fossil of a pterosaur that clearly shows its skeleton; however, the passage says, \"With an anhanguera fossil as his model, Wilkinson began gradually reconstructing its skeletal structure in his Cambridge studio.\" The passage gives conflicting information, so the answer is NO.",
+              "why_answer": "The statement claims that It is rare to find a fossil of a pterosaur that clearly shows its skeleton; however, the passage says, \"With an anhanguera fossil as his model, Wilkinson began gradually reconstructing its skeletal structure in his Cambridge studio.\" The passage gives conflicting information, so the answer is NO."
+            },
+            {
+              "order": 34,
+              "question_type": "ynng",
+              "question_text": "The reason for building the model was to prove pterosaurs flew for long distances.",
+              "correct_answer": "NOT GIVEN",
+              "question_instructions": "Choose YES if the statement agrees with the writer, NO if it contradicts the writer, or NOT GIVEN if the writer?s view is not stated.",
+              "options": [
+                {
+                  "option_key": "YES",
+                  "option_text": "YES",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NO",
+                  "option_text": "NO",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage does not state whether \"The reason for building the model was to prove pterosaurs flew for long distances.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN.",
+              "why_answer": "The passage does not state whether \"The reason for building the model was to prove pterosaurs flew for long distances.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN."
+            },
+            {
+              "order": 35,
+              "question_type": "ynng",
+              "question_text": "It is possible that pterosaur species achieved their wing size as a result of the pteroid.",
+              "correct_answer": "YES",
+              "question_instructions": "Choose YES if the statement agrees with the writer, NO if it contradicts the writer, or NOT GIVEN if the writer?s view is not stated.",
+              "options": [
+                {
+                  "option_key": "YES",
+                  "option_text": "YES",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NO",
+                  "option_text": "NO",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"The anhanguera - a fish-eating sub-species of pterosaur that ruled the skies in the Cretaceous period - was among them.\" This supports the statement that It is possible that pterosaur species achieved their wing size as a result of the pteroid, so the answer is YES.",
+              "why_answer": "The passage states, \"The anhanguera - a fish-eating sub-species of pterosaur that ruled the skies in the Cretaceous period - was among them.\" This supports the statement that It is possible that pterosaur species achieved their wing size as a result of the pteroid, so the answer is YES."
+            },
+            {
+              "order": 36,
+              "question_type": "ynng",
+              "question_text": "Wilkinson has made several unsuccessful replicas of the pterosaur's head.",
+              "correct_answer": "NOT GIVEN",
+              "question_instructions": "Choose YES if the statement agrees with the writer, NO if it contradicts the writer, or NOT GIVEN if the writer?s view is not stated.",
+              "options": [
+                {
+                  "option_key": "YES",
+                  "option_text": "YES",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NO",
+                  "option_text": "NO",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage does not state whether \"Wilkinson has made several unsuccessful replicas of the pterosaur's head.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN.",
+              "why_answer": "The passage does not state whether \"Wilkinson has made several unsuccessful replicas of the pterosaur's head.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN."
+            },
+            {
+              "order": 37,
+              "question_type": "mcq",
+              "question_text": "What was Professor Wilkinson?s main problem, according to the third paragraph?",
+              "correct_answer": "D",
+              "question_instructions": "Choose the correct letter, A?D.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Early amphibians had a more complex structure than pterosaurs.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Pterosaur wings could easily be damaged while on the ground.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Flying squirrels and bats were better adapted to flying than pterosaurs.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Large pterosaurs were not able to take off like other flying animals.",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage states, \"\"It would have enabled them to glide very slowly and may have been instrumental in the evolution of large size by the pterosaurs.\"\" This evidence supports option(s) D (Large pterosaurs were not able to take off like other flying animals.), which answer the question.",
+              "why_answer": "The passage states, \"\"It would have enabled them to glide very slowly and may have been instrumental in the evolution of large size by the pterosaurs.\"\" This evidence supports option(s) D (Large pterosaurs were not able to take off like other flying animals.), which answer the question."
+            },
+            {
+              "order": 38,
+              "question_type": "mcq",
+              "question_text": "What did Professor Wilkinson discover about a bone in pterosaurs called a pteroid?",
+              "correct_answer": "A",
+              "question_instructions": "Choose the correct letter, A?D.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "It was in an unexpected position.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "It existed only in large species of pterosaurs.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "It allowed pterosaurs to glide rather than fly.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "It increased the speed pterosaurs could reach in the air.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"It emerged that the anhanguera had an elongated limb called the pteroid.\" This evidence supports option(s) A (It was in an unexpected position.), which answer the question.",
+              "why_answer": "The passage states, \"It emerged that the anhanguera had an elongated limb called the pteroid.\" This evidence supports option(s) A (It was in an unexpected position.), which answer the question."
+            },
+            {
+              "order": 39,
+              "question_type": "mcq",
+              "question_text": "According to the writer, what is the main problem with the remote-controlled ?pterosaur??",
+              "correct_answer": "B",
+              "question_instructions": "Choose the correct letter, A?D.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "It has been unable to leave the ground so far.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "It cannot be controlled when its head is attached.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Its wing material is not flexible enough.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "The force of the wind may affect its test results.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"When it flies with its head attached, Wilkinson will finally have proved his point.\"\" This evidence supports option(s) B (It cannot be controlled when its head is attached.), which answer the question.",
+              "why_answer": "The passage states, \"When it flies with its head attached, Wilkinson will finally have proved his point.\"\" This evidence supports option(s) B (It cannot be controlled when its head is attached.), which answer the question."
+            },
+            {
+              "order": 40,
+              "question_type": "mcq",
+              "question_text": "What does ?it? in the last sentence refer to?",
+              "correct_answer": "C",
+              "question_instructions": "Choose the correct letter, A?D.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "The information the tests have revealed.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Wilkinson?s sense of achievement.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Wilkinson?s desire to build models.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "The comparison between types of models.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Wilkinson hasn't been alone in his desire to recreate a prehistoric beast.\" This evidence supports option(s) C (Wilkinson?s desire to build models.), which answer the question.",
+              "why_answer": "The passage states, \"Wilkinson hasn't been alone in his desire to recreate a prehistoric beast.\" This evidence supports option(s) C (Wilkinson?s desire to build models.), which answer the question."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

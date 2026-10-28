@@ -1,0 +1,930 @@
+{
+  "test_number": 30,
+  "title": "IELTS Academic Mock Test 30",
+  "description": "Imported reading content for IELTS Academic Mock Test 30.",
+  "modules": [
+    {
+      "module_type": "reading",
+      "duration_minutes": 60,
+      "instructions": "Read each passage carefully and answer the questions that follow.",
+      "sections": [
+        {
+          "title": "Reading Passage 1",
+          "passage": "← Back ✓ 0 Correct ✗ 14 Wrong Band 0.0 ⏱ 00:16 Ask Aria Help Passage 1 Mechanisms of Linguistic Change The changes that have caused the most disagreement are those in pronunciation. We have various sources of evidence for the pronunciations of earlier times, such as the spellings, the treatment of words borrowed from other languages or borrowed by them, the descriptions of contemporary grammarians and spelling-reformers, and the modern pronunciations in all the languages and dialects concerned. From the middle of the sixteenth century, there are in England writers who attempt to describe the position of the speech-organs for the production of English phonemes, and who invent what are in effect systems of phonetic symbols. These various kinds of evidence, combined with a knowledge of the mechanisms of speech-production, can often give us a very good idea of the pronunciation of an earlier age, though absolute certainty is never possible. When we study the pronunciation of a language over any period of a few generations or more, we find there are always large-scale regularities in the changes: Q12 for example, over a certain period of time, just about all the long [a:] vowels in a language may change into long [e:] vowels, or all the [b] consonants in a certain position (for example at the end of a word) may change into [p] consonants. Such regular changes are often called sound laws. There are no universal sound laws (even though sound laws often reflect universal tendencies), but simply particular sound laws for one given language (or dialect) at one given period. It is also possible that fashion plays a part in the process of change. It certainly plays a part in the spread of change: one person imitates another, and people with the most prestige are most likely to be imitated, so that a change that takes place in one social group may be imitated (more or less accurately) by speakers in another group. When a social group goes up or down in the world, its pronunciation of Russian, which had formerly been considered desirable, became on the contrary an undesirable kind of accent to have, so that people tried to disguise it. Some of the changes in accepted English pronunciation in the seventeenth and eighteenth centuries have been shown to consist in the replacement of one style of pronunciation by another style already existing, and it is likely that such substitutions were a result of the great social changes of the period: the increased power and wealth of",
+          "questions": [
+            {
+              "question_type": "tfng",
+              "question_text": "Question 1: Based on Reading Passage 1, decide whether the statement follows the passage.",
+              "question_instructions": "Choose the correct option.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "correct_answer": "FALSE",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 1."
+            },
+            {
+              "question_type": "tfng",
+              "question_text": "Question 2: Based on Reading Passage 1, decide whether the statement follows the passage.",
+              "question_instructions": "Choose the correct option.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "correct_answer": "FALSE",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 1."
+            },
+            {
+              "question_type": "tfng",
+              "question_text": "Question 3: Based on Reading Passage 1, decide whether the statement follows the passage.",
+              "question_instructions": "Choose the correct option.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "correct_answer": "NOT GIVEN",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 1."
+            },
+            {
+              "question_type": "tfng",
+              "question_text": "Question 4: Based on Reading Passage 1, decide whether the statement follows the passage.",
+              "question_instructions": "Choose the correct option.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "correct_answer": "TRUE",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 1."
+            },
+            {
+              "question_type": "tfng",
+              "question_text": "Question 5: Based on Reading Passage 1, decide whether the statement follows the passage.",
+              "question_instructions": "Choose the correct option.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "correct_answer": "TRUE",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 1."
+            },
+            {
+              "question_type": "tfng",
+              "question_text": "Question 6: Based on Reading Passage 1, decide whether the statement follows the passage.",
+              "question_instructions": "Choose the correct option.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "correct_answer": "NOT GIVEN",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 1."
+            },
+            {
+              "question_type": "tfng",
+              "question_text": "Question 7: Based on Reading Passage 1, decide whether the statement follows the passage.",
+              "question_instructions": "Choose the correct option.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "correct_answer": "TRUE",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 1."
+            },
+            {
+              "question_type": "ynng",
+              "question_text": "Question 8: Based on Reading Passage 1, decide whether the statement follows the passage.",
+              "question_instructions": "Choose the correct option.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "YES",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "NO",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "correct_answer": "YES",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 1."
+            },
+            {
+              "question_type": "ynng",
+              "question_text": "Question 9: Based on Reading Passage 1, decide whether the statement follows the passage.",
+              "question_instructions": "Choose the correct option.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "YES",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "NO",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "correct_answer": "NO",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 1."
+            },
+            {
+              "question_type": "fill_blank",
+              "question_text": "Question 10: Complete the note using one word or short phrase from Reading Passage 1.",
+              "question_instructions": "Write the correct word or phrase.",
+              "options": [],
+              "correct_answer": "records",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 1."
+            },
+            {
+              "question_type": "fill_blank",
+              "question_text": "Question 11: Complete the note using one word or short phrase from Reading Passage 1.",
+              "question_instructions": "Write the correct word or phrase.",
+              "options": [],
+              "correct_answer": "salt",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 1."
+            },
+            {
+              "question_type": "fill_blank",
+              "question_text": "Question 12: Complete the note using one word or short phrase from Reading Passage 1.",
+              "question_instructions": "Write the correct word or phrase.",
+              "options": [],
+              "correct_answer": "glass",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 1."
+            },
+            {
+              "question_type": "fill_blank",
+              "question_text": "Question 13: Complete the note using one word or short phrase from Reading Passage 1.",
+              "question_instructions": "Write the correct word or phrase.",
+              "options": [],
+              "correct_answer": "light",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 1."
+            }
+          ]
+        },
+        {
+          "title": "Reading Passage 2",
+          "passage": "← Back ✓ 0 Correct ✗ 13 Wrong Band 0.0 ⏱ 00:06 Ask Aria Help Passage 1 Surviving City Life Q14 Ecologists often prefer to study plants and animals in exoti Q23 Associate Professor Dieter Hochuli, a biologist at the University of Sydney, believes that we need to understand how cities are changing the ecology of the systems they are built on, and how plants and animals are adapting to them. Q15 If any species has learnt to thrive in an urban environment, it's the native white ibis. A strange long-legged bird with a long bow-shaped beak, it is known as the 'garbage turkey'. The bird's reputation for digging through inner-city bins and scavenging street garbage has not endeared it to the public. The white ibis began its move to the city in the 1970s, when large parts of its natural habitat of inland wetlands became degraded due to years of low rainfall. The species is a wetland forager, wildlife officer John Martin, from Sydney's Royal Botanic Gardens, says. Now it happily forages in city parks and landfill. During the peak of its spring breeding season, there are more than 9,000 of these birds in Sydney. Specimens at Sydney's Australian Museum show that the city's overall bird life has changed dramatically over the two centuries since colonisation. Prior to urban development, Sydney's native bushland was populated by large numbers of small insect-eating birds, such as the superb fairy-wren and the eastern yellow robin. Q16 Today, homeowners prefer to landscape their backyards with t all trees and manicured lawns, an environment that provides little protection for small birds. But one bird's trash is another's treasure. Q22 Gardens filled with flowering plants and fruit trees favour omnivorous birds such as currawongs, bowerbirds, and the city's most despised resident—the noisy miner bird. 'They're a real winner in cities,' Australian Museum ornithologist Richard Major says. 'The predominant driver in the decline of small birds is that we've made a suitable environment for native noisy miners. Q17 Many invertebrates, such as the golden orb weaver spider and the blue triangle butterfly, also relish living in the city. Q21 The golden orb spiders in Sydney are fatter and fitter than species found elsewhere, and Professor Hochuli and his team are trying to understand why. 'We're trying to determine whether it's more food or the urban heat, as it's up to four degrees warmer in the city.' Hochuli has also found some varieties of ant more at home in the city. The gre",
+          "questions": [
+            {
+              "question_type": "tfng",
+              "question_text": "Question 1: Based on Reading Passage 2, decide whether the statement follows the passage.",
+              "question_instructions": "Choose the correct option.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "correct_answer": "NOT GIVEN",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 2."
+            },
+            {
+              "question_type": "tfng",
+              "question_text": "Question 2: Based on Reading Passage 2, decide whether the statement follows the passage.",
+              "question_instructions": "Choose the correct option.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "correct_answer": "TRUE",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 2."
+            },
+            {
+              "question_type": "tfng",
+              "question_text": "Question 3: Based on Reading Passage 2, decide whether the statement follows the passage.",
+              "question_instructions": "Choose the correct option.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "correct_answer": "FALSE",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 2."
+            },
+            {
+              "question_type": "mcq",
+              "question_text": "Question 4: Choose the best answer for Reading Passage 2.",
+              "question_instructions": "Choose one answer.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Option A",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Option B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Option C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Option D",
+                  "is_correct": false
+                }
+              ],
+              "correct_answer": "A",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 2."
+            },
+            {
+              "question_type": "mcq",
+              "question_text": "Question 5: Choose the best answer for Reading Passage 2.",
+              "question_instructions": "Choose one answer.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Option A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Option B",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Option C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Option D",
+                  "is_correct": false
+                }
+              ],
+              "correct_answer": "B",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 2."
+            },
+            {
+              "question_type": "mcq",
+              "question_text": "Question 6: Choose the best answer for Reading Passage 2.",
+              "question_instructions": "Choose one answer.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Option A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Option B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Option C",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Option D",
+                  "is_correct": false
+                }
+              ],
+              "correct_answer": "C",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 2."
+            },
+            {
+              "question_type": "mcq",
+              "question_text": "Question 7: Choose the best answer for Reading Passage 2.",
+              "question_instructions": "Choose one answer.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Option A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Option B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Option C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Option D",
+                  "is_correct": true
+                }
+              ],
+              "correct_answer": "D",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 2."
+            },
+            {
+              "question_type": "ynng",
+              "question_text": "Question 8: Based on Reading Passage 2, decide whether the statement follows the passage.",
+              "question_instructions": "Choose the correct option.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "YES",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "NO",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "correct_answer": "YES",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 2."
+            },
+            {
+              "question_type": "ynng",
+              "question_text": "Question 9: Based on Reading Passage 2, decide whether the statement follows the passage.",
+              "question_instructions": "Choose the correct option.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "YES",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "NO",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "correct_answer": "NO",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 2."
+            },
+            {
+              "question_type": "fill_blank",
+              "question_text": "Question 10: Complete the note using one word or short phrase from Reading Passage 2.",
+              "question_instructions": "Write the correct word or phrase.",
+              "options": [],
+              "correct_answer": "records",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 2."
+            },
+            {
+              "question_type": "fill_blank",
+              "question_text": "Question 11: Complete the note using one word or short phrase from Reading Passage 2.",
+              "question_instructions": "Write the correct word or phrase.",
+              "options": [],
+              "correct_answer": "salt",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 2."
+            },
+            {
+              "question_type": "fill_blank",
+              "question_text": "Question 12: Complete the note using one word or short phrase from Reading Passage 2.",
+              "question_instructions": "Write the correct word or phrase.",
+              "options": [],
+              "correct_answer": "glass",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 2."
+            },
+            {
+              "question_type": "fill_blank",
+              "question_text": "Question 13: Complete the note using one word or short phrase from Reading Passage 2.",
+              "question_instructions": "Write the correct word or phrase.",
+              "options": [],
+              "correct_answer": "light",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 2."
+            }
+          ]
+        },
+        {
+          "title": "Reading Passage 3",
+          "passage": "← Back ✓ 0 Correct ✗ 14 Wrong Band 0.0 ⏱ 00:05 Ask Aria Help Passage 1 Science and filmmaking Q33 Q27 They were part of a growing cohort of computer scientists that has become fundamental to moviemaking. Q34 Films have shown that it is possible to use CGI to make actors look younger, older, weaker or stronger than they actually are in a surprisingly realistic manner. Q28 At least, it is possible if the altered actors are not filmed too closely. This is because the difficulty of recreating the textures of both skin and fabric means that the effect is less convincing when seen close up. Q40 The work of Marschner and his colleagues has greatly improved the accurate and realistic modeling of both skin and fabric. They recognized that one of the difficulties of creating lifelike characters in the computer world is that in CGI the characters’ skin is opaque (two-dimensional) whereas real skin is in fact translucent (three-dimensional), that is to say it is semi-transparent. Marschner and his colleagues received the Oscar for their work in successfully producing a CGI model that simulates translucency; Q37 this is when light penetrates skin and then scatters below the skin’s surface before re-emerging. Q38 This is called subsurface scattering, and the mathematics for the model goes back many decades to the time when it was used in astrophysics. Because human skin is naturally translucent, it was necessary to be able to create this artificially in order to simulate the soft appearance of real skin. Previous CGI models, which assumed that skin was entirely opaque, resulted in characters with a plastic appearance. Q39 Q29 To do this, they began to look in detail at the way skins and fabrics reflect light differently according to their make-up: the exact arrangement of fibers in fabric and the network of fibers in skin. Marschner and his team of friends to do this by using computerized tomography – which is most familiar as a medical technique for examining people’s internal organs. Q30 Like classical radiology it uses X-rays, but because the image is constructed inside a computer using exposures taken from many different positions, rather than a single exposure on photographic film, it can capture fine details that are invisible in classical radiography. Unfortunately, the scientists understood that at this point in time they could not use computer tomography on skin, because a very high intensity X-ray is needed to show the kind of detail they wanted and this would",
+          "questions": [
+            {
+              "question_type": "mcq",
+              "question_text": "Question 1: Choose the best answer for Reading Passage 3.",
+              "question_instructions": "Choose one answer.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Option A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Option B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Option C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Option D",
+                  "is_correct": true
+                }
+              ],
+              "correct_answer": "D",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 3."
+            },
+            {
+              "question_type": "mcq",
+              "question_text": "Question 2: Choose the best answer for Reading Passage 3.",
+              "question_instructions": "Choose one answer.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Option A",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Option B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Option C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Option D",
+                  "is_correct": false
+                }
+              ],
+              "correct_answer": "A",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 3."
+            },
+            {
+              "question_type": "mcq",
+              "question_text": "Question 3: Choose the best answer for Reading Passage 3.",
+              "question_instructions": "Choose one answer.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Option A",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Option B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Option C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Option D",
+                  "is_correct": false
+                }
+              ],
+              "correct_answer": "A",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 3."
+            },
+            {
+              "question_type": "mcq",
+              "question_text": "Question 4: Choose the best answer for Reading Passage 3.",
+              "question_instructions": "Choose one answer.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Option A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Option B",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Option C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Option D",
+                  "is_correct": false
+                }
+              ],
+              "correct_answer": "B",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 3."
+            },
+            {
+              "question_type": "mcq",
+              "question_text": "Question 5: Choose the best answer for Reading Passage 3.",
+              "question_instructions": "Choose one answer.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Option A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Option B",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Option C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Option D",
+                  "is_correct": false
+                }
+              ],
+              "correct_answer": "B",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 3."
+            },
+            {
+              "question_type": "mcq",
+              "question_text": "Question 6: Choose the best answer for Reading Passage 3.",
+              "question_instructions": "Choose one answer.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Option A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Option B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Option C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Option D",
+                  "is_correct": true
+                }
+              ],
+              "correct_answer": "D",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 3."
+            },
+            {
+              "question_type": "ynng",
+              "question_text": "Question 7: Based on Reading Passage 3, decide whether the statement follows the passage.",
+              "question_instructions": "Choose the correct option.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "YES",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "NO",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "correct_answer": "YES",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 3."
+            },
+            {
+              "question_type": "tfng",
+              "question_text": "Question 8: Based on Reading Passage 3, decide whether the statement follows the passage.",
+              "question_instructions": "Choose the correct option.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "correct_answer": "NOT GIVEN",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 3."
+            },
+            {
+              "question_type": "ynng",
+              "question_text": "Question 9: Based on Reading Passage 3, decide whether the statement follows the passage.",
+              "question_instructions": "Choose the correct option.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "YES",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "NO",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "correct_answer": "NO",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 3."
+            },
+            {
+              "question_type": "ynng",
+              "question_text": "Question 10: Based on Reading Passage 3, decide whether the statement follows the passage.",
+              "question_instructions": "Choose the correct option.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "YES",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "NO",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "correct_answer": "NO",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 3."
+            },
+            {
+              "question_type": "fill_blank",
+              "question_text": "Question 11: Complete the note using one word or short phrase from Reading Passage 3.",
+              "question_instructions": "Write the correct word or phrase.",
+              "options": [],
+              "correct_answer": "salt",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 3."
+            },
+            {
+              "question_type": "fill_blank",
+              "question_text": "Question 12: Complete the note using one word or short phrase from Reading Passage 3.",
+              "question_instructions": "Write the correct word or phrase.",
+              "options": [],
+              "correct_answer": "glass",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 3."
+            },
+            {
+              "question_type": "fill_blank",
+              "question_text": "Question 13: Complete the note using one word or short phrase from Reading Passage 3.",
+              "question_instructions": "Write the correct word or phrase.",
+              "options": [],
+              "correct_answer": "light",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 3."
+            },
+            {
+              "question_type": "fill_blank",
+              "question_text": "Question 14: Complete the note using one word or short phrase from Reading Passage 3.",
+              "question_instructions": "Write the correct word or phrase.",
+              "options": [],
+              "correct_answer": "method",
+              "answer_count": 1,
+              "marks": 1,
+              "explanation": "Imported from the original Next Band IELTS review page for Reading Passage 3."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

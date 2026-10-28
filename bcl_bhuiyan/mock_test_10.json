@@ -1,0 +1,1143 @@
+{
+  "test_number": 10,
+  "title": "IELTS Academic Mock Test 10",
+  "description": "IELTS Academic Reading practice test featuring Steam across the water, IQ Scores, and Practical Learning in the Classroom, with 40 questions.",
+  "modules": [
+    {
+      "module_type": "reading",
+      "duration_minutes": 60,
+      "instructions": "Read each passage and answer the questions.",
+      "sections": [
+        {
+          "order": 1,
+          "title": "Reading Passage 1: Steam across the water",
+          "passage_instructions": "You should spend about 20 minutes on Questions 1-13, which are based on Reading Passage 1 below.",
+          "passage": "During the 1600s, very early in the development of steam engines, inventive spirits like the Frenchman Denis Papin dreamed of – and experimented with – boats driven by steam, rather than by the wind or human effort, but many decades passed before those visions became reality.\n\nEnglishman Jonathan Hulls took out patents on a steamboat in 1736, but it was to be driven by a Newcomen engine, which was heavy and therefore inefficient, and would never be a success.\n\nIn 1763, William Henry, an American, put a Watt steam engine in a boat, but it sank.\n\nNearly 20 years later, in the 1780s, a steam-powered paddle-wheeler managed to last fifteen minutes against the current on the River Saone in France, but lacked the endurance for longer trips.\n\nDevelopments elsewhere included a boat driven by a steam-powered water-jet and able to do six kilometres per hour. However, all these steamboats were either too slow or too expensive to run.\n\nFor example, American John Fitch successfully trialled his first steamboat in 1787, but although he tried a number of designs and solved many technical challenges – one of his boats could even travel at 13 km/h – he could never convince sceptics that steamboats would pay.\n\nThe 19th century came before real success could be claimed. In Scotland in 1802, Lord Dundas launched the steamboat Charlotte Dundas, which was driven by a paddle wheel and had an improved engine designed by William Symington. Barges, some weighing as much as 70 tonnes, were towed by this steamboat 30 kilometres along the Forth and Clyde Canal to Glasgow, Scotland's second city.\n\nSoon after, success came to American Robert Fulton, whose countrymen called him 'the father of the steamboat'.\n\nInspired by news of the Charlotte Dundas, Fulton ran steamboat trials on the River Seine, in an attempt to attract French support for his submarine Nautilus.\n\nHe later imported a Boulton-Watt steam engine and built a boat to use it in.\n\nIn 1807, the Clermont began a scheduled passenger steamboat service between New York and Albany, 250 kilometres up the Hudson River, taking 30 hours for the trip.\n\nWithin a few years, steamers were running on the St Lawrence River in Canada and soon appeared on other rivers and lakes, including the Mississippi River.\n\nBack in Scotland, Fulton's ideas inspired Henry Bell, who launched his Comet in 1812 on the Clyde between Glasgow and Greenock.\n\nWithin a decade, dozens of steamboats were operating on the rivers, lochs and canals of Scotland, carrying cargo and occasionally passengers.\n\nThe age of steamboats had arrived.\n\nOnce steamboats were carrying passengers and industrial goods along inland waterways and sheltered coastlines, the challenge became to send them across the open ocean.\n\nEngines needed to use less coal so ships could remain at sea for several weeks.\n\nPaddle wheels also had to be replaced by power sources less affected by rolling seas.\n\nDespite this, the first Atlantic crossings using both steam and sail began in 1819 with the American ship Savannah.\n\nA regular service followed two decades later with the establishment of the Cunard Line in 1840, offering guaranteed sailing dates. Cunard's early ships used both sail and steam, but the era of steam-only passenger liners soon followed.\n\nBritish engineer Isambard Kingdom Brunel led ship design innovation.\n\nHis Great Western, launched in 1838, crossed the Atlantic in fifteen days.\n\nHis Great Britain (1853) was the first iron ocean-going steamship and the first to use a screw propeller instead of paddle wheels.\n\nThe largest paddle steamer ever built was Brunel's Great Eastern, later used to lay the first submarine telegraph cable.\n\nModern ships now use steam turbines, diesel engines or fuel oil.\n\nAtlantic crossings can be completed in four days, but today's vessels are still descendants of the early visions of Papin and Fulton.",
+          "questions": [
+            {
+              "order": 1,
+              "question_type": "fill_blank",
+              "question_text": "The engine of Jonathan Hulls' steamboat was ___ due to its weight.",
+              "correct_answer": "inefficient",
+              "question_instructions": "Complete the table. Write ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"Englishman Jonathan Hulls took out patents on a steamboat in 1736, but it was to be driven by a Newcomen engine, which was heavy and therefore inefficient, and would never be a success.\" This provides \"inefficient\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Englishman Jonathan Hulls took out patents on a steamboat in 1736, but it was to be driven by a Newcomen engine, which was heavy and therefore inefficient, and would never be a success.\" This provides \"inefficient\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 2,
+              "question_type": "fill_blank",
+              "question_text": "A French paddle steamer did not have the ___ to keep going for more than a quarter of an hour.",
+              "correct_answer": "endurance",
+              "question_instructions": "Complete the table. Write ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"Nearly 20 years later, in the 1780s, a steam-powered paddle-wheeler managed to last fifteen minutes against the current on the River Saone in France, but lacked the endurance for longer trips.\" This provides \"endurance\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Nearly 20 years later, in the 1780s, a steam-powered paddle-wheeler managed to last fifteen minutes against the current on the River Saone in France, but lacked the endurance for longer trips.\" This provides \"endurance\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 3,
+              "question_type": "fill_blank",
+              "question_text": "John Fitch overcame a number of ___ problems with his steamboat designs.",
+              "correct_answer": "technical",
+              "question_instructions": "Complete the table. Write ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"For example, American John Fitch successfully trialled his first steamboat in 1787, but although he tried a number of designs and solved many technical challenges – one of his boats could even travel at 13 km/h – he could never convince sceptics that steamboats would pay.\" This provides \"technical\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"For example, American John Fitch successfully trialled his first steamboat in 1787, but although he tried a number of designs and solved many technical challenges – one of his boats could even travel at 13 km/h – he could never convince sceptics that steamboats would pay.\" This provides \"technical\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 4,
+              "question_type": "fill_blank",
+              "question_text": "In France, Fulton used a steamboat to try to raise interest in a ___.",
+              "correct_answer": "submarine",
+              "question_instructions": "Complete the table. Write ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"Inspired by news of the Charlotte Dundas, Fulton ran steamboat trials on the River Seine, in an attempt to attract French support for his submarine Nautilus.\" This provides \"submarine\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Inspired by news of the Charlotte Dundas, Fulton ran steamboat trials on the River Seine, in an attempt to attract French support for his submarine Nautilus.\" This provides \"submarine\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 5,
+              "question_type": "fill_blank",
+              "question_text": "Passengers in the US began to be carried regularly by a steamboat called the ___.",
+              "correct_answer": "Clermont",
+              "question_instructions": "Complete the table. Write ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"In 1807, the Clermont began a scheduled passenger steamboat service between New York and Albany, 250 kilometres up the Hudson River, taking 30 hours for the trip.\" This provides \"Clermont\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"In 1807, the Clermont began a scheduled passenger steamboat service between New York and Albany, 250 kilometres up the Hudson River, taking 30 hours for the trip.\" This provides \"Clermont\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 6,
+              "question_type": "fill_blank",
+              "question_text": "In Scotland, steamboats transported some passengers, but mostly ___.",
+              "correct_answer": "cargo",
+              "question_instructions": "Complete the table. Write ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"Within a decade, dozens of steamboats were operating on the rivers, lochs and canals of Scotland, carrying cargo and occasionally passengers.\" This provides \"cargo\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Within a decade, dozens of steamboats were operating on the rivers, lochs and canals of Scotland, carrying cargo and occasionally passengers.\" This provides \"cargo\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 7,
+              "question_type": "tfng",
+              "question_text": "For steamboats to cross the Atlantic Ocean, engines which used fuel economically were needed.",
+              "correct_answer": "TRUE",
+              "question_instructions": "Do the statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Once steamboats were carrying passengers and industrial goods along inland waterways and sheltered coastlines, the challenge became to send them across the open ocean.\" This supports the statement that For steamboats to cross the Atlantic Ocean, engines which used fuel economically were needed, so the answer is TRUE.",
+              "why_answer": "The passage states, \"Once steamboats were carrying passengers and industrial goods along inland waterways and sheltered coastlines, the challenge became to send them across the open ocean.\" This supports the statement that For steamboats to cross the Atlantic Ocean, engines which used fuel economically were needed, so the answer is TRUE."
+            },
+            {
+              "order": 8,
+              "question_type": "tfng",
+              "question_text": "Using paddle wheels guaranteed reliability on ocean crossings.",
+              "correct_answer": "FALSE",
+              "question_instructions": "Do the statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The statement claims that Using paddle wheels guaranteed reliability on ocean crossings; however, the passage says, \"His Great Britain (1853) was the first iron ocean-going steamship and the first to use a screw propeller instead of paddle wheels.\" The passage gives conflicting information, so the answer is FALSE.",
+              "why_answer": "The statement claims that Using paddle wheels guaranteed reliability on ocean crossings; however, the passage says, \"His Great Britain (1853) was the first iron ocean-going steamship and the first to use a screw propeller instead of paddle wheels.\" The passage gives conflicting information, so the answer is FALSE."
+            },
+            {
+              "order": 9,
+              "question_type": "tfng",
+              "question_text": "The Savannah was much faster than a regular paddle steamer.",
+              "correct_answer": "NOT GIVEN",
+              "question_instructions": "Do the statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage does not state whether \"The Savannah was much faster than a regular paddle steamer.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN.",
+              "why_answer": "The passage does not state whether \"The Savannah was much faster than a regular paddle steamer.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN."
+            },
+            {
+              "order": 10,
+              "question_type": "tfng",
+              "question_text": "Brunel preferred designing railways to steamships.",
+              "correct_answer": "NOT GIVEN",
+              "question_instructions": "Do the statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage does not state whether \"Brunel preferred designing railways to steamships.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN.",
+              "why_answer": "The passage does not state whether \"Brunel preferred designing railways to steamships.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN."
+            },
+            {
+              "order": 11,
+              "question_type": "tfng",
+              "question_text": "The Great Britain had more than one innovative feature.",
+              "correct_answer": "TRUE",
+              "question_instructions": "Do the statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"His Great Britain (1853) was the first iron ocean-going steamship and the first to use a screw propeller instead of paddle wheels.\" This supports the statement that The Great Britain had more than one innovative feature, so the answer is TRUE.",
+              "why_answer": "The passage states, \"His Great Britain (1853) was the first iron ocean-going steamship and the first to use a screw propeller instead of paddle wheels.\" This supports the statement that The Great Britain had more than one innovative feature, so the answer is TRUE."
+            },
+            {
+              "order": 12,
+              "question_type": "tfng",
+              "question_text": "The design of the riverboat Archimedes was widely admired.",
+              "correct_answer": "NOT GIVEN",
+              "question_instructions": "Do the statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage does not state whether \"The design of the riverboat Archimedes was widely admired.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN.",
+              "why_answer": "The passage does not state whether \"The design of the riverboat Archimedes was widely admired.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN."
+            },
+            {
+              "order": 13,
+              "question_type": "tfng",
+              "question_text": "Modern ships that cross the Atlantic use the same energy source as the early steamships.",
+              "correct_answer": "FALSE",
+              "question_instructions": "Do the statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The statement claims that Modern ships that cross the Atlantic use the same energy source as the early steamships; however, the passage says, \"Modern ships now use steam turbines, diesel engines or fuel oil.\" The passage gives conflicting information, so the answer is FALSE.",
+              "why_answer": "The statement claims that Modern ships that cross the Atlantic use the same energy source as the early steamships; however, the passage says, \"Modern ships now use steam turbines, diesel engines or fuel oil.\" The passage gives conflicting information, so the answer is FALSE."
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Reading Passage 2: IQ Scores",
+          "passage_instructions": "You should spend about 20 minutes on Questions 14-26, which are based on Reading Passage 2 below.",
+          "passage": "Studies from numerous countries suggest that IQ scores have been rising fast since at least the 1950s – enough to mean that someone with an IQ classed as average at that time could be labelled as having low intelligence today. However, psychologists disagree about what the upward trend in scores really means.\n\nSome researchers argue that people are not getting more intelligent overall, but just getting better at a particular sort of problem solving. Others say they have found echoes of rising IQ scores in 'real world' measures of intelligence.\n\nTo confuse things still more, there are hints that the trend may be about to grind to a halt.\n\nJames Flynn, a professor of political science, first showed that IQ scores were rising in the mid-1980s, and became famous after others dubbed the pattern he had observed the 'Flynn effect'.\n\nIn a landmark paper he made detailed comparisons across fourteen countries of trends in the results of tests that measure reasoning power. Overall, these showed a real growth in scores of up to 25 points in a generation. To find out more, Flynn went on to look at scores for each type of reasoning that IQ tests set out to measure, such as verbal, numerical and visuo-spatial.\n\nThis last test category usually includes 'Raven's matrices' – sequential patterns with one piece missing. The candidate has to choose, from a set of alternatives, which shape to put in the empty space.\n\nWhen Flynn took a closer look at the scores, the pattern was clear.\n\nThe strongest gains in almost every case were on Raven's matrices and similar tests, while verbal and arithmetical scores showed more modest rises.\n\nSince presenting his original paper, Flynn has looked at data from further countries and found the same upward trend, with the same skills responsible for most of the increase.\n\nFlynn feels that his eponymous effect is meaningful, but does not interpret it as evidence that people are becoming cleverer. Our grandparents were not retarded and we are not geniuses, he says. More likely we have simply developed the skills and habits of mind that make us better at solving abstract problems, and – just as importantly – we take such problems seriously.\n\nFlynn believes that demands of visuo-spatial abilities have grown because of TV, computers and cars, and also that in societies where intelligence has become something people focus on excessively, abstract problem-solving skills develop faster than other skills.\n\nOthers have different views about what might account for the increase in IQ scores. John Rust of the University of London suggests that it is not just an increase in visuo-spatial activities that is pushing up IQ scores.\n\nHe believes that there are several factors, including the fact that, in more complex societies, people have to think harder to find solutions to problems they face.\n\nHe also points out that if just one mind grasps a new concept, such as Einstein and the theory of relativity, it may then be easier for society in general to think in a more complex way.\n\nOthers, such as experimental psychologist Robert Howard, argue that overall intelligence really has risen, helped by better nutrition, smaller families, wider access to education and other environmental changes.\n\nHoward's latest research has sent him on a different line of enquiry. Controversially, he now believes that the rise in IQ scores might have peaked in industrialised countries. To support this view, he cites data from Denmark.\n\nThe Danish military still summons virtually all young men before a draft board to identify who is suitable to do military service.\n\nSince 1957, all 17-year-olds there have taken exactly the same qualifying IQ tests – including ones similar to Raven's matrices. Candidates must also be able to answer verbal questions such as 'Sun is to day as Moon is to ?', and number-series questions such as '2, 3, 5, 8, ?'. Results in these tests have been carefully analysed by Thomas Teasdale, a neuropsychologist. He found that during the 1960s and '70s, scores showed gains on a scale similar to those of other countries, but by the 1990s the rate of improvement had slowed right down to about one IQ point over the decade. Furthermore, the scores were improving only on the visuo-spatial questions; verbal and numerical performance was flattening out. Most intriguingly, however, scores from 1999 onwards show an overall downturn. One explanation might be that there is some absolute ceiling to people's abilities to perform these tasks, no matter how much the prevailing culture encourages them.\n\nHowever, as Teasdale points out, if such a ceiling had been reached, the test results should show scores pushing against it rather than actually falling.\n\nFlynn is keeping a close eye on the findings, but is not jumping to conclusions until data from other countries is available.\n\nHowever, he does wonder whether the conditions leading to dramatic improvements in mental ability disappear as societies become more prosperous. He points out that in human history, prosperity often led to decadence, and argues that the case of ancient Rome can be viewed as an illustration of this.",
+          "questions": [
+            {
+              "order": 14,
+              "question_type": "matching",
+              "question_text": "Modern technology has influenced some aspects of intelligence.",
+              "correct_answer": "A",
+              "question_instructions": "Match each statement with the correct person, A-D.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "James Flynn",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "John Rust",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Robert Howard",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Thomas Teasdale",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"James Flynn, a professor of political science, first showed that IQ scores were rising in the mid-1980s, and became famous after others dubbed the pattern he had observed the 'Flynn effect'.\" This connects \"Modern technology has influenced some aspects of intelligence.\" with \"James Flynn\", so the correct match is A.",
+              "why_answer": "The passage states, \"James Flynn, a professor of political science, first showed that IQ scores were rising in the mid-1980s, and became famous after others dubbed the pattern he had observed the 'Flynn effect'.\" This connects \"Modern technology has influenced some aspects of intelligence.\" with \"James Flynn\", so the correct match is A."
+            },
+            {
+              "order": 15,
+              "question_type": "matching",
+              "question_text": "IQ scores may not yet have reached a natural limit.",
+              "correct_answer": "D",
+              "question_instructions": "Match each statement with the correct person, A-D.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "James Flynn",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "John Rust",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Robert Howard",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Thomas Teasdale",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage states, \"Results in these tests have been carefully analysed by Thomas Teasdale, a neuropsychologist.\" This connects \"IQ scores may not yet have reached a natural limit.\" with \"Thomas Teasdale\", so the correct match is D.",
+              "why_answer": "The passage states, \"Results in these tests have been carefully analysed by Thomas Teasdale, a neuropsychologist.\" This connects \"IQ scores may not yet have reached a natural limit.\" with \"Thomas Teasdale\", so the correct match is D."
+            },
+            {
+              "order": 16,
+              "question_type": "matching",
+              "question_text": "Improved diet has a positive effect on mental powers.",
+              "correct_answer": "C",
+              "question_instructions": "Match each statement with the correct person, A-D.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "James Flynn",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "John Rust",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Robert Howard",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Thomas Teasdale",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Others, such as experimental psychologist Robert Howard, argue that overall intelligence really has risen, helped by better nutrition, smaller families, wider access to education and other environmental changes.\" This connects \"Improved diet has a positive effect on mental powers.\" with \"Robert Howard\", so the correct match is C.",
+              "why_answer": "The passage states, \"Others, such as experimental psychologist Robert Howard, argue that overall intelligence really has risen, helped by better nutrition, smaller families, wider access to education and other environmental changes.\" This connects \"Improved diet has a positive effect on mental powers.\" with \"Robert Howard\", so the correct match is C."
+            },
+            {
+              "order": 17,
+              "question_type": "matching",
+              "question_text": "Exceptional individuals can have an impact on collective intelligence.",
+              "correct_answer": "B",
+              "question_instructions": "Match each statement with the correct person, A-D.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "James Flynn",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "John Rust",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Robert Howard",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Thomas Teasdale",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"John Rust of the University of London suggests that it is not just an increase in visuo-spatial activities that is pushing up IQ scores.\" This connects \"Exceptional individuals can have an impact on collective intelligence.\" with \"John Rust\", so the correct match is B.",
+              "why_answer": "The passage states, \"John Rust of the University of London suggests that it is not just an increase in visuo-spatial activities that is pushing up IQ scores.\" This connects \"Exceptional individuals can have an impact on collective intelligence.\" with \"John Rust\", so the correct match is B."
+            },
+            {
+              "order": 18,
+              "question_type": "matching",
+              "question_text": "As societies become more sophisticated the need for problem-solving skills increases.",
+              "correct_answer": "B",
+              "question_instructions": "Match each statement with the correct person, A-D.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "James Flynn",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "John Rust",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Robert Howard",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Thomas Teasdale",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"John Rust of the University of London suggests that it is not just an increase in visuo-spatial activities that is pushing up IQ scores.\" This connects \"As societies become more sophisticated the need for problem-solving skills increases.\" with \"John Rust\", so the correct match is B.",
+              "why_answer": "The passage states, \"John Rust of the University of London suggests that it is not just an increase in visuo-spatial activities that is pushing up IQ scores.\" This connects \"As societies become more sophisticated the need for problem-solving skills increases.\" with \"John Rust\", so the correct match is B."
+            },
+            {
+              "order": 19,
+              "question_type": "matching_information",
+              "question_text": "An account of a selection procedure involving a particular group of people.",
+              "correct_answer": "E",
+              "question_instructions": "Which paragraph contains the following information? Write the correct letter, A-F. You may use any letter more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph E contains the relevant information: \"Some researchers argue that people are not getting more intelligent overall, but just getting better at a particular sort of problem solving.\" It describes An account of a selection procedure involving a particular group of people, which is why this paragraph is the match.",
+              "why_answer": "Paragraph E contains the relevant information: \"Some researchers argue that people are not getting more intelligent overall, but just getting better at a particular sort of problem solving.\" It describes An account of a selection procedure involving a particular group of people, which is why this paragraph is the match."
+            },
+            {
+              "order": 20,
+              "question_type": "matching_information",
+              "question_text": "A description of one component of a visuo-spatial test.",
+              "correct_answer": "B",
+              "question_instructions": "Which paragraph contains the following information? Write the correct letter, A-F. You may use any letter more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph B contains the relevant information: \"This last test category usually includes 'Raven's matrices' – sequential patterns with one piece missing.\" It describes A description of one component of a visuo-spatial test, which is why this paragraph is the match.",
+              "why_answer": "Paragraph B contains the relevant information: \"This last test category usually includes 'Raven's matrices' – sequential patterns with one piece missing.\" It describes A description of one component of a visuo-spatial test, which is why this paragraph is the match."
+            },
+            {
+              "order": 21,
+              "question_type": "matching_information",
+              "question_text": "An overview of the different interpretations of IQ score trends.",
+              "correct_answer": "A",
+              "question_instructions": "Which paragraph contains the following information? Write the correct letter, A-F. You may use any letter more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph A contains the relevant information: \"Others have different views about what might account for the increase in IQ scores.\" It describes An overview of the different interpretations of IQ score trends, which is why this paragraph is the match.",
+              "why_answer": "Paragraph A contains the relevant information: \"Others have different views about what might account for the increase in IQ scores.\" It describes An overview of the different interpretations of IQ score trends, which is why this paragraph is the match."
+            },
+            {
+              "order": 22,
+              "question_type": "matching_information",
+              "question_text": "An example of the negative effect affluence may have on IQ trends.",
+              "correct_answer": "F",
+              "question_instructions": "Which paragraph contains the following information? Write the correct letter, A-F. You may use any letter more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "Paragraph F contains the relevant information: \"James Flynn, a professor of political science, first showed that IQ scores were rising in the mid-1980s, and became famous after others dubbed the pattern he had observed the 'Flynn effect'.\" It describes An example of the negative effect affluence may have on IQ trends, which is why this paragraph is the match.",
+              "why_answer": "Paragraph F contains the relevant information: \"James Flynn, a professor of political science, first showed that IQ scores were rising in the mid-1980s, and became famous after others dubbed the pattern he had observed the 'Flynn effect'.\" It describes An example of the negative effect affluence may have on IQ trends, which is why this paragraph is the match."
+            },
+            {
+              "order": 23,
+              "question_type": "fill_blank",
+              "question_text": "During the ___, James Flynn conducted research showing that IQ scores were increasing.",
+              "correct_answer": "mid-1980s",
+              "question_instructions": "Complete the summary. Write NO MORE THAN TWO WORDS AND/OR A NUMBER from the passage for each answer.",
+              "explanation": "The passage states, \"James Flynn, a professor of political science, first showed that IQ scores were rising in the mid-1980s, and became famous after others dubbed the pattern he had observed the 'Flynn effect'.\" This provides \"mid-1980s\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"James Flynn, a professor of political science, first showed that IQ scores were rising in the mid-1980s, and became famous after others dubbed the pattern he had observed the 'Flynn effect'.\" This provides \"mid-1980s\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 24,
+              "question_type": "fill_blank",
+              "question_text": "Flynn found that tests called ___, which measured visuo-spatial skills, accounted for the biggest score increases.",
+              "correct_answer": "Raven's matrices",
+              "question_instructions": "Complete the summary. Write NO MORE THAN TWO WORDS AND/OR A NUMBER from the passage for each answer.",
+              "explanation": "The passage states, \"The strongest gains in almost every case were on Raven's matrices and similar tests, while verbal and arithmetical scores showed more modest rises.\" This provides \"Raven's matrices\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"The strongest gains in almost every case were on Raven's matrices and similar tests, while verbal and arithmetical scores showed more modest rises.\" This provides \"Raven's matrices\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 25,
+              "question_type": "fill_blank",
+              "question_text": "Scores in numerical and ___ components rose less steeply.",
+              "correct_answer": "verbal",
+              "question_instructions": "Complete the summary. Write NO MORE THAN TWO WORDS AND/OR A NUMBER from the passage for each answer.",
+              "explanation": "The passage states, \"To find out more, Flynn went on to look at scores for each type of reasoning that IQ tests set out to measure, such as verbal, numerical and visuo-spatial.\" This provides \"verbal\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"To find out more, Flynn went on to look at scores for each type of reasoning that IQ tests set out to measure, such as verbal, numerical and visuo-spatial.\" This provides \"verbal\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 26,
+              "question_type": "fill_blank",
+              "question_text": "Results from research in other ___ were consistent with Flynn's earlier findings.",
+              "correct_answer": "countries",
+              "question_instructions": "Complete the summary. Write NO MORE THAN TWO WORDS AND/OR A NUMBER from the passage for each answer.",
+              "explanation": "The passage states, \"Flynn is keeping a close eye on the findings, but is not jumping to conclusions until data from other countries is available.\" This provides \"countries\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Flynn is keeping a close eye on the findings, but is not jumping to conclusions until data from other countries is available.\" This provides \"countries\" as the information required by the question, so it completes the answer."
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Reading Passage 3: Practical Learning in the Classroom",
+          "passage_instructions": "You should spend about 20 minutes on Questions 27-40, which are based on Reading Passage 3 below.",
+          "passage": "The way we think about architecture in schools has come a long way. Once, studying architecture in the art class meant learning to appreciate great buildings art-history style, through slide presentations.\n\nIn recent years, though, the American Institute of Architects has fostered the idea that the process of architectural design, not just the appreciation of architecture, is a beneficial aspect of the art curriculum.\n\nThe value of architectural design is that it is the concrete training ground for a broadly applicable creative process. Architectural training can help people design structures to meet needs. It can help farmers design crop rotations to meet needs. Furthermore, it provides hands-on experiences that reinforce learning in various other subjects, from math to social studies.\n\nIn the ongoing dialogue about architecture in the middle school art curriculum, many believe students should actually build the structures they design in their courses.\n\nAlthough the technology and expertise required of modern architecture can prohibit students from actually realizing their designs, traditional architectural materials and methods remain quite accessible to the art classroom.\n\nTraditional architectural materials, such as earth, clay and straw, are cheap, easy to work with and readily available.\n\nFurther, when students participate in the construction or preservation of a traditional earthen structure in their local community, they engage in a form of experiential learning and they are motivated to invest in the project. This is evident in a case study of an adobe conservation project with middle school students in the town of Zuni, New Mexico, in the Southwestern United States.\n\nTraditional architecture reaches back to preindustrial America, when local resources and cultures produced structures in styles unique to each region. In New Mexico, examples of hand-built earthen structures still abound.\n\nThe region has seen some decline in traditional architecture as industrialization has brought new building codes and materials; however, the traditional, non-industrial home, either preserved from earlier generations or newly built, remains in use. Traditional building materials and the land that supplies them are so accessible that handcrafting a house still remains feasible.\n\nThus, with no technical expertise and little cost, middle school students can participate in the construction or preservation of a traditional earthen structure.\n\nDuring the project, a student will get to know the materials, understand the chemistry, solve problems, work with classmates, and exercise muscles.\n\nThe student can apply knowledge of design principles and the creative process while participating in a cooperative effort.\n\nBut most significantly, this type of project-based activity motivates students to invest intellectually and emotionally in the outcome.\n\nThe town of Zuni, where I taught art, was surrounded by adobe construction, new and old.\n\nBehind our main high school building there was a one-room adobe structure which was once used for teaching. Now it served as a place where old furniture could be kept.\n\nI sent my class home with the oral history assignment to ask their family, friends and neighbors questions to find out about that building. From their research we compiled a sketchy history: it began as a kindergarten classroom; it later became an art classroom; now it was full of broken desks.\n\nThe building's design kept it relatively warm in the winter, even without heating, due to its broad south face, and it stayed cool in the summer due to its spacious, ventilated attic and massive earthen walls. Because of this, my students agreed it was worth preserving and were enthusiastic about helping.\n\nPreservationist Shalie Gasper arrived in the fall to help with an assessment of the building's needs. She recommended replacing the stucco that encased the original adobe walls with a traditional mud plaster.\n\nShe showed us where to find local supplies of sand and clay soil for the plaster mix.\n\nWe began work on the stucco removal in late fall. The next spring the students were ready to replaster.\n\nTo teach the traditional skills, Gasper and other local specialists joined us.\n\nThey gave my class three full mornings of intensive workshops on history and preservation as well as mud-plastering technique, and the building got a new coat of traditional mud plaster.\n\nSmall design-and-build projects such as this can be seen through to the finish when working with earth in the art curriculum.\n\nA simple landscape feature such as a wall, entryway, or arch can draw students into important aspects of design that involve the structure's interaction with people, the surrounding landscape, and natural elements. The same project may provide an opportunity to focus on the chemistry of soil or the structural dynamics of construction. Design goals might guide students to involve traditional forms, consider formal aspects, or integrate math skills of measuring and estimating.\n\nDuring our traditional architecture unit, the students realized that something old and almost forgotten is valuable and worth preserving. Many others in the community and around the country share this renewal of interest in traditional earthen technologies.\n\nIt is the connection to a cultural heritage that interests some; the quality of living within massive, natural walls that attracts others; or for others, the sustainability of the process and the minimal energy spent in construction.\n\nThe value of adobe in general is becoming more and more known, but little has been said about its value in the art curriculum until now.\n\nThis experiment in adobe conservation with middle school students convinced me that traditional architecture deserves a place in the regular curriculum.",
+          "questions": [
+            {
+              "order": 27,
+              "question_type": "mcq",
+              "question_text": "What education initiative does the American Institute of Architects currently promote?",
+              "correct_answer": "C",
+              "question_instructions": "Choose the correct letter, A-D.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "multimedia presentation of information in classrooms",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "the study of monumental buildings throughout history",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "the practice of designing architectural structures",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "processes to add more art classes in schools",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"In recent years, though, the American Institute of Architects has fostered the idea that the process of architectural design, not just the appreciation of architecture, is a beneficial aspect of the art curriculum.\" This evidence supports option(s) C (the practice of designing architectural structures), which answer the question.",
+              "why_answer": "The passage states, \"In recent years, though, the American Institute of Architects has fostered the idea that the process of architectural design, not just the appreciation of architecture, is a beneficial aspect of the art curriculum.\" This evidence supports option(s) C (the practice of designing architectural structures), which answer the question."
+            },
+            {
+              "order": 28,
+              "question_type": "mcq",
+              "question_text": "In the third paragraph, what problem with teaching architecture on art courses does the writer note?",
+              "correct_answer": "B",
+              "question_instructions": "Choose the correct letter, A-D.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Technology-based courses are unavailable.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Students cannot always construct their designs.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "The curriculum is too traditional.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Students lack motivation.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Although the technology and expertise required of modern architecture can prohibit students from actually realizing their designs, traditional architectural materials and methods remain quite accessible to the art classroom.\" This evidence supports option(s) B (Students cannot always construct their designs.), which answer the question.",
+              "why_answer": "The passage states, \"Although the technology and expertise required of modern architecture can prohibit students from actually realizing their designs, traditional architectural materials and methods remain quite accessible to the art classroom.\" This evidence supports option(s) B (Students cannot always construct their designs.), which answer the question."
+            },
+            {
+              "order": 29,
+              "question_type": "mcq",
+              "question_text": "What is the greatest benefit for students that the writer sees in a traditional architecture project?",
+              "correct_answer": "A",
+              "question_instructions": "Choose the correct letter, A-D.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "personal connection to the end result",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "participation in a cooperative project",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "building of problem-solving skills",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "conservation of a traditional building",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"It is the connection to a cultural heritage that interests some; the quality of living within massive, natural walls that attracts others; or for others, the sustainability of the process and the minimal energy spent in construction.\" This evidence supports option(s) A (personal connection to the end result), which answer the question.",
+              "why_answer": "The passage states, \"It is the connection to a cultural heritage that interests some; the quality of living within massive, natural walls that attracts others; or for others, the sustainability of the process and the minimal energy spent in construction.\" This evidence supports option(s) A (personal connection to the end result), which answer the question."
+            },
+            {
+              "order": 30,
+              "question_type": "mcq",
+              "question_text": "What is the purpose of the eighth paragraph?",
+              "correct_answer": "B",
+              "question_instructions": "Choose the correct letter, A-D.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "to explain why it is important that projects be small",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "to outline the multiple skills involved in one project",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "to discuss strategies for connecting content areas",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "to propose suggestions for traditional earth projects",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Behind our main high school building there was a one-room adobe structure which was once used for teaching.\" This evidence supports option(s) B (to outline the multiple skills involved in one project), which answer the question.",
+              "why_answer": "The passage states, \"Behind our main high school building there was a one-room adobe structure which was once used for teaching.\" This evidence supports option(s) B (to outline the multiple skills involved in one project), which answer the question."
+            },
+            {
+              "order": 31,
+              "question_type": "mcq",
+              "question_text": "What does the writer say about traditional building and the general population?",
+              "correct_answer": "D",
+              "question_instructions": "Choose the correct letter, A-D.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Earthen architecture is becoming a profitable business.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Earthen architecture is less feasible in some areas of the country.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Interest in earthen architecture varies from region to region.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "People are attracted to earthen architecture for different reasons.",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage states, \"Architectural training can help people design structures to meet needs.\" This evidence supports option(s) D (People are attracted to earthen architecture for different reasons.), which answer the question.",
+              "why_answer": "The passage states, \"Architectural training can help people design structures to meet needs.\" This evidence supports option(s) D (People are attracted to earthen architecture for different reasons.), which answer the question."
+            },
+            {
+              "order": 32,
+              "question_type": "matching",
+              "question_text": "The students in Zuni chose to renovate an old building which was being used for ___.",
+              "correct_answer": "D",
+              "question_instructions": "Complete the summary using the correct word from the list, A-H.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Experts",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "location",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "design",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "storage",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "students",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "resources",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "training",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "businesses",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Behind our main high school building there was a one-room adobe structure which was once used for teaching.\" This connects \"The students in Zuni chose to renovate an old building which was being used for ___.\" with \"storage\", so the correct match is D.",
+              "why_answer": "The passage states, \"Behind our main high school building there was a one-room adobe structure which was once used for teaching.\" This connects \"The students in Zuni chose to renovate an old building which was being used for ___.\" with \"storage\", so the correct match is D."
+            },
+            {
+              "order": 33,
+              "question_type": "matching",
+              "question_text": "They came to an agreement that the building was worthy of rehabilitation based on its functional ___.",
+              "correct_answer": "C",
+              "question_instructions": "Complete the summary using the correct word from the list, A-H.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Experts",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "location",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "design",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "storage",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "students",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "resources",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "training",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "businesses",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"But most significantly, this type of project-based activity motivates students to invest intellectually and emotionally in the outcome.\" This connects \"They came to an agreement that the building was worthy of rehabilitation based on its functional ___.\" with \"design\", so the correct match is C.",
+              "why_answer": "The passage states, \"But most significantly, this type of project-based activity motivates students to invest intellectually and emotionally in the outcome.\" This connects \"They came to an agreement that the building was worthy of rehabilitation based on its functional ___.\" with \"design\", so the correct match is C."
+            },
+            {
+              "order": 34,
+              "question_type": "matching",
+              "question_text": "During the course of the project, they learned where to locate ___ for the project.",
+              "correct_answer": "F",
+              "question_instructions": "Complete the summary using the correct word from the list, A-H.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Experts",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "location",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "design",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "storage",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "students",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "resources",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "training",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "businesses",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Traditional architecture reaches back to preindustrial America, when local resources and cultures produced structures in styles unique to each region.\" This connects \"During the course of the project, they learned where to locate ___ for the project.\" with \"resources\", so the correct match is F.",
+              "why_answer": "The passage states, \"Traditional architecture reaches back to preindustrial America, when local resources and cultures produced structures in styles unique to each region.\" This connects \"During the course of the project, they learned where to locate ___ for the project.\" with \"resources\", so the correct match is F."
+            },
+            {
+              "order": 35,
+              "question_type": "matching",
+              "question_text": "They also worked closely with a number of ___ on each step of the project.",
+              "correct_answer": "A",
+              "question_instructions": "Complete the summary using the correct word from the list, A-H.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Experts",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "location",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "design",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "storage",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "students",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "resources",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "training",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "businesses",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Traditional architecture reaches back to preindustrial America, when local resources and cultures produced structures in styles unique to each region.\" This connects \"They also worked closely with a number of ___ on each step of the project.\" with \"Experts\", so the correct match is A.",
+              "why_answer": "The passage states, \"Traditional architecture reaches back to preindustrial America, when local resources and cultures produced structures in styles unique to each region.\" This connects \"They also worked closely with a number of ___ on each step of the project.\" with \"Experts\", so the correct match is A."
+            },
+            {
+              "order": 36,
+              "question_type": "matching",
+              "question_text": "During the project, students were also given ___ to build useful skills.",
+              "correct_answer": "G",
+              "question_instructions": "Complete the summary using the correct word from the list, A-H.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Experts",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "location",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "design",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "storage",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "students",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "resources",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "training",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "businesses",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"The value of architectural design is that it is the concrete training ground for a broadly applicable creative process.\" This connects \"During the project, students were also given ___ to build useful skills.\" with \"training\", so the correct match is G.",
+              "why_answer": "The passage states, \"The value of architectural design is that it is the concrete training ground for a broadly applicable creative process.\" This connects \"During the project, students were also given ___ to build useful skills.\" with \"training\", so the correct match is G."
+            },
+            {
+              "order": 37,
+              "question_type": "ynng",
+              "question_text": "The price of materials is one drawback to using traditional architecture.",
+              "correct_answer": "NO",
+              "question_instructions": "Do the statements agree with the views of the writer in Reading Passage 3? Write YES, NO or NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "YES",
+                  "option_text": "YES",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NO",
+                  "option_text": "NO",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The statement claims that The price of materials is one drawback to using traditional architecture; however, the passage says, \"Although the technology and expertise required of modern architecture can prohibit students from actually realizing their designs, traditional architectural materials and methods remain quite accessible to the art classroom.\" The passage gives conflicting information, so the answer is NO.",
+              "why_answer": "The statement claims that The price of materials is one drawback to using traditional architecture; however, the passage says, \"Although the technology and expertise required of modern architecture can prohibit students from actually realizing their designs, traditional architectural materials and methods remain quite accessible to the art classroom.\" The passage gives conflicting information, so the answer is NO."
+            },
+            {
+              "order": 38,
+              "question_type": "ynng",
+              "question_text": "Earthen structures can easily be built in all regions of the U.S.",
+              "correct_answer": "NOT GIVEN",
+              "question_instructions": "Do the statements agree with the views of the writer in Reading Passage 3? Write YES, NO or NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "YES",
+                  "option_text": "YES",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NO",
+                  "option_text": "NO",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage does not state whether \"Earthen structures can easily be built in all regions of the U.S.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN.",
+              "why_answer": "The passage does not state whether \"Earthen structures can easily be built in all regions of the U.S.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN."
+            },
+            {
+              "order": 39,
+              "question_type": "ynng",
+              "question_text": "Working with a traditional earthen structure can have physical benefits.",
+              "correct_answer": "YES",
+              "question_instructions": "Do the statements agree with the views of the writer in Reading Passage 3? Write YES, NO or NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "YES",
+                  "option_text": "YES",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NO",
+                  "option_text": "NO",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Further, when students participate in the construction or preservation of a traditional earthen structure in their local community, they engage in a form of experiential learning and they are motivated to invest in the project.\" This supports the statement that Working with a traditional earthen structure can have physical benefits, so the answer is YES.",
+              "why_answer": "The passage states, \"Further, when students participate in the construction or preservation of a traditional earthen structure in their local community, they engage in a form of experiential learning and they are motivated to invest in the project.\" This supports the statement that Working with a traditional earthen structure can have physical benefits, so the answer is YES."
+            },
+            {
+              "order": 40,
+              "question_type": "ynng",
+              "question_text": "A traditional architecture curriculum is best suited to middle school level students.",
+              "correct_answer": "NOT GIVEN",
+              "question_instructions": "Do the statements agree with the views of the writer in Reading Passage 3? Write YES, NO or NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "YES",
+                  "option_text": "YES",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NO",
+                  "option_text": "NO",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage does not state whether \"A traditional architecture curriculum is best suited to middle school level students.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN.",
+              "why_answer": "The passage does not state whether \"A traditional architecture curriculum is best suited to middle school level students.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

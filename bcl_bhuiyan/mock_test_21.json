@@ -1,0 +1,1526 @@
+{
+  "test_number": 21,
+  "title": "IELTS Academic Mock Test 21",
+  "description": "IELTS Academic Reading practice test featuring Advertising needs attention, Growing more for less, and The fluoridation controversy. Reading module only; 40 questions.",
+  "modules": [
+    {
+      "module_type": "reading",
+      "duration_minutes": 60,
+      "instructions": "Read each passage and answer the questions.",
+      "sections": [
+        {
+          "order": 1,
+          "title": "Reading Passage 1: Advertising needs attention",
+          "instructions": "",
+          "passage_instructions": "You should spend about 20 minutes on Questions 1-13, which are based on Reading Passage 1 below.",
+          "passage": "Jane Raymond, a consumer psychologist at the University of Wales in Bangor, is carefully holding and gazing at a bottle of Chillz mineral water like a baby. Despite being made of clear plastic, it looks as if it has been carved from ice. This simple feature means shoppers are drawn to this bottle over the others on the shelf and cannot resist picking it up, Raymond says. She studies the subtle factors that motivate us to buy what we buy, and advises big companies on how powerful an advertisement is, and how it could be designed to stick more firmly in a consumer’s memory. Most of all she works out how to attract your attention.\n\nIn today’s fast-paced consumer world, attention is in short supply. Whether we are taking our time shopping in a mall, surfing the internet for information, or just watching television as a form of passive entertainment, consumers are surrounded by messages—experiencing one every 15 seconds of our waking lives, according to some estimates. Last year, companies worldwide spent $401 billion on advertising, according to the independent World Advertising Research Centre in the UK. But as the graveyard of failed products shows, they usually get it wrong.\n\nNine out of 10 new products meet an early death, says Jamie Rayner, director of research at ID Magasin, a UK consultancy specializing in consumer behavior. And the reason, he explains, is simple: conventional advertising has ceased to work. Rayner and his colleagues have measured how consumers, in particular regular commuters, react to advertising, and their conclusion should alarm many executives. They used a camera embedded in a pair of glasses to record their gaze as they glanced at advertisements on their journey to and from work. After analyzing the recordings and questioning the subjects, they found that most of the advertisements made no impression at all: only about one per cent could be recalled without prompting. It seems that although we may be looking at brands and advertisements all day long, most of the time we’re not taking anything in.\n\nRaymond thinks she knows why. Her move from research in visual processing into consumer psychology began in the early 1990s, when she discovered some strange behavior in the brain’s attentional system. She showed people a stream of letters and numbers on a screen and asked them to look out for a white letter O or an X. When she asked her volunteers afterwards what they had seen, she found that if the X appeared up to half a second or so after the white letter, or vice versa, people failed to see it. She concluded that if something catches your attention, your brain is blind to anything else for a short period afterwards. She called this effect the ‘attentional blink’. In short, the reason most advertising doesn’t work is that we’re in a severe state of attentional overload. Unless advertising is presented in a way the brain can absorb, it is simply not seen, Raymond says.\n\nSo what does this mean for advertisers? A typical television advertisement consists of a series of attention-grabbing images interspersed with the product. But unless the scenes in the advertisement are cut to take account of attentional blink, the brain is likely to ignore the information the advertiser wants to get across. The same applies to magazine advertisements, where viewers often register the main image but fail to pick up on the secondary images—the bits advertisers often desperately want us to see. Raymond says advertisers consistently fail to consider how easily the brain misses the point. It’s not that they haven’t realized that the space and time they have to get their message across has shrunk. But advertisers respond by cramming in ever more complex information. Raymond is opposed to this and her advice is simple: deliver your message in a straightforward manner and do so slowly, gently and concisely.\n\nAfter her research on the attentional blink, she wondered whether attention would be linked to other processes in the brain, particularly emotion. Could our attentional state influence whether we like or dislike a brand, for example? Today, companies are hugely interested in the emotional value of their brand as they want their products to make us feel good. It is well known that if something elicits positive emotions then you are more likely to take notice of it. But Raymond’s further research also demonstrated that if people are distracted by an image or a brand when performing an intellectually demanding task they tend to instantly dislike the brands, regardless of its emotional value. So, for example, if you are reading a web page when a banner advertisement starts flashing, or are watching a film with intrusive product placement, it is probable you will come to dislike the brand whatever it is.\n\nThis contradicts the more-exposure-the-better rule most of the industry follows, says Raymond, and means that advertising can backfire horribly. Advertisers tend to buy as much exposure for a product as they can, through television and radio commercials, billboards, whatever they think will attract their target audience, but again Raymond has found that this doesn’t necessarily work in their favor. Perhaps the most dangerous time, says Raymond, is the holiday season when advertisers are madly competing to grab people’s attention. ‘Marketers don’t realize that humans digest information like they do food. Once they are full, if they are shown any more food, they’re disgusted,’ she says.",
+          "questions": [
+            {
+              "order": 1,
+              "question_type": "tfng",
+              "question_text": "Jane Raymond states that Chillz mineral water is packaged in a way that is unattractive to consumers.",
+              "question_instructions": "Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "FALSE",
+              "explanation": "The passage says the bottle attracts shoppers, which directly contradicts the claim that its packaging is unattractive.",
+              "answer_location": "Paragraph 1",
+              "passage_excerpt": "This simple feature means shoppers are drawn to this bottle over the others on the shelf and cannot resist picking it up.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "This simple feature means shoppers are drawn to this bottle over the others on the shelf and cannot resist picking it up.",
+              "why_answer": "The passage says the bottle attracts shoppers, which directly contradicts the claim that its packaging is unattractive.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "For NOT GIVEN, check whether the passage makes the comparison or claim at all.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 2,
+              "question_type": "tfng",
+              "question_text": "Consumers are still exposed to more advertising through television commercials than through the medium of the internet.",
+              "question_instructions": "Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "NOT GIVEN",
+              "explanation": "The passage describes frequent advertising but does not compare the amount seen on television with the amount seen online.",
+              "answer_location": "Paragraph 2",
+              "passage_excerpt": "Consumers are surrounded by messages, experiencing one every 15 seconds of our waking lives.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Consumers are surrounded by messages, experiencing one every 15 seconds of our waking lives.",
+              "why_answer": "The passage describes frequent advertising but does not compare the amount seen on television with the amount seen online.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "For NOT GIVEN, check whether the passage makes the comparison or claim at all.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ]
+            },
+            {
+              "order": 3,
+              "question_type": "tfng",
+              "question_text": "According to Jamie Rayner, the reason that most products are discontinued is that advertising fails to attract consumers.",
+              "question_instructions": "Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "TRUE",
+              "explanation": "Rayner explicitly connects most new products failing with conventional advertising no longer working.",
+              "answer_location": "Paragraph 3",
+              "passage_excerpt": "Nine out of 10 new products meet an early death ... the reason, he explains, is simple: conventional advertising has ceased to work.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Nine out of 10 new products meet an early death ... the reason, he explains, is simple: conventional advertising has ceased to work.",
+              "why_answer": "Rayner explicitly connects most new products failing with conventional advertising no longer working.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "For NOT GIVEN, check whether the passage makes the comparison or claim at all.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 4,
+              "question_type": "tfng",
+              "question_text": "Jamie Rayner shows that people are no longer influenced by traditional advertisements.",
+              "question_instructions": "Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "TRUE",
+              "explanation": "The study found that most advertisements left no impression, supporting the statement about their lack of influence.",
+              "answer_location": "Paragraph 4",
+              "passage_excerpt": "They found that most of the advertisements made no impression at all: only about one per cent could be recalled without prompting.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "They found that most of the advertisements made no impression at all: only about one per cent could be recalled without prompting.",
+              "why_answer": "The study found that most advertisements left no impression, supporting the statement about their lack of influence.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "For NOT GIVEN, check whether the passage makes the comparison or claim at all.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 5,
+              "question_type": "tfng",
+              "question_text": "Jamie Rayner believed that commercials should be simpler in their content.",
+              "question_instructions": "Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "TRUE",
+              "explanation": "Raymond recommends straightforward, concise messages rather than complex commercials.",
+              "answer_location": "Paragraph 5",
+              "passage_excerpt": "deliver your message in a straightforward manner and do so slowly, gently and concisely.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "deliver your message in a straightforward manner and do so slowly, gently and concisely.",
+              "why_answer": "Raymond recommends straightforward, concise messages rather than complex commercials.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "For NOT GIVEN, check whether the passage makes the comparison or claim at all.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 6,
+              "question_type": "tfng",
+              "question_text": "Advertisements showing unfamiliar brands affect a person’s concentration more than ones with familiar brands.",
+              "question_instructions": "Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "NOT GIVEN",
+              "explanation": "The passage discusses distraction and brand dislike, but does not compare unfamiliar brands with familiar ones.",
+              "answer_location": "Paragraph 6",
+              "passage_excerpt": "if people are distracted by an image or a brand when performing an intellectually demanding task they tend to instantly dislike the brands",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "if people are distracted by an image or a brand when performing an intellectually demanding task they tend to instantly dislike the brands",
+              "why_answer": "The passage discusses distraction and brand dislike, but does not compare unfamiliar brands with familiar ones.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "For NOT GIVEN, check whether the passage makes the comparison or claim at all.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ]
+            },
+            {
+              "order": 7,
+              "question_type": "tfng",
+              "question_text": "Jane Raymond suggests that a product should be advertised in as many ways as possible.",
+              "question_instructions": "Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "FALSE",
+              "explanation": "Raymond warns that repeated exposure can backfire, contradicting the idea that products should be advertised in as many ways as possible.",
+              "answer_location": "Paragraph 7",
+              "passage_excerpt": "This contradicts the more-exposure-the-better rule most of the industry follows, says Raymond, and means that advertising can backfire horribly.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "This contradicts the more-exposure-the-better rule most of the industry follows, says Raymond, and means that advertising can backfire horribly.",
+              "why_answer": "Raymond warns that repeated exposure can backfire, contradicting the idea that products should be advertised in as many ways as possible.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "For NOT GIVEN, check whether the passage makes the comparison or claim at all.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 8,
+              "question_type": "short_answer",
+              "question_text": "What group of consumers were specifically targeted in Jamie Rayner’s research?",
+              "question_instructions": "Answer the questions below. Choose NO MORE THAN THREE WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "regular commuters",
+              "explanation": "The passage names regular commuters as the particular group studied.",
+              "answer_location": "Paragraph 3",
+              "passage_excerpt": "Rayner and his colleagues have measured how consumers, in particular regular commuters, react to advertising.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Rayner and his colleagues have measured how consumers, in particular regular commuters, react to advertising.",
+              "why_answer": "The passage names regular commuters as the particular group studied.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Use no more than three words and copy the wording from the passage.",
+              "options": []
+            },
+            {
+              "order": 9,
+              "question_type": "short_answer",
+              "question_text": "What subject did Jane Raymond use to study before focusing on the behaviour of consumers?",
+              "question_instructions": "Answer the questions below. Choose NO MORE THAN THREE WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "visual processing",
+              "explanation": "The passage identifies visual processing as Raymond's earlier area of research.",
+              "answer_location": "Paragraph 4",
+              "passage_excerpt": "Her move from research in visual processing into consumer psychology began in the early 1990s.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Her move from research in visual processing into consumer psychology began in the early 1990s.",
+              "why_answer": "The passage identifies visual processing as Raymond's earlier area of research.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Use no more than three words and copy the wording from the passage.",
+              "options": []
+            },
+            {
+              "order": 10,
+              "question_type": "short_answer",
+              "question_text": "According to the writer, what important aspect of an advertisement in print do many people fail to notice?",
+              "question_instructions": "Answer the questions below. Choose NO MORE THAN THREE WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "secondary images",
+              "explanation": "The passage says readers often miss the secondary images in print advertisements.",
+              "answer_location": "Paragraph 5",
+              "passage_excerpt": "viewers often register the main image but fail to pick up on the secondary images",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "viewers often register the main image but fail to pick up on the secondary images",
+              "why_answer": "The passage says readers often miss the secondary images in print advertisements.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Use no more than three words and copy the wording from the passage.",
+              "options": []
+            },
+            {
+              "order": 11,
+              "question_type": "short_answer",
+              "question_text": "According to the writer, what do companies today want their products to have in order to make consumers feel positive about themselves?",
+              "question_instructions": "Answer the questions below. Choose NO MORE THAN THREE WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "emotional value",
+              "explanation": "The passage directly names emotional value as what companies want their brands to have.",
+              "answer_location": "Paragraph 6",
+              "passage_excerpt": "Today, companies are hugely interested in the emotional value of their brand as they want their products to make us feel good.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Today, companies are hugely interested in the emotional value of their brand as they want their products to make us feel good.",
+              "why_answer": "The passage directly names emotional value as what companies want their brands to have.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Use no more than three words and copy the wording from the passage.",
+              "options": []
+            },
+            {
+              "order": 12,
+              "question_type": "short_answer",
+              "question_text": "What does Jane Raymond say will annoy someone watching a movie?",
+              "question_instructions": "Answer the questions below. Choose NO MORE THAN THREE WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "intrusive product placement",
+              "explanation": "Intrusive product placement during a film is given as an example of advertising that can cause dislike.",
+              "answer_location": "Paragraph 6",
+              "passage_excerpt": "if you are reading a web page when a banner advertisement starts flashing, or are watching a film with intrusive product placement, it is probable you will come to dislike the brand",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "if you are reading a web page when a banner advertisement starts flashing, or are watching a film with intrusive product placement, it is probable you will come to dislike the brand",
+              "why_answer": "Intrusive product placement during a film is given as an example of advertising that can cause dislike.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Use no more than three words and copy the wording from the passage.",
+              "options": []
+            },
+            {
+              "order": 13,
+              "question_type": "short_answer",
+              "question_text": "According to Jane Raymond, when do advertisers promote their products most fiercely?",
+              "question_instructions": "Answer the questions below. Choose NO MORE THAN THREE WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "holiday season",
+              "explanation": "Raymond identifies the holiday season as the period when advertisers compete most fiercely for attention.",
+              "answer_location": "Paragraph 7",
+              "passage_excerpt": "Perhaps the most dangerous time, says Raymond, is the holiday season when advertisers are madly competing to grab people's attention.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Perhaps the most dangerous time, says Raymond, is the holiday season when advertisers are madly competing to grab people's attention.",
+              "why_answer": "Raymond identifies the holiday season as the period when advertisers compete most fiercely for attention.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Use no more than three words and copy the wording from the passage.",
+              "options": []
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Reading Passage 2: Growing more for less",
+          "instructions": "",
+          "passage_instructions": "You should spend about 20 minutes on Questions 14-26, which are based on Reading Passage 2 below.",
+          "passage": "A For farmers, working out the optimal amount of seed, fertiliser, pesticide and water to scatter on a field can make, or break, the subsequent harvest. Regular laboratory analyses of soil and plant samples from various parts of the field can help—but such expertise is costly, and often unavailable. However, a new and cheaper method of doing this analysis is now on offer. Precise prescriptions for growing crops can be obtained quickly, and less expensively, by calculating the amount of electromagnetic radiation reflected from agricultural land. The data is collected by orbiting satellites.\n\nB Examining the wavelength of the radiation that is reflected can reveal, with surprising precision, the properties of the soil, the quantity of crop being grown, and the levels in those crops of chlorophyll, various minerals, moisture and other indicators of their quality. If recent and forecast weather data is added to the mix, detailed maps can be produced indicating exactly how, where and when crops should be grown. The service usually costs less than US $15 per hectare for a handful of readings a year, and can increase yields by as much as 10%.\n\nC Such precision farming using satellite-based intelligence is a relatively new technique. Even so, it is catching on quickly. Five times a year, for example, a French cereal-growers’ co-operative called Sevepi purchases satellite data and makes it available to its members in the form of maps of their fields, divided into three or four colour-coded zones per hectare. For each zone, one of about 50 fertilizer formulas is recommended. On top of this, if the wheat in the field has already grown quite high early in the season, and heavy showers are expected, an appropriate dose of growth regulator is recommended for each zone. (Long, fragile stems break more easily in downpours.) Then, farm vehicles equipped with global-positioning system locators automatically mix and apply the prescribed dose to each area.\n\nD France is the pioneer in this sort of surveillance. More farmland is analysed by satellite there than in any other country, according to Infoterra (a subsidiary of EADS Astrium), the firm that is France’s largest provider of such information, supplying data to companies such as Sevepi. Moreover, Henri Douche, head of Infoterra’s agriculture sales in Toulouse, reckons the amount of monitored farmland will increase as weather patterns change and farmers can no longer rely on the past as a guide to the future. When confounded by the yield variations that these new weather patterns will bring, even farmers who are afraid of new technology will sign up, he says.\n\nE Inexpensive data on the productivity of land is advantageous to governments, too. Areas where fertilisers and pesticides are being applied excessively can be pinpointed, studied and regulated by environmental and land-use agencies. Guy Lafond, an agronomist with Agriculture and Agri-Food Canada, a government agency, says the satellite data it purchases is proving useful for the study of fields with declining productivity in the province of Saskatchewan. Overkill with nitrate fertilisers (which are also a source of greenhouse gases) appears partly responsible. And according to RapidEye, a German satellite operator, insurance companies are also studying satellite data with a view to selling insurance policies to governments of famine-prone countries that might be threatened by crop failure.\n\nF In March, RapidEye began selling data that helps forecast harvests. ‘Too often, farmers limit productivity by managing fields uniformly,’ says Fredrick Jung-Rothenhausler, head of product development at the firm’s headquarters in Brandenburg an der Havel. ‘Our satellites are the first commercial satellites to include the Red-Edge band of the light spectrum, which is sensitive to changes in chlorophyll content. More research will be necessary to realise the full potential of the Red-Edge band. However, this band can assist in monitoring vegetation health, improving species separation and also help in measuring protein and nitrogen content in biomass.’ The company’s data, which comes from both Europe and the Americas, breaks field productivity down into patches just five metres square.\n\nG The advantage that satellite technology provides in terms of precision farming does not have to be restricted to rich countries. In Africa, where many soils have become badly depleted of nutrients, better fertiliser management would greatly improve the situation. As a consequence, the charitable trust World Agroforestry Centre, in the city of Nairobi, in Kenya, has begun to build up a catalogue of the radiation patterns derived from around 100,000 samples of African soils. The information is the key to understanding the potential of these soils to be more agriculturally productive. Once passed on to the International Center for Tropical Agriculture, based in Colombia, South America, it is intended that the information be used to build a database called the ‘Digital Soil Map’. When ready, this will provide farmers with free forecasts, developed with regularly updated satellite imagery, across farmland in a number of countries in Africa. This is information which will almost certainly assist in improving crop yield. For a hunger-ravaged continent, that is good news indeed.",
+          "questions": [
+            {
+              "order": 1,
+              "question_type": "matching_information",
+              "question_text": "an example of how farmers in one country are now using satellite data to determine fertiliser use",
+              "question_instructions": "Which paragraph contains the following information? Write the correct letter, A-G. You may use any letter more than once.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "C",
+              "explanation": "Paragraph C gives the French co-operative example and explains how satellite data guides fertiliser recommendations.",
+              "answer_location": "Paragraph C",
+              "passage_excerpt": "Five times a year, for example, a French cereal-growers' co-operative called Sevepi purchases satellite data ... one of about 50 fertilizer formulas is recommended.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Five times a year, for example, a French cereal-growers' co-operative called Sevepi purchases satellite data ... one of about 50 fertilizer formulas is recommended.",
+              "why_answer": "Paragraph C gives the French co-operative example and explains how satellite data guides fertiliser recommendations.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Match the information requested to the paragraph that explicitly describes it.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "C",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "G",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 2,
+              "question_type": "matching_information",
+              "question_text": "a reference to climate change and its effects",
+              "question_instructions": "Which paragraph contains the following information? Write the correct letter, A-G. You may use any letter more than once.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "D",
+              "explanation": "Paragraph D links changing weather patterns to farmers' increased need for satellite monitoring.",
+              "answer_location": "Paragraph D",
+              "passage_excerpt": "the amount of monitored farmland will increase as weather patterns change and farmers can no longer rely on the past as a guide to the future.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "the amount of monitored farmland will increase as weather patterns change and farmers can no longer rely on the past as a guide to the future.",
+              "why_answer": "Paragraph D links changing weather patterns to farmers' increased need for satellite monitoring.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Match the information requested to the paragraph that explicitly describes it.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "D",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "G",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 3,
+              "question_type": "matching_information",
+              "question_text": "a reference to the effect on the soil of using too much fertiliser",
+              "question_instructions": "Which paragraph contains the following information? Write the correct letter, A-G. You may use any letter more than once.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "E",
+              "explanation": "Paragraph E describes excessive nitrate fertiliser and its connection with declining productivity.",
+              "answer_location": "Paragraph E",
+              "passage_excerpt": "Overkill with nitrate fertilisers ... appears partly responsible for fields with declining productivity.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Overkill with nitrate fertilisers ... appears partly responsible for fields with declining productivity.",
+              "why_answer": "Paragraph E describes excessive nitrate fertiliser and its connection with declining productivity.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Match the information requested to the paragraph that explicitly describes it.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "E",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "G",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 4,
+              "question_type": "matching_information",
+              "question_text": "an example of information that will be shared between different countries",
+              "question_instructions": "Which paragraph contains the following information? Write the correct letter, A-G. You may use any letter more than once.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "G",
+              "explanation": "Paragraph G describes information passing to an international centre and supporting a database covering several African countries.",
+              "answer_location": "Paragraph G",
+              "passage_excerpt": "Once passed on to the International Center for Tropical Agriculture, based in Colombia, South America, it is intended that the information be used to build a database ... across farmland in a number of countries in Africa.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Once passed on to the International Center for Tropical Agriculture, based in Colombia, South America, it is intended that the information be used to build a database ... across farmland in a number of countries in Africa.",
+              "why_answer": "Paragraph G describes information passing to an international centre and supporting a database covering several African countries.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Match the information requested to the paragraph that explicitly describes it.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "G",
+                  "is_correct": true
+                }
+              ]
+            },
+            {
+              "order": 5,
+              "question_type": "matching_information",
+              "question_text": "a mention of the country which is the leader in agricultural technology",
+              "question_instructions": "Which paragraph contains the following information? Write the correct letter, A-G. You may use any letter more than once.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "D",
+              "explanation": "Paragraph D identifies France as the country with the greatest amount of farmland analysed by satellite.",
+              "answer_location": "Paragraph D",
+              "passage_excerpt": "France is the pioneer in this sort of surveillance. More farmland is analysed by satellite there than in any other country.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "France is the pioneer in this sort of surveillance. More farmland is analysed by satellite there than in any other country.",
+              "why_answer": "Paragraph D identifies France as the country with the greatest amount of farmland analysed by satellite.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Match the information requested to the paragraph that explicitly describes it.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "D",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "G",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 6,
+              "question_type": "matching_information",
+              "question_text": "a description of an innovation in satellite imaging which requires further study",
+              "question_instructions": "Which paragraph contains the following information? Write the correct letter, A-G. You may use any letter more than once.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "F",
+              "explanation": "Paragraph F describes the Red-Edge band and says further research is needed to realise its full potential.",
+              "answer_location": "Paragraph F",
+              "passage_excerpt": "Our satellites are the first commercial satellites to include the Red-Edge band ... More research will be necessary to realise the full potential of the Red-Edge band.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Our satellites are the first commercial satellites to include the Red-Edge band ... More research will be necessary to realise the full potential of the Red-Edge band.",
+              "why_answer": "Paragraph F describes the Red-Edge band and says further research is needed to realise its full potential.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Match the information requested to the paragraph that explicitly describes it.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "F",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "G",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 7,
+              "question_type": "matching_information",
+              "question_text": "evidence of the cost effectiveness of using satellite technology in agriculture",
+              "question_instructions": "Which paragraph contains the following information? Write the correct letter, A-G. You may use any letter more than once.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "B",
+              "explanation": "Paragraph B gives the low per-hectare cost alongside a possible yield increase, demonstrating cost effectiveness.",
+              "answer_location": "Paragraph B",
+              "passage_excerpt": "The service usually costs less than US $15 per hectare for a handful of readings a year, and can increase yields by as much as 10%.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "The service usually costs less than US $15 per hectare for a handful of readings a year, and can increase yields by as much as 10%.",
+              "why_answer": "Paragraph B gives the low per-hectare cost alongside a possible yield increase, demonstrating cost effectiveness.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Match the information requested to the paragraph that explicitly describes it.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "B",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "G",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 8,
+              "question_type": "mcq",
+              "question_text": "Which TWO companies obtain information directly from satellites? This is one of the two answers.",
+              "question_instructions": "Choose TWO letters, A-E; each question records one answer from the pair.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "B",
+              "explanation": "Infoterra is identified as the supplier of satellite information; unlike organisations described as purchasers, it provides the data.",
+              "answer_location": "Paragraph D",
+              "passage_excerpt": "Infoterra ... the firm that is France's largest provider of such information",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Infoterra ... the firm that is France's largest provider of such information",
+              "why_answer": "Infoterra is identified as the supplier of satellite information; unlike organisations described as purchasers, it provides the data.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Locate the matching evidence in the stated paragraph and follow the answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Sevepi",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Infoterra",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Agriculture and Agri-Food Canada",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "RapidEye",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "World Agroforestry Centre",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 9,
+              "question_type": "mcq",
+              "question_text": "Which TWO companies obtain information directly from satellites? This is one of the two answers.",
+              "question_instructions": "Choose TWO letters, A-E; each question records one answer from the pair.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "D",
+              "explanation": "RapidEye operates its own satellites, so it obtains the information directly.",
+              "answer_location": "Paragraph F",
+              "passage_excerpt": "RapidEye, a German satellite operator ... Our satellites are the first commercial satellites to include the Red-Edge band",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "RapidEye, a German satellite operator ... Our satellites are the first commercial satellites to include the Red-Edge band",
+              "why_answer": "RapidEye operates its own satellites, so it obtains the information directly.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Locate the matching evidence in the stated paragraph and follow the answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Sevepi",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Infoterra",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Agriculture and Agri-Food Canada",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "RapidEye",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "World Agroforestry Centre",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 10,
+              "question_type": "short_answer",
+              "question_text": "Initially, orbiting satellites are used to measure ___ coming from farmland.",
+              "question_instructions": "Complete the sentences below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "electromagnetic radiation",
+              "explanation": "The passage says the satellites collect data on electromagnetic radiation reflected from farmland.",
+              "answer_location": "Paragraph A",
+              "passage_excerpt": "by calculating the amount of electromagnetic radiation reflected from agricultural land. The data is collected by orbiting satellites.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "by calculating the amount of electromagnetic radiation reflected from agricultural land. The data is collected by orbiting satellites.",
+              "why_answer": "The passage says the satellites collect data on electromagnetic radiation reflected from farmland.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Use no more than two words from the passage.",
+              "options": []
+            },
+            {
+              "order": 11,
+              "question_type": "short_answer",
+              "question_text": "___ believes that confusion about irregular weather will cause more farmers to use satellite technology.",
+              "question_instructions": "Complete the sentences below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "Henri Douche",
+              "explanation": "Henri Douche is the named source who predicts that changing weather will increase monitoring.",
+              "answer_location": "Paragraph D",
+              "passage_excerpt": "Henri Douche ... reckons the amount of monitored farmland will increase as weather patterns change ...",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Henri Douche ... reckons the amount of monitored farmland will increase as weather patterns change ...",
+              "why_answer": "Henri Douche is the named source who predicts that changing weather will increase monitoring.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Use no more than two words from the passage.",
+              "options": []
+            },
+            {
+              "order": 12,
+              "question_type": "short_answer",
+              "question_text": "As a result of satellite technology, it may become possible to insure against the risk of ___.",
+              "question_instructions": "Complete the sentences below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "crop failure",
+              "explanation": "The passage identifies crop failure as the risk that the proposed insurance policies would cover.",
+              "answer_location": "Paragraph E",
+              "passage_excerpt": "insurance companies are also studying satellite data with a view to selling insurance policies to governments of famine-prone countries that might be threatened by crop failure.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "insurance companies are also studying satellite data with a view to selling insurance policies to governments of famine-prone countries that might be threatened by crop failure.",
+              "why_answer": "The passage identifies crop failure as the risk that the proposed insurance policies would cover.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Use no more than two words from the passage.",
+              "options": []
+            },
+            {
+              "order": 13,
+              "question_type": "short_answer",
+              "question_text": "In Africa, much of the soil suffers from the loss of ___.",
+              "question_instructions": "Complete the sentences below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "nutrients",
+              "explanation": "The passage says African soils have been depleted of nutrients.",
+              "answer_location": "Paragraph G",
+              "passage_excerpt": "In Africa, where many soils have become badly depleted of nutrients",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "In Africa, where many soils have become badly depleted of nutrients",
+              "why_answer": "The passage says African soils have been depleted of nutrients.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Use no more than two words from the passage.",
+              "options": []
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Reading Passage 3: The fluoridation controversy",
+          "instructions": "",
+          "passage_instructions": "You should spend about 20 minutes on Questions 27-40, which are based on Reading Passage 3 below.",
+          "passage": "Fluoridation is the addition of fluorine to public water supplies with the aim of reducing tooth decay. The fluorine, when mixed with water, becomes fluoride and the desired concentration of fluoride in public water is approximately one part per million, depending on the regional temperature and hence the amount of water people are likely to drink. Many studies, such as those by McClure in 1970 through to Burt in 1983, have shown that when children drink fluoridated water, their average rate of tooth decay seems greatly reduced. A typical figure claimed is 50 percent reduction. This apparently enormous benefit for children’s teeth is the major argument in favor of fluoridation.\n\nThree main grounds for opposition to fluoridation have been expressed. First, opponents claim the benefits are exaggerated or not established. Second, there are claims of health risks to parts of the population, for example, allergic reactions. It is also accepted that high levels of fluoride can cause discoloration of otherwise healthy teeth. Proponents do not consider this to be a problem in such small concentrations, whereas opponents disagree—especially because some people drink more water and obtain much more than the standard 1 milligram of fluoride per day. Third, fluoridation is thought to be an infringement on individual rights because it is compulsory medication of all members of a community.\n\nAn understanding of the fluoridation issue has important implications. If, according to the experts, fluoridation is unquestionably a beneficial and non-hazardous measure, then the wisdom of allowing the public to vote on, and reject it must be questioned.\n\nAlmost all studies that have been done have assumed that the scientific aspects of the controversy are unproblematic, and they have excluded science from sociological examination. The traditional view is that science is a special kind of knowledge, which is established through scientific methods and objectively applied by members of a scientific community. However, in recent years there has been a major challenge to this picture by a sociology of science that shows how scientific knowledge is socially negotiated, and inevitably linked to the values of the relevant parties, both scientists and nonscientists. These challengers do not see scientific knowledge as exempt from social inquiry.\n\nKuhn (1970) argued that scientific knowledge does not always develop as an orderly process, but is characterized by periodic revolutions, in which the methods of study and the assessment criteria change in a fragmented way. According to Kuhn, the shift from one scientific way of thinking to another is not made solely on the basis of clear rules of formal scientific practice, but can include social factors, though Kuhn has never developed a full analysis of what these might be. Collins (1975) took this concept further when he asserted that the outcome of experiments was not something whose meaning could be immediately comprehended, but rather something for interpretation, discussion between scientists, and reinterpretation in the light of other experiments.\n\nOne interpretation of this analysis of science is that traditional distinctions between facts and theories, and between scientific knowledge and values, can no longer be justified. Because social processes are involved at all stages of the creation, evaluation, and establishing of scientific knowledge, social values may also be involved.\n\nIn the same way as many scientists who study fluoridation have overlooked social values, sociologists have also downplayed an important part of the debate by ignoring the number of eminent scientists who have questioned aspects of fluoridation. An example is the study by Sutton in 1960, which analyzed the classic North American studies of the effect of fluoridation on tooth decay, and found that each showed significant methodological shortcomings. Sutton’s detailed study throws doubt as to the extent of reductions in tooth decay from fluoridation. Yet Sutton’s book is not cited in a single analysis of the fluoridation issue by any sociologist.\n\nIn a situation of some scientific uncertainty, differences in values are highlighted. A supporter of fluoridation might argue, ‘The evidence for the benefits of fluoridation is quite substantial, while the evidence for harm is limited and dubious. I think the likely benefits outweigh the possible dangers; hence I support fluoridation because it is the cheapest and easiest way to make sure every child reaps the benefits.’ An opponent might argue, ‘Though the evidence for the benefits of fluoridation is substantial, there is some doubt about it. Since fluoridation is not necessary for good teeth, we should forego the benefits if there is some slight chance of harm. Some scientists claim that a small percentage of the population could be harmed by fluoride. Therefore, I oppose fluoridation of water supplies and favor the voluntary use of fluoride tablets by those who want to take them.’\n\nBoth arguments consider the scientific evidence concerning fluoridation, but differ in their assessments of the social benefits and costs. This difference is not between rationality and irrationality but is a legitimate difference in values, for example, the positive value placed on good teeth, the negative value placed on possible health risks, and the social benefits or costs of compulsory or voluntary intake of fluorides.\n\nFrom the sociological point of view, opposition to fluoridation is not necessarily irrational. Rather, claims to rationality and to scientific authority are better seen as part of a strategy to promote fluoridation than as incontrovertible statements of fact. Second, social values are likely to be bound up in any decision about fluoridation, so this is not an issue on which declarations by scientific experts ought to be considered the final word.",
+          "questions": [
+            {
+              "order": 1,
+              "question_type": "mcq",
+              "question_text": "The optimum amount of fluorine in fluoridated water is calculated partly according to",
+              "question_instructions": "Choose the correct letter, A, B, C or D.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "A",
+              "explanation": "The concentration depends on regional temperature, which affects how much water people are likely to drink; option A states this climate factor.",
+              "answer_location": "Paragraph 1",
+              "passage_excerpt": "the desired concentration of fluoride in public water is approximately one part per million, depending on the regional temperature and hence the amount of water people are likely to drink.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "the desired concentration of fluoride in public water is approximately one part per million, depending on the regional temperature and hence the amount of water people are likely to drink.",
+              "why_answer": "The concentration depends on regional temperature, which affects how much water people are likely to drink; option A states this climate factor.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Locate the matching evidence in the stated paragraph and follow the answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "how hot the area is.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "how warm the water is.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "how many dental problems there are in the community.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "how much fluorine the community chooses to have in its water.",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 2,
+              "question_type": "mcq",
+              "question_text": "One reason given by the writer for opposing fluoridation is that",
+              "question_instructions": "Choose the correct letter, A, B, C or D.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "C",
+              "explanation": "One objection is that compulsory fluoridation infringes individual rights, matching option C.",
+              "answer_location": "Paragraph 2",
+              "passage_excerpt": "fluoridation is thought to be an infringement on individual rights because it is compulsory medication of all members of a community.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "fluoridation is thought to be an infringement on individual rights because it is compulsory medication of all members of a community.",
+              "why_answer": "One objection is that compulsory fluoridation infringes individual rights, matching option C.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Locate the matching evidence in the stated paragraph and follow the answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "it may contribute to tooth decay.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "it will be unacceptably expensive for the public.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "obligatory fluoridation takes away personal freedom.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "excessive fluoride could be added to the water by mistake.",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 3,
+              "question_type": "mcq",
+              "question_text": "The writer mentions Kuhn in order to",
+              "question_instructions": "Choose the correct letter, A, B, C or D.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "D",
+              "explanation": "Kuhn is cited to show that social factors can influence changes in scientific thinking, matching option D.",
+              "answer_location": "Paragraph 5",
+              "passage_excerpt": "the shift from one scientific way of thinking to another is not made solely on the basis of clear rules of formal scientific practice, but can include social factors",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "the shift from one scientific way of thinking to another is not made solely on the basis of clear rules of formal scientific practice, but can include social factors",
+              "why_answer": "Kuhn is cited to show that social factors can influence changes in scientific thinking, matching option D.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Locate the matching evidence in the stated paragraph and follow the answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "provide a contrast with the view of Collins.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "support the rational nature of scientific inquiry.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "demonstrate that Kuhn did not argue his case adequately.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "show that science can be influenced by non-scientific considerations.",
+                  "is_correct": true
+                }
+              ]
+            },
+            {
+              "order": 4,
+              "question_type": "mcq",
+              "question_text": "What did Sutton’s research discover about earlier studies in North America?",
+              "question_instructions": "Choose the correct letter, A, B, C or D.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "A",
+              "explanation": "Sutton found significant methodological shortcomings in the earlier studies, which is a failure in how they were conducted.",
+              "answer_location": "Paragraph 7",
+              "passage_excerpt": "Sutton ... analyzed the classic North American studies ... and found that each showed significant methodological shortcomings.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Sutton ... analyzed the classic North American studies ... and found that each showed significant methodological shortcomings.",
+              "why_answer": "Sutton found significant methodological shortcomings in the earlier studies, which is a failure in how they were conducted.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Locate the matching evidence in the stated paragraph and follow the answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "There were failings in the way they were carried out.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "The scientists involved had achieved unique results.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Proponents of fluoridation had not understood its long-term effects.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Fluoridation had a greater effect on tooth decay than previously believed.",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 5,
+              "question_type": "mcq",
+              "question_text": "In the last paragraph, what does the writer say about scientists?",
+              "question_instructions": "Choose the correct letter, A, B, C or D.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "B",
+              "explanation": "The writer says social values affect fluoridation decisions, so scientific experts should not have the final say on policy.",
+              "answer_location": "Paragraph 10",
+              "passage_excerpt": "social values are likely to be bound up in any decision about fluoridation, so this is not an issue on which declarations by scientific experts ought to be considered the final word.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "social values are likely to be bound up in any decision about fluoridation, so this is not an issue on which declarations by scientific experts ought to be considered the final word.",
+              "why_answer": "The writer says social values affect fluoridation decisions, so scientific experts should not have the final say on policy.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Locate the matching evidence in the stated paragraph and follow the answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "They should reveal their true motivations.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "They should not decide the fluoridation policy.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "They are solely concerned with scientific truths.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "They cannot reach agreement on the fluoridation issue.",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 6,
+              "question_type": "ynng",
+              "question_text": "Scientific knowledge should be kept separate from social values.",
+              "question_instructions": "Do the following statements agree with the views of the writer in Reading Passage 3? Write YES, NO or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "NO",
+              "explanation": "The writer rejects keeping scientific knowledge separate from values, directly opposing the statement.",
+              "answer_location": "Paragraph 6",
+              "passage_excerpt": "traditional distinctions between facts and theories, and between scientific knowledge and values, can no longer be justified.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "traditional distinctions between facts and theories, and between scientific knowledge and values, can no longer be justified.",
+              "why_answer": "The writer rejects keeping scientific knowledge separate from values, directly opposing the statement.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Distinguish the writer's stated view from claims the passage does not address.",
+              "options": [
+                {
+                  "option_key": "YES",
+                  "option_text": "YES",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NO",
+                  "option_text": "NO",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 7,
+              "question_type": "ynng",
+              "question_text": "Many sociologists have disregarded the doubts that some scientists have concerning fluoridation.",
+              "question_instructions": "Do the following statements agree with the views of the writer in Reading Passage 3? Write YES, NO or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "YES",
+              "explanation": "This explicitly says sociologists ignored scientists who questioned fluoridation, which agrees with the statement.",
+              "answer_location": "Paragraph 7",
+              "passage_excerpt": "sociologists have also downplayed an important part of the debate by ignoring the number of eminent scientists who have questioned aspects of fluoridation.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "sociologists have also downplayed an important part of the debate by ignoring the number of eminent scientists who have questioned aspects of fluoridation.",
+              "why_answer": "This explicitly says sociologists ignored scientists who questioned fluoridation, which agrees with the statement.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Distinguish the writer's stated view from claims the passage does not address.",
+              "options": [
+                {
+                  "option_key": "YES",
+                  "option_text": "YES",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NO",
+                  "option_text": "NO",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 8,
+              "question_type": "ynng",
+              "question_text": "Sutton’s findings have been given insufficient attention by scientists outside of North America.",
+              "question_instructions": "Do the following statements agree with the views of the writer in Reading Passage 3? Write YES, NO or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "NOT GIVEN",
+              "explanation": "The passage says sociologists did not cite Sutton, but does not say whether scientists outside North America gave his findings insufficient attention.",
+              "answer_location": "Paragraph 7",
+              "passage_excerpt": "Yet Sutton's book is not cited in a single analysis of the fluoridation issue by any sociologist.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Yet Sutton's book is not cited in a single analysis of the fluoridation issue by any sociologist.",
+              "why_answer": "The passage says sociologists did not cite Sutton, but does not say whether scientists outside North America gave his findings insufficient attention.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Distinguish the writer's stated view from claims the passage does not address.",
+              "options": [
+                {
+                  "option_key": "YES",
+                  "option_text": "YES",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NO",
+                  "option_text": "NO",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ]
+            },
+            {
+              "order": 9,
+              "question_type": "ynng",
+              "question_text": "There are valid arguments on both sides of the fluoridation debate.",
+              "question_instructions": "Do the following statements agree with the views of the writer in Reading Passage 3? Write YES, NO or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "YES",
+              "explanation": "The writer calls the disagreement a legitimate difference in values, supporting the view that both sides have valid arguments.",
+              "answer_location": "Paragraph 9",
+              "passage_excerpt": "Both arguments consider the scientific evidence concerning fluoridation, but differ in their assessments of the social benefits and costs. This difference ... is a legitimate difference in values",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Both arguments consider the scientific evidence concerning fluoridation, but differ in their assessments of the social benefits and costs. This difference ... is a legitimate difference in values",
+              "why_answer": "The writer calls the disagreement a legitimate difference in values, supporting the view that both sides have valid arguments.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Distinguish the writer's stated view from claims the passage does not address.",
+              "options": [
+                {
+                  "option_key": "YES",
+                  "option_text": "YES",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NO",
+                  "option_text": "NO",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 10,
+              "question_type": "matching",
+              "question_text": "The traditional view of science is that",
+              "question_instructions": "Complete each sentence with the correct ending, A-G.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "B",
+              "explanation": "The traditional view is that science is objectively applied, so the matching ending is that it is unbiased.",
+              "answer_location": "Paragraph 4",
+              "passage_excerpt": "the traditional view is that science is a special kind of knowledge ... objectively applied by members of a scientific community.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "the traditional view is that science is a special kind of knowledge ... objectively applied by members of a scientific community.",
+              "why_answer": "The traditional view is that science is objectively applied, so the matching ending is that it is unbiased.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Locate the matching evidence in the stated paragraph and follow the answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "the results of scientific research are not always understood at first.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "science is an unbiased discipline.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "people should be able to choose whether they want fluoride.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "there is insufficient proof to support a cautious approach.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "the serious damage fluoride causes far outweighs any positive effects.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "children are not the only ones who benefit from fluoridation.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "scientific knowledge is affected by the beliefs of everyone concerned.",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 11,
+              "question_type": "matching",
+              "question_text": "A sociological view of science argues that",
+              "question_instructions": "Complete each sentence with the correct ending, A-G.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "G",
+              "explanation": "The sociological view says scientific knowledge is socially negotiated and linked to the values of those involved.",
+              "answer_location": "Paragraph 4",
+              "passage_excerpt": "scientific knowledge is socially negotiated, and inevitably linked to the values of the relevant parties, both scientists and nonscientists.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "scientific knowledge is socially negotiated, and inevitably linked to the values of the relevant parties, both scientists and nonscientists.",
+              "why_answer": "The sociological view says scientific knowledge is socially negotiated and linked to the values of those involved.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Locate the matching evidence in the stated paragraph and follow the answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "the results of scientific research are not always understood at first.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "science is an unbiased discipline.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "people should be able to choose whether they want fluoride.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "there is insufficient proof to support a cautious approach.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "the serious damage fluoride causes far outweighs any positive effects.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "children are not the only ones who benefit from fluoridation.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "scientific knowledge is affected by the beliefs of everyone concerned.",
+                  "is_correct": true
+                }
+              ]
+            },
+            {
+              "order": 12,
+              "question_type": "matching",
+              "question_text": "Collins is of the opinion that",
+              "question_instructions": "Complete each sentence with the correct ending, A-G.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "A",
+              "explanation": "Collins argues that experimental results need interpretation and discussion rather than being immediately understood.",
+              "answer_location": "Paragraph 5",
+              "passage_excerpt": "the outcome of experiments was not something whose meaning could be immediately comprehended, but rather something for interpretation, discussion between scientists, and reinterpretation",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "the outcome of experiments was not something whose meaning could be immediately comprehended, but rather something for interpretation, discussion between scientists, and reinterpretation",
+              "why_answer": "Collins argues that experimental results need interpretation and discussion rather than being immediately understood.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Locate the matching evidence in the stated paragraph and follow the answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "the results of scientific research are not always understood at first.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "science is an unbiased discipline.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "people should be able to choose whether they want fluoride.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "there is insufficient proof to support a cautious approach.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "the serious damage fluoride causes far outweighs any positive effects.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "children are not the only ones who benefit from fluoridation.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "scientific knowledge is affected by the beliefs of everyone concerned.",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 13,
+              "question_type": "matching",
+              "question_text": "The writer suggests that a supporter of fluoridation may conclude that",
+              "question_instructions": "Complete each sentence with the correct ending, A-G.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "D",
+              "explanation": "The supporter argues that the benefits are substantial and harm is limited, so a cautious refusal is not sufficiently justified.",
+              "answer_location": "Paragraph 8",
+              "passage_excerpt": "The evidence for the benefits of fluoridation is quite substantial, while the evidence for harm is limited and dubious.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "The evidence for the benefits of fluoridation is quite substantial, while the evidence for harm is limited and dubious.",
+              "why_answer": "The supporter argues that the benefits are substantial and harm is limited, so a cautious refusal is not sufficiently justified.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Locate the matching evidence in the stated paragraph and follow the answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "the results of scientific research are not always understood at first.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "science is an unbiased discipline.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "people should be able to choose whether they want fluoride.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "there is insufficient proof to support a cautious approach.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "the serious damage fluoride causes far outweighs any positive effects.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "children are not the only ones who benefit from fluoridation.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "scientific knowledge is affected by the beliefs of everyone concerned.",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 14,
+              "question_type": "matching",
+              "question_text": "The writer suggests that an opponent of fluoridation may conclude that",
+              "question_instructions": "Complete each sentence with the correct ending, A-G.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "E",
+              "explanation": "The opponent prioritizes the possible harm and would give up benefits if there were even a slight chance of harm.",
+              "answer_location": "Paragraph 8",
+              "passage_excerpt": "we should forego the benefits if there is some slight chance of harm. Some scientists claim that a small percentage of the population could be harmed by fluoride.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "we should forego the benefits if there is some slight chance of harm. Some scientists claim that a small percentage of the population could be harmed by fluoride.",
+              "why_answer": "The opponent prioritizes the possible harm and would give up benefits if there were even a slight chance of harm.",
+              "paraphrase": "The question restates or asks about the cited passage evidence.",
+              "tip": "Locate the matching evidence in the stated paragraph and follow the answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "the results of scientific research are not always understood at first.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "science is an unbiased discipline.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "people should be able to choose whether they want fluoride.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "there is insufficient proof to support a cautious approach.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "the serious damage fluoride causes far outweighs any positive effects.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "children are not the only ones who benefit from fluoridation.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "scientific knowledge is affected by the beliefs of everyone concerned.",
+                  "is_correct": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

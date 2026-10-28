@@ -1,0 +1,925 @@
+{
+  "test_number": 8,
+  "title": "IELTS Academic Mock Test 8",
+  "description": "IELTS Academic Reading practice test featuring two remaining passages from the source document, An Early Cultural Tourist and The History of the Pencil, plus 200 Years of Australian Landscapes at the Royal Academy in London from the existing Mock 8 JSON. Includes 40 questions and answer keys.",
+  "modules": [
+    {
+      "module_type": "reading",
+      "duration_minutes": 60,
+      "instructions": "Read each passage and answer the questions.",
+      "sections": [
+        {
+          "order": 1,
+          "title": "Reading Passage 1: An Early Cultural Tourist",
+          "passage_instructions": "You should spend about 20 minutes on Questions 1?13, which are based on Reading Passage 1 below.",
+          "passage": "In the 15th century, the Italian merchant Cyriacus of Ancona journeyed in search of the Mediterranean's classical past. In doing so, he laid the groundwork for today's cultural holidays\n\nToday we take it for granted that we travel around the world to admire the monuments of the past. We prepare for such trips by reading about what we are going to see, set out on the journey with a good idea of how we will get there and where we will stay and have a sense of what we will encounter on location. Cyriacus of Ancona (1391- 1452), the first cultural tourist since antiquity, lacked these advantages when, in the first half of the 15th century, he sailed around the Mediterranean in search of the remains of Greek and Roman civilisations.\n\nCyriacus first became fascinated by ancient monuments while walking in his home city Ancona and looking at the marble arch, erected in AD 115, to the Roman Emperor Trajan. He suddenly saw the culture in a new light. He no longer saw it as just a familiar and generally overlooked landmark, but as a doorway to the wonders of ancient imperial Rome. Not many people of Cyriacus's time were interested in historical travel, they generally ignored old buildings and structures, or worse, dismantled them for their building materials.\n\nCyriacus decided to see the world for himself and to record details of whatever other antiquities remained to be discovered. His training as a merchant did not prepare him for this vocation; he did not know ancient languages, history or art. However, he set out to solve these failings, first by learning Latin at the age of 30 and then adding ancient Greek. Having done this, he then set off on voyages around the Mediterranean to find, investigate and understand ancient cultures from their buildings, sculptures and inscriptions. Thus he became the first archaeologist and cultural tourist, predating other antiquarians by some 200 years.\n\nTravel in the 15th century, however, was anything but simple or enjoyable. Overland journeys by foot or mule along bad roads, under constant threat from bandits, were bad; voyages by seas were even worse. When the weather cooperated, sailing went relatively smoothly, ships proceeded along coasts from one recognizable landmark to another. However, when there was no wind the ship did not move. Strong winds were no friends either, they drenched the ship with lashing waves and blew it off course. Water swamped the deck, splashed into the cabins and soaked mattresses, clothes and food. Remarkably Cyriacus never complained about the miseries of travel. Optimistic by nature, he endured such hardships unafraid and saw opportunities where other people saw setbacks.\n\nAmong many of the important records made by Cyriacus was his crucial documenting, in 1431, of the remains of Cyzicus, an ancient Roman city that had relied on commerce for its financial success. He hired a local person to take him to the site and then had to work out for himself the significance of the ruins he was looking at because there was no guidebook on ancient architecture to help him.\n\nCyzicus had been a splendid city in its prime. Unfortunately, the area was highly seismic and in AD 123 the city was so devastated by a major earthquake that, when the Roman Emperor Hadrian visited it the following year, he was so saddened that he decided to subsidise a campaign to reconstruct Cyzicus. He made a substantial donation for a new temple to the Roman god Jupiter. Cyriacus thought the ruined city was awe-inspiring. He found the remains of the temple and examined it in great detail, looking for clues in ancient texts to help him understand what he was seeing. He sketched the great doorway adorned with carved foliage and mythological characters. Cyriacus's account of this, temple is the only record of this building as in the following centuries it was entirely stripped of all its stonework and all that remains is its base.\n\nCyriacus also visited mainland Greece, in 1436, when no one went to Greece in order to see the country's ancient ruins. One of his destinations was the sanctuary of Delphi. The ancient Greeks considered Delphi as being situated in the most beautiful spot in Greece. When Cyriacus arrived at the site of Delphi, however, he found war, earthquakes and avalanches had all but obliterated its ruins. Determined to find any ancient traces, Cyriacus spent six days walking all over the areas, peering at odd stone blocks sticking out of the ground, running his hands over inscriptions to trace fragments of words, and trying to puzzle out the few surviving structural remains. Climbing uphill towards the rocks that tower over the site, he came upon a theatre built to the Slope. Soon after his visit, the site was buried by a rockslide and was not seen again until archaeologists began to excavate the area systematically in the late 19th century.\n\nCyriacus had hoped to visit Egypt and Ethiopia, but he never got there. However, in his life he did record for posterity countless ancient monuments around the Mediterranean paving the way for future archaeologists and cultural tourists.",
+          "questions": [
+            {
+              "order": 1,
+              "question_type": "tfng",
+              "question_text": "Cyriacus was unable to research his journeys before he left.",
+              "correct_answer": "FALSE",
+              "question_instructions": "Choose TRUE if the statement agrees with the passage, FALSE if it contradicts it, or NOT GIVEN if there is no information.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The statement claims that Cyriacus was unable to research his journeys before he left; however, the passage says, \"Overland journeys by foot or mule along bad roads, under constant threat from bandits, were bad; voyages by seas were even worse.\" The passage gives conflicting information, so the answer is FALSE.",
+              "why_answer": "The statement claims that Cyriacus was unable to research his journeys before he left; however, the passage says, \"Overland journeys by foot or mule along bad roads, under constant threat from bandits, were bad; voyages by seas were even worse.\" The passage gives conflicting information, so the answer is FALSE."
+            },
+            {
+              "order": 2,
+              "question_type": "tfng",
+              "question_text": "The Roman Emperor Trajan built the city of Ancona.",
+              "correct_answer": "NOT GIVEN",
+              "question_instructions": "Choose TRUE if the statement agrees with the passage, FALSE if it contradicts it, or NOT GIVEN if there is no information.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage does not state whether \"The Roman Emperor Trajan built the city of Ancona.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN.",
+              "why_answer": "The passage does not state whether \"The Roman Emperor Trajan built the city of Ancona.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN."
+            },
+            {
+              "order": 3,
+              "question_type": "tfng",
+              "question_text": "Respect for ancient architecture was widespread in the 15th century.",
+              "correct_answer": "FALSE",
+              "question_instructions": "Choose TRUE if the statement agrees with the passage, FALSE if it contradicts it, or NOT GIVEN if there is no information.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The statement claims that Respect for ancient architecture was widespread in the 15th century; however, the passage says, \"He hired a local person to take him to the site and then had to work out for himself the significance of the ruins he was looking at because there was no guidebook on ancient architecture to help him.\" The passage gives conflicting information, so the answer is FALSE.",
+              "why_answer": "The statement claims that Respect for ancient architecture was widespread in the 15th century; however, the passage says, \"He hired a local person to take him to the site and then had to work out for himself the significance of the ruins he was looking at because there was no guidebook on ancient architecture to help him.\" The passage gives conflicting information, so the answer is FALSE."
+            },
+            {
+              "order": 4,
+              "question_type": "tfng",
+              "question_text": "Cyriacus's experience as a merchant gave him the skills he needed to investigate the ancient world.",
+              "correct_answer": "FALSE",
+              "question_instructions": "Choose TRUE if the statement agrees with the passage, FALSE if it contradicts it, or NOT GIVEN if there is no information.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The statement claims that Cyriacus's experience as a merchant gave him the skills he needed to investigate the ancient world; however, the passage says, \"His training as a merchant did not prepare him for this vocation; he did not know ancient languages, history or art.\" The passage gives conflicting information, so the answer is FALSE.",
+              "why_answer": "The statement claims that Cyriacus's experience as a merchant gave him the skills he needed to investigate the ancient world; however, the passage says, \"His training as a merchant did not prepare him for this vocation; he did not know ancient languages, history or art.\" The passage gives conflicting information, so the answer is FALSE."
+            },
+            {
+              "order": 5,
+              "question_type": "tfng",
+              "question_text": "Before setting off on his journeys, Cyriacus studied ancient languages.",
+              "correct_answer": "TRUE",
+              "question_instructions": "Choose TRUE if the statement agrees with the passage, FALSE if it contradicts it, or NOT GIVEN if there is no information.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"His training as a merchant did not prepare him for this vocation; he did not know ancient languages, history or art.\" This supports the statement that Before setting off on his journeys, Cyriacus studied ancient languages, so the answer is TRUE.",
+              "why_answer": "The passage states, \"His training as a merchant did not prepare him for this vocation; he did not know ancient languages, history or art.\" This supports the statement that Before setting off on his journeys, Cyriacus studied ancient languages, so the answer is TRUE."
+            },
+            {
+              "order": 6,
+              "question_type": "tfng",
+              "question_text": "Travelling by sea in the 15th century was easier than travelling on land.",
+              "correct_answer": "FALSE",
+              "question_instructions": "Choose TRUE if the statement agrees with the passage, FALSE if it contradicts it, or NOT GIVEN if there is no information.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The statement claims that Travelling by sea in the 15th century was easier than travelling on land; however, the passage says, \"In the 15th century, the Italian merchant Cyriacus of Ancona journeyed in search of the Mediterranean's classical past.\" The passage gives conflicting information, so the answer is FALSE.",
+              "why_answer": "The statement claims that Travelling by sea in the 15th century was easier than travelling on land; however, the passage says, \"In the 15th century, the Italian merchant Cyriacus of Ancona journeyed in search of the Mediterranean's classical past.\" The passage gives conflicting information, so the answer is FALSE."
+            },
+            {
+              "order": 7,
+              "question_type": "tfng",
+              "question_text": "Cyriacus tried to make his fellow sea travellers more comfortable.",
+              "correct_answer": "NOT GIVEN",
+              "question_instructions": "Choose TRUE if the statement agrees with the passage, FALSE if it contradicts it, or NOT GIVEN if there is no information.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage does not state whether \"Cyriacus tried to make his fellow sea travellers more comfortable.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN.",
+              "why_answer": "The passage does not state whether \"Cyriacus tried to make his fellow sea travellers more comfortable.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN."
+            },
+            {
+              "order": 8,
+              "question_type": "fill_blank",
+              "question_text": "The wealth of Cyzicus had come from ___.",
+              "correct_answer": "commerce",
+              "question_instructions": "Complete the notes. Choose ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"Among many of the important records made by Cyriacus was his crucial documenting, in 1431, of the remains of Cyzicus, an ancient Roman city that had relied on commerce for its financial success.\" This provides \"commerce\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Among many of the important records made by Cyriacus was his crucial documenting, in 1431, of the remains of Cyzicus, an ancient Roman city that had relied on commerce for its financial success.\" This provides \"commerce\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 9,
+              "question_type": "fill_blank",
+              "question_text": "A ___ to the ancient ruins was not available to Cyriacus.",
+              "correct_answer": "guidebook",
+              "question_instructions": "Complete the notes. Choose ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"He hired a local person to take him to the site and then had to work out for himself the significance of the ruins he was looking at because there was no guidebook on ancient architecture to help him.\" This provides \"guidebook\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"He hired a local person to take him to the site and then had to work out for himself the significance of the ruins he was looking at because there was no guidebook on ancient architecture to help him.\" This provides \"guidebook\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 10,
+              "question_type": "fill_blank",
+              "question_text": "The city was devastated by a powerful ___ in AD 123.",
+              "correct_answer": "earthquake",
+              "question_instructions": "Complete the notes. Choose ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"Unfortunately, the area was highly seismic and in AD 123 the city was so devastated by a major earthquake that, when the Roman Emperor Hadrian visited it the following year, he was so saddened that he decided to subsidise a campaign to reconstruct Cyzicus.\" This provides \"earthquake\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Unfortunately, the area was highly seismic and in AD 123 the city was so devastated by a major earthquake that, when the Roman Emperor Hadrian visited it the following year, he was so saddened that he decided to subsidise a campaign to reconstruct Cyzicus.\" This provides \"earthquake\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 11,
+              "question_type": "fill_blank",
+              "question_text": "Emperor Hadrian supported a ___ to rebuild the city.",
+              "correct_answer": "campaign",
+              "question_instructions": "Complete the notes. Choose ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"Unfortunately, the area was highly seismic and in AD 123 the city was so devastated by a major earthquake that, when the Roman Emperor Hadrian visited it the following year, he was so saddened that he decided to subsidise a campaign to reconstruct Cyzicus.\" This provides \"campaign\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Unfortunately, the area was highly seismic and in AD 123 the city was so devastated by a major earthquake that, when the Roman Emperor Hadrian visited it the following year, he was so saddened that he decided to subsidise a campaign to reconstruct Cyzicus.\" This provides \"campaign\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 12,
+              "question_type": "fill_blank",
+              "question_text": "Cyriacus drew the ___ to the temple.",
+              "correct_answer": "doorway",
+              "question_instructions": "Complete the notes. Choose ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"He no longer saw it as just a familiar and generally overlooked landmark, but as a doorway to the wonders of ancient imperial Rome.\" This provides \"doorway\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"He no longer saw it as just a familiar and generally overlooked landmark, but as a doorway to the wonders of ancient imperial Rome.\" This provides \"doorway\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 13,
+              "question_type": "fill_blank",
+              "question_text": "Delphi's ruins had nearly disappeared due to war, earthquakes and ___.",
+              "correct_answer": "avalanches",
+              "question_instructions": "Complete the notes. Choose ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"When Cyriacus arrived at the site of Delphi, however, he found war, earthquakes and avalanches had all but obliterated its ruins.\" This provides \"avalanches\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"When Cyriacus arrived at the site of Delphi, however, he found war, earthquakes and avalanches had all but obliterated its ruins.\" This provides \"avalanches\" as the information required by the question, so it completes the answer."
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Reading Passage 2: The History of the Pencil",
+          "passage_instructions": "You should spend about 20 minutes on Questions 14?26, which are based on Reading Passage 2 below.",
+          "passage": "Pencils have existed for millennia. It is known that the ancient Egyptians, Greeks and Romans all used small pieces of metal as writing instruments, and that 14th century European artists made pale grey drawings with thin rods of lead, silver or zinc. It is, however, generally accepted that the history of the modern pencil began in the 16th century, in the hilly, rural county of Cumberland in north-west England.\n\nSome time before 1565, an enormous deposit of the soft, dark grey mineral now known as graphite was discovered in the Borrowdale district of the country. Then, as now, Cumberland was a farming area, and the locals found the mineral useful for marking their sheep so they could identify the ones that belonged to them. It was thought to be a form of lead, and so was referred to as plumbago, a term deriving from the Latin name for that element. However, the mineral was later identified as a form of carbon, and in 1789 the German geologist Abraham Gottlob Werner renamed it ‘graphite’, a word based on the ancient Greek grapho, meaning ‘draw’ or ‘write’.\n\nThe graphite found at Borrowdale was extremely dense and it could easily be sawn into sticks to be used for marking, writing or drawing. But because graphite is also soft, it requires some form of encasement around it, and so the sticks were initially wrapped in string for stability and ease of use. The news of the usefulness of these early pencils spread far and wide, attracting the attention of artists throughout Europe.\n\nIn England, the government soon realized the value of the Borrowdale find, particularly for making cannon balls. The massive graphite proved ideal for lining the moulds used in the manufacture of cannon balls. The mines were therefore taken over by the government, which guarded and periodically flooded them to prevent theft. Because of this, there were occasions when supplies for use in pencils had to be smuggled out in secret. Nevertheless, England still became the centre of a thriving pencil-making industry.\n\nAlthough deposits of graphite existed in other parts of the world, they were not of the same exceptional purity and quality as Borrowdale graphite, and had to be crushed to a powder to get rid of the impurities. England therefore continued to enjoy a monopoly on the production of pencils until a method of reconstituting the graphite powder could be found. English pencils continued to be made with sticks cut from pure Borrowdale graphite into the 1860s, after which the design was modified. The town of Keswick, close to the Cumberland graphite find, still manufactures pencils today, the factory also being the location of the Cumberland pencil museum.\n\nExperimentation in pencil production was widespread across Europe during the 16th and 17th centuries. Around 1560, an Italian couple named Simonio and Lyndiana Bernacotti made what are probably the first blueprints for the modern, wood-encased pencil. Their concept involved the hollowing out of a stick of juniper wood, and placing a stick of graphite inside. Shortly thereafter, a superior technique to that of the Bernacottis was adopted; two wooden halves were carved, a graphite stick inserted, and the halves then glued together—essentially the same method in use to this day.\n\nThe first attempt to manufacture graphite sticks from powdered graphite was in Nuremberg, Germany, in 1662, using a mixture of graphite together with the elements sulphur and antimony.\n\nToday, pencils are manufactured around the world, using graphite from a number of sources. Most manufacturers use a mix of graphite and clay as the core of their pencils. Each of these substances is ground into a fine powder, which goes on to be cleaned in order to remove any impurities. After the two types of powders have been dried, they are mixed together using water. The amount of clay added to the mixture depends on how hard the pencil is intended to be—higher proportions of clay will make the pencil harder—and the amount of time spent grinding the mixture determines the quality of the core. The graphite-clay mixture is then shaped into long sticks, and after drying these are heated in a kiln to 1,200°C. In the next step in the process, the graphite-clay sticks are immersed in melted wax, which is absorbed into the mixture and helps to make it write more smoothly. In the next stage, the manufacturers use thin planks of cedar wood or juniper wood. Several long parallel grooves are cut into the planks, and the graphite-clay sticks are inserted into these. A second plank which has been prepared in the same way is then glued on top. The whole assembly is then cut into separate pencils. The outside may then be varnished, retaining the natural colour of the wood, or painted in different colours.",
+          "questions": [
+            {
+              "order": 1,
+              "question_type": "fill_blank",
+              "question_text": "Borrowdale graphite was used by local farmers to identify which ___ they owned.",
+              "correct_answer": "sheep",
+              "question_instructions": "Complete the notes. Choose ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"Then, as now, Cumberland was a farming area, and the locals found the mineral useful for marking their sheep so they could identify the ones that belonged to them.\" This provides \"sheep\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Then, as now, Cumberland was a farming area, and the locals found the mineral useful for marking their sheep so they could identify the ones that belonged to them.\" This provides \"sheep\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 2,
+              "question_type": "fill_blank",
+              "question_text": "The mineral was first believed to be a type of ___.",
+              "correct_answer": "lead",
+              "question_instructions": "Complete the notes. Choose ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"It is known that the ancient Egyptians, Greeks and Romans all used small pieces of metal as writing instruments, and that 14th century European artists made pale grey drawings with thin rods of lead, silver or zinc.\" This provides \"lead\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"It is known that the ancient Egyptians, Greeks and Romans all used small pieces of metal as writing instruments, and that 14th century European artists made pale grey drawings with thin rods of lead, silver or zinc.\" This provides \"lead\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 3,
+              "question_type": "fill_blank",
+              "question_text": "The English ___ took control of the Borrowdale mines.",
+              "correct_answer": "government",
+              "question_instructions": "Complete the notes. Choose ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"The mines were therefore taken over by the government, which guarded and periodically flooded them to prevent theft.\" This provides \"government\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"The mines were therefore taken over by the government, which guarded and periodically flooded them to prevent theft.\" This provides \"government\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 4,
+              "question_type": "tfng",
+              "question_text": "Borrowdale graphite was superior to all other forms of graphite.",
+              "correct_answer": "TRUE",
+              "question_instructions": "Choose TRUE if the statement agrees with the passage, FALSE if it contradicts it, or NOT GIVEN if there is no information.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Shortly thereafter, a superior technique to that of the Bernacottis was adopted; two wooden halves were carved, a graphite stick inserted, and the halves then glued together—essentially the same method in use to this day.\" This supports the statement that Borrowdale graphite was superior to all other forms of graphite, so the answer is TRUE.",
+              "why_answer": "The passage states, \"Shortly thereafter, a superior technique to that of the Bernacottis was adopted; two wooden halves were carved, a graphite stick inserted, and the halves then glued together—essentially the same method in use to this day.\" This supports the statement that Borrowdale graphite was superior to all other forms of graphite, so the answer is TRUE."
+            },
+            {
+              "order": 5,
+              "question_type": "tfng",
+              "question_text": "Pencil production in the Borrowdale area only lasted until the 1860s.",
+              "correct_answer": "FALSE",
+              "question_instructions": "Choose TRUE if the statement agrees with the passage, FALSE if it contradicts it, or NOT GIVEN if there is no information.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The statement claims that Pencil production in the Borrowdale area only lasted until the 1860s; however, the passage says, \"England therefore continued to enjoy a monopoly on the production of pencils until a method of reconstituting the graphite powder could be found.\" The passage gives conflicting information, so the answer is FALSE.",
+              "why_answer": "The statement claims that Pencil production in the Borrowdale area only lasted until the 1860s; however, the passage says, \"England therefore continued to enjoy a monopoly on the production of pencils until a method of reconstituting the graphite powder could be found.\" The passage gives conflicting information, so the answer is FALSE."
+            },
+            {
+              "order": 6,
+              "question_type": "tfng",
+              "question_text": "The Cumberland pencil museum contains examples of pencils from different European countries.",
+              "correct_answer": "NOT GIVEN",
+              "question_instructions": "Choose TRUE if the statement agrees with the passage, FALSE if it contradicts it, or NOT GIVEN if there is no information.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage does not state whether \"The Cumberland pencil museum contains examples of pencils from different European countries.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN.",
+              "why_answer": "The passage does not state whether \"The Cumberland pencil museum contains examples of pencils from different European countries.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN."
+            },
+            {
+              "order": 7,
+              "question_type": "tfng",
+              "question_text": "A technique which improved on the Bernacottis' method of making pencils is still used today.",
+              "correct_answer": "TRUE",
+              "question_instructions": "Choose TRUE if the statement agrees with the passage, FALSE if it contradicts it, or NOT GIVEN if there is no information.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Shortly thereafter, a superior technique to that of the Bernacottis was adopted; two wooden halves were carved, a graphite stick inserted, and the halves then glued together—essentially the same method in use to this day.\" This supports the statement that A technique which improved on the Bernacottis' method of making pencils is still used today, so the answer is TRUE.",
+              "why_answer": "The passage states, \"Shortly thereafter, a superior technique to that of the Bernacottis was adopted; two wooden halves were carved, a graphite stick inserted, and the halves then glued together—essentially the same method in use to this day.\" This supports the statement that A technique which improved on the Bernacottis' method of making pencils is still used today, so the answer is TRUE."
+            },
+            {
+              "order": 8,
+              "question_type": "tfng",
+              "question_text": "In 1662, manufacturers in Nuremberg made pencils with graphite imported from England.",
+              "correct_answer": "NOT GIVEN",
+              "question_instructions": "Choose TRUE if the statement agrees with the passage, FALSE if it contradicts it, or NOT GIVEN if there is no information.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage does not state whether \"In 1662, manufacturers in Nuremberg made pencils with graphite imported from England.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN.",
+              "why_answer": "The passage does not state whether \"In 1662, manufacturers in Nuremberg made pencils with graphite imported from England.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN."
+            },
+            {
+              "order": 9,
+              "question_type": "fill_blank",
+              "question_text": "After being ground, the graphite and clay powders are ___ to remove impurities.",
+              "correct_answer": "cleaned",
+              "question_instructions": "Complete the flow chart. Choose ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"Each of these substances is ground into a fine powder, which goes on to be cleaned in order to remove any impurities.\" This provides \"cleaned\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Each of these substances is ground into a fine powder, which goes on to be cleaned in order to remove any impurities.\" This provides \"cleaned\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 10,
+              "question_type": "fill_blank",
+              "question_text": "After being shaped into sticks, the graphite-clay mixture is ___ in a kiln.",
+              "correct_answer": "heated",
+              "question_instructions": "Complete the flow chart. Choose ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"The graphite-clay mixture is then shaped into long sticks, and after drying these are heated in a kiln to 1,200°C.\" This provides \"heated\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"The graphite-clay mixture is then shaped into long sticks, and after drying these are heated in a kiln to 1,200°C.\" This provides \"heated\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 11,
+              "question_type": "fill_blank",
+              "question_text": "The graphite-clay sticks are immersed in melted ___.",
+              "correct_answer": "wax",
+              "question_instructions": "Complete the flow chart. Choose ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"In the next step in the process, the graphite-clay sticks are immersed in melted wax, which is absorbed into the mixture and helps to make it write more smoothly.\" This provides \"wax\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"In the next step in the process, the graphite-clay sticks are immersed in melted wax, which is absorbed into the mixture and helps to make it write more smoothly.\" This provides \"wax\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 12,
+              "question_type": "fill_blank",
+              "question_text": "Long parallel ___ are cut into the wood planks to hold the pencil cores.",
+              "correct_answer": "grooves",
+              "question_instructions": "Complete the flow chart. Choose ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"Several long parallel grooves are cut into the planks, and the graphite-clay sticks are inserted into these.\" This provides \"grooves\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Several long parallel grooves are cut into the planks, and the graphite-clay sticks are inserted into these.\" This provides \"grooves\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 13,
+              "question_type": "fill_blank",
+              "question_text": "The outside of the finished pencil may be ___.",
+              "correct_answer": "varnished",
+              "question_instructions": "Complete the flow chart. Choose ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"The outside may then be varnished, retaining the natural colour of the wood, or painted in different colours.\" This provides \"varnished\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"The outside may then be varnished, retaining the natural colour of the wood, or painted in different colours.\" This provides \"varnished\" as the information required by the question, so it completes the answer."
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Reading Passage 3: 200 Years of Australian Landscapes at the Royal Academy in London",
+          "passage_instructions": "You should spend about 20 minutes on Questions 27?40, which are based on Reading Passage 3 below.",
+          "passage": "A For the casual viewer, the exhibition of landscapes, Australia, selected by the Royal Academy of Art will be a spectacular guide through Australian art history. Included in the exhibition are a range of artists and styles, dating from the earliest days of colonial art and progressing through expressionism and modernism to the artists of the 20th century, culminating with the current generation of Australian artists. It is hardly surprising, then, that this results in a flexible, wide-ranging notion of landscape.\n\nB But this landmark exhibition gives rise to some questions, and perhaps problems, regarding Britain's relationship with its former colony. By choosing a style of painting at which British artists excel, the Academy could be seen as inviting criticism that hints at a telling attitude towards art by comparison. But it is the very theme of landscape painting that makes this a controversial selection. To consider if condescending is perhaps too strong, but for Joanna Mendelssohn, Australian critic and Associate Professor at the University of NSW's College of Fine Arts (COFA), there is a suggestion that British artistic values have directed this exhibition, rather than allowing Australia the freedom to demonstrate its maturity.\n\nC What Mendelssohn found surprising about the exhibition was the underlying rules for the selection of works seemed to have been so conservative. Since the landscape is a very strong British artistic theme, it appeared to her that when the British looked to the art of a former colony, there was a tendency for them to think that those colonies would continue to be like the British themselves. In reviewing Australian art, the British insisted on looking at the genre of landscape painting.\n\nD Because of colonial ties, it was inevitable during Australian art's formative years that it would reflect Britain's devotion to the beloved landscape before its own character and idiosyncrasies took shape. And while Mendelssohn's concern over the exhibition's conventional selection is valid, the Academy is nevertheless embracing the peculiarities of Australian art from the mid-19th century onward, albeit within the boundaries of landscape.\n\nE Australia is curated by Kathleen Soriano, director of exhibitions at the Royal Academy. ' Certainly the influence of English, French or German art is much more evident in the early periods, in the early 1800s to mid-1800s,' she says. 'What I wanted to show was how Australian art develops a real distinctiveness, associated with the landscape and the light.'\n\nF The fusion of 'tradition' of the European kind with something more specifically Australian, and often personal, is crucial to the exhibition and extends particularly to some of the more contemporary artists involved. Sydney-born video artist Shaun Gladwell is a good example of this. Gladwell's most famous piece, which is featured in the exhibition, is Storm Sequence (2000), a video of Gladwell skateboarding on the Bondi seafront as one of Sydney's signature brutal storms lingers offshore. It is his acknowledgment of landscape (or seascape) tradition, coloured by Gladwell's own individualism. 'To exhibit my work in this show might make some sense because I was interested in Turner and the idea of atmosphere affecting vision, something I was really interested in around the time of Storm Sequence. I was thinking about this tradition of Romantic landscape, but I wanted to make it personal,' says Gladwell. But he didn't want to just embark on borrowing imagery from elsewhere. He wanted to bring it to his experience and his world through skateboarding and beach culture.\n\nG So while it may seem narrow for Britain to reduce Australian art to the genre of landscape, there can be little denying that British landscape painting is still relevant to a current generation of Australian practitioners, however indirectly.\n\nH Visitors to the exhibition encounter Australian Aboriginal art first, the idea being that these works warrant a prominent position because they were 'first'. Over the last couple of decades, London has hosted many successful exhibitions of Aboriginal art in smaller spaces, but for Soriano, Australia represents an opportunity to place such art within the context of new relationships to the art of the settlers and white Australia. ' One of the reasons landscape was seen as being the right theme was because Australian art started in and on the landscape, ' she says. '[The exhibition] is a beautiful meshing of the two different kinds of art that allowed me to bring them together comfortably and honestly with this theme. It was important for me to present Indigenous art to audiences, and I felt it was most accurate to be seen as part of Australian art history, rather than a separate exhibition of its own. '\n\nI Meanwhile, Australian critic Mendelssohn also points out that London is increasingly less important to today's generation of artists, and this somewhat weakens the ceremony surrounding the exhibition in London. 'China is the most important art market in the world,' she says. 'If you've made it in Shanghai, you've made it. The world has changed. My students in Australia, who come from all over the world, really want to see Venice Biennale and Art Basel, but they're less interested in going to London. When I was growing up, London was the destination, and then when I was at university all the smart young things wanted to go to New York,' she added. 'Now they want to go everywhere. There's no such thing as the centre and the periphery like there used to be. It's much more complicated.'",
+          "questions": [
+            {
+              "order": 27,
+              "question_type": "ynng",
+              "question_text": "As expected, the artworks chosen for the exhibition reflect a narrow interpretation of landscape.",
+              "correct_answer": "NO",
+              "question_instructions": "Do the statements agree with the writer? Choose YES, NO or NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "YES",
+                  "option_text": "YES",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NO",
+                  "option_text": "NO",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The statement claims that As expected, the artworks chosen for the exhibition reflect a narrow interpretation of landscape; however, the passage says, \"Because of colonial ties, it was inevitable during Australian art's formative years that it would reflect Britain's devotion to the beloved landscape before its own character and idiosyncrasies took shape.\" The passage gives conflicting information, so the answer is NO.",
+              "why_answer": "The statement claims that As expected, the artworks chosen for the exhibition reflect a narrow interpretation of landscape; however, the passage says, \"Because of colonial ties, it was inevitable during Australian art's formative years that it would reflect Britain's devotion to the beloved landscape before its own character and idiosyncrasies took shape.\" The passage gives conflicting information, so the answer is NO."
+            },
+            {
+              "order": 28,
+              "question_type": "ynng",
+              "question_text": "The Academy rejected Australian suggestions for the subject of the exhibition.",
+              "correct_answer": "NOT GIVEN",
+              "question_instructions": "Do the statements agree with the writer? Choose YES, NO or NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "YES",
+                  "option_text": "YES",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NO",
+                  "option_text": "NO",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage does not state whether \"The Academy rejected Australian suggestions for the subject of the exhibition.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN.",
+              "why_answer": "The passage does not state whether \"The Academy rejected Australian suggestions for the subject of the exhibition.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN."
+            },
+            {
+              "order": 29,
+              "question_type": "ynng",
+              "question_text": "The colonial relationship meant that early Australian landscape painting followed the traditions of English landscape painting.",
+              "correct_answer": "YES",
+              "question_instructions": "Do the statements agree with the writer? Choose YES, NO or NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "YES",
+                  "option_text": "YES",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NO",
+                  "option_text": "NO",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Because of colonial ties, it was inevitable during Australian art's formative years that it would reflect Britain's devotion to the beloved landscape before its own character and idiosyncrasies took shape.\" This supports the statement that The colonial relationship meant that early Australian landscape painting followed the traditions of English landscape painting, so the answer is YES.",
+              "why_answer": "The passage states, \"Because of colonial ties, it was inevitable during Australian art's formative years that it would reflect Britain's devotion to the beloved landscape before its own character and idiosyncrasies took shape.\" This supports the statement that The colonial relationship meant that early Australian landscape painting followed the traditions of English landscape painting, so the answer is YES."
+            },
+            {
+              "order": 30,
+              "question_type": "ynng",
+              "question_text": "The exhibition reflects the fact that Australian art developed its own particular qualities.",
+              "correct_answer": "YES",
+              "question_instructions": "Do the statements agree with the writer? Choose YES, NO or NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "YES",
+                  "option_text": "YES",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NO",
+                  "option_text": "NO",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"It was important for me to present Indigenous art to audiences, and I felt it was most accurate to be seen as part of Australian art history, rather than a separate exhibition of its own.\" This supports the statement that The exhibition reflects the fact that Australian art developed its own particular qualities, so the answer is YES.",
+              "why_answer": "The passage states, \"It was important for me to present Indigenous art to audiences, and I felt it was most accurate to be seen as part of Australian art history, rather than a separate exhibition of its own.\" This supports the statement that The exhibition reflects the fact that Australian art developed its own particular qualities, so the answer is YES."
+            },
+            {
+              "order": 31,
+              "question_type": "ynng",
+              "question_text": "Contemporary Australian artists have generally rejected British landscape traditions.",
+              "correct_answer": "NO",
+              "question_instructions": "Do the statements agree with the writer? Choose YES, NO or NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "YES",
+                  "option_text": "YES",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NO",
+                  "option_text": "NO",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The statement claims that Contemporary Australian artists have generally rejected British landscape traditions; however, the passage says, \"The fusion of 'tradition' of the European kind with something more specifically Australian, and often personal, is crucial to the exhibition and extends particularly to some of the more contemporary artists involved.\" The passage gives conflicting information, so the answer is NO.",
+              "why_answer": "The statement claims that Contemporary Australian artists have generally rejected British landscape traditions; however, the passage says, \"The fusion of 'tradition' of the European kind with something more specifically Australian, and often personal, is crucial to the exhibition and extends particularly to some of the more contemporary artists involved.\" The passage gives conflicting information, so the answer is NO."
+            },
+            {
+              "order": 32,
+              "question_type": "mcq",
+              "question_text": "What is the writer's main point in the second paragraph?",
+              "correct_answer": "C",
+              "question_instructions": "Choose the correct letter, A, B, C or D.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Australian landscape painting derives from the British tradition.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Australian landscape painting is more highly regarded than British.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Britain is still imposing its principles on Australian art.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "British art cannot be compared to Australian art.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"So while it may seem narrow for Britain to reduce Australian art to the genre of landscape, there can be little denying that British landscape painting is still relevant to a current generation of Australian practitioners, however indirectly.\" This evidence supports option(s) C (Britain is still imposing its principles on Australian art.), which answer the question.",
+              "why_answer": "The passage states, \"So while it may seem narrow for Britain to reduce Australian art to the genre of landscape, there can be little denying that British landscape painting is still relevant to a current generation of Australian practitioners, however indirectly.\" This evidence supports option(s) C (Britain is still imposing its principles on Australian art.), which answer the question."
+            },
+            {
+              "order": 33,
+              "question_type": "mcq",
+              "question_text": "What does Joanna Mendelssohn find surprising?",
+              "correct_answer": "B",
+              "question_instructions": "Choose the correct letter, A, B, C or D.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Modern Australian landscape painting has great variety.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "The guidelines for the choice of work were very traditional.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Landscape painting remains a popular subject for British artists.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "The British find the Australian landscape unsuitable as a subject.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"'To exhibit my work in this show might make some sense because I was interested in Turner and the idea of atmosphere affecting vision, something I was really interested in around the time of Storm Sequence.\" This evidence supports option(s) B (The guidelines for the choice of work were very traditional.), which answer the question.",
+              "why_answer": "The passage states, \"'To exhibit my work in this show might make some sense because I was interested in Turner and the idea of atmosphere affecting vision, something I was really interested in around the time of Storm Sequence.\" This evidence supports option(s) B (The guidelines for the choice of work were very traditional.), which answer the question."
+            },
+            {
+              "order": 34,
+              "question_type": "mcq",
+              "question_text": "Shaun Gladwell's work is included in the exhibition because",
+              "correct_answer": "A",
+              "question_instructions": "Choose the correct letter, A, B, C or D.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "it adopts a subjective approach to depicting the landscape.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "skateboarding is an inspiration to many Australian artists.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "storms are a significant feature in the Australian landscape.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Bondi is an iconic Australian location.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Sydney-born video artist Shaun Gladwell is a good example of this.\" This evidence supports option(s) A (it adopts a subjective approach to depicting the landscape.), which answer the question.",
+              "why_answer": "The passage states, \"Sydney-born video artist Shaun Gladwell is a good example of this.\" This evidence supports option(s) A (it adopts a subjective approach to depicting the landscape.), which answer the question."
+            },
+            {
+              "order": 35,
+              "question_type": "mcq",
+              "question_text": "What was the reason for Soriano including Aboriginal art in the exhibition?",
+              "correct_answer": "C",
+              "question_instructions": "Choose the correct letter, A, B, C or D.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "It is not well known in London art circles.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Aboriginal landscape painting influenced Australian settlers.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "It is part of the Australian art tradition and not independent of it.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Modern Aboriginal painting deals with changes to the landscape.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"It was important for me to present Indigenous art to audiences, and I felt it was most accurate to be seen as part of Australian art history, rather than a separate exhibition of its own.\" This evidence supports option(s) C (It is part of the Australian art tradition and not independent of it.), which answer the question.",
+              "why_answer": "The passage states, \"It was important for me to present Indigenous art to audiences, and I felt it was most accurate to be seen as part of Australian art history, rather than a separate exhibition of its own.\" This evidence supports option(s) C (It is part of the Australian art tradition and not independent of it.), which answer the question."
+            },
+            {
+              "order": 36,
+              "question_type": "mcq",
+              "question_text": "By referring to China, Mendelssohn is making the point that",
+              "correct_answer": "A",
+              "question_instructions": "Choose the correct letter, A, B, C or D.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "having an exhibition in London is not as important as it used to be.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "young artists in Britain are not interested in Australian art.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "art from Shanghai is more important than Australian art.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "New York is still a preferred destination for young artists.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Meanwhile, Australian critic Mendelssohn also points out that London is increasingly less important to today's generation of artists, and this somewhat weakens the ceremony surrounding the exhibition in London.\" This evidence supports option(s) A (having an exhibition in London is not as important as it used to be.), which answer the question.",
+              "why_answer": "The passage states, \"Meanwhile, Australian critic Mendelssohn also points out that London is increasingly less important to today's generation of artists, and this somewhat weakens the ceremony surrounding the exhibition in London.\" This evidence supports option(s) A (having an exhibition in London is not as important as it used to be.), which answer the question."
+            },
+            {
+              "order": 37,
+              "question_type": "matching",
+              "question_text": "In spite of its conservatism, the Royal Academy exhibition ___",
+              "correct_answer": "F",
+              "question_instructions": "Complete each sentence with the correct ending, A-F.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "reflects the mood created by the natural environment.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "demonstrates that the dominant art form in Australia is landscape painting.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "demonstrates an understanding of the historical importance of the land.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "showcases a very small number of artists.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "demonstrates a strong European flavour.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "shows an acceptance of the unique qualities of Australian art.",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage states, \"For the casual viewer, the exhibition of landscapes, Australia, selected by the Royal Academy of Art will be a spectacular guide through Australian art history.\" This connects \"In spite of its conservatism, the Royal Academy exhibition ___\" with \"shows an acceptance of the unique qualities of Australian art.\", so the correct match is F.",
+              "why_answer": "The passage states, \"For the casual viewer, the exhibition of landscapes, Australia, selected by the Royal Academy of Art will be a spectacular guide through Australian art history.\" This connects \"In spite of its conservatism, the Royal Academy exhibition ___\" with \"shows an acceptance of the unique qualities of Australian art.\", so the correct match is F."
+            },
+            {
+              "order": 38,
+              "question_type": "matching",
+              "question_text": "Australian art of the early to mid-1800s ___",
+              "correct_answer": "E",
+              "question_instructions": "Complete each sentence with the correct ending, A-F.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "reflects the mood created by the natural environment.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "demonstrates that the dominant art form in Australia is landscape painting.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "demonstrates an understanding of the historical importance of the land.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "showcases a very small number of artists.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "demonstrates a strong European flavour.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "shows an acceptance of the unique qualities of Australian art.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"' Certainly the influence of English, French or German art is much more evident in the early periods, in the early 1800s to mid-1800s,' she says.\" This connects \"Australian art of the early to mid-1800s ___\" with \"demonstrates a strong European flavour.\", so the correct match is E.",
+              "why_answer": "The passage states, \"' Certainly the influence of English, French or German art is much more evident in the early periods, in the early 1800s to mid-1800s,' she says.\" This connects \"Australian art of the early to mid-1800s ___\" with \"demonstrates a strong European flavour.\", so the correct match is E."
+            },
+            {
+              "order": 39,
+              "question_type": "matching",
+              "question_text": "The modern work by Gladwell chosen for the exhibition ___",
+              "correct_answer": "A",
+              "question_instructions": "Complete each sentence with the correct ending, A-F.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "reflects the mood created by the natural environment.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "demonstrates that the dominant art form in Australia is landscape painting.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "demonstrates an understanding of the historical importance of the land.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "showcases a very small number of artists.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "demonstrates a strong European flavour.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "shows an acceptance of the unique qualities of Australian art.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"'To exhibit my work in this show might make some sense because I was interested in Turner and the idea of atmosphere affecting vision, something I was really interested in around the time of Storm Sequence.\" This connects \"The modern work by Gladwell chosen for the exhibition ___\" with \"reflects the mood created by the natural environment.\", so the correct match is A.",
+              "why_answer": "The passage states, \"'To exhibit my work in this show might make some sense because I was interested in Turner and the idea of atmosphere affecting vision, something I was really interested in around the time of Storm Sequence.\" This connects \"The modern work by Gladwell chosen for the exhibition ___\" with \"reflects the mood created by the natural environment.\", so the correct match is A."
+            },
+            {
+              "order": 40,
+              "question_type": "matching",
+              "question_text": "Including Aboriginal art in the exhibition ___",
+              "correct_answer": "C",
+              "question_instructions": "Complete each sentence with the correct ending, A-F.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "reflects the mood created by the natural environment.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "demonstrates that the dominant art form in Australia is landscape painting.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "demonstrates an understanding of the historical importance of the land.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "showcases a very small number of artists.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "demonstrates a strong European flavour.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "shows an acceptance of the unique qualities of Australian art.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Visitors to the exhibition encounter Australian Aboriginal art first, the idea being that these works warrant a prominent position because they were 'first'.\" This connects \"Including Aboriginal art in the exhibition ___\" with \"demonstrates an understanding of the historical importance of the land.\", so the correct match is C.",
+              "why_answer": "The passage states, \"Visitors to the exhibition encounter Australian Aboriginal art first, the idea being that these works warrant a prominent position because they were 'first'.\" This connects \"Including Aboriginal art in the exhibition ___\" with \"demonstrates an understanding of the historical importance of the land.\", so the correct match is C."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

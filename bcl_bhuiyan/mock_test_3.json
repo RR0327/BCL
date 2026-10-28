@@ -1,0 +1,1144 @@
+{
+  "test_number": 3,
+  "title": "IELTS Academic Mock Test 3",
+  "description": "IELTS Academic Reading practice test featuring The Origin of Paper, The Power of Smell, and Star Performers. Includes 40 questions and answer keys.",
+  "modules": [
+    {
+      "module_type": "reading",
+      "duration_minutes": 60,
+      "instructions": "Read each passage and answer the questions.",
+      "sections": [
+        {
+          "order": 1,
+          "title": "Reading Passage 1: The Origin of Paper",
+          "passage_instructions": "You should spend about 20 minutes on Questions 1?13, which are based on Reading Passage 1 below.",
+          "passage": "The word paper derives from the Greek term for the ancient Egyptian writing material called papyrus. In about 2400 BC, the Egyptians discovered how to make a writing surface out of papyrus, a type of reed that grows along waterways in southern Europe and North Africa. The Egyptians cut the plant into strips which they softened in water. Papyrus was cross-woven into a mat and then pounded into a hard thin sheet.\n\nAs the papyrus plant requires subtropical conditions to grow, papyrus was not much used in Europe at that time; instead, the main material used for writing was parchment. This was made from animal skin and was extremely expensive. In fact, it has been estimated that a single book written on parchment required the skins of 300 sheep. The skins had to be specifically prepared by drying them and they were then stretched on a special frame. It is not known when parchment was first introduced, but it was the main writing material in Europe for hundreds of years.\n\nPaper, which is made from pulp, rags, and fibers of plants, seems to have been invented in China and is considered to be one of the Four Great Inventions of Ancient China. In 105 AD, under the Han Dynasty emperor Ho -ti, a government official in China named Ts’ai Lun was the first to start a papermaking industry. Ts’ai Lun seems to have made his paper by mixing finely chopped mulberry bark and hemp rags with water, mashing the mixture flat with a stone mortar, and then pressing out the water and letting it dry in the sun. He may have based his idea on bark cloth, which was very common in China and also made from mulberry.\n\nPreviously, during the Shang (1600-1050 BC) and Zhou (1050-256 BC) dynasties of Ancient China, documents were ordinarily written on bone or bamboo (on tablets or on bamboo strips sewn and rolled together into scrolls), making them very heavy and awkward to transport. The light material of silk was sometimes used, but was normally too expensive to consider. When it was first invented, paper was used for purposes of wrapping or padding protection for delicate bronze mirrors. Although paper used for writing became popular by the 3rd century AD, it continued to be used for wrapping and other purposes.\n\nDuring the Tang Dynasty (618-907 AD) paper was folded and sewn into square bags to preserve the flavor of tea. During the same period, according to a written account, tea was served from baskets with multi-colored paper cups and paper napkins of different sizes and shapes. During the Chinese Song Dynasty (960-1279 AD) not only did the government produce the world’s first known printed paper money, or banknote, but paper money bestowed as gifts was wrapped in special paper envelopes.\n\nPaper spread slowly outside of China; other Asian cultures, even after seeing paper, could not make it themselves. Instruction in the manufacturing process was required, and the Chinese were reluctant to share their secrets. It made its true push westward in 751 AD when the Tang Dynasty was at war with the Islamic world. During a battle on the banks of the Tarus river, a Chinese caravan was captured which happened to include several papermakers. They were taken away to Samarkand, which was a good place to make paper because it had an abundant supply of hemp and flax. Samarkanders changed the technology of manufacturing paper. They began to prepare it in stone mills and Samarkand became an important papermaking center.\n\nThe rudimentary and laborious process of papermaking was refined and bulk manufacturing of paper began in Iran, where they invented a method to make a thicker sheet of paper, which helped transform papermaking from an art into an important business.\n\nGradually papermakers made their way further west through the Arab world - to Baghdad, Damascus and Cairo. Finally, when the Moors from North Africa invaded Spain and Portugal they brought the technology with them and so it was that papermaking entered Europe in the 12th century.\n\nIn Europe, the preferred medium for the artists and literati of the time was still the smooth and lustrous parchment. The notion of paper being used as a practical everyday item did not occur until the 15th century when Johannes Gutenberg perfected movable type printing, which included the use of metal molds and alloys, a special press, and oil-based inks, allowing the mass production of printed books. The birth of the modern paper and printing industry is commonly marked from this date.\n\nPrinting technology rapidly developed and created an ever-increasing demand for paper. The early European papers were made from recycled cotton and linen - and a huge trade quickly developed around the trading of old rags. It is said that the disease known as ‘the Black Death’ entered England from Europe on these old rags. Yet soon this source became insufficient and some curious attempts were made to find new materials. Experiments with fibers such as straw, cabbage, wasp nests and finally wood, resulted in inexpensive - and replaceable - materials for papermaking. Today, the long soft fibers of softwoods such as spruce have become the most suitable source of pulp for the mass production of paper.",
+          "questions": [
+            {
+              "order": 1,
+              "question_type": "tfng",
+              "question_text": "In Ancient China, writing was occasionally done on silk.",
+              "correct_answer": "TRUE",
+              "question_instructions": "Do the following statements agree with the information in the passage? Choose TRUE, FALSE, or NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"The word paper derives from the Greek term for the ancient Egyptian writing material called papyrus.\" This supports the statement that In Ancient China, writing was occasionally done on silk, so the answer is TRUE.",
+              "why_answer": "The passage states, \"The word paper derives from the Greek term for the ancient Egyptian writing material called papyrus.\" This supports the statement that In Ancient China, writing was occasionally done on silk, so the answer is TRUE."
+            },
+            {
+              "order": 2,
+              "question_type": "tfng",
+              "question_text": "Coloured paper was invented during the Tang Dynasty.",
+              "correct_answer": "NOT GIVEN",
+              "question_instructions": "Do the following statements agree with the information in the passage? Choose TRUE, FALSE, or NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage does not state whether \"Coloured paper was invented during the Tang Dynasty.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN.",
+              "why_answer": "The passage does not state whether \"Coloured paper was invented during the Tang Dynasty.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN."
+            },
+            {
+              "order": 3,
+              "question_type": "tfng",
+              "question_text": "Papermakers from Samarkand were captured by the Chinese in the war in 751 AD.",
+              "correct_answer": "FALSE",
+              "question_instructions": "Do the following statements agree with the information in the passage? Choose TRUE, FALSE, or NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The statement claims that Papermakers from Samarkand were captured by the Chinese in the war in 751 AD; however, the passage says, \"It made its true push westward in 751 AD when the Tang Dynasty was at war with the Islamic world.\" The passage gives conflicting information, so the answer is FALSE.",
+              "why_answer": "The statement claims that Papermakers from Samarkand were captured by the Chinese in the war in 751 AD; however, the passage says, \"It made its true push westward in 751 AD when the Tang Dynasty was at war with the Islamic world.\" The passage gives conflicting information, so the answer is FALSE."
+            },
+            {
+              "order": 4,
+              "question_type": "tfng",
+              "question_text": "Papermaking as a large-scale industry originated in Iran.",
+              "correct_answer": "TRUE",
+              "question_instructions": "Do the following statements agree with the information in the passage? Choose TRUE, FALSE, or NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"The rudimentary and laborious process of papermaking was refined and bulk manufacturing of paper began in Iran, where they invented a method to make a thicker sheet of paper, which helped transform papermaking from an art into an important business.\" This supports the statement that Papermaking as a large-scale industry originated in Iran, so the answer is TRUE.",
+              "why_answer": "The passage states, \"The rudimentary and laborious process of papermaking was refined and bulk manufacturing of paper began in Iran, where they invented a method to make a thicker sheet of paper, which helped transform papermaking from an art into an important business.\" This supports the statement that Papermaking as a large-scale industry originated in Iran, so the answer is TRUE."
+            },
+            {
+              "order": 5,
+              "question_type": "tfng",
+              "question_text": "Papermaking skills were brought to Europe via North Africa.",
+              "correct_answer": "TRUE",
+              "question_instructions": "Do the following statements agree with the information in the passage? Choose TRUE, FALSE, or NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Finally, when the Moors from North Africa invaded Spain and Portugal they brought the technology with them and so it was that papermaking entered Europe in the 12th century.\" This supports the statement that Papermaking skills were brought to Europe via North Africa, so the answer is TRUE.",
+              "why_answer": "The passage states, \"Finally, when the Moors from North Africa invaded Spain and Portugal they brought the technology with them and so it was that papermaking entered Europe in the 12th century.\" This supports the statement that Papermaking skills were brought to Europe via North Africa, so the answer is TRUE."
+            },
+            {
+              "order": 6,
+              "question_type": "tfng",
+              "question_text": "When Gutenberg invented movable type, paper materials were very expensive.",
+              "correct_answer": "NOT GIVEN",
+              "question_instructions": "Do the following statements agree with the information in the passage? Choose TRUE, FALSE, or NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage does not state whether \"When Gutenberg invented movable type, paper materials were very expensive.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN.",
+              "why_answer": "The passage does not state whether \"When Gutenberg invented movable type, paper materials were very expensive.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN."
+            },
+            {
+              "order": 7,
+              "question_type": "tfng",
+              "question_text": "The end of the trade in rags was brought about by the difficulty of transporting them.",
+              "correct_answer": "FALSE",
+              "question_instructions": "Do the following statements agree with the information in the passage? Choose TRUE, FALSE, or NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The statement claims that The end of the trade in rags was brought about by the difficulty of transporting them; however, the passage says, \"The early European papers were made from recycled cotton and linen - and a huge trade quickly developed around the trading of old rags.\" The passage gives conflicting information, so the answer is FALSE.",
+              "why_answer": "The statement claims that The end of the trade in rags was brought about by the difficulty of transporting them; however, the passage says, \"The early European papers were made from recycled cotton and linen - and a huge trade quickly developed around the trading of old rags.\" The passage gives conflicting information, so the answer is FALSE."
+            },
+            {
+              "order": 8,
+              "question_type": "fill_blank",
+              "question_text": "The papyrus plant was cut into ___ before the strips were softened in water, woven, and pounded.",
+              "correct_answer": "strips",
+              "question_instructions": "Complete the table. Choose ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"The Egyptians cut the plant into strips which they softened in water.\" This provides \"strips\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"The Egyptians cut the plant into strips which they softened in water.\" This provides \"strips\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 9,
+              "question_type": "fill_blank",
+              "question_text": "Parchment was made from the skin of animals such as ___.",
+              "correct_answer": "sheep",
+              "question_instructions": "Complete the table. Choose ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"In fact, it has been estimated that a single book written on parchment required the skins of 300 sheep.\" This provides \"sheep\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"In fact, it has been estimated that a single book written on parchment required the skins of 300 sheep.\" This provides \"sheep\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 10,
+              "question_type": "fill_blank",
+              "question_text": "To prepare parchment, animal skin was dried and then ___ on a special frame.",
+              "correct_answer": "stretched",
+              "question_instructions": "Complete the table. Choose ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"The skins had to be specifically prepared by drying them and they were then stretched on a special frame.\" This provides \"stretched\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"The skins had to be specifically prepared by drying them and they were then stretched on a special frame.\" This provides \"stretched\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 11,
+              "question_type": "fill_blank",
+              "question_text": "Ts'ai Lun mixed ___ from a mulberry tree with hemp rags to make paper.",
+              "correct_answer": "bark",
+              "question_instructions": "Complete the table. Choose ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"Ts’ai Lun seems to have made his paper by mixing finely chopped mulberry bark and hemp rags with water, mashing the mixture flat with a stone mortar, and then pressing out the water and letting it dry in the sun.\" This provides \"bark\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Ts’ai Lun seems to have made his paper by mixing finely chopped mulberry bark and hemp rags with water, mashing the mixture flat with a stone mortar, and then pressing out the water and letting it dry in the sun.\" This provides \"bark\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 12,
+              "question_type": "fill_blank",
+              "question_text": "After papermakers were taken to ___ in 751 AD, the city became an important papermaking centre.",
+              "correct_answer": "Samarkand",
+              "question_instructions": "Complete the table. Choose ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"They began to prepare it in stone mills and Samarkand became an important papermaking center.\" This provides \"Samarkand\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"They began to prepare it in stone mills and Samarkand became an important papermaking center.\" This provides \"Samarkand\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 13,
+              "question_type": "fill_blank",
+              "question_text": "Samarkanders began preparing paper in mills made of ___.",
+              "correct_answer": "stone",
+              "question_instructions": "Complete the table. Choose ONE WORD ONLY from the passage for each answer.",
+              "explanation": "The passage states, \"They began to prepare it in stone mills and Samarkand became an important papermaking center.\" This provides \"stone\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"They began to prepare it in stone mills and Samarkand became an important papermaking center.\" This provides \"stone\" as the information required by the question, so it completes the answer."
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Reading Passage 2: The Power of Smell",
+          "passage_instructions": "You should spend about 20 minutes on Questions 14?26, which are based on Reading Passage 2 below.",
+          "passage": "Research shows that our olfactory sense is more influential than we realise\n\nA Dog noses are renowned for sensitivity to smells, while human noses are thought to be poor by comparison, yet that might be a misconception. According to recent studies, our noses are in fact acutely sensitive instruments that guide our everyday life to a surprising extent. Subtle smells can change your mood, behaviour and the choices you make, often without you realising it. Our own odours meanwhile, indicate emotional states such as fear or sadness to those around us. The big mystery is why we aren't more aware of our nasal activity. Noses have certainly never been at the forefront of sensory research, and were pushed aside until recently in favour of the seemingly more vital senses of vision and hearing. 'There has been a lot of prejudice that people are not that influenced by olfactory stimuli, especially compared to other mammals,' says Lilianne Mulica-parodi, who studies the neurobiology of human stress at Stony Brook University in New York, in the United States.\n\nB One of the first people to assert the relative unimportance of human smelling was Pierre Paul Broca, an influential 19th-century anatomist. After comparing the proportion of the brain devoted to smell in different animals, he suggested that mammals can be classed into two broad groups: microsmatic mammals, such as dogs, have a finely tuned sense of smell which they rely on to perceive the world, while we, along with other primates and the marine mammals, are microsmatic – we have small olfactory organs that we only rely on to a small extent. That idea seemed to fit with more recent studies which found that the majority of mammals have genes coding for about 1000 different types of smell receptor. Most of these genes aren't expressed in humans, giving our noses just 400 different types of receptor.\n\nC Yet these findings may have been misleading. Brain scans now show that more of the brain is devoted to smell processing than Broca's anatomical studies suggested. And although we may have fewer types of receptor than other mammals, Charles Greer at Yale University in the United States has shown that the human nose and brain are unusually well connected, with each group of receptors linking to many more neural regions than is the case in other animals. That should give us a good ability to process incoming scents. Once researchers began looking, they found the nose to be far more sensitive than its reputation suggested. One study, for example, found that we can detect certain chemicals diluted in water to less than one part per billion. That means that a person can detect just a few drops of a strong smell like ethyl mercaptan in an Olympic-sized pool.\n\nD 'We are also exceptionally gifted at telling smells apart, even in the case of two molecules whose only difference is that their structures are mirror images of one another. That is fantastic sensitivity', says George Dodd, a perfumer and researcher at the olfaction group of the University of Warwick, in the United Kingdom. What' s more, it's becoming clear that the brain’s olfactory centres are intimately linked to its limbic system, which is involved in emotion, fear and memory. That suggests a link between smell and the way we think.\n\nE The power of smell will be no news to estate agents, who often advocate the smell of baking bread or brewing coffee to promote the sale of a house. But there are more subtle and surprising effects too. When Hendrick Schifferstein and colleagues, from Delft University of Technology in the\n\nNetherlands, pumped the smell of orange, seawater of peppermint into a nightclub, the revellers danced more, rated their night as more enjoyable, and even thought the music was better than when there was no added scent. Meanwhile, Rob Holland, of the University of Utrecht the Netherlands, found that the hint of aroma wafting out of a hidden bucket of citrus-scented cleaner was enough to persuade students in a hostel to clean up after themselves.\n\nF Other work has found that scent can influence our cognitive skills. A study by William Overman and colleagues at the University of North Carolina in the United States found that when men were subjected to a novel smell – either good or bad – during a task used to test decision-making skills, they performed significantly worse than normal. The researchers conclude the scent stimulated brain areas connected with emotion, making their decisions emotional rather than rational.\n\nG Smells are especially good memory evokes, but it is actually a myth that odours trigger more detailed memories than other stimuli. 'The memory is not more accurate and you don't remember more details,' says Yaara Yeshurun at the Weizmann Institute of Science in Rehovot, Israel, 'but it is unique in that it is more emotional.' This isn't surprising when you consider that there are certain brain areas dedicated to both emotion and olfaction, such as the amygdala, and there is a strong link between emotion and memory. In 2009, Yeshurun found that the link between a memory and a smell is stronger if the smell i s unpleasant rather than pleasant. She also discovered that the very first time we attach a smell to an object, it evokes a much greater response in our brains than for any subsequent encounter with the smell or object, laying down stronger foundations for the memory. That doesn't happen with any other sense. Since those first encounters with a smell would have happened at a young age, this explains why smells often transport us back to our childhood.",
+          "questions": [
+            {
+              "order": 1,
+              "question_type": "matching_information",
+              "question_text": "a finding that humans can distinguish between two extremely similar substances",
+              "correct_answer": "D",
+              "question_instructions": "Which paragraph, A?G, contains the following information?",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "Paragraph G",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph D contains the relevant information: \"'We are also exceptionally gifted at telling smells apart, even in the case of two molecules whose only difference is that their structures are mirror images of one another.\" It describes a finding that humans can distinguish between two extremely similar substances, which is why this paragraph is the match.",
+              "why_answer": "Paragraph D contains the relevant information: \"'We are also exceptionally gifted at telling smells apart, even in the case of two molecules whose only difference is that their structures are mirror images of one another.\" It describes a finding that humans can distinguish between two extremely similar substances, which is why this paragraph is the match."
+            },
+            {
+              "order": 2,
+              "question_type": "matching_information",
+              "question_text": "a categorisation of species according to their sensitivity to smell",
+              "correct_answer": "B",
+              "question_instructions": "Which paragraph, A?G, contains the following information?",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "Paragraph G",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph B contains the relevant information: \"After comparing the proportion of the brain devoted to smell in different animals, he suggested that mammals can be classed into two broad groups: microsmatic mammals, such as dogs, have a finely tuned sense of smell which they rely on to perceive the world, while we, along with other primates and the marine mammals, are microsmatic – we have small olfactory organs that we only rely on to a small extent.\" It describes a categorisation of species according to their sensitivity to smell, which is why this paragraph is the match.",
+              "why_answer": "Paragraph B contains the relevant information: \"After comparing the proportion of the brain devoted to smell in different animals, he suggested that mammals can be classed into two broad groups: microsmatic mammals, such as dogs, have a finely tuned sense of smell which they rely on to perceive the world, while we, along with other primates and the marine mammals, are microsmatic – we have small olfactory organs that we only rely on to a small extent.\" It describes a categorisation of species according to their sensitivity to smell, which is why this paragraph is the match."
+            },
+            {
+              "order": 3,
+              "question_type": "matching_information",
+              "question_text": "an instance where smell negatively affected people's ability to make choices",
+              "correct_answer": "F",
+              "question_instructions": "Which paragraph, A?G, contains the following information?",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "Paragraph G",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph F contains the relevant information: \"A study by William Overman and colleagues at the University of North Carolina in the United States found that when men were subjected to a novel smell – either good or bad – during a task used to test decision-making skills, they performed significantly worse than normal.\" It describes an instance where smell negatively affected people's ability to make choices, which is why this paragraph is the match.",
+              "why_answer": "Paragraph F contains the relevant information: \"A study by William Overman and colleagues at the University of North Carolina in the United States found that when men were subjected to a novel smell – either good or bad – during a task used to test decision-making skills, they performed significantly worse than normal.\" It describes an instance where smell negatively affected people's ability to make choices, which is why this paragraph is the match."
+            },
+            {
+              "order": 4,
+              "question_type": "matching_information",
+              "question_text": "a study that proved humans could perceive a tiny quantity of a substance",
+              "correct_answer": "C",
+              "question_instructions": "Which paragraph, A?G, contains the following information?",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "Paragraph G",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph C contains the relevant information: \"One study, for example, found that we can detect certain chemicals diluted in water to less than one part per billion.\" It describes a study that proved humans could perceive a tiny quantity of a substance, which is why this paragraph is the match.",
+              "why_answer": "Paragraph C contains the relevant information: \"One study, for example, found that we can detect certain chemicals diluted in water to less than one part per billion.\" It describes a study that proved humans could perceive a tiny quantity of a substance, which is why this paragraph is the match."
+            },
+            {
+              "order": 5,
+              "question_type": "matching_information",
+              "question_text": "an observation that studies of the sense of smell have been undervalued",
+              "correct_answer": "A",
+              "question_instructions": "Which paragraph, A?G, contains the following information?",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "Paragraph G",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph A contains the relevant information: \"According to recent studies, our noses are in fact acutely sensitive instruments that guide our everyday life to a surprising extent.\" It describes an observation that studies of the sense of smell have been undervalued, which is why this paragraph is the match.",
+              "why_answer": "Paragraph A contains the relevant information: \"According to recent studies, our noses are in fact acutely sensitive instruments that guide our everyday life to a surprising extent.\" It describes an observation that studies of the sense of smell have been undervalued, which is why this paragraph is the match."
+            },
+            {
+              "order": 6,
+              "question_type": "matching_information",
+              "question_text": "an example of using smell to prompt people to buy something",
+              "correct_answer": "E",
+              "question_instructions": "Which paragraph, A?G, contains the following information?",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "Paragraph G",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph E contains the relevant information: \"The power of smell will be no news to estate agents, who often advocate the smell of baking bread or brewing coffee to promote the sale of a house.\" It describes an example of using smell to prompt people to buy something, which is why this paragraph is the match.",
+              "why_answer": "Paragraph E contains the relevant information: \"The power of smell will be no news to estate agents, who often advocate the smell of baking bread or brewing coffee to promote the sale of a house.\" It describes an example of using smell to prompt people to buy something, which is why this paragraph is the match."
+            },
+            {
+              "order": 7,
+              "question_type": "matching",
+              "question_text": "A faint smell could motivate people to do household chores.",
+              "correct_answer": "E",
+              "question_instructions": "Match each statement with the correct person, A?F.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Liliane Mujica-parodi",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Pierre Paul Broca",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Charles Greer",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Hendrick Schifferstein and colleagues",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Rob Holland",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "William Overman and colleagues",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Meanwhile, Rob Holland, of the University of Utrecht the Netherlands, found that the hint of aroma wafting out of a hidden bucket of citrus-scented cleaner was enough to persuade students in a hostel to clean up after themselves.\" This connects \"A faint smell could motivate people to do household chores.\" with \"Rob Holland\", so the correct match is E.",
+              "why_answer": "The passage states, \"Meanwhile, Rob Holland, of the University of Utrecht the Netherlands, found that the hint of aroma wafting out of a hidden bucket of citrus-scented cleaner was enough to persuade students in a hostel to clean up after themselves.\" This connects \"A faint smell could motivate people to do household chores.\" with \"Rob Holland\", so the correct match is E."
+            },
+            {
+              "order": 8,
+              "question_type": "matching",
+              "question_text": "Humans are better equipped to interpret smell than other species are.",
+              "correct_answer": "C",
+              "question_instructions": "Match each statement with the correct person, A?F.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Liliane Mujica-parodi",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Pierre Paul Broca",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Charles Greer",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Hendrick Schifferstein and colleagues",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Rob Holland",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "William Overman and colleagues",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"And although we may have fewer types of receptor than other mammals, Charles Greer at Yale University in the United States has shown that the human nose and brain are unusually well connected, with each group of receptors linking to many more neural regions than is the case in other animals.\" This connects \"Humans are better equipped to interpret smell than other species are.\" with \"Charles Greer\", so the correct match is C.",
+              "why_answer": "The passage states, \"And although we may have fewer types of receptor than other mammals, Charles Greer at Yale University in the United States has shown that the human nose and brain are unusually well connected, with each group of receptors linking to many more neural regions than is the case in other animals.\" This connects \"Humans are better equipped to interpret smell than other species are.\" with \"Charles Greer\", so the correct match is C."
+            },
+            {
+              "order": 9,
+              "question_type": "matching",
+              "question_text": "Smell is associated with feelings, rather than the logical part of the brain.",
+              "correct_answer": "F",
+              "question_instructions": "Match each statement with the correct person, A?F.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Liliane Mujica-parodi",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Pierre Paul Broca",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Charles Greer",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Hendrick Schifferstein and colleagues",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Rob Holland",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "William Overman and colleagues",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage states, \"A study by William Overman and colleagues at the University of North Carolina in the United States found that when men were subjected to a novel smell – either good or bad – during a task used to test decision-making skills, they performed significantly worse than normal.\" This connects \"Smell is associated with feelings, rather than the logical part of the brain.\" with \"William Overman and colleagues\", so the correct match is F.",
+              "why_answer": "The passage states, \"A study by William Overman and colleagues at the University of North Carolina in the United States found that when men were subjected to a novel smell – either good or bad – during a task used to test decision-making skills, they performed significantly worse than normal.\" This connects \"Smell is associated with feelings, rather than the logical part of the brain.\" with \"William Overman and colleagues\", so the correct match is F."
+            },
+            {
+              "order": 10,
+              "question_type": "matching",
+              "question_text": "Humans do not require a sophisticated ability to smell.",
+              "correct_answer": "B",
+              "question_instructions": "Match each statement with the correct person, A?F.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Liliane Mujica-parodi",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Pierre Paul Broca",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Charles Greer",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Hendrick Schifferstein and colleagues",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Rob Holland",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "William Overman and colleagues",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"One of the first people to assert the relative unimportance of human smelling was Pierre Paul Broca, an influential 19th-century anatomist.\" This connects \"Humans do not require a sophisticated ability to smell.\" with \"Pierre Paul Broca\", so the correct match is B.",
+              "why_answer": "The passage states, \"One of the first people to assert the relative unimportance of human smelling was Pierre Paul Broca, an influential 19th-century anatomist.\" This connects \"Humans do not require a sophisticated ability to smell.\" with \"Pierre Paul Broca\", so the correct match is B."
+            },
+            {
+              "order": 11,
+              "question_type": "fill_blank",
+              "question_text": "The ___ is a part of the brain involved in both emotion and smell.",
+              "correct_answer": "amygdala",
+              "question_instructions": "Complete each sentence. Write ONE WORD ONLY from the passage.",
+              "explanation": "The passage states, \"'The memory is not more accurate and you don't remember more details,' says Yaara Yeshurun at the Weizmann Institute of Science in Rehovot, Israel, 'but it is unique in that it is more emotional.' This isn't surprising when you consider that there are certain brain areas dedicated to both emotion and olfaction, such as the amygdala, and there is a strong link between emotion and memory.\" This provides \"amygdala\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"'The memory is not more accurate and you don't remember more details,' says Yaara Yeshurun at the Weizmann Institute of Science in Rehovot, Israel, 'but it is unique in that it is more emotional.' This isn't surprising when you consider that there are certain brain areas dedicated to both emotion and olfaction, such as the amygdala, and there is a strong link between emotion and memory.\" This provides \"amygdala\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 12,
+              "question_type": "fill_blank",
+              "question_text": "___ smells create especially strong associations with memories.",
+              "correct_answer": "unpleasant",
+              "question_instructions": "Complete each sentence. Write ONE WORD ONLY from the passage.",
+              "explanation": "The passage states, \"In 2009, Yeshurun found that the link between a memory and a smell is stronger if the smell i s unpleasant rather than pleasant.\" This provides \"unpleasant\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"In 2009, Yeshurun found that the link between a memory and a smell is stronger if the smell i s unpleasant rather than pleasant.\" This provides \"unpleasant\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 13,
+              "question_type": "fill_blank",
+              "question_text": "Smell can prompt memories of ___.",
+              "correct_answer": "childhood",
+              "question_instructions": "Complete each sentence. Write ONE WORD ONLY from the passage.",
+              "explanation": "The passage states, \"Since those first encounters with a smell would have happened at a young age, this explains why smells often transport us back to our childhood.\" This provides \"childhood\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Since those first encounters with a smell would have happened at a young age, this explains why smells often transport us back to our childhood.\" This provides \"childhood\" as the information required by the question, so it completes the answer."
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Reading Passage 3: Star Performers",
+          "passage_instructions": "You should spend about 20 minutes on Questions 27?40, which are based on Reading Passage 3 below.",
+          "passage": "Most organisations are looking for talent. But what if they’ve got it wrong, asks Jeffrey Pfeffer\n\nA One widely held assumption about talent is that it is a reasonably fixed characteristic and it is therefore the job of organisations to identify, recruit and retain star performers. This belief affects the way people are managed in the workplace. Most recruitment decisions are influenced by the skills and abilities of an individual rather than their aptitude and attitude. In terms of career development, organisations invest in staff who have been selected to reach higher-level positions, while ignoring front-line employees and people with less perceived potential. This idea, that talent is a fixed, identifiable characteristic – and that those firms with the best people do the best – is both flawed and harmful to people and organisations. There is a lot of evidence on this point, and it is useful to highlight some of the most pertinent arguments.\n\nB First, are there stars? There is no question that in every field, from sports to computer programming to music, there are people who are better than the rest. As psychologist Dean Keith Simonton, who has spent his career studying greatness, has said, ‘Wherever you look, the same story can be told. Identify the ten per cent who have achieved the most in a certain endeavour. Count the accomplishments they have to their credit. Now tally the accomplishments of the remaining 90 per cent. The first tally will equal or surpass the second.’ For instance, in music, 16 individuals have produced about 50 per cent of the Western classical music that is performed and recorded today, while another 235 composers have produced the remaining half. The more interesting questions concern not the existence of stars, but whether these stars can be reliably identified and, even more importantly, whether their talent is a fixed aspect or can be altered.\n\nC Identifying the best people is tricky. Quality of performance changes over time and this is true whether we are talking about professors or footballers. If performance naturally varies, any measurement taken at a single point in time, such as when someone is being hired, will have error and imprecision. Therefore, single assessments of talent are likely to contain mistakes in their categorisation of people. Also, judgements about performance and ability depend on the standards used to judge what is good and bad. It should surprise no-one that for Bach to be considered a great musician,\n\nstandards of music needed to change to embrace the qualities that his compositions possessed. Similarly, artists and art come in and out of fashion, which means that what is genius depends not only on a person’s ability, but on the prevailing standards used to evaluate output.\n\nD Finally, it is difficult to evaluate people and their abilities with precision. In the domain of work, research shows that the best predictors of job performance tend to be measures of intelligence. But even these measures correlate only loosely with performance, which means that more than 80 per cent of the variation in performance is unexplained by even the best predictors. Even in the sports arena, where one would think natural ability would be readily assessed because sports teams spend lots of resources on identifying talent, mistakes get made. Basketball star Michael Jordan was dropped by his high -school basketball coach and a number of top American football quarterbacks were available early in their careers because they were not considered good enough by various teams.\n\nE This leads on to the next question: is talent born or made? Should organisations assume that almost anyone can become a star performer, which implies that there ought to be a greater emphasis on motivation and development, or do they just figure out who is good and who isn’t? Here the evidence is clear: talent is at least as much ‘created’ as inherent and, more importantly, the customary way companies think about identifying talent almost certainly works to destroy a lot of untapped potential. Decades of research by K Anders Ericsson, professor of psychology at Florida State University, show that exceptional performance doesn’t happen without around ten years of nearly daily, deliberate practice for about four hours a day, by people who with the assistance of their coaches have access to the best techniques. Once achieved, exceptional performance can’t be maintained without relentless effort. So performance may be as much a consequence of training as it is of innate ability, which suggests that performance can be altered by how people are managed.\n\nF Further research by Stanford psychology professor Carol Dweck shows that the tendency of organisations to see performance results as an opportunity for an ‘assessment’ of ability, results in lower performance and poor motivation. Dweck identified two sets of goals that people bring to a performance context: ‘performance goals, where the purpose is to validate one’s ability or avoid demonstrating a lack of ability, and learning goals, where the aim is to acquire new knowledge and skills’. People with performance goals have been shown to be more prone to helpless behaviour and debilitation after a setback, while people with learning goals strive for higher performance. The implicatio ns for managing people and talent are clear. Seeing talent as fixed and job performance as a way of classifying people creates a self fulfilling prophecy in which ability and intelligence do become fixed. By contrast, seeing ability as malleable leads to a different sort of self -fulfilling prophecy, in which individuals and their employers may invest in ways to enhance performance.",
+          "questions": [
+            {
+              "order": 1,
+              "question_type": "matching_information",
+              "question_text": "disagreement with the view that employing talented people enables companies to achieve top performance",
+              "correct_answer": "A",
+              "question_instructions": "Which paragraph, A?F, contains the following information? A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph A contains the relevant information: \"This belief affects the way people are managed in the workplace.\" It describes disagreement with the view that employing talented people enables companies to achieve top performance, which is why this paragraph is the match.",
+              "why_answer": "Paragraph A contains the relevant information: \"This belief affects the way people are managed in the workplace.\" It describes disagreement with the view that employing talented people enables companies to achieve top performance, which is why this paragraph is the match."
+            },
+            {
+              "order": 2,
+              "question_type": "matching_information",
+              "question_text": "a description of what individuals have to do on a regular basis to improve their performance",
+              "correct_answer": "E",
+              "question_instructions": "Which paragraph, A?F, contains the following information? A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph E contains the relevant information: \"Decades of research by K Anders Ericsson, professor of psychology at Florida State University, show that exceptional performance doesn’t happen without around ten years of nearly daily, deliberate practice for about four hours a day, by people who with the assistance of their coaches have access to the best techniques.\" It describes a description of what individuals have to do on a regular basis to improve their performance, which is why this paragraph is the match.",
+              "why_answer": "Paragraph E contains the relevant information: \"Decades of research by K Anders Ericsson, professor of psychology at Florida State University, show that exceptional performance doesn’t happen without around ten years of nearly daily, deliberate practice for about four hours a day, by people who with the assistance of their coaches have access to the best techniques.\" It describes a description of what individuals have to do on a regular basis to improve their performance, which is why this paragraph is the match."
+            },
+            {
+              "order": 3,
+              "question_type": "matching_information",
+              "question_text": "the evidence that exceptional talent exists in all areas of life",
+              "correct_answer": "B",
+              "question_instructions": "Which paragraph, A?F, contains the following information? A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph B contains the relevant information: \"The more interesting questions concern not the existence of stars, but whether these stars can be reliably identified and, even more importantly, whether their talent is a fixed aspect or can be altered.\" It describes the evidence that exceptional talent exists in all areas of life, which is why this paragraph is the match.",
+              "why_answer": "Paragraph B contains the relevant information: \"The more interesting questions concern not the existence of stars, but whether these stars can be reliably identified and, even more importantly, whether their talent is a fixed aspect or can be altered.\" It describes the evidence that exceptional talent exists in all areas of life, which is why this paragraph is the match."
+            },
+            {
+              "order": 4,
+              "question_type": "matching_information",
+              "question_text": "how different ways of evaluating achievement at work can cause different reactions in employees",
+              "correct_answer": "F",
+              "question_instructions": "Which paragraph, A?F, contains the following information? A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "Paragraph F contains the relevant information: \"By contrast, seeing ability as malleable leads to a different sort of self -fulfilling prophecy, in which individuals and their employers may invest in ways to enhance performance.\" It describes how different ways of evaluating achievement at work can cause different reactions in employees, which is why this paragraph is the match.",
+              "why_answer": "Paragraph F contains the relevant information: \"By contrast, seeing ability as malleable leads to a different sort of self -fulfilling prophecy, in which individuals and their employers may invest in ways to enhance performance.\" It describes how different ways of evaluating achievement at work can cause different reactions in employees, which is why this paragraph is the match."
+            },
+            {
+              "order": 5,
+              "question_type": "matching_information",
+              "question_text": "the belief that the time when an assessment is carried out affects its accuracy",
+              "correct_answer": "C",
+              "question_instructions": "Which paragraph, A?F, contains the following information? A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph C contains the relevant information: \"Quality of performance changes over time and this is true whether we are talking about professors or footballers.\" It describes the belief that the time when an assessment is carried out affects its accuracy, which is why this paragraph is the match.",
+              "why_answer": "Paragraph C contains the relevant information: \"Quality of performance changes over time and this is true whether we are talking about professors or footballers.\" It describes the belief that the time when an assessment is carried out affects its accuracy, which is why this paragraph is the match."
+            },
+            {
+              "order": 6,
+              "question_type": "matching_information",
+              "question_text": "the extent to which different talented individuals have contributed to their particular area of achievement",
+              "correct_answer": "B",
+              "question_instructions": "Which paragraph, A?F, contains the following information? A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph B contains the relevant information: \"The first tally will equal or surpass the second.’ For instance, in music, 16 individuals have produced about 50 per cent of the Western classical music that is performed and recorded today, while another 235 composers have produced the remaining half.\" It describes the extent to which different talented individuals have contributed to their particular area of achievement, which is why this paragraph is the match.",
+              "why_answer": "Paragraph B contains the relevant information: \"The first tally will equal or surpass the second.’ For instance, in music, 16 individuals have produced about 50 per cent of the Western classical music that is performed and recorded today, while another 235 composers have produced the remaining half.\" It describes the extent to which different talented individuals have contributed to their particular area of achievement, which is why this paragraph is the match."
+            },
+            {
+              "order": 7,
+              "question_type": "short_answer",
+              "question_text": "How many Western classical composers are identified as exceptionally talented?",
+              "correct_answer": "16",
+              "question_instructions": "Answer the questions below. Write NO MORE THAN TWO WORDS AND/OR A NUMBER from the passage.",
+              "explanation": "The passage states, \"The first tally will equal or surpass the second.’ For instance, in music, 16 individuals have produced about 50 per cent of the Western classical music that is performed and recorded today, while another 235 composers have produced the remaining half.\" This provides \"16\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"The first tally will equal or surpass the second.’ For instance, in music, 16 individuals have produced about 50 per cent of the Western classical music that is performed and recorded today, while another 235 composers have produced the remaining half.\" This provides \"16\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 8,
+              "question_type": "short_answer",
+              "question_text": "Which composer initially received little recognition for his work?",
+              "correct_answer": "Bach",
+              "question_instructions": "Answer the questions below. Write NO MORE THAN TWO WORDS AND/OR A NUMBER from the passage.",
+              "explanation": "The passage states, \"It should surprise no-one that for Bach to be considered a great musician,\" This provides \"Bach\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"It should surprise no-one that for Bach to be considered a great musician,\" This provides \"Bach\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 9,
+              "question_type": "short_answer",
+              "question_text": "Who can help improve the performance of people practising daily?",
+              "correct_answer": "coaches",
+              "question_instructions": "Answer the questions below. Write NO MORE THAN TWO WORDS AND/OR A NUMBER from the passage.",
+              "explanation": "The passage states, \"Decades of research by K Anders Ericsson, professor of psychology at Florida State University, show that exceptional performance doesn’t happen without around ten years of nearly daily, deliberate practice for about four hours a day, by people who with the assistance of their coaches have access to the best techniques.\" This provides \"coaches\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Decades of research by K Anders Ericsson, professor of psychology at Florida State University, show that exceptional performance doesn’t happen without around ten years of nearly daily, deliberate practice for about four hours a day, by people who with the assistance of their coaches have access to the best techniques.\" This provides \"coaches\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 10,
+              "question_type": "tfng",
+              "question_text": "Companies usually hire people on the basis of their character.",
+              "correct_answer": "FALSE",
+              "question_instructions": "Choose TRUE if the statement agrees with the passage, FALSE if it contradicts the passage, or NOT GIVEN if there is no information.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The statement claims that Companies usually hire people on the basis of their character; however, the passage says, \"Here the evidence is clear: talent is at least as much ‘created’ as inherent and, more importantly, the customary way companies think about identifying talent almost certainly works to destroy a lot of untapped potential.\" The passage gives conflicting information, so the answer is FALSE.",
+              "why_answer": "The statement claims that Companies usually hire people on the basis of their character; however, the passage says, \"Here the evidence is clear: talent is at least as much ‘created’ as inherent and, more importantly, the customary way companies think about identifying talent almost certainly works to destroy a lot of untapped potential.\" The passage gives conflicting information, so the answer is FALSE."
+            },
+            {
+              "order": 11,
+              "question_type": "tfng",
+              "question_text": "There are some areas of sport that have a greater proportion of talent than others.",
+              "correct_answer": "NOT GIVEN",
+              "question_instructions": "Choose TRUE if the statement agrees with the passage, FALSE if it contradicts the passage, or NOT GIVEN if there is no information.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage does not state whether \"There are some areas of sport that have a greater proportion of talent than others.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN.",
+              "why_answer": "The passage does not state whether \"There are some areas of sport that have a greater proportion of talent than others.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN."
+            },
+            {
+              "order": 12,
+              "question_type": "tfng",
+              "question_text": "Measures of intelligence accurately predict performance at work.",
+              "correct_answer": "FALSE",
+              "question_instructions": "Choose TRUE if the statement agrees with the passage, FALSE if it contradicts the passage, or NOT GIVEN if there is no information.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The statement claims that Measures of intelligence accurately predict performance at work; however, the passage says, \"In the domain of work, research shows that the best predictors of job performance tend to be measures of intelligence.\" The passage gives conflicting information, so the answer is FALSE.",
+              "why_answer": "The statement claims that Measures of intelligence accurately predict performance at work; however, the passage says, \"In the domain of work, research shows that the best predictors of job performance tend to be measures of intelligence.\" The passage gives conflicting information, so the answer is FALSE."
+            },
+            {
+              "order": 13,
+              "question_type": "tfng",
+              "question_text": "There are cases in which talented sportspeople have been overlooked.",
+              "correct_answer": "TRUE",
+              "question_instructions": "Choose TRUE if the statement agrees with the passage, FALSE if it contradicts the passage, or NOT GIVEN if there is no information.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"There is a lot of evidence on this point, and it is useful to highlight some of the most pertinent arguments.\" This supports the statement that There are cases in which talented sportspeople have been overlooked, so the answer is TRUE.",
+              "why_answer": "The passage states, \"There is a lot of evidence on this point, and it is useful to highlight some of the most pertinent arguments.\" This supports the statement that There are cases in which talented sportspeople have been overlooked, so the answer is TRUE."
+            },
+            {
+              "order": 14,
+              "question_type": "tfng",
+              "question_text": "Newly formed organisations have the most highly motivated staff.",
+              "correct_answer": "NOT GIVEN",
+              "question_instructions": "Choose TRUE if the statement agrees with the passage, FALSE if it contradicts the passage, or NOT GIVEN if there is no information.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage does not state whether \"Newly formed organisations have the most highly motivated staff.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN.",
+              "why_answer": "The passage does not state whether \"Newly formed organisations have the most highly motivated staff.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

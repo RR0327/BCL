@@ -1,0 +1,1341 @@
+{
+  "test_number": 12,
+  "title": "IELTS Academic Mock Test 12",
+  "description": "Full-length IELTS Academic Reading practice test with 3 passages and 40 questions, complete with passage excerpt highlighting and step-by-step answer explanations. Imported from the previous database's Mock Test 2.",
+  "modules": [
+    {
+      "module_type": "reading",
+      "duration_minutes": 60,
+      "instructions": "Read each passage and answer the questions.",
+      "sections": [
+        {
+          "order": 1,
+          "title": "Reading Passage 1: Andrew Carnegie: industrialist and philanthropist",
+          "instructions": "",
+          "passage_instructions": "You should spend about 20 minutes on Questions 1–13, which are based on Reading Passage 1 below.",
+          "passage": "The Scottish-born American industrialist and philanthropist Andrew Carnegie, who was the leader of the American steel industry from 1873 to 1901, donated large sums of his fortune to educational, cultural, and scientific institutions. He was born in 1835 in Scotland, the son of William Carnegie, a weaver, and Margaret Morrison Carnegie.\n\nWith the invention of weaving machines, William Carnegie's job disappeared, and eventually the family was forced into poverty. In 1848 the family left Scotland and settled in Pittsburgh, Pennsylvania, in the USA. William found a job in a cotton factory, but he soon quit to return to his home handloom, making linens and trying to sell them door-to-door. Andrew Carnegie also worked in the cotton factory , but after his father died in 1855, his strong desire to help take care of the family pushed him to educate himself. He became an avid reader, a theatergoer, and a lover of music.\n\nAndrew Carnegie became a messenger boy in a telegraph office and later became a telegraph operator. Thomas A. Scott, superintendent of the western division of the Pennsylvania Railroad, made the eighteen-year-old his secretary. Carnegie was soon earning enough to buy a house for his mother. During the Civil War in the United States (1861–65), he helped organize the military telegraph system, but soon returned to Pittsburgh to take Scott's old job with the railroad.\n\nBetween 1865 and 1870 Carnegie made money through investments in several small iron mills and factories. He also traveled throughout England, selling the bonds of small United States railroads and bridge companies. Carnegie began to see that steel was eventually going to replace iron for the manufacture of rails, structural shapes, pipe, and wire. In 1873 he organized a steel rail company and continued building by cutting prices, driving out competitors, shaking off weak partners, and putting earnings back into the company. He never went public (sold shares of his company in order to raise money). Instead he obtained capital from profit, and when necessary from banks, and he kept on growing, making heavy steel alone.\n\nIn the 1880s Carnegie's purchases included a majority stake in the H C Frick Company in Pennsylvania that had vast coal interests, and also the Homestead mills business. Frick became his partner and eventually chairman of the Carnegie Company. Carnegie had moved to New York City in 1867 to be close to the marketing centers for steel products, while Frick stayed in Pennsylvania as the general manager. They made a good team. Behind the scenes, Carnegie planned new projects and the improvement of existing plants; Frick was the working director who watched over the mass-production programs that helped keep price down.\n\nCarnegie spent his leisure time traveling. He also wrote several books, including Triumphant Democracy (1886), which pointed out what he thought were the advantages of life in the United States over the unequal societies of Britain and other European countries. To Carnegie, access to education was the key to America's political stability and industrial accomplishments. In 1889 he published an article, 'Wealth', stating his belief that the rich had a duty to use their money to improve the welfare of the community.\n\nCarnegie remained a bachelor until his mother died in 1886. A year later he married Louise Whitfield and they had one child together. The couple began to spend six months each year in Scotland, though Carnegie kept an eye on business developments and problems.\n\nCarnegie's absence from the United States was a factor in the Homestead mills strike of 1892. After acquiring Homestead, Carnegie had invested in new plants and equipment, increased production, and automated many of the mill's operations, cutting down the number of workers that were needed. Carnegie believed that workers had a right to join unions and to bargain with management through their unions. He also recognized the right to strike, as long as the action was conducted peacefully. He viewed strikes as trials of strength, with peaceful discussion resolving the conflict. In contract talks during 1892, Frick wanted to lower the minimum wage because of the need for fewer workers. The union representing his workers would not accept this and organized a strike.\n\nFollowing a violent confrontation that resulted in the death of eight workers, soldiers were sent in to restore order and Carnegie was criticized for his lack of action. In the 1890s Carnegie also began to meet with tougher competition from newer, bigger companies who were interested in controlled prices and sharing the market. Companies that he had sold to for years threatened to cut down their purchases unless he agreed to cooperate. These threats made him decide to fight back. He refused to enter into any agreements with other companies. Moreover, he decided to invade their territories by making similar products and by expanding his sales activities into the west of the country. Eventually, though, he decided to sell his company to the newly formed U.S. Steel Corporation in 1901 for almost $500 million. Carnegie's personal share was $225 million.\n\nIn retirement, Carnegie began to set up trust funds 'for the improvement of mankind'. He built some three thousand public libraries all over the English-speaking world and funded galleries, museums and concert halls in the US. He also built a group of technical schools, a research institute, and a foundation providing pensions for university professors. When Carnegie died in 1919, the continuation of his broad interests was put under the general charge of the Carnegie Corporation, with a donation of $125 million.",
+          "questions": [
+            {
+              "order": 1,
+              "question_type": "fill_blank",
+              "question_text": "1835–1855: found employment in the same workplace as his ___",
+              "question_instructions": "Complete the notes below. Write ONE WORD ONLY from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "father",
+              "explanation": "Both Andrew and his father William worked in the cotton factory, so Andrew found employment in the same workplace as his father.",
+              "answer_location": "Paragraph 2",
+              "passage_excerpt": "William found a job in a cotton factory, but he soon quit to return to his home handloom, making linens and trying to sell them door-to-door. Andrew Carnegie also worked in the cotton factory , but after his father died in 1855, his strong desire to help take care of the family pushed him to educate himself.",
+              "what_question_asks": "Who worked in the same workplace (cotton factory) as Andrew Carnegie between 1835 and 1855.",
+              "what_passage_says": "William (his father) found a job in a cotton factory, and Andrew Carnegie also worked in the cotton factory.",
+              "why_answer": "Both Andrew and his father William worked in the cotton factory, so Andrew found employment in the same workplace as his father.",
+              "paraphrase": "'the same workplace' -> 'also worked in the cotton factory'",
+              "tip": "Look for mentions of employment and family members in the early years paragraph.",
+              "options": []
+            },
+            {
+              "order": 2,
+              "question_type": "fill_blank",
+              "question_text": "1835–1855: educated himself through books, theatrical performances and ___",
+              "question_instructions": "Complete the notes below. Write ONE WORD ONLY from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "music",
+              "explanation": "The text lists three things in parallel: reader (books), theatergoer (theatrical performances), and lover of music.",
+              "answer_location": "Paragraph 2",
+              "passage_excerpt": "He became an avid reader, a theatergoer, and a lover of music.",
+              "what_question_asks": "What third interest or medium Carnegie used to educate and cultivate himself, alongside books and theatre.",
+              "what_passage_says": "He became an avid reader (books), a theatergoer (theatrical performances), and a lover of music.",
+              "why_answer": "The text lists three things in parallel: reader (books), theatergoer (theatrical performances), and lover of music.",
+              "paraphrase": "'books, theatrical performances and ___' -> 'avid reader, a theatergoer, and a lover of music'",
+              "tip": "Parallel grammatical lists in notes usually mirror triplets in the passage.",
+              "options": []
+            },
+            {
+              "order": 3,
+              "question_type": "fill_blank",
+              "question_text": "1855–1865: worked in a telegraph office - became ___ to Thomas A Scott at Pennsylvania Railroad",
+              "question_instructions": "Complete the notes below. Write ONE WORD ONLY from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "secretary",
+              "explanation": "The role directly appointed to Carnegie by Scott was that of secretary.",
+              "answer_location": "Paragraph 3",
+              "passage_excerpt": "Thomas A. Scott, superintendent of the western division of the Pennsylvania Railroad, made the eighteen-year-old his secretary.",
+              "what_question_asks": "What position Carnegie took under Thomas A. Scott at the Pennsylvania Railroad.",
+              "what_passage_says": "Thomas A. Scott made the eighteen-year-old Carnegie his secretary.",
+              "why_answer": "The role directly appointed to Carnegie by Scott was that of secretary.",
+              "paraphrase": "'became ___ to Thomas A Scott' -> 'made the eighteen-year-old his secretary'",
+              "tip": "Watch for the exact job title following the name of the employer.",
+              "options": []
+            },
+            {
+              "order": 4,
+              "question_type": "fill_blank",
+              "question_text": "1865–1870: made investments in the US and England - realised that changing engineering needs would require a greater demand for ___",
+              "question_instructions": "Complete the notes below. Write ONE WORD ONLY from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "steel",
+              "explanation": "Because steel was replacing iron, demand for steel was set to grow.",
+              "answer_location": "Paragraph 4",
+              "passage_excerpt": "Carnegie began to see that steel was eventually going to replace iron for the manufacture of rails, structural shapes, pipe, and wire.",
+              "what_question_asks": "What material would experience higher demand due to evolving engineering applications (rails, shapes, pipe, wire).",
+              "what_passage_says": "Carnegie saw that steel was going to replace iron for manufacturing rails, shapes, pipe, and wire.",
+              "why_answer": "Because steel was replacing iron, demand for steel was set to grow.",
+              "paraphrase": "'changing engineering needs would require a greater demand for ___' -> 'steel was eventually going to replace iron for the manufacture of rails, structural shapes, pipe, and wire'",
+              "tip": "Note how 'replacing iron' corresponds to 'greater demand'.",
+              "options": []
+            },
+            {
+              "order": 5,
+              "question_type": "fill_blank",
+              "question_text": "1873: managed a rail manufacturing business by reducing ___",
+              "question_instructions": "Complete the notes below. Write ONE WORD ONLY from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "prices",
+              "explanation": "'Cutting prices' matches 'reducing prices'.",
+              "answer_location": "Paragraph 4",
+              "passage_excerpt": "In 1873 he organized a steel rail company and continued building by cutting prices, driving out competitors, shaking off weak partners, and putting earnings back into the company.",
+              "what_question_asks": "What Carnegie reduced/cut to manage and grow his steel rail business.",
+              "what_passage_says": "He continued building by cutting prices.",
+              "why_answer": "'Cutting prices' matches 'reducing prices'.",
+              "paraphrase": "'reducing' -> 'cutting'",
+              "tip": "'Cut' and 'reduce' are classic IELTS synonyms.",
+              "options": []
+            },
+            {
+              "order": 6,
+              "question_type": "fill_blank",
+              "question_text": "1873: managed a rail manufacturing business by reinvesting profit and sometimes borrowing money from ___",
+              "question_instructions": "Complete the notes below. Write ONE WORD ONLY from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "banks",
+              "explanation": "The source of borrowed funds/capital when needed was banks.",
+              "answer_location": "Paragraph 4",
+              "passage_excerpt": "Instead he obtained capital from profit, and when necessary from banks, and he kept on growing, making heavy steel alone.",
+              "what_question_asks": "From whom Carnegie borrowed money when profits were insufficient.",
+              "what_passage_says": "He obtained capital from profit, and when necessary from banks.",
+              "why_answer": "The source of borrowed funds/capital when needed was banks.",
+              "paraphrase": "'borrowing money from' -> 'obtained capital... from'",
+              "tip": "'Capital' in financial contexts means funds or money.",
+              "options": []
+            },
+            {
+              "order": 7,
+              "question_type": "fill_blank",
+              "question_text": "1880s: Carnegie's responsibilities: arranging future ___ and innovations for factories",
+              "question_instructions": "Complete the notes below. Write ONE WORD ONLY from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "projects",
+              "explanation": "'Planned new projects' matches 'arranging future projects'.",
+              "answer_location": "Paragraph 5",
+              "passage_excerpt": "Behind the scenes, Carnegie planned new projects and the improvement of existing plants; Frick was the working director who watched over the mass-production programs that helped keep price down.",
+              "what_question_asks": "What Carnegie planned/arranged behind the scenes alongside factory improvements.",
+              "what_passage_says": "Carnegie planned new projects and the improvement of existing plants.",
+              "why_answer": "'Planned new projects' matches 'arranging future projects'.",
+              "paraphrase": "'arranging future' -> 'planned new'",
+              "tip": "Identify the division of labor between Carnegie and Frick in paragraph 5.",
+              "options": []
+            },
+            {
+              "order": 8,
+              "question_type": "tfng",
+              "question_text": "Carnegie believed that the USA offered more opportunities than European countries did.",
+              "question_instructions": "Do the following statements agree with the information given in Reading Passage 1? Choose TRUE, FALSE or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "TRUE",
+              "explanation": "The statement agrees directly with the advantages he highlighted regarding the US compared to Europe.",
+              "answer_location": "Paragraph 6",
+              "passage_excerpt": "He also wrote several books, including Triumphant Democracy (1886), which pointed out what he thought were the advantages of life in the United States over the unequal societies of Britain and other European countries.",
+              "what_question_asks": "Whether Carnegie thought the USA provided greater advantages/opportunities than European nations.",
+              "what_passage_says": "In his book he pointed out the advantages of life in the United States over unequal societies in Britain and other European countries.",
+              "why_answer": "The statement agrees directly with the advantages he highlighted regarding the US compared to Europe.",
+              "paraphrase": "'more opportunities' -> 'advantages of life... over the unequal societies'",
+              "tip": "'Advantages of life' confirms the positive comparison favoring the US.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 9,
+              "question_type": "tfng",
+              "question_text": "A smaller workforce was required at the Homestead factory after Carnegie took control.",
+              "question_instructions": "Do the following statements agree with the information given in Reading Passage 1? Choose TRUE, FALSE or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "TRUE",
+              "explanation": "'Cutting down the number of workers that were needed' means a smaller workforce was required.",
+              "answer_location": "Paragraph 8",
+              "passage_excerpt": "After acquiring Homestead, Carnegie had invested in new plants and equipment, increased production, and automated many of the mill's operations, cutting down the number of workers that were needed.",
+              "what_question_asks": "Whether fewer workers were needed at Homestead following Carnegie's acquisition.",
+              "what_passage_says": "Carnegie automated operations, 'cutting down the number of workers that were needed'.",
+              "why_answer": "'Cutting down the number of workers that were needed' means a smaller workforce was required.",
+              "paraphrase": "'smaller workforce was required' -> 'cutting down the number of workers that were needed'",
+              "tip": "'Cutting down' means reducing the required quantity.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 10,
+              "question_type": "tfng",
+              "question_text": "Carnegie prevented his workers from joining unions.",
+              "question_instructions": "Do the following statements agree with the information given in Reading Passage 1? Choose TRUE, FALSE or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "FALSE",
+              "explanation": "Since Carnegie supported the right to join unions, this contradicts the statement's claim that he prevented it. So the answer is FALSE.",
+              "answer_location": "Paragraph 8",
+              "passage_excerpt": "Carnegie believed that workers had a right to join unions and to bargain with management through their unions.",
+              "what_question_asks": "The statement claims Carnegie stopped his workers from being part of unions.",
+              "what_passage_says": "The passage says Carnegie 'believed that workers had a right to join unions' - meaning he supported, not opposed, union membership for his workers.",
+              "why_answer": "Since Carnegie supported the right to join unions, this contradicts the statement's claim that he prevented it. So the answer is FALSE.",
+              "paraphrase": "question: 'prevented his workers from joining unions' -> passage: 'believed that workers had a right to join unions'",
+              "tip": "Identify the contrast between 'prevented' and 'had a right to join'. If the text says the subject approved or defended the right, the statement is FALSE.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 11,
+              "question_type": "tfng",
+              "question_text": "Carnegie blamed Frick for the violent workers' strike in 1892.",
+              "question_instructions": "Do the following statements agree with the information given in Reading Passage 1? Choose TRUE, FALSE or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "NOT GIVEN",
+              "explanation": "There is no mention in the text of Carnegie's personal opinion or blame towards Frick regarding the strike.",
+              "answer_location": "Paragraph 8 & 9",
+              "passage_excerpt": "Following a violent confrontation that resulted in the death of eight workers, soldiers were sent in to restore order and Carnegie was criticized for his lack of action.",
+              "what_question_asks": "Whether Carnegie placed the blame on Frick for the violent strike in 1892.",
+              "what_passage_says": "The text explains Frick's role in negotiations and notes Carnegie was criticized, but never mentions whether Carnegie blamed Frick.",
+              "why_answer": "There is no mention in the text of Carnegie's personal opinion or blame towards Frick regarding the strike.",
+              "paraphrase": "No equivalent text exists for Carnegie attributing blame to Frick.",
+              "tip": "If the text describes the event but omits the specific accusation mentioned in the question, the answer is NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ]
+            },
+            {
+              "order": 12,
+              "question_type": "tfng",
+              "question_text": "In the 1890s Carnegie negotiated with his competitors.",
+              "question_instructions": "Do the following statements agree with the information given in Reading Passage 1? Choose TRUE, FALSE or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "FALSE",
+              "explanation": "Carnegie explicitly refused agreements with competitors and fought them instead, contradicting the claim that he negotiated.",
+              "answer_location": "Paragraph 9",
+              "passage_excerpt": "He refused to enter into any agreements with other companies. Moreover, he decided to invade their territories by making similar products and by expanding his sales activities into the west of the country.",
+              "what_question_asks": "Whether Carnegie negotiated or cooperated with competing companies in the 1890s.",
+              "what_passage_says": "He refused to enter into any agreements with other companies and decided to fight back by invading their territories.",
+              "why_answer": "Carnegie explicitly refused agreements with competitors and fought them instead, contradicting the claim that he negotiated.",
+              "paraphrase": "'negotiated with his competitors' contradicts 'refused to enter into any agreements with other companies'",
+              "tip": "'Refused agreements' and 'invaded territories' demonstrate fierce resistance rather than negotiation.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 13,
+              "question_type": "tfng",
+              "question_text": "Carnegie's provision of funds for libraries was limited to those in the United States.",
+              "question_instructions": "Do the following statements agree with the information given in Reading Passage 1? Choose TRUE, FALSE or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "FALSE",
+              "explanation": "The libraries were built across the English-speaking world (not limited to the US), making the statement FALSE.",
+              "answer_location": "Paragraph 10",
+              "passage_excerpt": "He built some three thousand public libraries all over the English-speaking world and funded galleries, museums and concert halls in the US.",
+              "what_question_asks": "Whether the library funding was strictly restricted to the United States.",
+              "what_passage_says": "He built libraries 'all over the English-speaking world', while arts institutions were funded in the US.",
+              "why_answer": "The libraries were built across the English-speaking world (not limited to the US), making the statement FALSE.",
+              "paraphrase": "'limited to those in the United States' contradicts 'all over the English-speaking world'",
+              "tip": "Notice the distinction: libraries were global (English-speaking world), whereas galleries and concert halls were in the US.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Reading Passage 2: Translating: a key to international understanding?",
+          "instructions": "",
+          "passage_instructions": "You should spend about 20 minutes on Questions 14–26, which are based on Reading Passage 2 below.",
+          "passage": "A The term 'translation' is used for all cases where the meaning of expressions in one language (the 'source' language) is turned into the meaning in another (the target language), whether the medium is spoken, written, or signed. In specific professional contexts, however, a distinction is drawn between work with the spoken or signed language (interpreting), and work with the written language (translating), although certain tasks blur this distinction.\n\nB It is sometimes said that there is no task more complex than translation - a claim that can be readily believed when all the variables involved are taken into account. Translators not only need to know their source language well; they must also have a thorough understanding in the field of knowledge covered by the source text, and of any social, cultural, or emotional connotations that need to be specified in the target language if the intended effect is to be conveyed. The same special awareness needs to be present for the target language, so that points of special phrasing, contemporary fashions in expression, local expectations, and so on, can all be taken into account. On the whole, translators work into their mother tongue (or language of habitual use), to ensure a result that sounds as natural as possible though some translators have argued that, for certain types of text (e.g., scientific material) where translation accuracy is more crucial than naturalness, it makes more sense for the translators to be more fluent in the source language.\n\nC The aim of translation is to provide semantic equivalence between source and target language. This is what makes translation different from other linguistic activities, such as adapting, precise writing, and abstracting. However, there are many problems hidden within this apparently simple statement, all to do with what standards of 'equivalence' should be expected and accepted.\n\nD Exact equivalence is of course impossible: no translator could provide a translation that was a perfect parallel to the source text, in such respects as rhythm, puns and cultural allusions. Such a parallel is not even possible when paraphrasing within a single language: there is always some loss of information.\n\nE On the other hand, there are many kinds of inexact equivalence, any of which can be successful at a certain level of practical functioning. It therefore follows that there is no such thing as a best translation. The success of translation depends on the purpose for which it was made, which in turn reflects the needs of the people for whom it was made. A rough and-ready translation of a letter can suffice to inform a firm of the nature of an enquiry. A translation of a scientific article requires careful attention to meaning but little attention to stylistic features. The provision of a dubbed film script will warrant scrupulous care over the synchronisation of lip movements, often at the expense of content. Literary work requires a sensitive consideration of form as well as content, and may prompt several translations, each of which emphasises a different aspect of the original. It is easy to see what might be 'best' for one set of circumstances may be entirely unsuitable for another.\n\nF Several different kinds of translation have been proposed to allow for this range of possibilities. A pragmatic translation emphasises accuracy and knowledge of the subject, required for instruction manuals and much scientific research. In an aesthetic translation, important for literary material, the focus is on preserving the emotional as well as the cognitive content of the work, and on maintaining some level of stylistic equivalence. Ethnographic or sociolinguistic translations aim to pay full attention to the cultural backgrounds of the authors and the recipients, and take into account differences between source and target language, and the ways of life in which they are embedded. And there are various kinds of linguistic translation, where the aim is to convey the structural flavour of the original text, often in quite a literal manner, emphasising such features as archaisms, dialecticisms, and levels of formality. Most translations, of course, are mixtures of these theoretical types, reflecting the complex reality of language in use.\n\nG At another level, in a word-for-word translation each word in the source language is translated by a word in the target language. The result often makes no sense, especially when idiomatic constructions are used. In a literal translation the linguistic structure of the source text is followed, but is normalised according to the rules of the target language. In a free translation the linguistic structure of the source language is ignored, and an equivalent is found based on the meaning it conveys.\n\nH Translators aim to produce a text that is as faithful to the original as circumstances require or permit, and yet that reads as if it were written originally in the target language. They aim to be \"invisible people\" - transferring content without drawing attention to the considerable artistic and technical skills involved in the process. The complexity of the task is apparent, but its importance is often underestimated, and its practitioners' social status and legal rights undervalued. Some countries view translation as a menial, clerical task, and pay their translators accordingly, while others regard it as a major intellectual discipline in its own right. The question of status is currently much debated, particularly in Europe, where demand for translators is rocketing, especially in relation to the European Union.",
+          "questions": [
+            {
+              "order": 1,
+              "question_type": "matching",
+              "question_text": "the effect that a client's requirements have on the nature of a translation.",
+              "question_instructions": "Reading Passage 2 has eight paragraphs, A-H. Which paragraph contains the following information? Write the correct letter, A-H.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "E",
+              "explanation": "Paragraph E directly addresses how the purpose and client needs dictate whether translation prioritizes accuracy, style, or synchronization.",
+              "answer_location": "Paragraph E",
+              "passage_excerpt": "The success of translation depends on the purpose for which it was made, which in turn reflects the needs of the people for whom it was made.",
+              "what_question_asks": "Which paragraph discusses how the requirements or needs of the customer/client determine the type of translation produced.",
+              "what_passage_says": "Paragraph E states that the success of a translation reflects the needs of the people for whom it was made, giving examples of a business enquiry, a scientific article, and film dubbing.",
+              "why_answer": "Paragraph E directly addresses how the purpose and client needs dictate whether translation prioritizes accuracy, style, or synchronization.",
+              "paraphrase": "'a client's requirements' -> 'the needs of the people for whom it was made'",
+              "tip": "Look for real-world client examples like a business firm or film script in Paragraph E.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "E",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "G",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "H",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 2,
+              "question_type": "matching",
+              "question_text": "contrasting attitudes towards translators.",
+              "question_instructions": "Reading Passage 2 has eight paragraphs, A-H. Which paragraph contains the following information? Write the correct letter, A-H.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "H",
+              "explanation": "The two opposing perspectives ('menial clerical task' vs 'major intellectual discipline') represent contrasting attitudes.",
+              "answer_location": "Paragraph H",
+              "passage_excerpt": "Some countries view translation as a menial, clerical task, and pay their translators accordingly, while others regard it as a major intellectual discipline in its own right.",
+              "what_question_asks": "Which paragraph describes conflicting or opposing social views regarding the role and value of translators.",
+              "what_passage_says": "Paragraph H states that some countries treat translation as menial clerical work, whereas other nations view it as a major intellectual discipline.",
+              "why_answer": "The two opposing perspectives ('menial clerical task' vs 'major intellectual discipline') represent contrasting attitudes.",
+              "paraphrase": "'contrasting attitudes' -> 'view translation as a menial... while others regard it as a major intellectual discipline'",
+              "tip": "Words like 'while others regard' signal a contrast in attitudes.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "G",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "H",
+                  "is_correct": true
+                }
+              ]
+            },
+            {
+              "order": 3,
+              "question_type": "fill_blank",
+              "question_text": "Translation is an attempt to create a text in the target language which displays ___ with a source text.",
+              "question_instructions": "Complete the sentences below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "semantic equivalence",
+              "explanation": "'Semantic equivalence' is the precise term used in the text to describe the core aim of translation.",
+              "answer_location": "Paragraph C",
+              "passage_excerpt": "The aim of translation is to provide semantic equivalence between source and target language.",
+              "what_question_asks": "What standard of meaning correspondence translation aims to achieve between the source and target languages.",
+              "what_passage_says": "The aim of translation is to provide semantic equivalence between source and target language.",
+              "why_answer": "'Semantic equivalence' is the precise term used in the text to describe the core aim of translation.",
+              "paraphrase": "'displays ___ with a source text' -> 'provide semantic equivalence between source and target language'",
+              "tip": "Look for the definition and goal of translation in Paragraph C.",
+              "options": []
+            },
+            {
+              "order": 4,
+              "question_type": "fill_blank",
+              "question_text": "It is inevitable that not all information can be conveyed, however, so translations are best judged according to their ___",
+              "question_instructions": "Complete the sentences below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "purpose",
+              "explanation": "'Purpose' is the factor on which translation success depends.",
+              "answer_location": "Paragraph E",
+              "passage_excerpt": "The success of translation depends on the purpose for which it was made, which in turn reflects the needs of the people for whom it was made.",
+              "what_question_asks": "What criterion should be used to evaluate whether a translation is successful.",
+              "what_passage_says": "The success of translation depends on the purpose for which it was made.",
+              "why_answer": "'Purpose' is the factor on which translation success depends.",
+              "paraphrase": "'best judged according to their ___' -> 'success of translation depends on the purpose'",
+              "tip": "Pay attention to cause-and-effect connectors like 'depends on'.",
+              "options": []
+            },
+            {
+              "order": 5,
+              "question_type": "fill_blank",
+              "question_text": "for example, the translator of a business letter or scientific text does not need to consider its ___ aspects",
+              "question_instructions": "Complete the sentences below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "stylistic",
+              "explanation": "'Stylistic features' matches 'stylistic aspects'.",
+              "answer_location": "Paragraph E",
+              "passage_excerpt": "A translation of a scientific article requires careful attention to meaning but little attention to stylistic features.",
+              "what_question_asks": "What type of textual features can be largely ignored when translating scientific or business writing.",
+              "what_passage_says": "A scientific article translation requires careful attention to meaning but 'little attention to stylistic features'.",
+              "why_answer": "'Stylistic features' matches 'stylistic aspects'.",
+              "paraphrase": "'does not need to consider its ___ aspects' -> 'little attention to stylistic features'",
+              "tip": "'Little attention to' means does not need to consider.",
+              "options": []
+            },
+            {
+              "order": 6,
+              "question_type": "fill_blank",
+              "question_text": "while someone dubbing a film may give a relatively low value to ___ .",
+              "question_instructions": "Complete the sentences below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "content",
+              "explanation": "'At the expense of content' means content is given lower priority/value.",
+              "answer_location": "Paragraph E",
+              "passage_excerpt": "The provision of a dubbed film script will warrant scrupulous care over the synchronisation of lip movements, often at the expense of content.",
+              "what_question_asks": "What element is sacrificed or subordinated in film dubbing to achieve lip synchronization.",
+              "what_passage_says": "Dubbed film scripts prioritize lip synchronization 'often at the expense of content'.",
+              "why_answer": "'At the expense of content' means content is given lower priority/value.",
+              "paraphrase": "'give a relatively low value to ___' -> 'at the expense of content'",
+              "tip": "The idiom 'at the expense of' means sacrificing or undervaluing.",
+              "options": []
+            },
+            {
+              "order": 7,
+              "question_type": "matching",
+              "question_text": "focuses on reproducing the content accurately.",
+              "question_instructions": "Look at the following features of translating and the types of translation below. Match each feature with the correct type of translation, A-F.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "E",
+              "explanation": "Pragmatic translation (type E) emphasizes subject accuracy and knowledge.",
+              "answer_location": "Paragraph F",
+              "passage_excerpt": "A pragmatic translation emphasises accuracy and knowledge of the subject, required for instruction manuals and much scientific research.",
+              "what_question_asks": "Which translation type prioritizes accurate transmission of factual subject content.",
+              "what_passage_says": "A pragmatic translation emphasizes accuracy and knowledge of the subject.",
+              "why_answer": "Pragmatic translation (type E) emphasizes subject accuracy and knowledge.",
+              "paraphrase": "'focuses on reproducing the content accurately' -> 'emphasises accuracy and knowledge of the subject'",
+              "tip": "Instruction manuals and research require pragmatic translation.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "aesthetic",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "ethnographic",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "free",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "literal",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "pragmatic",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "word-for-word",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 8,
+              "question_type": "matching",
+              "question_text": "looks at important cultural aspects of language use.",
+              "question_instructions": "Look at the following features of translating and the types of translation below. Match each feature with the correct type of translation, A-F.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "B",
+              "explanation": "Ethnographic translation (type B) is dedicated to cultural contexts and traditions.",
+              "answer_location": "Paragraph F",
+              "passage_excerpt": "Ethnographic or sociolinguistic translations aim to pay full attention to the cultural backgrounds of the authors and the recipients, and take into account differences between source and target language, and the ways of life in which they are embedded.",
+              "what_question_asks": "Which translation type considers the cultural backgrounds and social contexts of speakers.",
+              "what_passage_says": "Ethnographic translations pay full attention to cultural backgrounds and ways of life.",
+              "why_answer": "Ethnographic translation (type B) is dedicated to cultural contexts and traditions.",
+              "paraphrase": "'important cultural aspects' -> 'cultural backgrounds... and the ways of life'",
+              "tip": "'Ethnographic' pertains to culture and society.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "aesthetic",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "ethnographic",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "free",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "literal",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "pragmatic",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "word-for-word",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 9,
+              "question_type": "matching",
+              "question_text": "follows the original grammatical structures as required by the target language.",
+              "question_instructions": "Look at the following features of translating and the types of translation below. Match each feature with the correct type of translation, A-F.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "D",
+              "explanation": "Literal translation (type D) follows the source structure adjusted for target language grammar.",
+              "answer_location": "Paragraph G",
+              "passage_excerpt": "In a literal translation the linguistic structure of the source text is followed, but is normalised according to the rules of the target language.",
+              "what_question_asks": "Which translation type follows source structures while conforming to target grammatical rules.",
+              "what_passage_says": "In a literal translation, the linguistic structure is followed but normalized according to target language rules.",
+              "why_answer": "Literal translation (type D) follows the source structure adjusted for target language grammar.",
+              "paraphrase": "'follows the original grammatical structures as required' -> 'linguistic structure of the source text is followed, but is normalised according to the rules of the target language'",
+              "tip": "Distinguish between 'word-for-word' (un-normalized) and 'literal' (normalized).",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "aesthetic",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "ethnographic",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "free",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "literal",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "pragmatic",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "word-for-word",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 10,
+              "question_type": "matching",
+              "question_text": "focuses on meaning without necessarily using the original grammatical structures.",
+              "question_instructions": "Look at the following features of translating and the types of translation below. Match each feature with the correct type of translation, A-F.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "C",
+              "explanation": "Free translation (type C) disregards structure to convey meaning freely.",
+              "answer_location": "Paragraph G",
+              "passage_excerpt": "In a free translation the linguistic structure of the source language is ignored, and an equivalent is found based on the meaning it conveys.",
+              "what_question_asks": "Which translation type ignores source grammatical form in favor of general meaning.",
+              "what_passage_says": "In a free translation, linguistic structure is ignored and an equivalent is found based on conveying meaning.",
+              "why_answer": "Free translation (type C) disregards structure to convey meaning freely.",
+              "paraphrase": "'without necessarily using original grammatical structures' -> 'linguistic structure of the source language is ignored'",
+              "tip": "'Free' implies freedom from syntactic constraints.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "aesthetic",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "ethnographic",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "free",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "literal",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "pragmatic",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "word-for-word",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 11,
+              "question_type": "mcq",
+              "question_text": "Which point is mentioned by the writer of the passage? (Select point regarding target language culture)",
+              "question_instructions": "Choose the correct letter, A-F.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "B",
+              "explanation": "Statement B ('A translator may need to consider the culture of the target language') directly matches Paragraph B.",
+              "answer_location": "Paragraph B",
+              "passage_excerpt": "The same special awareness needs to be present for the target language, so that points of special phrasing, contemporary fashions in expression, local expectations, and so on, can all be taken into account.",
+              "what_question_asks": "Which statement matches a point specifically confirmed by the author.",
+              "what_passage_says": "The translator must be aware of contemporary phrasing, fashions, and local cultural expectations in the target language.",
+              "why_answer": "Statement B ('A translator may need to consider the culture of the target language') directly matches Paragraph B.",
+              "paraphrase": "'consider the culture of the target language' -> 'special awareness needs to be present for the target language... local expectations'",
+              "tip": "Look for awareness of target audience expectations in Paragraph B.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "The objectives of translating are always clearly different from those of interpreting.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "A translator may need to consider the culture of the target language.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Translation is an activity which requires professional training.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "It is difficult to specify what constitutes a very good translation.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "The skill required for translation is increasingly gaining recognition.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "A translation should give the impression of being an original work.",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 12,
+              "question_type": "mcq",
+              "question_text": "Which point is mentioned by the writer of the passage? (Select point regarding standards of translation quality)",
+              "question_instructions": "Choose the correct letter, A-F.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "D",
+              "explanation": "Statement D ('It is difficult to specify what constitutes a very good translation') reflects the author's conclusion that there is no single 'best' translation.",
+              "answer_location": "Paragraph E",
+              "passage_excerpt": "It therefore follows that there is no such thing as a best translation. The success of translation depends on the purpose for which it was made, which in turn reflects the needs of the people for whom it was made.",
+              "what_question_asks": "Which statement reflects the author's argument regarding whether a universal standard of translation exists.",
+              "what_passage_says": "The text states that 'there is no such thing as a best translation' because success depends on varying purposes.",
+              "why_answer": "Statement D ('It is difficult to specify what constitutes a very good translation') reflects the author's conclusion that there is no single 'best' translation.",
+              "paraphrase": "'difficult to specify what constitutes a very good translation' -> 'there is no such thing as a best translation'",
+              "tip": "'No such thing as a best translation' indicates difficulty in defining a single standard of excellence.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "The objectives of translating are always clearly different from those of interpreting.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "A translator may need to consider the culture of the target language.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Translation is an activity which requires professional training.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "It is difficult to specify what constitutes a very good translation.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "The skill required for translation is increasingly gaining recognition.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "A translation should give the impression of being an original work.",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 13,
+              "question_type": "mcq",
+              "question_text": "Which point is mentioned by the writer of the passage? (Select point regarding natural reading of a translation)",
+              "question_instructions": "Choose the correct letter, A-F.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "F",
+              "explanation": "Statement F ('A translation should give the impression of being an original work') directly paraphrases 'reads as if it were written originally in the target language'.",
+              "answer_location": "Paragraph H",
+              "passage_excerpt": "Translators aim to produce a text that is as faithful to the original as circumstances require or permit, and yet that reads as if it were written originally in the target language.",
+              "what_question_asks": "Which statement matches the author's description of a translator's ideal output.",
+              "what_passage_says": "Translators aim to produce a text 'that reads as if it were written originally in the target language'.",
+              "why_answer": "Statement F ('A translation should give the impression of being an original work') directly paraphrases 'reads as if it were written originally in the target language'.",
+              "paraphrase": "'give the impression of being an original work' -> 'reads as if it were written originally in the target language'",
+              "tip": "'Reads as if it were written originally' means giving the impression of an original.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "The objectives of translating are always clearly different from those of interpreting.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "A translator may need to consider the culture of the target language.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Translation is an activity which requires professional training.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "It is difficult to specify what constitutes a very good translation.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "The skill required for translation is increasingly gaining recognition.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "A translation should give the impression of being an original work.",
+                  "is_correct": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Reading Passage 3: The mystery of Easter Island",
+          "instructions": "",
+          "passage_instructions": "You should spend about 20 minutes on Questions 27–40, which are based on Reading Passage 3 below.",
+          "passage": "The giant stone statues of Easter Island in the Pacific Ocean have perplexed archaeologists ever since European explorers first witnessed them three centuries ago. Jacob Roggeveen, the Dutch seaman who gave the island its name in 1722, was amazed by the statues, each of which clearly weighed several tonnes. But as there were no forests on the island, he could not comprehend how people devoid of heavy timber could build and erect something that size. It was also remarkable considering the absence of metal objects for carving and cutting, and the reliance on mere human strength as no draught animals could be seen either. Roggeveen was equally amazed as to how the islanders could have come to colonise such a remote place. Their canoes were leaky and frail, not the sort of ocean-going craft that could survive a three-week sea journey. At the time of his visit, it seemed evident the islanders were living in extremely poor conditions and that there was no cultivation of crops.\n\nWhat was the mystery behind the statues? In the 1970s, the author Erich von Däniken suggested the statues were the work of extraterrestrial beings. It was hard to believe the stones were the work of humans who were more than 2,000 miles from the nearest mainland, so for a short period of time his theory appealed to those fascinated with space travel. But for serious academics, the puzzle of the statues has caused a deep divide. Some archaeologists see Easter Island as an example of what can happen when the lust for material splendour - ever bigger stone carvings in this case - is satisfied at the expense of the environment. Others, meanwhile, take a different view. The island, these scholars argue, suffered at the hands of introduced diseases, notably smallpox, and a slave trade that stole a huge proportion of its indigenous population. At the heart of the debate is the issue of the island's deforestation. There is no doubt that the island was once covered in palm trees. There is also no doubt that something happened that caused the island to become completely denuded over a short period of time. But was it the islanders who triggered this environmental degradation or another event beyond their control, such as the introduction of rats? It is an indisputable fact that rats found their way to the island, although exactly how is a matter of debate.\n\nIn 2005, the anthropologist Jared Diamond claimed the islanders started building ceremonial statues in an atmosphere of rivalry between the many clans. To move the statues from the island's quarry in the south-east, they needed to cut large logs for the construction of long 'canoe ladders' to carry them to the coast. For its transport alone, each statue would have required several trees to be cut down. As a result of the deforestation, Diamond believes food production fell dramatically. Consequently the population collapsed from perhaps as many as 15,000 to the few thousand that were eking out a living by the time Roggeveen arrived. Smallpox and slavery killed off those who remained, but the islanders were on the way to total collapse even without any European contact, says Diamond.\n\nBut not everyone is convinced. Professor Terry Hunt, an anthropologist at the University of Hawaii, says: 'There is no evidence that a population collapse occurred before European contact.' He is supported by Professor Carl Lipo of California State University. They argue that Easter Island was colonised by the first Polynesian seafarers nowhere near as early as supposed. They say the first people to arrive came around AD1200, about 400 years later than other scientists have suggested from radio-carbon dating. This makes it implausible for the population to have reached the 15,000 figure that would have caused such a fast ecocide. They also believe the deforestation occurred over a longer period as a result of climate change, and rats probably also played a part. The islanders did not go through a population collapse until after the arrival of Europeans, they say.\n\nHunt has examined new data from the Hawaiian and other Pacific islands that shows that by early historic times the deforestation of Easter Island was already complete, or nearly so. A dense forest of palm trees and shrubs had mostly disappeared and as a result, as many as six land bird species had also become extinct. Crucially, much of the forest damage appears to have been done before evidence of fires on the island. However, almost all of the palm seed shells discovered on the island were found to have been gnawed by rats which would have made them unable to germinate. Evidence from other Pacific islands also confirms how destructive rats can be. However, John Flenley of New Zealand's Massey University, who carried out much of the radio-carbon work on Easter Island, says there is ample evidence for a much earlier arrival of Polynesian settlers. He refutes the arguments of the sceptics: whilst admitting that the Europeans did bring certain disasters, he maintains that Hunt and Lipo are ignoring archaeological, botanical and sedimentological evidence proving the island was transformed from a subtropical rainforest to a treeless landscape. The radio-carbon dating points to an initial colonisation before AD900, Flenley argues. This was ample time for the rapid deforestation, environmental collapse and a population crash, he insists.\n\nWhy all this is important today is not, of course, lost in the age of globalisation, climate change and a rapidly growing world population in the billions. As Diamond says: 'The parallels between Easter Island and the whole of the modern world are chillingly obvious.'",
+          "questions": [
+            {
+              "order": 1,
+              "question_type": "fill_blank",
+              "question_text": "When Jacob Roggeveen arrived at Easter Island in 1722, he wondered how huge statues could have been built without heavy ___",
+              "question_instructions": "Complete the summary below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "timber",
+              "explanation": "The passage specifies 'devoid of heavy timber', meaning without timber/wood.",
+              "answer_location": "Paragraph 1",
+              "passage_excerpt": "But as there were no forests on the island, he could not comprehend how people devoid of heavy timber could build and erect something that size.",
+              "what_question_asks": "What material the islanders lacked for building and moving statues.",
+              "what_passage_says": "Roggeveen could not comprehend how people 'devoid of heavy timber' could build and erect them.",
+              "why_answer": "The passage specifies 'devoid of heavy timber', meaning without timber/wood.",
+              "paraphrase": "'without heavy ___' -> 'devoid of heavy timber'",
+              "tip": "'Devoid of' means lacking or entirely without.",
+              "options": []
+            },
+            {
+              "order": 2,
+              "question_type": "fill_blank",
+              "question_text": "He was also surprised that settlers reached such a remote place in leaky, frail ___",
+              "question_instructions": "Complete the summary below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "canoes",
+              "explanation": "The craft described as leaky and frail were their canoes.",
+              "answer_location": "Paragraph 1",
+              "passage_excerpt": "Their canoes were leaky and frail, not the sort of ocean-going craft that could survive a three-week sea journey.",
+              "what_question_asks": "What fragile sea craft the islanders had that puzzled Roggeveen.",
+              "what_passage_says": "Their canoes were leaky and frail, not suitable for long sea journeys.",
+              "why_answer": "The craft described as leaky and frail were their canoes.",
+              "paraphrase": "'leaky, frail ___' -> 'canoes were leaky and frail'",
+              "tip": "Locate 'leaky and frail' directly in paragraph 1.",
+              "options": []
+            },
+            {
+              "order": 3,
+              "question_type": "fill_blank",
+              "question_text": "At the time of his visit, the islanders appeared to be living in extremely poor ___",
+              "question_instructions": "Complete the summary below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "conditions",
+              "explanation": "'Conditions' directly completes 'extremely poor conditions'.",
+              "answer_location": "Paragraph 1",
+              "passage_excerpt": "At the time of his visit, it seemed evident the islanders were living in extremely poor conditions and that there was no cultivation of crops.",
+              "what_question_asks": "What noun completes the description of the islanders' hardship.",
+              "what_passage_says": "The text states they were living in 'extremely poor conditions'.",
+              "why_answer": "'Conditions' directly completes 'extremely poor conditions'.",
+              "paraphrase": "'living in extremely poor ___' -> 'living in extremely poor conditions'",
+              "tip": "Find the phrase 'extremely poor' in paragraph 1.",
+              "options": []
+            },
+            {
+              "order": 4,
+              "question_type": "fill_blank",
+              "question_text": "and there was no cultivation of ___",
+              "question_instructions": "Complete the summary below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "crops",
+              "explanation": "'Crops' is the exact word following 'no cultivation of'.",
+              "answer_location": "Paragraph 1",
+              "passage_excerpt": "At the time of his visit, it seemed evident the islanders were living in extremely poor conditions and that there was no cultivation of crops.",
+              "what_question_asks": "What agricultural items were not being cultivated on the island.",
+              "what_passage_says": "The text explicitly states 'there was no cultivation of crops'.",
+              "why_answer": "'Crops' is the exact word following 'no cultivation of'.",
+              "paraphrase": "'cultivation of ___' -> 'cultivation of crops'",
+              "tip": "Words related to farming appear at the very end of paragraph 1.",
+              "options": []
+            },
+            {
+              "order": 5,
+              "question_type": "ynng",
+              "question_text": "Erich von Däniken's claims were briefly accepted by some sections of society.",
+              "question_instructions": "Do the following statements agree with the views of the writer in Reading Passage 3? Choose YES, NO or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "YES",
+              "explanation": "'For a short period of time' matches 'briefly', and 'those fascinated with space travel' matches 'some sections of society'.",
+              "answer_location": "Paragraph 2",
+              "passage_excerpt": "It was hard to believe the stones were the work of humans who were more than 2,000 miles from the nearest mainland, so for a short period of time his theory appealed to those fascinated with space travel.",
+              "what_question_asks": "Whether von Däniken's extraterrestrial theory found temporary acceptance among certain people.",
+              "what_passage_says": "'for a short period of time his theory appealed to those fascinated with space travel'.",
+              "why_answer": "'For a short period of time' matches 'briefly', and 'those fascinated with space travel' matches 'some sections of society'.",
+              "paraphrase": "'briefly accepted by some sections of society' -> 'for a short period of time his theory appealed to those fascinated with space travel'",
+              "tip": "'Appealed to for a short period' matches 'briefly accepted'.",
+              "options": [
+                {
+                  "option_key": "YES",
+                  "option_text": "YES",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NO",
+                  "option_text": "NO",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 6,
+              "question_type": "ynng",
+              "question_text": "Archaeologists removed valuable artefacts from the island.",
+              "question_instructions": "Do the following statements agree with the views of the writer in Reading Passage 3? Choose YES, NO or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "NOT GIVEN",
+              "explanation": "The removal of artefacts by archaeologists is not discussed anywhere in the text.",
+              "answer_location": "Paragraph 2",
+              "passage_excerpt": "Some archaeologists see Easter Island as an example of what can happen when the lust for material splendour - ever bigger stone carvings in this case - is satisfied at the expense of the environment.",
+              "what_question_asks": "Whether archaeologists took valuable objects away from Easter Island.",
+              "what_passage_says": "The text mentions archaeologists studying the island and debating causes of collapse, but never states that they took away valuable artefacts.",
+              "why_answer": "The removal of artefacts by archaeologists is not discussed anywhere in the text.",
+              "paraphrase": "No information regarding taking or removing artefacts.",
+              "tip": "Do not assume real-world archaeological practices if the passage itself doesn't state them.",
+              "options": [
+                {
+                  "option_key": "YES",
+                  "option_text": "YES",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NO",
+                  "option_text": "NO",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ]
+            },
+            {
+              "order": 7,
+              "question_type": "ynng",
+              "question_text": "Smallpox continued to affect Easter Island's inhabitants for centuries.",
+              "question_instructions": "Do the following statements agree with the views of the writer in Reading Passage 3? Choose YES, NO or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "NOT GIVEN",
+              "explanation": "The duration of 'centuries' is never stated in the passage.",
+              "answer_location": "Paragraph 2 & 3",
+              "passage_excerpt": "The island, these scholars argue, suffered at the hands of introduced diseases, notably smallpox, and a slave trade that stole a huge proportion of its indigenous population.",
+              "what_question_asks": "Whether smallpox persisted on the island over centuries.",
+              "what_passage_says": "The text notes that smallpox and slave trade killed off inhabitants, but does not specify that it lasted for centuries.",
+              "why_answer": "The duration of 'centuries' is never stated in the passage.",
+              "paraphrase": "No timeframe of 'centuries' is given for the disease.",
+              "tip": "Pay attention to time qualifiers like 'for centuries' — unmentioned time spans make statements NOT GIVEN.",
+              "options": [
+                {
+                  "option_key": "YES",
+                  "option_text": "YES",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NO",
+                  "option_text": "NO",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ]
+            },
+            {
+              "order": 8,
+              "question_type": "ynng",
+              "question_text": "It remains open to question whether Easter Island was once covered in forest.",
+              "question_instructions": "Do the following statements agree with the views of the writer in Reading Passage 3? Choose YES, NO or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "NO",
+              "explanation": "'No doubt' directly contradicts 'remains open to question'.",
+              "answer_location": "Paragraph 2",
+              "passage_excerpt": "There is no doubt that the island was once covered in palm trees.",
+              "what_question_asks": "Whether there is doubt or disagreement about the previous existence of island forests.",
+              "what_passage_says": "'There is no doubt that the island was once covered in palm trees.'",
+              "why_answer": "'No doubt' directly contradicts 'remains open to question'.",
+              "paraphrase": "'remains open to question' contradicts 'There is no doubt'",
+              "tip": "'Open to question' means uncertain, which is the opposite of 'no doubt'.",
+              "options": [
+                {
+                  "option_key": "YES",
+                  "option_text": "YES",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NO",
+                  "option_text": "NO",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 9,
+              "question_type": "ynng",
+              "question_text": "The way that rats arrived on Easter Island is still to be established.",
+              "question_instructions": "Do the following statements agree with the views of the writer in Reading Passage 3? Choose YES, NO or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "YES",
+              "explanation": "'A matter of debate' agrees with 'still to be established'.",
+              "answer_location": "Paragraph 2",
+              "passage_excerpt": "It is an indisputable fact that rats found their way to the island, although exactly how is a matter of debate.",
+              "what_question_asks": "Whether how rats reached the island is still unknown or debated.",
+              "what_passage_says": "'although exactly how is a matter of debate'.",
+              "why_answer": "'A matter of debate' agrees with 'still to be established'.",
+              "paraphrase": "'still to be established' -> 'is a matter of debate'",
+              "tip": "'Matter of debate' indicates unresolved uncertainty.",
+              "options": [
+                {
+                  "option_key": "YES",
+                  "option_text": "YES",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NO",
+                  "option_text": "NO",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 10,
+              "question_type": "mcq",
+              "question_text": "What does Jared Diamond blame for the lack of vegetation on Easter Island?",
+              "question_instructions": "Choose the correct letter, A, B, C or D.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "C",
+              "explanation": "The text specifies that 'transport alone' required trees to be cut for canoe ladders, matching 'A method of transportation'.",
+              "answer_location": "Paragraph 3",
+              "passage_excerpt": "To move the statues from the island's quarry in the south-east, they needed to cut large logs for the construction of long 'canoe ladders' to carry them to the coast. For its transport alone, each statue would have required several trees to be cut down.",
+              "what_question_asks": "What specific factor Jared Diamond claims caused the heavy tree cutting / lack of vegetation.",
+              "what_passage_says": "Diamond says that to transport the statues, logs were needed for 'canoe ladders', and for transport alone several trees were cut down per statue.",
+              "why_answer": "The text specifies that 'transport alone' required trees to be cut for canoe ladders, matching 'A method of transportation'.",
+              "paraphrase": "'method of transportation' -> 'For its transport alone... canoe ladders to carry them'",
+              "tip": "Focus on Diamond's specific reason for the tree-cutting: transporting the statues.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "The construction of stone statues",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Climate change over a long period",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "A method of transportation",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "The arrival of Europeans",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 11,
+              "question_type": "mcq",
+              "question_text": "What do Hunt and Lipo suggest about the population of Easter Island?",
+              "question_instructions": "Choose the correct letter, A, B, C or D.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "B",
+              "explanation": "Arriving 400 years later than previously thought means the first settlers arrived much later than widely accepted.",
+              "answer_location": "Paragraph 4",
+              "passage_excerpt": "They argue that Easter Island was colonised by the first Polynesian seafarers nowhere near as early as supposed. They say the first people to arrive came around AD1200, about 400 years later than other scientists have suggested from radio-carbon dating.",
+              "what_question_asks": "What Hunt and Lipo propose regarding the island's human settlement.",
+              "what_passage_says": "Hunt and Lipo state that people arrived around AD1200, about 400 years later than other scientists suggested.",
+              "why_answer": "Arriving 400 years later than previously thought means the first settlers arrived much later than widely accepted.",
+              "paraphrase": "'first settlers arrived much later' -> 'colonised... nowhere near as early as supposed... about 400 years later'",
+              "tip": "'Nowhere near as early as supposed' directly translates to 'much later than widely accepted'.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "It collapsed before European contact",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "The first settlers arrived much later than is widely accepted",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "It never exceeded a few thousand inhabitants",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "It declined mainly because of disease",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 12,
+              "question_type": "mcq",
+              "question_text": "What is suggested about rats on Easter Island in the fifth paragraph?",
+              "question_instructions": "Choose the correct letter, A, B, C or D.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "A",
+              "explanation": "By eating the seeds and preventing trees from regenerating, rats were a major driver of deforestation.",
+              "answer_location": "Paragraph 5",
+              "passage_excerpt": "However, almost all of the palm seed shells discovered on the island were found to have been gnawed by rats which would have made them unable to germinate. Evidence from other Pacific islands also confirms how destructive rats can be.",
+              "what_question_asks": "What the evidence in paragraph 5 implies about the role of rats.",
+              "what_passage_says": "Rats gnawed almost all palm seeds so they couldn't germinate, and evidence shows how destructive rats can be.",
+              "why_answer": "By eating the seeds and preventing trees from regenerating, rats were a major driver of deforestation.",
+              "paraphrase": "'likely cause of deforestation' -> 'made them unable to germinate... confirms how destructive rats can be'",
+              "tip": "Preventing seed germination directly prevents tree regrowth, causing forest loss.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "They were a likely cause of deforestation",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "They arrived after the forests had disappeared",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "They had no effect on plant regeneration",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "They were introduced by Europeans",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 13,
+              "question_type": "mcq",
+              "question_text": "Flenley responds to Hunt and Lipo's theory by",
+              "question_instructions": "Choose the correct letter, A, B, C or D.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "A",
+              "explanation": "'Refutes' and stating they are 'ignoring evidence' corresponds to dismissing their theory.",
+              "answer_location": "Paragraph 5",
+              "passage_excerpt": "He refutes the arguments of the sceptics: whilst admitting that the Europeans did bring certain disasters, he maintains that Hunt and Lipo are ignoring archaeological, botanical and sedimentological evidence proving the island was transformed from a subtropical rainforest to a treeless landscape.",
+              "what_question_asks": "How Flenley reacts to Hunt and Lipo's arguments.",
+              "what_passage_says": "Flenley 'refutes the arguments of the sceptics' and argues they are 'ignoring evidence'.",
+              "why_answer": "'Refutes' and stating they are 'ignoring evidence' corresponds to dismissing their theory.",
+              "paraphrase": "'dismissing it' -> 'refutes the arguments... maintains that Hunt and Lipo are ignoring... evidence'",
+              "tip": "'Refute' means to prove or argue that something is false or wrong.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "dismissing it",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "partially supporting it",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "expanding on their arguments",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "avoiding direct criticism",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 14,
+              "question_type": "mcq",
+              "question_text": "The writer's purpose in this article is to",
+              "question_instructions": "Choose the correct letter, A, B, C or D.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "B",
+              "explanation": "The article does not take sides; it objectively summarizes and balances the different theories and debates.",
+              "answer_location": "Whole passage",
+              "passage_excerpt": "The giant stone statues of Easter Island in the Pacific Ocean have perplexed archaeologists ever since European explorers first witnessed them three centuries ago.",
+              "what_question_asks": "The overall communicative goal of the author in writing the text.",
+              "what_passage_says": "The article presents Von Däniken's theory, Diamond's ecocide model, Hunt & Lipo's counter-argument, and Flenley's defense, balancing diverse scholarly perspectives.",
+              "why_answer": "The article does not take sides; it objectively summarizes and balances the different theories and debates.",
+              "paraphrase": "'provide an overview of a series of arguments' -> presenting differing archaeological viewpoints and theories",
+              "tip": "When an article fairly presents multiple competing theories without endorsing one, the purpose is an overview of arguments.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "argue in favour of Diamond's interpretation",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "provide an overview of a series of arguments",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "prove that rats were the main cause of deforestation",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "criticise modern archaeological methods",
+                  "is_correct": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

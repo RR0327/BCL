@@ -1,0 +1,1378 @@
+{
+  "test_number": 5,
+  "title": "IELTS Academic Mock Test 5",
+  "description": "IELTS Academic Reading practice test featuring Development of Libraries in Australia, From Princes to Paupers: Goya's Portraits, and John Franklin: The Discovery of Slowness. Includes 40 questions and answer keys.",
+  "modules": [
+    {
+      "module_type": "reading",
+      "duration_minutes": 60,
+      "instructions": "Read each passage and answer the questions.",
+      "sections": [
+        {
+          "order": 1,
+          "title": "Reading Passage 1: Development of Libraries in Australia",
+          "passage_instructions": "You should spend about 20 minutes on Questions 1-13, which are based on Reading Passage 1 below.",
+          "passage": "A library is part of the experience of most Australians. Whether it is the school library, the local municipal library, a visit to an imposing State Library reading room, or a forage around the shelves of the bookmobile (a mobile library in a truck which services remote areas), a library is where we often ‘find out’. According to Brian Johns, at one time Managing Director of the Australian Broadcasting Corporation, ‘It is hard to imagine where we would be without libraries and without organised information; libraries are at the centre of our shared knowledge.’\n\nWhen the 11 ships of the First Fleet arrived in Australia from England in 1788, they brought not only convicts, soldiers, plants and animals from Britain to the new colony of New South Wales, but also the colony's first printing press and first books. These books were not those of a public library, but the small collections of individuals, or books of the type of learning thought to be necessary in the establishment of a new colony – law books, religious books, books of science and navigation. But as Peter Biskup points out in his book Libraries in Australia, the most important thing brought to Australia in the First Fleet which impacted on the development of libraries was the idea that libraries would be an important asset for the colony.\n\nThe first, although unsuccessful, attempt to establish a public library in the new colony of New South Wales was through an appeal to the British public by the Reverend Samuel Marsden. In 1809 he began to collect contributions so that he could set up a library of ‘carefully selected books … suited to the poor settlers employed in agriculture, the soldiers and the convicts’.\n\nIn 1821 a catalogue of books in the personal libraries belonging to private citizens in the colony was compiled. From these, a number of libraries began to emerge. The 1820s saw the setting up of subscription libraries, where the user had to pay to borrow books, and by the 1830s the introduction of Schools of Arts, and Mechanics' Institutes had further added to the number of libraries available to the people of the colony. The first of these in Australia was the Van Diemen's Land Mechanics' Institute, Hobart, which opened in that city in 1827. Others followed in Melbourne and other Australian cities and towns. By 1900 Australia supported 1,000 Mechanics' Institutes each with memberships of between 100 and 200 people. Most of these institutes had fewer than 1,000 books. \n\nThe ‘School of Arts’ movement had begun in Britain in the beginning of the 19th century and produced a worldwide response. The first School of Arts opened in Edinburgh, Scotland in 1821, with others opening in Glasgow, Scotland and London, England in 1823. In Australia, the term ‘Mechanics' Institute’ was popular, but the institutions so named could also be known as Schools of Arts. These schools or institutes were places where people, mainly working class men, could go and hear lectures of use to them in their practical work, or access a library of books, and so improve themselves. Mechanics' Institutes were very often supported by the colonial governments – usually by land grants and cash assistance. They were particularly popular in country areas where their role often went far beyond their ‘library’ function to providing a general focus for the community's cultural activities. Because of this important role and because of the support of the colonial governments, Mechanics' Institute buildings were frequently quite imposing, and today form an important part of Australia's built heritage. The Tenterfield School of Arts, Tenterfield, New South Wales, was the venue in which the statesman Henry Parkes made a famous speech, which is now seen as the first step towards the creation of the nation of Australia.\n\nFree municipal libraries began to appear in Australia in the 1850s, as did central public libraries – which largely went on to become the State Libraries. Parliamentary libraries were established to support the work of state parliaments, and a Commonwealth Parliamentary Library was set up in Melbourne in 1901 to support the new Commonwealth Parliament. In 1923 the Commonwealth Parliamentary Library became the Commonwealth National Library, the precursor to the National Library of Australia, which became a separate entity under its own Act of Parliament in 1960.\n\nLibraries today are much more than storehouses for books. Technologies like the internet mean libraries now also provide readers with gateways to the online world, and librarians are the finders of knowledge in cyber space as well as in their own stacks. The internet also makes the National Library of Australia's heritage – the vast collection of books, manuscripts, photos, posters and leaflets – more accessible to more Australians. As the former Minister for Communications, Information Technology and the Arts, Senator Richard Alston stated, libraries are no longer simply storehouses of information and resources, but are actually gateways to information from all over the world.",
+          "questions": [
+            {
+              "order": 1,
+              "question_type": "fill_blank",
+              "question_text": "In 1788, the First Fleet brought books and a ___ to Australia.",
+              "correct_answer": "printing press",
+              "question_instructions": "Complete the timeline. Write NO MORE THAN TWO WORDS AND/OR A NUMBER from the passage.",
+              "explanation": "The passage states, \"When the 11 ships of the First Fleet arrived in Australia from England in 1788, they brought not only convicts, soldiers, plants and animals from Britain to the new colony of New South Wales, but also the colony's first printing press and first books.\" This provides \"printing press\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"When the 11 ships of the First Fleet arrived in Australia from England in 1788, they brought not only convicts, soldiers, plants and animals from Britain to the new colony of New South Wales, but also the colony's first printing press and first books.\" This provides \"printing press\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 2,
+              "question_type": "fill_blank",
+              "question_text": "In 1809, Samuel Marsden began collecting books for a ___ library in New South Wales.",
+              "correct_answer": "public",
+              "question_instructions": "Complete the timeline. Write NO MORE THAN TWO WORDS AND/OR A NUMBER from the passage.",
+              "explanation": "The passage states, \"The first, although unsuccessful, attempt to establish a public library in the new colony of New South Wales was through an appeal to the British public by the Reverend Samuel Marsden.\" This provides \"public\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"The first, although unsuccessful, attempt to establish a public library in the new colony of New South Wales was through an appeal to the British public by the Reverend Samuel Marsden.\" This provides \"public\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 3,
+              "question_type": "fill_blank",
+              "question_text": "During the 1820s, ___ libraries were established.",
+              "correct_answer": "subscription",
+              "question_instructions": "Complete the timeline. Write NO MORE THAN TWO WORDS AND/OR A NUMBER from the passage.",
+              "explanation": "The passage states, \"The 1820s saw the setting up of subscription libraries, where the user had to pay to borrow books, and by the 1830s the introduction of Schools of Arts, and Mechanics' Institutes had further added to the number of libraries available to the people of the colony.\" This provides \"subscription\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"The 1820s saw the setting up of subscription libraries, where the user had to pay to borrow books, and by the 1830s the introduction of Schools of Arts, and Mechanics' Institutes had further added to the number of libraries available to the people of the colony.\" This provides \"subscription\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 4,
+              "question_type": "fill_blank",
+              "question_text": "The first Australian Mechanics Institute opened in ___ in 1827.",
+              "correct_answer": "Hobart",
+              "question_instructions": "Complete the timeline. Write NO MORE THAN TWO WORDS AND/OR A NUMBER from the passage.",
+              "explanation": "The passage states, \"The first of these in Australia was the Van Diemen's Land Mechanics' Institute, Hobart, which opened in that city in 1827.\" This provides \"Hobart\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"The first of these in Australia was the Van Diemen's Land Mechanics' Institute, Hobart, which opened in that city in 1827.\" This provides \"Hobart\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 5,
+              "question_type": "fill_blank",
+              "question_text": "In the 1850s, free ___ and central public libraries began to appear.",
+              "correct_answer": "municipal libraries",
+              "question_instructions": "Complete the timeline. Write NO MORE THAN TWO WORDS AND/OR A NUMBER from the passage.",
+              "explanation": "The passage states, \"Free municipal libraries began to appear in Australia in the 1850s, as did central public libraries – which largely went on to become the State Libraries.\" This provides \"municipal libraries\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Free municipal libraries began to appear in Australia in the 1850s, as did central public libraries – which largely went on to become the State Libraries.\" This provides \"municipal libraries\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 6,
+              "question_type": "fill_blank",
+              "question_text": "Legislation establishing the independent National Library of Australia was passed in ___.",
+              "correct_answer": "1960",
+              "question_instructions": "Complete the timeline. Write NO MORE THAN TWO WORDS AND/OR A NUMBER from the passage.",
+              "explanation": "The passage states, \"In 1923 the Commonwealth Parliamentary Library became the Commonwealth National Library, the precursor to the National Library of Australia, which became a separate entity under its own Act of Parliament in 1960.\" This provides \"1960\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"In 1923 the Commonwealth Parliamentary Library became the Commonwealth National Library, the precursor to the National Library of Australia, which became a separate entity under its own Act of Parliament in 1960.\" This provides \"1960\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 7,
+              "question_type": "tfng",
+              "question_text": "Most convicts who arrived in Australia could read.",
+              "correct_answer": "NOT GIVEN",
+              "question_instructions": "Choose TRUE, FALSE, or NOT GIVEN according to the passage.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage does not state whether \"Most convicts who arrived in Australia could read.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN.",
+              "why_answer": "The passage does not state whether \"Most convicts who arrived in Australia could read.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN."
+            },
+            {
+              "order": 8,
+              "question_type": "tfng",
+              "question_text": "Some books brought on the First Fleet dealt with topics considered relevant to setting up a new colony.",
+              "correct_answer": "TRUE",
+              "question_instructions": "Choose TRUE, FALSE, or NOT GIVEN according to the passage.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"When the 11 ships of the First Fleet arrived in Australia from England in 1788, they brought not only convicts, soldiers, plants and animals from Britain to the new colony of New South Wales, but also the colony's first printing press and first books.\" This supports the statement that Some books brought on the First Fleet dealt with topics considered relevant to setting up a new colony, so the answer is TRUE.",
+              "why_answer": "The passage states, \"When the 11 ships of the First Fleet arrived in Australia from England in 1788, they brought not only convicts, soldiers, plants and animals from Britain to the new colony of New South Wales, but also the colony's first printing press and first books.\" This supports the statement that Some books brought on the First Fleet dealt with topics considered relevant to setting up a new colony, so the answer is TRUE."
+            },
+            {
+              "order": 9,
+              "question_type": "tfng",
+              "question_text": "An early plan to start a public library in New South Wales failed.",
+              "correct_answer": "TRUE",
+              "question_instructions": "Choose TRUE, FALSE, or NOT GIVEN according to the passage.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"The first, although unsuccessful, attempt to establish a public library in the new colony of New South Wales was through an appeal to the British public by the Reverend Samuel Marsden.\" This supports the statement that An early plan to start a public library in New South Wales failed, so the answer is TRUE.",
+              "why_answer": "The passage states, \"The first, although unsuccessful, attempt to establish a public library in the new colony of New South Wales was through an appeal to the British public by the Reverend Samuel Marsden.\" This supports the statement that An early plan to start a public library in New South Wales failed, so the answer is TRUE."
+            },
+            {
+              "order": 10,
+              "question_type": "tfng",
+              "question_text": "Lectures held at the Mechanics Institutes were unrelated to working life.",
+              "correct_answer": "FALSE",
+              "question_instructions": "Choose TRUE, FALSE, or NOT GIVEN according to the passage.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The statement claims that Lectures held at the Mechanics Institutes were unrelated to working life; however, the passage says, \"These schools or institutes were places where people, mainly working class men, could go and hear lectures of use to them in their practical work, or access a library of books, and so improve themselves.\" The passage gives conflicting information, so the answer is FALSE.",
+              "why_answer": "The statement claims that Lectures held at the Mechanics Institutes were unrelated to working life; however, the passage says, \"These schools or institutes were places where people, mainly working class men, could go and hear lectures of use to them in their practical work, or access a library of books, and so improve themselves.\" The passage gives conflicting information, so the answer is FALSE."
+            },
+            {
+              "order": 11,
+              "question_type": "tfng",
+              "question_text": "Mechanics Institutes were financially independent of government.",
+              "correct_answer": "FALSE",
+              "question_instructions": "Choose TRUE, FALSE, or NOT GIVEN according to the passage.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The statement claims that Mechanics Institutes were financially independent of government; however, the passage says, \"Mechanics' Institutes were very often supported by the colonial governments – usually by land grants and cash assistance.\" The passage gives conflicting information, so the answer is FALSE.",
+              "why_answer": "The statement claims that Mechanics Institutes were financially independent of government; however, the passage says, \"Mechanics' Institutes were very often supported by the colonial governments – usually by land grants and cash assistance.\" The passage gives conflicting information, so the answer is FALSE."
+            },
+            {
+              "order": 12,
+              "question_type": "tfng",
+              "question_text": "Mechanics Institute buildings remain architecturally significant.",
+              "correct_answer": "TRUE",
+              "question_instructions": "Choose TRUE, FALSE, or NOT GIVEN according to the passage.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Because of this important role and because of the support of the colonial governments, Mechanics' Institute buildings were frequently quite imposing, and today form an important part of Australia's built heritage.\" This supports the statement that Mechanics Institute buildings remain architecturally significant, so the answer is TRUE.",
+              "why_answer": "The passage states, \"Because of this important role and because of the support of the colonial governments, Mechanics' Institute buildings were frequently quite imposing, and today form an important part of Australia's built heritage.\" This supports the statement that Mechanics Institute buildings remain architecturally significant, so the answer is TRUE."
+            },
+            {
+              "order": 13,
+              "question_type": "tfng",
+              "question_text": "Nowadays, access to the collections of the National Library of Australia is limited.",
+              "correct_answer": "FALSE",
+              "question_instructions": "Choose TRUE, FALSE, or NOT GIVEN according to the passage.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The statement claims that Nowadays, access to the collections of the National Library of Australia is limited; however, the passage says, \"The internet also makes the National Library of Australia's heritage – the vast collection of books, manuscripts, photos, posters and leaflets – more accessible to more Australians.\" The passage gives conflicting information, so the answer is FALSE.",
+              "why_answer": "The statement claims that Nowadays, access to the collections of the National Library of Australia is limited; however, the passage says, \"The internet also makes the National Library of Australia's heritage – the vast collection of books, manuscripts, photos, posters and leaflets – more accessible to more Australians.\" The passage gives conflicting information, so the answer is FALSE."
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Reading Passage 2: From Princes to Paupers: Goya's Portraits",
+          "passage_instructions": "You should spend about 20 minutes on Questions 14-26, which are based on Reading Passage 2 below.",
+          "passage": "A There are, according to current scholarship, 160 existing portraits by Francisco de Goya - about a third of his painted output. The real number, though, is much greater since there are no pure landscapes in Goya's work, in that everything he ever painted deals with people. In the work of no other great portraitist are a nation's people, history, traumas, folk traditions, and superstitions so comprehensively and relentlessly captured. His subject was a good one since Goya lived in interesting times: his lifetime was a period that saw Spain pass through the effects of the French Revolution , the Napoleonic wars, and the restoration of the monarchy; it was ruled by a succession of authoritarian and liberal governments; and was simultaneously marked by the Enlightenment. Put his work together – the public and private paintings, the personal drawings and sketches, and the unsettling and sinister etching series – and what you have is a portrait in the round of Spain itself.\n\nB His work as a portraitist has its origins in the 45 tapestry cartoons he painted after he moved to Madrid in 1775. Although his designs don't show portraits, they do show types – the majos and majas who gave Madrid its street swagger, peasants and rich men, courting couples, singers, hunters, children, and young men and women playing blind man's buff or tossing a mannequin in to the air. The pictures have a light, rococo palette and the faces are individualised without being those of individuals. But in them, Goya practised poses and groupings and a way of handling light on and around figures that was to be invaluable.\n\nC The tapestry designs also show social roles rather than the people inhabiting them, but when it came to painting portraits proper, Goya would turn this on its head. His greatest strength as a portraitist is that regardless of the status of the sitter, be they a king and queen, the Duke of Wellington, or a doctor or writer, it was the person he showed first and their position second. It was this trait, most apparent in his royal portraiture, that has led him to be seen as satirising the Bourbon monarchy rather than as a painter who depicted what he saw without showing obeisance to the usual flattering conventions. In Robert Hughes's phrase, he did not 'pay reflexive homage to authority' but instead walked a fine line between respect and truth.\n\nD Goya's success was rapid; in 1785 he was made deputy director of painting at the Royal Academy (his main message to his students was subversive – 'there are no rules in painting') and in 1786 became pintor de cámara, required to paint 'works required for royal service'. He immediately spent some of his 15,000-reales salary on a two-wheeled gig (one of only three in Madrid) which he promptly crashed on his first outing. His amour propre untouched, he wrote to his childhood friend Martín Zapater: 'I have now established an enviable way of living: I do not wait on anyone in antechambers, and if anyone wants anything from me they must come to me; I have made myself more in demand and unless it is a person of rank or at the request of a friend I would do nothing for anyone...'\n\nE Part of the reason for his success was that, unlike Gainsborough, for example, he did not resent portraiture as an economically necessary chore that ate away at the time he could devote to higher art. Portraiture fascinated him; it was, after all, part of that 'sacred science which requires so much study' and his portraits reveal a fully engaged artist. There is hardly any repetition in his poses (to help, he drew on prints of English portraits as well as classical statuary), he worked hard to give his sitters in repose a sense of latent movement, and he defined them by the careful depiction of the space around them. When it came to clothing he allowed himself extraordinary freedom, the frogging on uniforms or lace on a dress sketched in thick impasto rather than being laboriously defined. From close up such three-dimensional scumblings look out of focus but from a distance, they coalesce into silks, braiding, and gauze. Such varieties of technique within a painting keep the eye entertained and moving.\n\nF 'My work is very simple. My art reveals idealism and truth,' Goya claimed. The truth though is always more apparent than the idealism. In the most important commission of his career, for example, the portrait of Charles IV and the royal family of 1800, he eschewed entirely the grandeur of majesty to portray the assembled Bourbons as they appeared - a motley grouping (a French visitor had likened Charles and his queen Maria Luisa to a butcher and his wife) in fancy clothes. Goya may have been a political liberal but he wouldn't have jeopardised his hard-won new position as first court painter – the first Spaniard since Velázquez to hold the role - in order to score political points at the expense of his patrons. That his sitters didn't regard the portrait as unflattering was evidenced by succeeding royal commissions, not least his 1815 portrait of Ferdinand VII. Ferdinand himself was physically unprepossessing, tyrannical, vicious, and small-minded and that is exactly how Goya shows him. The king, however, looking in Goya's particular mirror, saw no such characteristics staring back at him.\n\nG The private side of Goya's portraiture was a world away from the public. The contrast between the Ferdinand portrait and the remarkable 1820 double portrait. showing Goya with Dr Arrieta, represents a moral version of the three ages of man – the 73-year-old painter in the throes of a debilitating illness being tended by his doctor. If Ferdinand represents human malignity and Goya its frailty, then Arrieta stands for man's innate kindness. While not all his portraits are successful (some have a doll-like stiffness), this is what Goya at his best could do: in the guise of representing individuals he showed, without judging, man as a universal being.",
+          "questions": [
+            {
+              "order": 1,
+              "question_type": "matching_information",
+              "question_text": "a weakness in some of Goya's paintings",
+              "correct_answer": "G",
+              "question_instructions": "Which paragraph, A-G, contains the information? A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "Paragraph G",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "Paragraph G contains the relevant information: \"While not all his portraits are successful (some have a doll-like stiffness), this is what Goya at his best could do: in the guise of representing individuals he showed, without judging, man as a universal being.\" It describes a weakness in some of Goya's paintings, which is why this paragraph is the match.",
+              "why_answer": "Paragraph G contains the relevant information: \"While not all his portraits are successful (some have a doll-like stiffness), this is what Goya at his best could do: in the guise of representing individuals he showed, without judging, man as a universal being.\" It describes a weakness in some of Goya's paintings, which is why this paragraph is the match."
+            },
+            {
+              "order": 2,
+              "question_type": "matching_information",
+              "question_text": "a reason that might explain why some artists did not enjoy painting portraits",
+              "correct_answer": "E",
+              "question_instructions": "Which paragraph, A-G, contains the information? A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "Paragraph G",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph E contains the relevant information: \"Part of the reason for his success was that, unlike Gainsborough, for example, he did not resent portraiture as an economically necessary chore that ate away at the time he could devote to higher art.\" It describes a reason that might explain why some artists did not enjoy painting portraits, which is why this paragraph is the match.",
+              "why_answer": "Paragraph E contains the relevant information: \"Part of the reason for his success was that, unlike Gainsborough, for example, he did not resent portraiture as an economically necessary chore that ate away at the time he could devote to higher art.\" It describes a reason that might explain why some artists did not enjoy painting portraits, which is why this paragraph is the match."
+            },
+            {
+              "order": 3,
+              "question_type": "matching_information",
+              "question_text": "a genre Goya did not paint",
+              "correct_answer": "A",
+              "question_instructions": "Which paragraph, A-G, contains the information? A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "Paragraph G",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph A contains the relevant information: \"There are, according to current scholarship, 160 existing portraits by Francisco de Goya - about a third of his painted output.\" It describes a genre Goya did not paint, which is why this paragraph is the match.",
+              "why_answer": "Paragraph A contains the relevant information: \"There are, according to current scholarship, 160 existing portraits by Francisco de Goya - about a third of his painted output.\" It describes a genre Goya did not paint, which is why this paragraph is the match."
+            },
+            {
+              "order": 4,
+              "question_type": "matching_information",
+              "question_text": "a description of Goya's reaction to a promotion",
+              "correct_answer": "D",
+              "question_instructions": "Which paragraph, A-G, contains the information? A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "Paragraph G",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph D contains the relevant information: \"Goya's success was rapid; in 1785 he was made deputy director of painting at the Royal Academy (his main message to his students was subversive – 'there are no rules in painting') and in 1786 became pintor de cámara, required to paint 'works required for royal service'.\" It describes a description of Goya's reaction to a promotion, which is why this paragraph is the match.",
+              "why_answer": "Paragraph D contains the relevant information: \"Goya's success was rapid; in 1785 he was made deputy director of painting at the Royal Academy (his main message to his students was subversive – 'there are no rules in painting') and in 1786 became pintor de cámara, required to paint 'works required for royal service'.\" It describes a description of Goya's reaction to a promotion, which is why this paragraph is the match."
+            },
+            {
+              "order": 5,
+              "question_type": "matching_information",
+              "question_text": "a summary of the historical significance of Goya's works",
+              "correct_answer": "A",
+              "question_instructions": "Which paragraph, A-G, contains the information? A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "Paragraph G",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph A contains the relevant information: \"The real number, though, is much greater since there are no pure landscapes in Goya's work, in that everything he ever painted deals with people.\" It describes a summary of the historical significance of Goya's works, which is why this paragraph is the match.",
+              "why_answer": "Paragraph A contains the relevant information: \"The real number, though, is much greater since there are no pure landscapes in Goya's work, in that everything he ever painted deals with people.\" It describes a summary of the historical significance of Goya's works, which is why this paragraph is the match."
+            },
+            {
+              "order": 6,
+              "question_type": "mcq",
+              "question_text": "Which statement is true about Goya's tapestry cartoons? (First correct statement.)",
+              "correct_answer": "A",
+              "question_instructions": "Choose one correct answer for each item.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "They featured lively civilians and labourers that he observed.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Individuals were portrayed without faces.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "They were used to develop techniques for his future works.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "People's social standings were a secondary focus.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "He avoided painting political controversies.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"His work as a portraitist has its origins in the 45 tapestry cartoons he painted after he moved to Madrid in 1775.\" This evidence supports option(s) A (They featured lively civilians and labourers that he observed.), which answer the question.",
+              "why_answer": "The passage states, \"His work as a portraitist has its origins in the 45 tapestry cartoons he painted after he moved to Madrid in 1775.\" This evidence supports option(s) A (They featured lively civilians and labourers that he observed.), which answer the question."
+            },
+            {
+              "order": 7,
+              "question_type": "mcq",
+              "question_text": "Which other statement is true about Goya's tapestry cartoons? (Second correct statement.)",
+              "correct_answer": "C",
+              "question_instructions": "Choose one correct answer for each item.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "They featured lively civilians and labourers that he observed.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Individuals were portrayed without faces.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "They were used to develop techniques for his future works.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "People's social standings were a secondary focus.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "He avoided painting political controversies.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Goya's success was rapid; in 1785 he was made deputy director of painting at the Royal Academy (his main message to his students was subversive – 'there are no rules in painting') and in 1786 became pintor de cámara, required to paint 'works required for royal service'.\" This evidence supports option(s) C (They were used to develop techniques for his future works.), which answer the question.",
+              "why_answer": "The passage states, \"Goya's success was rapid; in 1785 he was made deputy director of painting at the Royal Academy (his main message to his students was subversive – 'there are no rules in painting') and in 1786 became pintor de cámara, required to paint 'works required for royal service'.\" This evidence supports option(s) C (They were used to develop techniques for his future works.), which answer the question."
+            },
+            {
+              "order": 8,
+              "question_type": "mcq",
+              "question_text": "Which statement is true about Goya's portraits? (First correct statement.)",
+              "correct_answer": "C",
+              "question_instructions": "Choose one correct answer for each item.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "His depiction of royalty was typical of the time.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "He was meticulous about the details when painting clothes.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "He generally avoided using the same pose.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "He paid very close attention to the background in his paintings.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "He did not believe in using the works of other artists as inspiration.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Goya may have been a political liberal but he wouldn't have jeopardised his hard-won new position as first court painter – the first Spaniard since Velázquez to hold the role - in order to score political points at the expense of his patrons.\" This evidence supports option(s) C (He generally avoided using the same pose.), which answer the question.",
+              "why_answer": "The passage states, \"Goya may have been a political liberal but he wouldn't have jeopardised his hard-won new position as first court painter – the first Spaniard since Velázquez to hold the role - in order to score political points at the expense of his patrons.\" This evidence supports option(s) C (He generally avoided using the same pose.), which answer the question."
+            },
+            {
+              "order": 9,
+              "question_type": "mcq",
+              "question_text": "Which other statement is true about Goya's portraits? (Second correct statement.)",
+              "correct_answer": "D",
+              "question_instructions": "Choose one correct answer for each item.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "His depiction of royalty was typical of the time.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "He was meticulous about the details when painting clothes.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "He generally avoided using the same pose.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "He paid very close attention to the background in his paintings.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "He did not believe in using the works of other artists as inspiration.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Put his work together – the public and private paintings, the personal drawings and sketches, and the unsettling and sinister etching series – and what you have is a portrait in the round of Spain itself.\" This evidence supports option(s) D (He paid very close attention to the background in his paintings.), which answer the question.",
+              "why_answer": "The passage states, \"Put his work together – the public and private paintings, the personal drawings and sketches, and the unsettling and sinister etching series – and what you have is a portrait in the round of Spain itself.\" This evidence supports option(s) D (He paid very close attention to the background in his paintings.), which answer the question."
+            },
+            {
+              "order": 10,
+              "question_type": "fill_blank",
+              "question_text": "Goya's most significant royal ___ was the portrait of Charles IV and his family.",
+              "correct_answer": "commission",
+              "question_instructions": "Complete each sentence. Write ONE WORD ONLY from the passage.",
+              "explanation": "The passage states, \"In the most important commission of his career, for example, the portrait of Charles IV and the royal family of 1800, he eschewed entirely the grandeur of majesty to portray the assembled Bourbons as they appeared - a motley grouping (a French visitor had likened Charles and his queen Maria Luisa to a butcher and his wife) in fancy clothes.\" This provides \"commission\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"In the most important commission of his career, for example, the portrait of Charles IV and the royal family of 1800, he eschewed entirely the grandeur of majesty to portray the assembled Bourbons as they appeared - a motley grouping (a French visitor had likened Charles and his queen Maria Luisa to a butcher and his wife) in fancy clothes.\" This provides \"commission\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 11,
+              "question_type": "fill_blank",
+              "question_text": "A visitor likened Charles and his queen to a ___ and his wife.",
+              "correct_answer": "butcher",
+              "question_instructions": "Complete each sentence. Write ONE WORD ONLY from the passage.",
+              "explanation": "The passage states, \"In the most important commission of his career, for example, the portrait of Charles IV and the royal family of 1800, he eschewed entirely the grandeur of majesty to portray the assembled Bourbons as they appeared - a motley grouping (a French visitor had likened Charles and his queen Maria Luisa to a butcher and his wife) in fancy clothes.\" This provides \"butcher\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"In the most important commission of his career, for example, the portrait of Charles IV and the royal family of 1800, he eschewed entirely the grandeur of majesty to portray the assembled Bourbons as they appeared - a motley grouping (a French visitor had likened Charles and his queen Maria Luisa to a butcher and his wife) in fancy clothes.\" This provides \"butcher\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 12,
+              "question_type": "fill_blank",
+              "question_text": "In the private portrait, Goya is cared for by his ___, Dr Arrieta.",
+              "correct_answer": "doctor",
+              "question_instructions": "Complete each sentence. Write ONE WORD ONLY from the passage.",
+              "explanation": "The passage states, \"showing Goya with Dr Arrieta, represents a moral version of the three ages of man – the 73-year-old painter in the throes of a debilitating illness being tended by his doctor.\" This provides \"doctor\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"showing Goya with Dr Arrieta, represents a moral version of the three ages of man – the 73-year-old painter in the throes of a debilitating illness being tended by his doctor.\" This provides \"doctor\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 13,
+              "question_type": "fill_blank",
+              "question_text": "The painting suggests people may depend on the ___ of their fellow humans.",
+              "correct_answer": "kindness",
+              "question_instructions": "Complete each sentence. Write ONE WORD ONLY from the passage.",
+              "explanation": "The passage states, \"If Ferdinand represents human malignity and Goya its frailty, then Arrieta stands for man's innate kindness.\" This provides \"kindness\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"If Ferdinand represents human malignity and Goya its frailty, then Arrieta stands for man's innate kindness.\" This provides \"kindness\" as the information required by the question, so it completes the answer."
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Reading Passage 3: John Franklin: The Discovery of Slowness",
+          "passage_instructions": "You should spend about 20 minutes on Questions 27-40, which are based on Reading Passage 3 below.",
+          "passage": "A John Franklin (1786-1847) was the most famous vanisher of the Victorian era. He joined the Navy as a midshipman at the age of 14 and fought in the battles of Copenhagen and Trafalgar. When peace with the French broke out, he turned his attention to exploration, and in particular to solving the conundrum of the Northwest Passage, the mythical clear-water route which would, if it existed, link the Atlantic and the Pacific Oceans above the northern coast of the American continent. The first expedition Franklin led to the Arctic was an arduous overland journey from Hudson Bay to the shores of the so - called Polar Ocean east of the Coppermine River. Between 1819 and 1822, Franklin and his twenty-strong team covered 5550 miles on foot. Their expedition was a triumph of surveying – they managed to chart hundreds of miles of previously unknown coastline.\n\nB There followed a career as a travel writer and salon-goer {‘the man who ate his boots’ was Franklin’s tag-line), a second long Arctic expedition, and a controversial spell as Governor of Van Diemen’s Land. Then, in May 1845, Franklin set off with two ships – the Erebus and the Terror – and 129 men on the voyage that would kill him. In July, the convoy was seen by two whalers, entering Lancaster Sound. Nothing more would be heard of it for 14 years. Had the ships sunk or been iced in? Were the men dead, or in need of rescue? Or had they broken through to the legendary open polar sea, beyond the ‘ice barrier’?\n\nC In his personal correspondence and in his published memoirs. Franklin comes across as a man dedicated to the external duties of war and exploration, who kept introspection and self-analysis to a minimum. His blandness makes him an amenably malleable subject for a novelist, and Sten Nadolny has taken full advantage of this licence. Most important, he has endowed his John Franklin with a defining character trait for which there is no historical evidence: (‘slowness’, or ‘calmness’).\n\nD Slowness influences not only Franklin’s behaviour but also his vision, his thought and his speech. The opening scene of The Discovery of Slowness (The Discovery of Slowness by Sten Nadolny) – depicts Franklin as a young boy. playing catch badly because his reaction time is too slow. Despite the bull ying of his peers, Franklin resolves not to fall into step with ‘their way of doing things’. For Nadolny. Franklin’s fated fascination with the Arctic stems from his desire to find an environment suited to his peculiar slowness.\n\nE He describes Franklin as a boy dreaming of the ‘open water and the time without hours and days’ which exist in the far north, and of finding in the Arctic a place ‘where nobody would find him too slow’. Ice is a slow mover. Ice demands a corresponding patience from those who venture onto it. The explorers who have thrived at high latitude and at high altitudes haven’t usually been men of great speed. They have tended instead to demonstrate unusual self-possession, a considerable capacity for boredom, and a talent for what the Scots call ‘tholing’, the uncomplaining endurance of suffering.\n\nF These were all qualities which the historical Franklin possessed in abundance, and so Nadolny’s concentration and exaggeration of them isn’t unreasonable. Even as an adult, his slowness of though t means that he is unable to speak fluently, so he memorises ‘entire fleets of words and batteries of response’, and speaks a languid, bric-a-brac language. In the Navy, his method of thinking first and acting later initially provokes mockery from his fellow sailors. But Franklin persists in doing things his way. and gradually earns the respect of those around him. To a commodore who tells him to speed up his report of an engagement, he replies: ‘When I tell something, sir. I use my own rhythm.’ A lieutenant says approvingly of him: ’Because Franklin is so slow, he never loses time.’\n\nG Since it was first published in Germany in 1983. The Discovery of Slowness has sold more than a million copies and been translated into 13 languages. It has been named as one of German literature’s twenty ‘contemporary classics’, and it has been as a manual and by European pressure groups and institutions representing causes as diverse as sustainable development, the Protestant Church, management science, motoring policy and pacifism.\n\nH The various groups that have taken the novel up have one thing in common: a dislike of the high-speed culture of Postmodernity. Nadolny’s Franklin appeals to them because he is immune to ‘the compulsion to be constantly occupied’, and to the idea that ‘someone was better if he could do the same thing fast.’ Several German churches have used him in their symposia and focus groups as an example of peacefulness, piety and self-confidence. A centre scheme (a ‘march of slowness’ or ‘of the slow’), inspired by the novel. Nadolny has appeared as a guest speaker for RIO, a Lucerne-based organisation which aims to reconcile management principles with ideas of environmental sustainability. The novel has even become involved in the debate about speed limits on German roads. Drive down an autobahn today, and you will see large road-side signs proclaiming ‘unhurriedness’ a slogan which deliberately plays off the title of the novel.\n\nI A management journal in the US described The Discovery of Slowness as a ‘major event not only for connoisseurs of fine historical fiction but also for those of us who concern themselves with leadership, communication and systems - thinking, issues’. It’s easy to see where the attraction lies for the management crowd. The novel is crammed with quotations about time-efficiency, punctiliousness and profitability: ‘As a rule, there are always three points in time: the right one. the lost one and the premature one’. ‘What did too late mean? They hadn’t waited for it long enough, that’s what it meant.’",
+          "questions": [
+            {
+              "order": 1,
+              "question_type": "matching_information",
+              "question_text": "What was Sir John Franklin's occupation before he began Arctic exploration?",
+              "correct_answer": "A",
+              "question_instructions": "Choose the correct paragraph, A-H. A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "Paragraph G",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "Paragraph H",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph A contains the relevant information: \"John Franklin (1786-1847) was the most famous vanisher of the Victorian era.\" It describes What was Sir John Franklin's occupation before he began Arctic exploration?, which is why this paragraph is the match.",
+              "why_answer": "Paragraph A contains the relevant information: \"John Franklin (1786-1847) was the most famous vanisher of the Victorian era.\" It describes What was Sir John Franklin's occupation before he began Arctic exploration?, which is why this paragraph is the match."
+            },
+            {
+              "order": 2,
+              "question_type": "matching_information",
+              "question_text": "What story describes Franklin's unusual reaction to being bullied by other children?",
+              "correct_answer": "D",
+              "question_instructions": "Choose the correct paragraph, A-H. A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "Paragraph G",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "Paragraph H",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph D contains the relevant information: \"playing catch badly because his reaction time is too slow.\" It describes What story describes Franklin's unusual reaction to being bullied by other children?, which is why this paragraph is the match.",
+              "why_answer": "Paragraph D contains the relevant information: \"playing catch badly because his reaction time is too slow.\" It describes What story describes Franklin's unusual reaction to being bullied by other children?, which is why this paragraph is the match."
+            },
+            {
+              "order": 3,
+              "question_type": "matching_information",
+              "question_text": "What explains the popularity of The Discovery of Slowness?",
+              "correct_answer": "H",
+              "question_instructions": "Choose the correct paragraph, A-H. A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "Paragraph G",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "Paragraph H",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "Paragraph H contains the relevant information: \"A centre scheme (a ‘march of slowness’ or ‘of the slow’), inspired by the novel.\" It describes What explains the popularity of The Discovery of Slowness?, which is why this paragraph is the match.",
+              "why_answer": "Paragraph H contains the relevant information: \"A centre scheme (a ‘march of slowness’ or ‘of the slow’), inspired by the novel.\" It describes What explains the popularity of The Discovery of Slowness?, which is why this paragraph is the match."
+            },
+            {
+              "order": 4,
+              "question_type": "matching_information",
+              "question_text": "Which paragraph shows that Nadolny's characterisation is not fully based on historical evidence?",
+              "correct_answer": "C",
+              "question_instructions": "Choose the correct paragraph, A-H. A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "Paragraph G",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "Paragraph H",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph C contains the relevant information: \"Most important, he has endowed his John Franklin with a defining character trait for which there is no historical evidence: (‘slowness’, or ‘calmness’).\" It describes Which paragraph shows that Nadolny's characterisation is not fully based on historical evidence?, which is why this paragraph is the match.",
+              "why_answer": "Paragraph C contains the relevant information: \"Most important, he has endowed his John Franklin with a defining character trait for which there is no historical evidence: (‘slowness’, or ‘calmness’).\" It describes Which paragraph shows that Nadolny's characterisation is not fully based on historical evidence?, which is why this paragraph is the match."
+            },
+            {
+              "order": 5,
+              "question_type": "matching_information",
+              "question_text": "What career did Franklin pursue after his first expedition?",
+              "correct_answer": "B",
+              "question_instructions": "Choose the correct paragraph, A-H. A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "Paragraph G",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "Paragraph H",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Paragraph B contains the relevant information: \"There followed a career as a travel writer and salon-goer {‘the man who ate his boots’ was Franklin’s tag-line), a second long Arctic expedition, and a controversial spell as Governor of Van Diemen’s Land.\" It describes What career did Franklin pursue after his first expedition?, which is why this paragraph is the match.",
+              "why_answer": "Paragraph B contains the relevant information: \"There followed a career as a travel writer and salon-goer {‘the man who ate his boots’ was Franklin’s tag-line), a second long Arctic expedition, and a controversial spell as Governor of Van Diemen’s Land.\" It describes What career did Franklin pursue after his first expedition?, which is why this paragraph is the match."
+            },
+            {
+              "order": 6,
+              "question_type": "matching_information",
+              "question_text": "Which paragraph describes the novel's central theme and its slow-paced environment?",
+              "correct_answer": "H",
+              "question_instructions": "Choose the correct paragraph, A-H. A letter may be used more than once.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Paragraph A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Paragraph B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Paragraph C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Paragraph D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Paragraph E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "Paragraph F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "Paragraph G",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "Paragraph H",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "Paragraph H contains the relevant information: \"A centre scheme (a ‘march of slowness’ or ‘of the slow’), inspired by the novel.\" It describes Which paragraph describes the novel's central theme and its slow-paced environment?, which is why this paragraph is the match.",
+              "why_answer": "Paragraph H contains the relevant information: \"A centre scheme (a ‘march of slowness’ or ‘of the slow’), inspired by the novel.\" It describes Which paragraph describes the novel's central theme and its slow-paced environment?, which is why this paragraph is the match."
+            },
+            {
+              "order": 7,
+              "question_type": "matching",
+              "question_text": "The word \"slowness\" was used to define Franklin's ___ as a child.",
+              "correct_answer": "C",
+              "question_instructions": "Complete the summary by choosing the correct word from the box, A-K.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "exploration",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "blandness",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "personality",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "policy",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "pressure",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "guidebook",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "management",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "timelessness",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "I",
+                  "option_text": "sports",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "J",
+                  "option_text": "bully",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "K",
+                  "option_text": "evidence",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Nadolny’s Franklin appeals to them because he is immune to ‘the compulsion to be constantly occupied’, and to the idea that ‘someone was better if he could do the same thing fast.’ Several German churches have used him in their symposia and focus groups as an example of peacefulness, piety and self-confidence.\" This connects \"The word \"slowness\" was used to define Franklin's ___ as a child.\" with \"personality\", so the correct match is C.",
+              "why_answer": "The passage states, \"Nadolny’s Franklin appeals to them because he is immune to ‘the compulsion to be constantly occupied’, and to the idea that ‘someone was better if he could do the same thing fast.’ Several German churches have used him in their symposia and focus groups as an example of peacefulness, piety and self-confidence.\" This connects \"The word \"slowness\" was used to define Franklin's ___ as a child.\" with \"personality\", so the correct match is C."
+            },
+            {
+              "order": 8,
+              "question_type": "matching",
+              "question_text": "Which word from the box refers to the children who bullied Franklin?",
+              "correct_answer": "J",
+              "question_instructions": "Complete the summary by choosing the correct word from the box, A-K.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "exploration",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "blandness",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "personality",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "policy",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "pressure",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "guidebook",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "management",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "timelessness",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "I",
+                  "option_text": "sports",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "J",
+                  "option_text": "bully",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "K",
+                  "option_text": "evidence",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"John Franklin (1786-1847) was the most famous vanisher of the Victorian era.\" This connects \"Which word from the box refers to the children who bullied Franklin?\" with \"bully\", so the correct match is J.",
+              "why_answer": "The passage states, \"John Franklin (1786-1847) was the most famous vanisher of the Victorian era.\" This connects \"Which word from the box refers to the children who bullied Franklin?\" with \"bully\", so the correct match is J."
+            },
+            {
+              "order": 9,
+              "question_type": "matching",
+              "question_text": "Franklin dreamed of finding ___ in the Arctic.",
+              "correct_answer": "H",
+              "question_instructions": "Complete the summary by choosing the correct word from the box, A-K.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "exploration",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "blandness",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "personality",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "policy",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "pressure",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "guidebook",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "management",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "timelessness",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "I",
+                  "option_text": "sports",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "J",
+                  "option_text": "bully",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "K",
+                  "option_text": "evidence",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"He describes Franklin as a boy dreaming of the ‘open water and the time without hours and days’ which exist in the far north, and of finding in the Arctic a place ‘where nobody would find him too slow’.\" This connects \"Franklin dreamed of finding ___ in the Arctic.\" with \"timelessness\", so the correct match is H.",
+              "why_answer": "The passage states, \"He describes Franklin as a boy dreaming of the ‘open water and the time without hours and days’ which exist in the far north, and of finding in the Arctic a place ‘where nobody would find him too slow’.\" This connects \"Franklin dreamed of finding ___ in the Arctic.\" with \"timelessness\", so the correct match is H."
+            },
+            {
+              "order": 10,
+              "question_type": "matching",
+              "question_text": "The novel was adopted as a ___ by groups including sustainable-development and management organisations.",
+              "correct_answer": "F",
+              "question_instructions": "Complete the summary by choosing the correct word from the box, A-K.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "exploration",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "blandness",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "personality",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "policy",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "pressure",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "guidebook",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "management",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "timelessness",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "I",
+                  "option_text": "sports",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "J",
+                  "option_text": "bully",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "K",
+                  "option_text": "evidence",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"It has been named as one of German literature’s twenty ‘contemporary classics’, and it has been as a manual and by European pressure groups and institutions representing causes as diverse as sustainable development, the Protestant Church, management science, motoring policy and pacifism.\" This connects \"The novel was adopted as a ___ by groups including sustainable-development and management organisations.\" with \"guidebook\", so the correct match is F.",
+              "why_answer": "The passage states, \"It has been named as one of German literature’s twenty ‘contemporary classics’, and it has been as a manual and by European pressure groups and institutions representing causes as diverse as sustainable development, the Protestant Church, management science, motoring policy and pacifism.\" This connects \"The novel was adopted as a ___ by groups including sustainable-development and management organisations.\" with \"guidebook\", so the correct match is F."
+            },
+            {
+              "order": 11,
+              "question_type": "mcq",
+              "question_text": "Why does the author mention that ice is a slow mover?",
+              "correct_answer": "D",
+              "question_instructions": "Choose the correct answer.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "To show the difficulties Franklin conquered.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "To show that Franklin had a dream from childhood.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "To show a fascination with Arctic exploration.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "To show that Arctic explorers need patience.",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage states, \"Ice demands a corresponding patience from those who venture onto it.\" This evidence supports option(s) D (To show that Arctic explorers need patience.), which answer the question.",
+              "why_answer": "The passage states, \"Ice demands a corresponding patience from those who venture onto it.\" This evidence supports option(s) D (To show that Arctic explorers need patience.), which answer the question."
+            },
+            {
+              "order": 12,
+              "question_type": "mcq",
+              "question_text": "How did Franklin speak to his fellow sailors?",
+              "correct_answer": "C",
+              "question_instructions": "Choose the correct answer.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "He spoke in a way that mocked his fellow sailors.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "He spoke a bric-a-brac language to show his languid attitude.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "He used words and phrases he had memorised.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "He spoke in a rhythmical tune to save time chatting.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Even as an adult, his slowness of though t means that he is unable to speak fluently, so he memorises ‘entire fleets of words and batteries of response’, and speaks a languid, bric-a-brac language.\" This evidence supports option(s) C (He used words and phrases he had memorised.), which answer the question.",
+              "why_answer": "The passage states, \"Even as an adult, his slowness of though t means that he is unable to speak fluently, so he memorises ‘entire fleets of words and batteries of response’, and speaks a languid, bric-a-brac language.\" This evidence supports option(s) C (He used words and phrases he had memorised.), which answer the question."
+            },
+            {
+              "order": 13,
+              "question_type": "mcq",
+              "question_text": "What did Franklin's persistence eventually win him?",
+              "correct_answer": "C",
+              "question_instructions": "Choose the correct answer.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "A better understanding of his personality.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "A capacity for coping with boredom.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "The respect of those around him.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "More time to finish a report.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"and gradually earns the respect of those around him.\" This evidence supports option(s) C (The respect of those around him.), which answer the question.",
+              "why_answer": "The passage states, \"and gradually earns the respect of those around him.\" This evidence supports option(s) C (The respect of those around him.), which answer the question."
+            },
+            {
+              "order": 14,
+              "question_type": "mcq",
+              "question_text": "Why has The Discovery of Slowness sold more than a million copies?",
+              "correct_answer": "A",
+              "question_instructions": "Choose the correct answer.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "It contains aspects of life that people would like to enjoy.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "It contains information about flag language used on ships.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "It has prompted debate about speed limits on German roads.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "It contains techniques used in symposia by German churches.",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"The Discovery of Slowness has sold more than a million copies and been translated into 13 languages.\" This evidence supports option(s) A (It contains aspects of life that people would like to enjoy.), which answer the question.",
+              "why_answer": "The passage states, \"The Discovery of Slowness has sold more than a million copies and been translated into 13 languages.\" This evidence supports option(s) A (It contains aspects of life that people would like to enjoy.), which answer the question."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

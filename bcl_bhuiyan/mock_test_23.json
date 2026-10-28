@@ -1,0 +1,1595 @@
+{
+  "test_number": 23,
+  "title": "IELTS Academic Mock Test 23",
+  "description": "IELTS Academic Reading practice test featuring Classifying Societies, Corporate Social Responsibility, and Amateur Naturalists. Reading module only; 40 questions.",
+  "modules": [
+    {
+      "module_type": "reading",
+      "duration_minutes": 60,
+      "instructions": "Read each passage and answer the questions.",
+      "sections": [
+        {
+          "order": 1,
+          "title": "Reading Passage 1: Classifying Societies",
+          "instructions": "",
+          "passage_instructions": "You should spend about 20 minutes on Questions 1-13, which are based on Reading Passage 1 below.",
+          "passage": "Although humans have established many types of societies throughout history, sociologists and anthropologists tend to classify different societies according to the degree to which different groups within a society have unequal access to advantages such as resources, prestige or power, and usually refer to four basic types of societies. From least to most socially complex they are clans, tribes, chiefdoms and states.\n\nThese are small-scale societies of hunters and gatherers, generally of fewer than 100 people, who move seasonally to exploit wild (undomesticated) food resources. Most surviving hunter-gatherer groups are of this kind, such as the Hadza of Tanzania or the San of southern Africa. Clan members are generally kinsfolk, related by descent or marriage. Clans lack formal leaders, so there are no marked economic differences or disparities in status among their members.\n\nBecause clans are composed of mobile groups of hunter-gatherers, their sites consist mainly of seasonally occupied camps, and other smaller and more specialised sites. Among the latter are kill or butchery sites—locations where large mammals are killed and sometimes butchered—and work sites, where tools are made or other specific activities carried out. The base camp of such a group may give evidence of rather insubstantial dwellings or temporary shelters, along with the debris of residential occupation.\n\nThese are generally larger than mobile hunter-gatherer groups, but rarely number more than a few thousand, and their diet or subsistence is based largely on cultivated plants and domesticated animals. Typically they are settled farmers, but they may be nomadic with a very different, mobile economy based on the intensive exploitation of livestock. These are generally multi-community societies, with the individual communities integrated into the larger society through kinship ties. Although some tribes have officials and even a “capital” or seat of government, such officials lack the economic base necessary for effective use of power.\n\nThe typical settlement pattern for tribes is one of settled agricultural homesteads or villages. Characteristically no one settlement dominates any of the others in the region. Instead, the archaeologist finds evidence for isolated, permanently occupied houses or for permanent villages. Such villages may be made up of a collection of free-standing houses, like those of the first farms of the Danube valley in Europe. Or they may be clusters of buildings grouped together, for example, the pueblos of the American Southwest, and the early farming village or small town of Çatalhöyük in modern Turkey.\n\nThese operate on the principle of ranking—differences in social status between people. Different lineages (a lineage is a group claiming descent from a common ancestor) are graded on a scale of prestige, and the senior lineage, and hence the society as a whole, is governed by a chief. Prestige and rank are determined by how closely related one is to the chief, and there is no true stratification into classes. The role of the chief is crucial.\n\nOften, there is local specialisation in craft products, and surpluses of these and of foodstuffs are periodically paid as obligation to the chief. He uses these to maintain his retainers, and may use them for redistribution to his subjects. The chiefdom generally has a centre of power, often with temples, residences of the chief and his retainers, and craft specialists. Chiefdoms vary greatly in size, but the range is generally between about 5,000 and 20,000 persons.\n\nThese preserve many of the features of chiefdoms, but the ruler (perhaps a king or sometimes a queen) has explicit authority to establish laws and also to enforce them by the use of a standing army. Society no longer depends totally upon kin relationships: it is now stratified into different classes. Agricultural workers and the poorer urban dwellers form the lowest classes, with the craft specialists above, and the priests and kinsfolk of the ruler higher still. The functions of the ruler are often separated from those of the priest: palace is distinguished from temple. The society is viewed as a territory owned by the ruling lineage and populated by tenants who have an obligation to pay taxes. The central capital houses a bureaucratic administration of officials; one of their principal purposes is to collect revenue (often in the form of taxes and tolls) and distribute it to government, army and craft specialists. Many early states developed complex redistribution systems to support these essential services.\n\nThis rather simple social typology, set out by Elman Service and elaborated by William Sanders and Joseph Marino, can be criticised, and it should not be used unthinkingly. Nevertheless, if we are seeking to talk about early societies, we must use words and hence concepts to do so. Service’s categories provide a good framework to help organise our thoughts.",
+          "questions": [
+            {
+              "order": 1,
+              "question_type": "tfng",
+              "question_text": "There’s little economic difference between members of a clan.",
+              "question_instructions": "Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "TRUE",
+              "explanation": "This directly supports the statement that members have little economic difference.",
+              "answer_location": "Paragraph 2",
+              "passage_excerpt": "Clans lack formal leaders, so there are no marked economic differences or disparities in status among their members.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Clans lack formal leaders, so there are no marked economic differences or disparities in status among their members.",
+              "why_answer": "This directly supports the statement that members have little economic difference.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 2,
+              "question_type": "tfng",
+              "question_text": "The farmers of a tribe grow a wide range of plants.",
+              "question_instructions": "Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "NOT GIVEN",
+              "explanation": "The passage does not say whether tribes grow a wide range of plants.",
+              "answer_location": "Paragraph 4",
+              "passage_excerpt": "their diet or subsistence is based largely on cultivated plants and domesticated animals.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "their diet or subsistence is based largely on cultivated plants and domesticated animals.",
+              "why_answer": "The passage does not say whether tribes grow a wide range of plants.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ]
+            },
+            {
+              "order": 3,
+              "question_type": "tfng",
+              "question_text": "One settlement is more important than any other settlements in a tribe.",
+              "question_instructions": "Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "FALSE",
+              "explanation": "The text explicitly states that no settlement dominates the others.",
+              "answer_location": "Paragraph 5",
+              "passage_excerpt": "Characteristically no one settlement dominates any of the others in the region.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Characteristically no one settlement dominates any of the others in the region.",
+              "why_answer": "The text explicitly states that no settlement dominates the others.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 4,
+              "question_type": "tfng",
+              "question_text": "A member’s status in a chiefdom is determined by how much land he owns.",
+              "question_instructions": "Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "FALSE",
+              "explanation": "The passage bases rank on relationship to the chief, not land ownership.",
+              "answer_location": "Paragraph 7",
+              "passage_excerpt": "Prestige and rank are determined by how closely related one is to the chief",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Prestige and rank are determined by how closely related one is to the chief",
+              "why_answer": "The passage bases rank on relationship to the chief, not land ownership.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 5,
+              "question_type": "tfng",
+              "question_text": "There are people who craft goods in chiefdoms.",
+              "question_instructions": "Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "TRUE",
+              "explanation": "Craft specialists are explicitly present in chiefdoms.",
+              "answer_location": "Paragraph 8",
+              "passage_excerpt": "The chiefdom generally has a centre of power, often with temples, residences of the chief and his retainers, and craft specialists.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "The chiefdom generally has a centre of power, often with temples, residences of the chief and his retainers, and craft specialists.",
+              "why_answer": "Craft specialists are explicitly present in chiefdoms.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 6,
+              "question_type": "tfng",
+              "question_text": "The king keeps the order of a state by using an army.",
+              "question_instructions": "Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "TRUE",
+              "explanation": "The ruler enforces laws using a standing army.",
+              "answer_location": "Paragraph 9",
+              "passage_excerpt": "the ruler (perhaps a king or sometimes a queen) has explicit authority to establish laws and also to enforce them by the use of a standing army.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "the ruler (perhaps a king or sometimes a queen) has explicit authority to establish laws and also to enforce them by the use of a standing army.",
+              "why_answer": "The ruler enforces laws using a standing army.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 7,
+              "question_type": "tfng",
+              "question_text": "Bureaucratic officers receive higher salaries than other members.",
+              "question_instructions": "Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "NOT GIVEN",
+              "explanation": "Officials? duties are described, but their salaries are not compared.",
+              "answer_location": "Paragraph 10",
+              "passage_excerpt": "one of their principal purposes is to collect revenue (often in the form of taxes and tolls) and distribute it to government, army and craft specialists.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "one of their principal purposes is to collect revenue (often in the form of taxes and tolls) and distribute it to government, army and craft specialists.",
+              "why_answer": "Officials? duties are described, but their salaries are not compared.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ]
+            },
+            {
+              "order": 8,
+              "question_type": "short_answer",
+              "question_text": "What are made at the clan work sites?",
+              "question_instructions": "Answer the questions below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "tools",
+              "explanation": "The passage explicitly says tools are made there.",
+              "answer_location": "Paragraph 3",
+              "passage_excerpt": "work sites, where tools are made or other specific activities carried out.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "work sites, where tools are made or other specific activities carried out.",
+              "why_answer": "The passage explicitly says tools are made there.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": []
+            },
+            {
+              "order": 9,
+              "question_type": "short_answer",
+              "question_text": "What is the other way of life for tribes besides settled farming?",
+              "question_instructions": "Answer the questions below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "nomadic",
+              "explanation": "The text names nomadic life as the alternative to settled farming.",
+              "answer_location": "Paragraph 4",
+              "passage_excerpt": "they may be nomadic with a very different, mobile economy based on the intensive exploitation of livestock.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "they may be nomadic with a very different, mobile economy based on the intensive exploitation of livestock.",
+              "why_answer": "The text names nomadic life as the alternative to settled farming.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": []
+            },
+            {
+              "order": 10,
+              "question_type": "short_answer",
+              "question_text": "How are ?atalh?y?k?s housing units arranged?",
+              "question_instructions": "Answer the questions below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "grouped together",
+              "explanation": "?atalh?y?k is an example of buildings grouped together.",
+              "answer_location": "Paragraph 6",
+              "passage_excerpt": "they may be clusters of buildings grouped together ... the early farming village or small town of ?atalh?y?k",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "they may be clusters of buildings grouped together ... the early farming village or small town of ?atalh?y?k",
+              "why_answer": "?atalh?y?k is an example of buildings grouped together.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": []
+            },
+            {
+              "order": 11,
+              "question_type": "short_answer",
+              "question_text": "What does a chief give to his subjects as rewards besides crafted goods?",
+              "question_instructions": "Answer the questions below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "foodstuffs",
+              "explanation": "Foodstuffs, alongside craft products, can be redistributed.",
+              "answer_location": "Paragraph 8",
+              "passage_excerpt": "surpluses of these and of foodstuffs are periodically paid as obligation to the chief ... may use them for redistribution to his subjects.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "surpluses of these and of foodstuffs are periodically paid as obligation to the chief ... may use them for redistribution to his subjects.",
+              "why_answer": "Foodstuffs, alongside craft products, can be redistributed.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": []
+            },
+            {
+              "order": 12,
+              "question_type": "short_answer",
+              "question_text": "What is the largest possible population of a chiefdom?",
+              "question_instructions": "Answer the questions below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "20,000",
+              "explanation": "The stated upper population limit is 20,000.",
+              "answer_location": "Paragraph 8",
+              "passage_excerpt": "the range is generally between about 5,000 and 20,000 persons.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "the range is generally between about 5,000 and 20,000 persons.",
+              "why_answer": "The stated upper population limit is 20,000.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": []
+            },
+            {
+              "order": 13,
+              "question_type": "short_answer",
+              "question_text": "Which group of people is at the bottom of an early state but higher than the farmer?",
+              "question_instructions": "Answer the questions below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "craft specialists",
+              "explanation": "Craft specialists are above agricultural workers in the class structure.",
+              "answer_location": "Paragraph 9",
+              "passage_excerpt": "Agricultural workers and the poorer urban dwellers form the lowest classes, with the craft specialists above",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Agricultural workers and the poorer urban dwellers form the lowest classes, with the craft specialists above",
+              "why_answer": "Craft specialists are above agricultural workers in the class structure.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": []
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Reading Passage 2: Corporate Social Responsibility",
+          "instructions": "",
+          "passage_instructions": "You should spend about 20 minutes on Questions 14-26, which are based on Reading Passage 2 below.",
+          "passage": "Broadly speaking, proponents of CSR have used four arguments to make their case: moral obligation, sustainability, license to operate, and reputation. The moral appeal—arguing that companies have a duty to be good citizens and to “do the right thing”—is prominent in the goal of Business for Social Responsibility, the leading nonprofit CSR business association in the United States. It asks that its members “achieve commercial success in ways that honour ethical values and respect people, communities, and the natural environment.” Sustainability emphasises environmental and community stewardship.\n\nA An excellent definition was developed in the 1980s by Norwegian Prime Minister Gro Harlem Brundtland and used by the World Business Council for Sustainable Development: “Meeting the needs of the present without compromising the ability of future generations to meet their own needs.” Nowadays, governments and companies need to account for the social consequences of their actions. As a result, corporate social responsibility (CSR) has become a priority for business leaders around the world. When a well-run business applies its vast resources and expertise to social problems that it understands and in which it has a stake, it can have a greater impact than any other organization. The notion of license to operate derives from the fact that every company needs tacit or explicit permission from governments, communities, and numerous other stakeholders to justify CSR initiatives to improve a company’s image, strengthen its brand, enliven morale and even raise the value of its stock.\n\nB To advance CSR, we must root it in a broad understanding of the interrelationship between a corporation and society. Successful corporations need a healthy society. Education, health care, and equal opportunity are essential to a productive workforce. Safe products and working conditions not only attract customers but lower the internal costs of accidents. Efficient utilization of land, water, energy, and other natural resources makes business more productive. Good government, the rule of law, and property rights are essential for efficiency and innovation. Strong regulatory standards protect both consumers and competitive companies from exploitation. Ultimately, a healthy society creates expanding demand for business, as more human needs are met and aspirations grow. Any business that pursues its ends at the expense of the society in which it operates will find its success to be illusory and ultimately temporary. At the same time, a healthy society needs successful companies. No social program can rival the business sector when it comes to creating the jobs, wealth, and innovation that improve standards of living and social conditions over time.\n\nC A company’s impact on society also changes over time, as social standards evolve and science progresses. Asbestos, now understood as a serious health risk, was thought to be safe in the early 1900s, given the scientific knowledge then available. Evidence of its risks gradually mounted for more than 50 years before any company was held liable for the harms it can cause. Many firms that failed to anticipate the consequences of this evolving body of research have been bankrupted by the results. No longer can companies be content to monitor only the obvious social impacts of today. Without a careful process for identifying evolving social effects of tomorrow, firms may risk their very survival.\n\nD No business can solve all of society’s problems or bear the cost of doing so. Instead, each company must select issues that intersect with its particular business. Other social agendas are best left to those companies in other industries, NGOs, or government institutions that are better positioned to address them. The essential test that should guide CSR is not whether a cause is worthy but whether it presents an opportunity to create shared value—that is, a meaningful benefit for society that is also valuable to the business. Each company can identify the particular set of societal problems that it is best equipped to help resolve and from which it can gain the greatest competitive benefit.\n\nE The best corporate citizenship initiatives involve far more than writing a check: they specify clear, measurable goals and track results over time. A good example is General Electronics’s program to adopt underperforming public high schools near several of its major U.S. facilities. The company contributes between $250,000 and $1 million over a five-year period to each school and makes in-kind donations as well. GE managers and employees take an active role by working with school administrators to assess needs and mentor or tutor students. In an independent study of ten schools in the program between 1989 and 1999, nearly all showed significant improvement, while the graduation rate in four of the five worst-performing schools doubled from an average of 30% to 60%. Effective corporate citizenship initiatives such as this one create goodwill and improve relations with local governments and other important constituencies. What’s more, GE’s employees feel great pride in their participation. Their effect is inherently limited, however. No matter how beneficial the program is, it remains incidental to the company’s business, and the direct effect on GE’s recruiting and retention is modest.\n\nF Microsoft’s Working Connections partnership with the American Association of Community Colleges (AACC) is a good example of a shared-value opportunity arising from investments in context. The shortage of information technology workers is a significant constraint on Microsoft’s growth; currently, there are more than 450,000 unfilled IT positions in the United States alone. Community colleges, with an enrollment of 11.6 million students, representing 45% of all U.S. undergraduates, could be a major solution. Microsoft recognizes, however, that community colleges face special challenges: IT curricula are not standardized, technology used in classrooms is often outdated, and there are no systematic professional development programs to keep faculty up to date. Microsoft’s $50 million five-year initiative was aimed at all three problems. In addition to contributing money and products, Microsoft sent employee volunteers to colleges to assess needs, contribute to curriculum development, and create faculty development institutes. Microsoft has achieved results that have benefited many communities while having a direct—and potentially significant—impact on the company.\n\nG At the heart of any strategy is a unique value proposition: a set of needs a company can meet for its chosen customers that others cannot. The most strategic CSR occurs when a company adds a social dimension to its value proposition, making social impact integral to the overall strategy. Consider Whole Foods Market, whose value proposition is to sell organic, natural, and healthy food products to customers who are passionate about food and the environment. The company’s sourcing emphasises purchases from local farmers through each store’s procurement process. Buyers screen out foods containing any of nearly 100 common ingredients that the company considers unhealthy or environmentally damaging. The same standards apply to products made internally. Whole Foods’ commitment to natural and environmentally friendly operating practices extends well beyond sourcing. Stores are constructed using a minimum of virgin raw materials. Recently, the company purchased renewable wind energy credits equal to 100% of its electricity use in all of its stores and facilities, the only Fortune 500 company to offset its electricity consumption entirely. Spoiled produce and biodegradable waste are trucked to regional centres for composting. Whole Foods’ vehicles are being converted to run on biofuels. Even the cleaning products used in its stores are environmentally friendly. And through its philanthropy, the company has created the Animal Compassion Foundation to develop more natural and humane ways of raising farm animals. In short, nearly every aspect of the company’s value chain reinforces the social dimensions of its value proposition, distinguishing Whole Foods from its competitors.",
+          "questions": [
+            {
+              "order": 1,
+              "question_type": "matching",
+              "question_text": "Paragraph A",
+              "question_instructions": "Choose the correct heading for each paragraph from the list of headings below. Write the correct number, i-viii.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "v",
+              "explanation": "This paragraph lists the forces that motivate companies to adopt CSR.",
+              "answer_location": "Paragraph A",
+              "passage_excerpt": "proponents of CSR have used four arguments to make their case: moral obligation, sustainability, license to operate, and reputation.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "proponents of CSR have used four arguments to make their case: moral obligation, sustainability, license to operate, and reputation.",
+              "why_answer": "This paragraph lists the forces that motivate companies to adopt CSR.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "i",
+                  "option_text": "How CSR may help one business to expand",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "ii",
+                  "option_text": "CSR in many aspects of a company?s business",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "iii",
+                  "option_text": "A CSR initiative without a financial gain",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "iv",
+                  "option_text": "Lack of action by the state of social issues",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "v",
+                  "option_text": "Drives or pressures motivate companies to address CSR",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "vi",
+                  "option_text": "The past illustrates business are responsible for future outcomes",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "vii",
+                  "option_text": "Companies applying CSR should be selective",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "viii",
+                  "option_text": "Reasons that business and society benefit each other",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 2,
+              "question_type": "matching",
+              "question_text": "Paragraph B",
+              "question_instructions": "Choose the correct heading for each paragraph from the list of headings below. Write the correct number, i-viii.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "viii",
+              "explanation": "The paragraph explains the mutual benefits between companies and society.",
+              "answer_location": "Paragraph B",
+              "passage_excerpt": "Successful corporations need a healthy society ... At the same time, a healthy society needs successful companies.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Successful corporations need a healthy society ... At the same time, a healthy society needs successful companies.",
+              "why_answer": "The paragraph explains the mutual benefits between companies and society.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "i",
+                  "option_text": "How CSR may help one business to expand",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "ii",
+                  "option_text": "CSR in many aspects of a company?s business",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "iii",
+                  "option_text": "A CSR initiative without a financial gain",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "iv",
+                  "option_text": "Lack of action by the state of social issues",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "v",
+                  "option_text": "Drives or pressures motivate companies to address CSR",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "vi",
+                  "option_text": "The past illustrates business are responsible for future outcomes",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "vii",
+                  "option_text": "Companies applying CSR should be selective",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "viii",
+                  "option_text": "Reasons that business and society benefit each other",
+                  "is_correct": true
+                }
+              ]
+            },
+            {
+              "order": 3,
+              "question_type": "matching",
+              "question_text": "Paragraph C",
+              "question_instructions": "Choose the correct heading for each paragraph from the list of headings below. Write the correct number, i-viii.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "vi",
+              "explanation": "The asbestos example shows companies are responsible for anticipating future consequences.",
+              "answer_location": "Paragraph C",
+              "passage_excerpt": "Many firms that failed to anticipate the consequences of this evolving body of research have been bankrupted by the results.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Many firms that failed to anticipate the consequences of this evolving body of research have been bankrupted by the results.",
+              "why_answer": "The asbestos example shows companies are responsible for anticipating future consequences.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "i",
+                  "option_text": "How CSR may help one business to expand",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "ii",
+                  "option_text": "CSR in many aspects of a company?s business",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "iii",
+                  "option_text": "A CSR initiative without a financial gain",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "iv",
+                  "option_text": "Lack of action by the state of social issues",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "v",
+                  "option_text": "Drives or pressures motivate companies to address CSR",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "vi",
+                  "option_text": "The past illustrates business are responsible for future outcomes",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "vii",
+                  "option_text": "Companies applying CSR should be selective",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "viii",
+                  "option_text": "Reasons that business and society benefit each other",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 4,
+              "question_type": "matching",
+              "question_text": "Paragraph D",
+              "question_instructions": "Choose the correct heading for each paragraph from the list of headings below. Write the correct number, i-viii.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "vii",
+              "explanation": "The paragraph says companies should select CSR issues related to their business.",
+              "answer_location": "Paragraph D",
+              "passage_excerpt": "each company must select issues that intersect with its particular business.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "each company must select issues that intersect with its particular business.",
+              "why_answer": "The paragraph says companies should select CSR issues related to their business.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "i",
+                  "option_text": "How CSR may help one business to expand",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "ii",
+                  "option_text": "CSR in many aspects of a company?s business",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "iii",
+                  "option_text": "A CSR initiative without a financial gain",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "iv",
+                  "option_text": "Lack of action by the state of social issues",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "v",
+                  "option_text": "Drives or pressures motivate companies to address CSR",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "vi",
+                  "option_text": "The past illustrates business are responsible for future outcomes",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "vii",
+                  "option_text": "Companies applying CSR should be selective",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "viii",
+                  "option_text": "Reasons that business and society benefit each other",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 5,
+              "question_type": "matching",
+              "question_text": "Paragraph E",
+              "question_instructions": "Choose the correct heading for each paragraph from the list of headings below. Write the correct number, i-viii.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "iii",
+              "explanation": "The school programme benefits society but has only modest direct business effects.",
+              "answer_location": "Paragraph E",
+              "passage_excerpt": "Their effect is inherently limited, however. No matter how beneficial the program is, it remains incidental to the company?s business",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Their effect is inherently limited, however. No matter how beneficial the program is, it remains incidental to the company?s business",
+              "why_answer": "The school programme benefits society but has only modest direct business effects.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "i",
+                  "option_text": "How CSR may help one business to expand",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "ii",
+                  "option_text": "CSR in many aspects of a company?s business",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "iii",
+                  "option_text": "A CSR initiative without a financial gain",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "iv",
+                  "option_text": "Lack of action by the state of social issues",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "v",
+                  "option_text": "Drives or pressures motivate companies to address CSR",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "vi",
+                  "option_text": "The past illustrates business are responsible for future outcomes",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "vii",
+                  "option_text": "Companies applying CSR should be selective",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "viii",
+                  "option_text": "Reasons that business and society benefit each other",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 6,
+              "question_type": "matching",
+              "question_text": "Paragraph F",
+              "question_instructions": "Choose the correct heading for each paragraph from the list of headings below. Write the correct number, i-viii.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "i",
+              "explanation": "Microsoft?s CSR effort can also address its own IT workforce needs.",
+              "answer_location": "Paragraph F",
+              "passage_excerpt": "Microsoft has achieved results that have benefited many communities while having a direct?and potentially significant?impact on the company.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Microsoft has achieved results that have benefited many communities while having a direct?and potentially significant?impact on the company.",
+              "why_answer": "Microsoft?s CSR effort can also address its own IT workforce needs.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "i",
+                  "option_text": "How CSR may help one business to expand",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "ii",
+                  "option_text": "CSR in many aspects of a company?s business",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "iii",
+                  "option_text": "A CSR initiative without a financial gain",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "iv",
+                  "option_text": "Lack of action by the state of social issues",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "v",
+                  "option_text": "Drives or pressures motivate companies to address CSR",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "vi",
+                  "option_text": "The past illustrates business are responsible for future outcomes",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "vii",
+                  "option_text": "Companies applying CSR should be selective",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "viii",
+                  "option_text": "Reasons that business and society benefit each other",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 7,
+              "question_type": "matching",
+              "question_text": "Paragraph G",
+              "question_instructions": "Choose the correct heading for each paragraph from the list of headings below. Write the correct number, i-viii.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "ii",
+              "explanation": "Whole Foods integrates CSR into many aspects of its business.",
+              "answer_location": "Paragraph G",
+              "passage_excerpt": "nearly every aspect of the company?s value chain reinforces the social dimensions of its value proposition",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "nearly every aspect of the company?s value chain reinforces the social dimensions of its value proposition",
+              "why_answer": "Whole Foods integrates CSR into many aspects of its business.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "i",
+                  "option_text": "How CSR may help one business to expand",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "ii",
+                  "option_text": "CSR in many aspects of a company?s business",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "iii",
+                  "option_text": "A CSR initiative without a financial gain",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "iv",
+                  "option_text": "Lack of action by the state of social issues",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "v",
+                  "option_text": "Drives or pressures motivate companies to address CSR",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "vi",
+                  "option_text": "The past illustrates business are responsible for future outcomes",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "vii",
+                  "option_text": "Companies applying CSR should be selective",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "viii",
+                  "option_text": "Reasons that business and society benefit each other",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 8,
+              "question_type": "fill_blank",
+              "question_text": "Workers? productivity needs health care, education, and ___.",
+              "question_instructions": "Complete the summary below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "equal opportunity",
+              "explanation": "Equal opportunity is the third item named.",
+              "answer_location": "Paragraph B",
+              "passage_excerpt": "Education, health care, and equal opportunity are essential to a productive workforce.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Education, health care, and equal opportunity are essential to a productive workforce.",
+              "why_answer": "Equal opportunity is the third item named.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": []
+            },
+            {
+              "order": 9,
+              "question_type": "fill_blank",
+              "question_text": "Improved safety standards can reduce the ___ of workplace accidents.",
+              "question_instructions": "Complete the summary below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "internal costs",
+              "explanation": "The passage directly says safety reduces internal costs.",
+              "answer_location": "Paragraph B",
+              "passage_excerpt": "Safe products and working conditions ... lower the internal costs of accidents.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Safe products and working conditions ... lower the internal costs of accidents.",
+              "why_answer": "The passage directly says safety reduces internal costs.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": []
+            },
+            {
+              "order": 10,
+              "question_type": "matching",
+              "question_text": "The company?s disposal of waste.",
+              "question_instructions": "Match each opinion or deed with company A, B or C. Letters may be used more than once.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "C",
+              "explanation": "Whole Foods is described composting waste.",
+              "answer_location": "Paragraph G",
+              "passage_excerpt": "Spoiled produce and biodegradable waste are trucked to regional centres for composting.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Spoiled produce and biodegradable waste are trucked to regional centres for composting.",
+              "why_answer": "Whole Foods is described composting waste.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "General Electronics",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Microsoft",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Whole Foods Market",
+                  "is_correct": true
+                }
+              ]
+            },
+            {
+              "order": 11,
+              "question_type": "matching",
+              "question_text": "The way the company purchases its goods.",
+              "question_instructions": "Match each opinion or deed with company A, B or C. Letters may be used more than once.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "C",
+              "explanation": "Whole Foods emphasizes purchasing from local farmers.",
+              "answer_location": "Paragraph G",
+              "passage_excerpt": "The company?s sourcing emphasises purchases from local farmers through each store?s procurement process.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "The company?s sourcing emphasises purchases from local farmers through each store?s procurement process.",
+              "why_answer": "Whole Foods emphasizes purchasing from local farmers.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "General Electronics",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Microsoft",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Whole Foods Market",
+                  "is_correct": true
+                }
+              ]
+            },
+            {
+              "order": 12,
+              "question_type": "matching",
+              "question_text": "Helping the underdeveloped.",
+              "question_instructions": "Match each opinion or deed with company A, B or C. Letters may be used more than once.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "A",
+              "explanation": "General Electronics supports underperforming schools.",
+              "answer_location": "Paragraph E",
+              "passage_excerpt": "General Electronics?s program to adopt underperforming public high schools",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "General Electronics?s program to adopt underperforming public high schools",
+              "why_answer": "General Electronics supports underperforming schools.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "General Electronics",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Microsoft",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Whole Foods Market",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 13,
+              "question_type": "matching",
+              "question_text": "Ensuring people have the latest information.",
+              "question_instructions": "Match each opinion or deed with company A, B or C. Letters may be used more than once.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "B",
+              "explanation": "Microsoft supports current IT education and faculty development.",
+              "answer_location": "Paragraph F",
+              "passage_excerpt": "Microsoft?s initiative addressed outdated classroom technology, IT curricula, and faculty development.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Microsoft?s initiative addressed outdated classroom technology, IT curricula, and faculty development.",
+              "why_answer": "Microsoft supports current IT education and faculty development.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "General Electronics",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Microsoft",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Whole Foods Market",
+                  "is_correct": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Reading Passage 3: Amateur Naturalists",
+          "instructions": "",
+          "passage_instructions": "You should spend about 20 minutes on Questions 27-40, which are based on Reading Passage 3 below.",
+          "passage": "A Tim Sparks slides a small leather-bound notebook out of an envelope. The book’s yellowing pages contain bee-keeping notes made between 1941 and 1969 by the late Walter Coates of Kilworth, Leicestershire. He adds it to his growing pile of local journals, birdwatchers’ lists and gardening diaries. “We’re uncovering about one major new record each month,” he says. “I still get surprised.” Around two centuries before Coates, Robert Marsham, a landowner from Norfolk in the east of England, began recording the life cycles of plants and animals on his estate—when the first wood anemones flowered, the dates on which the oaks burst into leaf and the rooks began nesting. Successive Marshams continued compiling these notes for 211 years.\n\nB Today, such records are being put to uses that their authors could not possibly have expected. These data sets, and others like them, are proving invaluable to ecologists interested in the timing of biological events, or phenology. By combining the records with climate data, researchers can reveal how, for example, changes in temperature affect the arrival of spring, allowing ecologists to make improved predictions about the impact of climate change. A small band of researchers is combing through hundreds of years of records taken by thousands of amateur naturalists. And more systematic projects have also started up, producing an overwhelming response. “The amount of interest is almost frightening,” says Sparks, a climate researcher at the Centre for Ecology and Hydrology in Monks Wood, Cambridgeshire.\n\nC Sparks first became aware of the army of “closet phenologists”, as he describes them, when a retiring colleague gave him the Marsham records. He now spends much of his time following leads from one historical data set to another. As news of his quest spreads, people tip him off to other historical records, and more amateur phenologists come out of their closets. The British devotion to recording and collecting makes his job easier—one man from Kent sent him 30 years’ worth of kitchen calendars, on which he had noted the date that his neighbour’s magnolia tree flowered.\n\nD Other researchers have unearthed data from equally odd sources. Rafe Sagarin, an ecologist at Stanford University in California, recently studied records of a betting contest in which participants attempt to guess the exact time at which a specially erected wooden tripod will fall through the surface of a thawing river. The competition has taken place annually on the Tenana River in Alaska since 1917, and analysis of the results showed that the thaw now arrives five days earlier than it did when the contest began.\n\nE Overall, such records have helped to show that, compared with 20 years ago, a raft of natural events now occur earlier across much of the northern hemisphere, from the opening of leaves to the return of birds from migration and the emergence of butterflies from hibernation. The data can also hint at how nature will change in the future. Together with models of climate change, amateurs’ records could help guide conservation. Terry Root, an ecologist at the University of Michigan in Ann Arbor, has collected birdwatchers’ counts of wildfowl taken between 1955 and 1996 on seasonal ponds in the American Midwest and combined them with climate data and models of future warming. Her analysis shows that the increased droughts that the models predict could halve the breeding populations at the ponds. “The number of waterfowl in North America will most probably drop significantly with global warming,” she says.\n\nF But not all professionals are happy to use amateur data. “A lot of scientists won’t touch them; they say they’re too full of problems,” says Root. Different observers can have different ideas of what constitutes, for example, an open snowdrop. “The biggest concern with ad hoc observations is how carefully and systematically they were taken,” says Mark Schwartz of the University of Wisconsin, Milwaukee, who studies the interactions between plants and climate. “We need to know pretty precisely what a person’s been observing—if they just say ‘I noted when the leaves came out’, it might not be that useful.” Measuring the onset of autumn can be particularly problematic because deciding when leaves change colour is a more subjective process than noting when they appear.\n\nG Overall, most phenologists are positive about the contribution that amateurs can make. “They get at the raw power of science: careful observation of the natural world,” says Sagarin. But the professionals also acknowledge the need for careful quality control. Root, for example, tries to gauge the quality of an amateur archive by interviewing its collector. “You always have to worry—things as trivial as vacations can affect measurement. I disregard a lot of records because they’re not rigorous enough,” she says. Others suggest that the right statistics can iron out some of the problems with amateur data. Together with colleagues at Wageningen University in the Netherlands, environmental scientist Arnold van Vliet is developing statistical techniques to account for the uncertainty in amateur phenological data. With the enthusiasm of amateur phenologists evident from past records, professional researchers are now trying to create standardized recording schemes for future efforts. They hope that well-designed studies will generate a volume of observations large enough to drown out the idiosyncrasies of individual recorders. The data are cheap to collect, and can provide breadth in space, time and range of species. “It’s very difficult to collect data on a large geographical scale without enlisting an army of observers,” says Root.\n\nH Phenology also helps to drive home messages about climate change. “Because the public understand these records, they accept them,” says Sparks. It can also illustrate potentially unpleasant consequences, he adds, such as the finding that more rat infestations are reported to local councils in warmer years. And getting people involved is great for public relations. “People are thrilled to think that the data they’ve been collecting as a hobby can be used for something scientific—it empowers them,” says Root.",
+          "questions": [
+            {
+              "order": 1,
+              "question_type": "matching_information",
+              "question_text": "The definition of phenology",
+              "question_instructions": "Which paragraph contains the following information? Write the correct letter, A-H. You may use each letter more than once.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "B",
+              "explanation": "The passage defines phenology as the timing of biological events.",
+              "answer_location": "Paragraph B",
+              "passage_excerpt": "the timing of biological events, or phenology",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "the timing of biological events, or phenology",
+              "why_answer": "The passage defines phenology as the timing of biological events.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "B",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "G",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "H",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 2,
+              "question_type": "matching_information",
+              "question_text": "How Sparks first became aware of amateur records",
+              "question_instructions": "Which paragraph contains the following information? Write the correct letter, A-H. You may use each letter more than once.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "C",
+              "explanation": "A retiring colleague introduced Sparks to the amateur records.",
+              "answer_location": "Paragraph C",
+              "passage_excerpt": "Sparks first became aware of the army of ?closet phenologists? ... when a retiring colleague gave him the Marsham records.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Sparks first became aware of the army of ?closet phenologists? ... when a retiring colleague gave him the Marsham records.",
+              "why_answer": "A retiring colleague introduced Sparks to the amateur records.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "C",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "G",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "H",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 3,
+              "question_type": "matching_information",
+              "question_text": "How people reacted to their involvement in data collection",
+              "question_instructions": "Which paragraph contains the following information? Write the correct letter, A-H. You may use each letter more than once.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "H",
+              "explanation": "The paragraph describes people feeling thrilled and empowered.",
+              "answer_location": "Paragraph H",
+              "passage_excerpt": "People are thrilled to think that the data they?ve been collecting as a hobby can be used for something scientific?it empowers them",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "People are thrilled to think that the data they?ve been collecting as a hobby can be used for something scientific?it empowers them",
+              "why_answer": "The paragraph describes people feeling thrilled and empowered.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "G",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "H",
+                  "is_correct": true
+                }
+              ]
+            },
+            {
+              "order": 4,
+              "question_type": "matching_information",
+              "question_text": "The necessity to encourage amateur data collection",
+              "question_instructions": "Which paragraph contains the following information? Write the correct letter, A-H. You may use each letter more than once.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "G",
+              "explanation": "Researchers are creating standard schemes to encourage future collection.",
+              "answer_location": "Paragraph G",
+              "passage_excerpt": "professional researchers are now trying to create standardized recording schemes for future efforts",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "professional researchers are now trying to create standardized recording schemes for future efforts",
+              "why_answer": "Researchers are creating standard schemes to encourage future collection.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "G",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "H",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 5,
+              "question_type": "matching_information",
+              "question_text": "A description of using amateur records to make predictions",
+              "question_instructions": "Which paragraph contains the following information? Write the correct letter, A-H. You may use each letter more than once.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "E",
+              "explanation": "Records and climate models help predict future change and guide conservation.",
+              "answer_location": "Paragraph E",
+              "passage_excerpt": "Together with models of climate change, amateurs? records could help guide conservation.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Together with models of climate change, amateurs? records could help guide conservation.",
+              "why_answer": "Records and climate models help predict future change and guide conservation.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "E",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "G",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "H",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 6,
+              "question_type": "matching_information",
+              "question_text": "Records of a competition providing clues for climate change",
+              "question_instructions": "Which paragraph contains the following information? Write the correct letter, A-H. You may use each letter more than once.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "D",
+              "explanation": "The contest records show thaw occurs five days earlier.",
+              "answer_location": "Paragraph D",
+              "passage_excerpt": "analysis of the results showed that the thaw now arrives five days earlier than it did when the contest began.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "analysis of the results showed that the thaw now arrives five days earlier than it did when the contest began.",
+              "why_answer": "The contest records show thaw occurs five days earlier.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "A",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "D",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "G",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "H",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 7,
+              "question_type": "matching_information",
+              "question_text": "A description of a very old record compiled by generations of amateur naturalists",
+              "question_instructions": "Which paragraph contains the following information? Write the correct letter, A-H. You may use each letter more than once.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "A",
+              "explanation": "The Marsham family records were compiled over 211 years.",
+              "answer_location": "Paragraph A",
+              "passage_excerpt": "Successive Marshams continued compiling these notes for 211 years.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Successive Marshams continued compiling these notes for 211 years.",
+              "why_answer": "The Marsham family records were compiled over 211 years.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "A",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "B",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "C",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "D",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "E",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "F",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "G",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "H",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 8,
+              "question_type": "short_answer",
+              "question_text": "Walter Coates?s records largely contain information about ___.",
+              "question_instructions": "Complete the sentences below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "bee-keeping",
+              "explanation": "The notebook contains bee-keeping notes.",
+              "answer_location": "Paragraph A",
+              "passage_excerpt": "The book?s yellowing pages contain bee-keeping notes made between 1941 and 1969 by the late Walter Coates",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "The book?s yellowing pages contain bee-keeping notes made between 1941 and 1969 by the late Walter Coates",
+              "why_answer": "The notebook contains bee-keeping notes.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": []
+            },
+            {
+              "order": 9,
+              "question_type": "short_answer",
+              "question_text": "Robert Marsham is famous for recording the ___ of animals and plants on his land.",
+              "question_instructions": "Complete the sentences below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "life cycles",
+              "explanation": "Marsham recorded plant and animal life cycles.",
+              "answer_location": "Paragraph A",
+              "passage_excerpt": "Robert Marsham ... began recording the life cycles of plants and animals on his estate",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Robert Marsham ... began recording the life cycles of plants and animals on his estate",
+              "why_answer": "Marsham recorded plant and animal life cycles.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": []
+            },
+            {
+              "order": 10,
+              "question_type": "short_answer",
+              "question_text": "Global warming may cause waterfowl numbers to drop due to increased ___.",
+              "question_instructions": "Complete the sentences below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "droughts",
+              "explanation": "Predicted droughts may reduce breeding populations.",
+              "answer_location": "Paragraph E",
+              "passage_excerpt": "the increased droughts that the models predict could halve the breeding populations at the ponds",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "the increased droughts that the models predict could halve the breeding populations at the ponds",
+              "why_answer": "Predicted droughts may reduce breeding populations.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": []
+            },
+            {
+              "order": 11,
+              "question_type": "mcq",
+              "question_text": "Why do a lot of scientists discredit the data collected by amateurs?",
+              "question_instructions": "Choose the correct letter, A, B, C or D.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "C",
+              "explanation": "This broad concern points to data reliability.",
+              "answer_location": "Paragraph F",
+              "passage_excerpt": "A lot of scientists won?t touch them; they say they?re too full of problems",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "A lot of scientists won?t touch them; they say they?re too full of problems",
+              "why_answer": "This broad concern points to data reliability.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Scientific method was not used in data collection.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Amateur observers are not careful in recording their data.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Amateur data is not reliable.",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Amateur data is produced by wrong candidates.",
+                  "is_correct": false
+                }
+              ]
+            },
+            {
+              "order": 12,
+              "question_type": "mcq",
+              "question_text": "Mark Schwartz used the example of leaves to illustrate that",
+              "question_instructions": "Choose the correct letter, A, B, C or D.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "D",
+              "explanation": "The leaves example illustrates that the data must be collected and interpreted precisely; D is the review key.",
+              "answer_location": "Paragraph F",
+              "passage_excerpt": "The biggest concern with ad hoc observations is how carefully and systematically they were taken ... deciding when leaves change colour is a more subjective process",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "The biggest concern with ad hoc observations is how carefully and systematically they were taken ... deciding when leaves change colour is a more subjective process",
+              "why_answer": "The leaves example illustrates that the data must be collected and interpreted precisely; D is the review key.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "amateur records cannot be used.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "amateur records are always unsystematic.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "the colour change of leaves is hard to observe.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "valuable information is often precise.",
+                  "is_correct": true
+                }
+              ]
+            },
+            {
+              "order": 13,
+              "question_type": "mcq",
+              "question_text": "How do the scientists suggest amateur data should be used?",
+              "question_instructions": "Choose the correct letter, A, B, C or D.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "D",
+              "explanation": "The passage specifically recommends statistical techniques to address uncertainty.",
+              "answer_location": "Paragraph G",
+              "passage_excerpt": "Others suggest that the right statistics can iron out some of the problems with amateur data.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Others suggest that the right statistics can iron out some of the problems with amateur data.",
+              "why_answer": "The passage specifically recommends statistical techniques to address uncertainty.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Using improved methods.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Being more careful in observation.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Using raw materials.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Applying statistical techniques in data collection.",
+                  "is_correct": true
+                }
+              ]
+            },
+            {
+              "order": 14,
+              "question_type": "mcq",
+              "question_text": "What is the implication of phenology for ordinary people?",
+              "question_instructions": "Choose the correct letter, A, B, C or D.",
+              "answer_count": 1,
+              "marks": 1,
+              "correct_answer": "D",
+              "explanation": "Phenology helps the public understand and accept climate-change messages.",
+              "answer_location": "Paragraph H",
+              "passage_excerpt": "Phenology also helps to drive home messages about climate change. ?Because the public understand these records, they accept them,? says Sparks.",
+              "what_question_asks": "Identify the detail or interpretation requested by the question.",
+              "what_passage_says": "Phenology also helps to drive home messages about climate change. ?Because the public understand these records, they accept them,? says Sparks.",
+              "why_answer": "Phenology helps the public understand and accept climate-change messages.",
+              "paraphrase": "The question wording restates or asks about the cited passage evidence.",
+              "tip": "Match the answer to the passage evidence and follow the stated answer limit.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "It empowers the public.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "It promotes public relations.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "It warns people of animal infestation.",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "It raises public awareness about climate change.",
+                  "is_correct": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

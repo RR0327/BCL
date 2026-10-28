@@ -1195,6 +1195,15 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
+        const startOffsetSeconds = Number(audio?.dataset?.startAt || 0);
+        function applyStartOffsetIfNeeded() {
+            if (!audio || !isFinite(startOffsetSeconds) || startOffsetSeconds <= 0) return;
+            const current = Number(audio.currentTime || 0);
+            if (current <= 0 || Math.abs(current - startOffsetSeconds) > 1) {
+                applySeek(startOffsetSeconds);
+            }
+        }
+
         // Click on progress track to seek
         if (progressTrack) {
             progressTrack.addEventListener("click", (e) => {
@@ -1263,7 +1272,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (audio.getAttribute("src") !== moduleAudioUrl) {
                     audio.src = moduleAudioUrl;
                 }
-                applySeek(seekTime);
+                const targetTime = seekTime > 0 ? seekTime : startOffsetSeconds;
+                applySeek(targetTime);
+                applyStartOffsetIfNeeded();
                 const playPromise = audio.play();
                 if (playPromise !== undefined) {
                     await playPromise;

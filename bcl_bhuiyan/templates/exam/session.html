@@ -350,6 +350,7 @@
 
                     <audio id="listeningAudio"
                            data-module-audio-url="{{ module_audio_url }}"
+                           data-start-at="20"
                            {% if module_audio_url %}src="{{ module_audio_url }}"{% else %}{% for sec in sections %}{% if sec.audio_file and forloop.first %}src="{% url 'bcl:section_media' attempt.pk sec.pk 'audio' %}"{% endif %}{% endfor %}{% endif %}
                            preload="auto"
                            playsinline></audio>

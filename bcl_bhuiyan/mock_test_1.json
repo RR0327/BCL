@@ -1,0 +1,1591 @@
+{
+  "test_number": 1,
+  "title": "IELTS Academic Mock Test 1",
+  "description": "IELTS Academic Reading practice test featuring Natural Pesticide in India, Mammoth Kill, and Language Strategy in Multinational Company, with 40 questions.",
+  "modules": [
+    {
+      "module_type": "reading",
+      "duration_minutes": 60,
+      "instructions": "Read each passage and answer the questions.",
+      "sections": [
+        {
+          "order": 1,
+          "title": "Reading Passage 1: Natural Pesticide in India",
+          "passage_instructions": "You should spend about 20 minutes on Questions 1-13, which are based on Reading Passage 1 below.",
+          "passage": "A A dramatic story about cotton farmers in India shows how destructive pesticides can be for people and the environment; and why today's agriculture is so dependent on pesticides. This story also shows that it's possible to stop using chemical pesticides without losing a crop to ravaging insects, and it explains how to do it.\n\nB The story began about 30 years ago, a handful of families migrated from the Guntur district of Andhra Pradesh, southeast India, into Punukula, a community of around 900 people farming plots of between two and 10 acres. The outsiders from Guntur brought cotton-culture with them. Cotton wooed farmers by promising to bring in more hard cash than the mixed crops they were already growing to eat and sell: millet, sorghum, groundnuts, pigeon peas, mung beans, chili and rice. But raising cotton meant using pesticides and fertilizers – until then a mystery to the mostly illiterate farmers of the community. When cotton production started spreading through Andhra Pradesh state. The high value of cotton made it an exceptionally attractive crop, but growing cotton required chemical fertilizers and pesticides. As most of the farmers were poor, illiterate, and without previous experience using agricultural chemicals, they were forced to rely on local, small-scale agricultural dealers for advice. The dealers sold them seeds, fertilizers, and pesticides on credit and also guaranteed the purchase of their crop. The dealers themselves had little technical knowledge about pesticides. They merely passed on promotional information from multinational chemical companies that supplied their products.\n\nC At first, cotton yields were high, and expenses for pesticides were low because cotton pests had not yet moved in. The farmers had never earned so much! But within a few years, cotton pests like bollworms and aphids plagued the fields, and the farmers saw how rapid insect evolution can be. Repeated spraying killed off the weaker pests, but left the ones most resistant to pesticides to multiply. As pesticide resistance mounted, the farmers had to apply more and more of the pesticides to get the same results. At the same time, the pesticides killed off birds, wasps, beetles, spiders, and other predators that had once provided natural control of pest insects. Without these predators, the pests could destroy the entire crop if pesticides were not used. Eventually, farmers were mixing sometimes having to spray their cotton as frequently as two times a week. They were really hooked!\n\nD The villagers were hesitant, but one of Punukula's village elders decided to risk trying the natural methods instead of pesticides. His son had collapsed with acute pesticide poisoning and survived but the hospital bill was staggering. SECURE's staff coached this villager on how to protect his cotton crop by using a toolkit of natural methods chat India's Center for Sustainable Agriculture put together in collaboration with scientists at Andhra Pradesh's state university. They called the toolkit \"Non-Pesticide Management\" – or \"NPM.\"\n\nE The most important resource in the NPM toolkit was the neem tree (Azadirachta indica) which is common throughout much of India. Neem tree is a broad-leaved evergreen tree related to mahogany. It protects itself against insects by producing a multitude of natural pesticides that work in a variety of ways: with an arsenal of chemical defenses that repel egg-laying, interfere with insect growth, and most important, disrupt the ability of crop-eating insects to sense their food.\n\nF In fact, neem has been used traditionally in India to protect stored grains from insects and to produce soaps, skin lotions, and other health products. To protect crops from insects, neem seeds are simply ground into a powder that is soaked overnight in water. The solution is then sprayed onto the crop. Another preparation, neem cake, can be mixed into the soil to kill pests and diseases in the soil, and it doubles as an organic fertilizer high in nitrogen. Neem trees grow locally, so the only \"cost\" is the labor to prepare neem for application to fields.\n\nG The first farmer's trial with NPM was a complete success! His harvest was as good as the harvests of farmers that were using pesticides, and he earned much more because he did not spend a single rupee on pesticides. Inspired by this success, 20 farmers tried NPM the next year. SECURE posted two well-trained staff in Punukula to teach and help everyone in the village, and the village women put pressure on their husbands to stop using toxic chemicals. Families that were no longer exposing themselves to pesticides began to feel much better, and the rapid improvement in income, health, and general wellbeing quickly sold everyone on the value of NPM. By 2000, all the farmers in Punukula were using NPM, not only for cotton but for their other crops as well.\n\nH The suicide epidemic came to an end. And with the cash, health, and energy that returned when they stopped poisoning themselves with pesticides, the villagers were inspired to start more community and business projects. The women of Punukula created a new source of income by collecting, grinding, and selling neem seeds for NPM in other villages. The villagers rescued their indentured children and gave them special six-month \"catch-up,\" courses to return to school.\n\nI Fighting against pesticides, and winning, increased village solidarity, self-confidence, and optimism about the future. When dealers tried to punish NPM users by paying less for NPM cotton, the farmers united to form a marketing cooperative that found fairer prices elsewhere. The leadership and collaboration skills that the citizens of Punukula developed in the NPM struggle have helped them to take on other challenges, like water purification, building a cotton gin to add value to the cotton before they sell it, and convincing the state government to support NPM over the objection of multi-national pesticide corporations.",
+          "questions": [
+            {
+              "order": 1,
+              "question_type": "tfng",
+              "question_text": "Cotton in Andhra Pradesh state could really bring more income to the local farmers than traditional farming.",
+              "correct_answer": "NOT GIVEN",
+              "question_instructions": "Do the statements agree with the information in Reading Passage 1?",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage does not state whether \"Cotton in Andhra Pradesh state could really bring more income to the local farmers than traditional farming.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN.",
+              "why_answer": "The passage does not state whether \"Cotton in Andhra Pradesh state could really bring more income to the local farmers than traditional farming.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN."
+            },
+            {
+              "order": 2,
+              "question_type": "tfng",
+              "question_text": "The majority of farmers had used agricultural pesticides before 30 years ago.",
+              "correct_answer": "FALSE",
+              "question_instructions": "Do the statements agree with the information in Reading Passage 1?",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The statement claims that The majority of farmers had used agricultural pesticides before 30 years ago; however, the passage says, \"The story began about 30 years ago, a handful of families migrated from the Guntur district of Andhra Pradesh, southeast India, into Punukula, a community of around 900 people farming plots of between two and 10 acres.\" The passage gives conflicting information, so the answer is FALSE.",
+              "why_answer": "The statement claims that The majority of farmers had used agricultural pesticides before 30 years ago; however, the passage says, \"The story began about 30 years ago, a handful of families migrated from the Guntur district of Andhra Pradesh, southeast India, into Punukula, a community of around 900 people farming plots of between two and 10 acres.\" The passage gives conflicting information, so the answer is FALSE."
+            },
+            {
+              "order": 3,
+              "question_type": "tfng",
+              "question_text": "The yield of cotton is relatively lower than that of other agricultural crops.",
+              "correct_answer": "NOT GIVEN",
+              "question_instructions": "Do the statements agree with the information in Reading Passage 1?",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage does not state whether \"The yield of cotton is relatively lower than that of other agricultural crops.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN.",
+              "why_answer": "The passage does not state whether \"The yield of cotton is relatively lower than that of other agricultural crops.\" is true or false. Because the evidence needed to confirm or contradict this specific claim is absent, the answer is NOT GIVEN."
+            },
+            {
+              "order": 4,
+              "question_type": "tfng",
+              "question_text": "The farmers didn't realize the spread of the pests was so fast.",
+              "correct_answer": "TRUE",
+              "question_instructions": "Do the statements agree with the information in Reading Passage 1?",
+              "options": [
+                {
+                  "option_key": "TRUE",
+                  "option_text": "TRUE",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "FALSE",
+                  "option_text": "FALSE",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "NOT GIVEN",
+                  "option_text": "NOT GIVEN",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"A dramatic story about cotton farmers in India shows how destructive pesticides can be for people and the environment; and why today's agriculture is so dependent on pesticides.\" This supports the statement that The farmers didn't realize the spread of the pests was so fast, so the answer is TRUE.",
+              "why_answer": "The passage states, \"A dramatic story about cotton farmers in India shows how destructive pesticides can be for people and the environment; and why today's agriculture is so dependent on pesticides.\" This supports the statement that The farmers didn't realize the spread of the pests was so fast, so the answer is TRUE."
+            },
+            {
+              "order": 5,
+              "question_type": "fill_blank",
+              "question_text": "The neem tree is fast-growing and ___.",
+              "correct_answer": "evergreen",
+              "question_instructions": "Complete the summary. Write NO MORE THAN TWO WORDS from the passage for each answer.",
+              "explanation": "The passage states, \"Neem tree is a broad-leaved evergreen tree related to mahogany.\" This provides \"evergreen\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Neem tree is a broad-leaved evergreen tree related to mahogany.\" This provides \"evergreen\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 6,
+              "question_type": "fill_blank",
+              "question_text": "The neem tree produces ___ to protect itself against insects.",
+              "correct_answer": "natural pesticides",
+              "question_instructions": "Complete the summary. Write NO MORE THAN TWO WORDS from the passage for each answer.",
+              "explanation": "The passage states, \"It protects itself against insects by producing a multitude of natural pesticides that work in a variety of ways: with an arsenal of chemical defenses that repel egg-laying, interfere with insect growth, and most important, disrupt the ability of crop-eating insects to sense their food.\" This provides \"natural pesticides\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"It protects itself against insects by producing a multitude of natural pesticides that work in a variety of ways: with an arsenal of chemical defenses that repel egg-laying, interfere with insect growth, and most important, disrupt the ability of crop-eating insects to sense their food.\" This provides \"natural pesticides\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 7,
+              "question_type": "fill_blank",
+              "question_text": "Neem seeds are ground into ___ form.",
+              "correct_answer": "powder",
+              "question_instructions": "Complete the summary. Write NO MORE THAN TWO WORDS from the passage for each answer.",
+              "explanation": "The passage states, \"To protect crops from insects, neem seeds are simply ground into a powder that is soaked overnight in water.\" This provides \"powder\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"To protect crops from insects, neem seeds are simply ground into a powder that is soaked overnight in water.\" This provides \"powder\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 8,
+              "question_type": "fill_blank",
+              "question_text": "The ground neem seeds are soaked ___ in water.",
+              "correct_answer": "overnight",
+              "question_instructions": "Complete the summary. Write NO MORE THAN TWO WORDS from the passage for each answer.",
+              "explanation": "The passage states, \"To protect crops from insects, neem seeds are simply ground into a powder that is soaked overnight in water.\" This provides \"overnight\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"To protect crops from insects, neem seeds are simply ground into a powder that is soaked overnight in water.\" This provides \"overnight\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 9,
+              "question_type": "fill_blank",
+              "question_text": "___ can be mixed into the soil to kill pests and diseases.",
+              "correct_answer": "neem cake",
+              "question_instructions": "Complete the summary. Write NO MORE THAN TWO WORDS from the passage for each answer.",
+              "explanation": "The passage states, \"Another preparation, neem cake, can be mixed into the soil to kill pests and diseases in the soil, and it doubles as an organic fertilizer high in nitrogen.\" This provides \"neem cake\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Another preparation, neem cake, can be mixed into the soil to kill pests and diseases in the soil, and it doubles as an organic fertilizer high in nitrogen.\" This provides \"neem cake\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 10,
+              "question_type": "fill_blank",
+              "question_text": "Neem cake ___ as an organic fertilizer.",
+              "correct_answer": "doubles",
+              "question_instructions": "Complete the summary. Write NO MORE THAN TWO WORDS from the passage for each answer.",
+              "explanation": "The passage states, \"Another preparation, neem cake, can be mixed into the soil to kill pests and diseases in the soil, and it doubles as an organic fertilizer high in nitrogen.\" This provides \"doubles\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Another preparation, neem cake, can be mixed into the soil to kill pests and diseases in the soil, and it doubles as an organic fertilizer high in nitrogen.\" This provides \"doubles\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 11,
+              "question_type": "fill_blank",
+              "question_text": "Neem cake is an organic fertilizer high in ___.",
+              "correct_answer": "nitrogen",
+              "question_instructions": "Complete the summary. Write NO MORE THAN TWO WORDS from the passage for each answer.",
+              "explanation": "The passage states, \"Another preparation, neem cake, can be mixed into the soil to kill pests and diseases in the soil, and it doubles as an organic fertilizer high in nitrogen.\" This provides \"nitrogen\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Another preparation, neem cake, can be mixed into the soil to kill pests and diseases in the soil, and it doubles as an organic fertilizer high in nitrogen.\" This provides \"nitrogen\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 12,
+              "question_type": "short_answer",
+              "question_text": "In which year did all the farmers use NPM for their crops in Punukula?",
+              "correct_answer": "In 2000",
+              "question_instructions": "Choose NO MORE THAN TWO WORDS AND/OR A NUMBER from the passage for each answer.",
+              "explanation": "The passage states, \"By 2000, all the farmers in Punukula were using NPM, not only for cotton but for their other crops as well.\" This provides \"In 2000\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"By 2000, all the farmers in Punukula were using NPM, not only for cotton but for their other crops as well.\" This provides \"In 2000\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 13,
+              "question_type": "short_answer",
+              "question_text": "What gave the women of Punukula a business opportunity to NPMs?",
+              "correct_answer": "Neem seeds",
+              "question_instructions": "Choose NO MORE THAN TWO WORDS AND/OR A NUMBER from the passage for each answer.",
+              "explanation": "The passage states, \"The women of Punukula created a new source of income by collecting, grinding, and selling neem seeds for NPM in other villages.\" This provides \"Neem seeds\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"The women of Punukula created a new source of income by collecting, grinding, and selling neem seeds for NPM in other villages.\" This provides \"Neem seeds\" as the information required by the question, so it completes the answer."
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Reading Passage 2: Mammoth Kill",
+          "passage_instructions": "You should spend about 20 minutes on Questions 14-26, which are based on Reading Passage 2 below.",
+          "passage": "Mammoth is any species of the extinct genus Mammuthus, proboscideans commonly equipped with long, curved tusks and, in northern species, a covering of long hair. They lived from the Pliocene epoch from around 5 million years ago, into the Holocene at about 4,500 years ago and were members of the family Elephantidae, which contains, along with mammoths, the two genera of modern elephants and their ancestors.\n\nLike their modern relatives, mammoths were quite large. The largest known species reached heights in the region of 4 m at the shoulder and weighs up to 8 tonnes, while exceptionally large males may have exceeded 12 tonnes. However, most species of mammoth were only about as large as a modern Asian elephant. Both sexes bore tusks. A first, small set appeared at about the age of six months and these were replaced at about 18 months by the permanent set. Growth of the permanent set was at a rate of about 1 to 6 inches per year. Based on studies of their close relatives, the modern elephants, mammoths probably had a gestation period of 22 months, resulting in a single calf being born. Their social structure was probably the same as that of African and Asian elephants, with females living in herds headed by a matriarch, whilst bulls lived solitary lives or formed loose groups after sexual maturity.\n\nMEXICO CITY – Although it's hard to imagine in this age of urban sprawl and automobiles, North America once belonged to mammoths, camels, ground sloths as large as cows, bear-sized beavers and other formidable beasts. Some 11,000 years ago, however, these large-bodied mammals and others – about 70 species in all – disappeared. Their demise coincided roughly with the arrival of humans in the New World and dramatic climatic change – factors that have inspired several theories about the die-off. Yet despite decades of scientific investigation, the exact cause remains a mystery. Now new findings offer support to one of these controversial hypotheses: that human hunting drove this megafaunal menagerie to extinction. The overkill model emerged in the 1960s when it was put forth by Paul S. Martin of the University of Arizona. Since then, critics have charged that no evidence exists to support the idea that the first Americans hunted to the extent necessary to cause these extinctions. But at the annual meeting of the Society of Vertebrate Paleontology in Mexico City last October, paleoecologist John Alroy of the University of California at Santa Barbara argued that, in fact, hunting-driven extinction is not only plausible, but it was only unavoidable. He has determined, using a computer simulation, that even a very modest amount of hunting would have wiped these animals out.\n\nAssuming an initial human population of 100 people that grew no more than 2 percent annually, Alroy determined that if each band of, say, 50 people killed 15 to 20 large mammals a year, humans could have eliminated the animal populations within 1,000 years. Large mammals, in particular, would have been vulnerable to the pressure because they have longer gestation periods than smaller mammals and they're young require extended care.\n\nNot everyone agrees with Alroy's assessment. For one, the results depend in part on population-size estimates for the extinct animals – figures that are not necessarily reliable. But a more specific criticism comes from mammalogist Ross D. E. MacPhee of the American Museum of Natural History in New York City, who points out that the relevant archaeological record contains barely a dozen examples of stone points embedded in mammoth bones (and none, it should be noted, are known from other megafaunal remains) – hardly what one might expect if hunting drove these animals to extinction. Furthermore, some of these species had huge ranges – the giant Jefferson's ground sloth, for example, lived as far north as the Yukon and as far south as Mexico – which would have made slaughtering them in numbers sufficient to cause their extinction rather implausible, he says.\n\nMacphee agrees that humans most likely brought about these extinctions (as well as others around the world that coincided with human arrival), but not directly. Rather he suggests that people may have introduced hyper lethal disease, perhaps through their dogs or hitchhiking vermin, which then spread wildly among the immunologically naive species of the New World. As in the overkill model, populations of large mammals would have a harder time recovering. Repeated outbreaks of a hyper disease could thus quickly drive them to the point of no return. So far MacPhee does not have empirical evidence for the hyper disease hypotheses, and it won't be easy to come by hyper lethal disease would kill far too quickly to leave its signature on the bones themselves. But he hopes that analyses of tissue and DNA from the last mammoths to perish will eventually reveal murderous microbes.\n\nThe third explanation for what brought on this North American extinction does not involve human beings. Instead, its proponents blame the loss on the water. The Pleistocene epoch witnessed considerable climatic instability, explains palaeontologist Russell W. Graham of the Denver Museum of Nature and Science. As a result, certain habitats disappeared, and species that had once formed communities split apart. For some animals, this change brought opportunity. For much of the megafauna, however, the increasingly homogeneous environment left them with shrinking geographical ranges – a death sentence for large animals, which need large ranges. Although these creatures managed to maintain viable populations through most of the Pleistocene, the final major fluctuation – the so-called Younger Dryas event – pushed them over the edge, Graham says. For his part, Alroy is convinced that human hunters demolished the titans of the Ice Age. The overkill model explains everything the disease and climate scenarios explain, he asserts, and makes accurate predictions about which species would eventually go extinct. \"Personally, I'm a vegetarian,\" he remarks, \"and I find all of this kind of gross – but believable.\"",
+          "questions": [
+            {
+              "order": 14,
+              "question_type": "fill_blank",
+              "question_text": "The first explanation is that ___ drove large mammals to extinction.",
+              "correct_answer": "hunting",
+              "question_instructions": "Complete the summary. Write NO MORE THAN THREE WORDS from the passage for each answer.",
+              "explanation": "The passage states, \"Now new findings offer support to one of these controversial hypotheses: that human hunting drove this megafaunal menagerie to extinction.\" This provides \"hunting\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Now new findings offer support to one of these controversial hypotheses: that human hunting drove this megafaunal menagerie to extinction.\" This provides \"hunting\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 15,
+              "question_type": "fill_blank",
+              "question_text": "The ___ model was proposed in the 1960s.",
+              "correct_answer": "overkill model",
+              "question_instructions": "Complete the summary. Write NO MORE THAN THREE WORDS from the passage for each answer.",
+              "explanation": "The passage states, \"The overkill model emerged in the 1960s when it was put forth by Paul S.\" This provides \"overkill model\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"The overkill model emerged in the 1960s when it was put forth by Paul S.\" This provides \"overkill model\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 16,
+              "question_type": "fill_blank",
+              "question_text": "MacPhee suggested people may have introduced a deadly ___.",
+              "correct_answer": "disease",
+              "question_instructions": "Complete the summary. Write NO MORE THAN THREE WORDS from the passage for each answer.",
+              "explanation": "The passage states, \"Rather he suggests that people may have introduced hyper lethal disease, perhaps through their dogs or hitchhiking vermin, which then spread wildly among the immunologically naive species of the New World.\" This provides \"disease\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Rather he suggests that people may have introduced hyper lethal disease, perhaps through their dogs or hitchhiking vermin, which then spread wildly among the immunologically naive species of the New World.\" This provides \"disease\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 17,
+              "question_type": "fill_blank",
+              "question_text": "MacPhee's hypothesis required more ___ to prove its validity.",
+              "correct_answer": "empirical evidence",
+              "question_instructions": "Complete the summary. Write NO MORE THAN THREE WORDS from the passage for each answer.",
+              "explanation": "The passage states, \"So far MacPhee does not have empirical evidence for the hyper disease hypotheses, and it won't be easy to come by hyper lethal disease would kill far too quickly to leave its signature on the bones themselves.\" This provides \"empirical evidence\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"So far MacPhee does not have empirical evidence for the hyper disease hypotheses, and it won't be easy to come by hyper lethal disease would kill far too quickly to leave its signature on the bones themselves.\" This provides \"empirical evidence\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 18,
+              "question_type": "fill_blank",
+              "question_text": "Graham proposed that ___ in the Pleistocene caused species to disappear.",
+              "correct_answer": "climatic instability",
+              "question_instructions": "Complete the summary. Write NO MORE THAN THREE WORDS from the passage for each answer.",
+              "explanation": "The passage states, \"The Pleistocene epoch witnessed considerable climatic instability, explains palaeontologist Russell W.\" This provides \"climatic instability\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"The Pleistocene epoch witnessed considerable climatic instability, explains palaeontologist Russell W.\" This provides \"climatic instability\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 19,
+              "question_type": "fill_blank",
+              "question_text": "The increasingly homogeneous environment left species with shrinking ___.",
+              "correct_answer": "geographical ranges",
+              "question_instructions": "Complete the summary. Write NO MORE THAN THREE WORDS from the passage for each answer.",
+              "explanation": "The passage states, \"For much of the megafauna, however, the increasingly homogeneous environment left them with shrinking geographical ranges – a death sentence for large animals, which need large ranges.\" This provides \"geographical ranges\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"For much of the megafauna, however, the increasingly homogeneous environment left them with shrinking geographical ranges – a death sentence for large animals, which need large ranges.\" This provides \"geographical ranges\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 20,
+              "question_type": "fill_blank",
+              "question_text": "The final major fluctuation, the ___, pushed the species over the edge.",
+              "correct_answer": "Younger Dryas event",
+              "question_instructions": "Complete the summary. Write NO MORE THAN THREE WORDS from the passage for each answer.",
+              "explanation": "The passage states, \"Although these creatures managed to maintain viable populations through most of the Pleistocene, the final major fluctuation – the so-called Younger Dryas event – pushed them over the edge, Graham says.\" This provides \"Younger Dryas event\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Although these creatures managed to maintain viable populations through most of the Pleistocene, the final major fluctuation – the so-called Younger Dryas event – pushed them over the edge, Graham says.\" This provides \"Younger Dryas event\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 21,
+              "question_type": "matching",
+              "question_text": "Human hunting well explained which species would finally disappear.",
+              "correct_answer": "A",
+              "question_instructions": "Match each statement with the person who made it. Write A, B, or C.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "John Alroy",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Ross D. E. MacPhee",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Russell W. Graham",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"But at the annual meeting of the Society of Vertebrate Paleontology in Mexico City last October, paleoecologist John Alroy of the University of California at Santa Barbara argued that, in fact, hunting-driven extinction is not only plausible, but it was only unavoidable.\" This connects \"Human hunting well explained which species would finally disappear.\" with \"John Alroy\", so the correct match is A.",
+              "why_answer": "The passage states, \"But at the annual meeting of the Society of Vertebrate Paleontology in Mexico City last October, paleoecologist John Alroy of the University of California at Santa Barbara argued that, in fact, hunting-driven extinction is not only plausible, but it was only unavoidable.\" This connects \"Human hunting well explained which species would finally disappear.\" with \"John Alroy\", so the correct match is A."
+            },
+            {
+              "order": 22,
+              "question_type": "matching",
+              "question_text": "Further grounded proof needed to explain human's indirect impact on mammals.",
+              "correct_answer": "B",
+              "question_instructions": "Match each statement with the person who made it. Write A, B, or C.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "John Alroy",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Ross D. E. MacPhee",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Russell W. Graham",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"But a more specific criticism comes from mammalogist Ross D.\" This connects \"Further grounded proof needed to explain human's indirect impact on mammals.\" with \"Ross D. E. MacPhee\", so the correct match is B.",
+              "why_answer": "The passage states, \"But a more specific criticism comes from mammalogist Ross D.\" This connects \"Further grounded proof needed to explain human's indirect impact on mammals.\" with \"Ross D. E. MacPhee\", so the correct match is B."
+            },
+            {
+              "order": 23,
+              "question_type": "matching",
+              "question_text": "Overhunting situation has caused die-out of large mammals.",
+              "correct_answer": "A",
+              "question_instructions": "Match each statement with the person who made it. Write A, B, or C.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "John Alroy",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Ross D. E. MacPhee",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Russell W. Graham",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"But at the annual meeting of the Society of Vertebrate Paleontology in Mexico City last October, paleoecologist John Alroy of the University of California at Santa Barbara argued that, in fact, hunting-driven extinction is not only plausible, but it was only unavoidable.\" This connects \"Overhunting situation has caused die-out of large mammals.\" with \"John Alroy\", so the correct match is A.",
+              "why_answer": "The passage states, \"But at the annual meeting of the Society of Vertebrate Paleontology in Mexico City last October, paleoecologist John Alroy of the University of California at Santa Barbara argued that, in fact, hunting-driven extinction is not only plausible, but it was only unavoidable.\" This connects \"Overhunting situation has caused die-out of large mammals.\" with \"John Alroy\", so the correct match is A."
+            },
+            {
+              "order": 24,
+              "question_type": "matching",
+              "question_text": "Illness rather than hunting caused extensive extinction.",
+              "correct_answer": "B",
+              "question_instructions": "Match each statement with the person who made it. Write A, B, or C.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "John Alroy",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Ross D. E. MacPhee",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Russell W. Graham",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"But a more specific criticism comes from mammalogist Ross D.\" This connects \"Illness rather than hunting caused extensive extinction.\" with \"Ross D. E. MacPhee\", so the correct match is B.",
+              "why_answer": "The passage states, \"But a more specific criticism comes from mammalogist Ross D.\" This connects \"Illness rather than hunting caused extensive extinction.\" with \"Ross D. E. MacPhee\", so the correct match is B."
+            },
+            {
+              "order": 25,
+              "question_type": "matching",
+              "question_text": "Doubt raised through the study of several fossil records.",
+              "correct_answer": "B",
+              "question_instructions": "Match each statement with the person who made it. Write A, B, or C.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "John Alroy",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Ross D. E. MacPhee",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Russell W. Graham",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"But a more specific criticism comes from mammalogist Ross D.\" This connects \"Doubt raised through the study of several fossil records.\" with \"Ross D. E. MacPhee\", so the correct match is B.",
+              "why_answer": "The passage states, \"But a more specific criticism comes from mammalogist Ross D.\" This connects \"Doubt raised through the study of several fossil records.\" with \"Ross D. E. MacPhee\", so the correct match is B."
+            },
+            {
+              "order": 26,
+              "question_type": "matching",
+              "question_text": "Climate shift is the main reason for extinction.",
+              "correct_answer": "C",
+              "question_instructions": "Match each statement with the person who made it. Write A, B, or C.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "John Alroy",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Ross D. E. MacPhee",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Russell W. Graham",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage states, \"The Pleistocene epoch witnessed considerable climatic instability, explains palaeontologist Russell W.\" This connects \"Climate shift is the main reason for extinction.\" with \"Russell W. Graham\", so the correct match is C.",
+              "why_answer": "The passage states, \"The Pleistocene epoch witnessed considerable climatic instability, explains palaeontologist Russell W.\" This connects \"Climate shift is the main reason for extinction.\" with \"Russell W. Graham\", so the correct match is C."
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "title": "Reading Passage 3: Language Strategy in Multinational Company",
+          "passage_instructions": "You should spend about 20 minutes on Questions 27-40, which are based on Reading Passage 3 below.",
+          "passage": "A The importance of language management in multinational companies has never been greater than today. Multinationals are becoming ever more conscious of the importance of global coordination as a source of competitive advantage and language remains the ultimate barrier to aspirations of international harmonization. Before attempting to consider language management strategies, companies will have to evaluate the magnitude of the language barrier confronting them and in doing so they will need to examine it in three dimensions: the Language Diversity, the Language Penetration and the Language Sophistication. Companies next need to turn their attention to how they should best manage language. There is a range of options from which MNCs can formulate their language strategy.\n\nB Lingua Franca: The simplest answer, though realistic only for English speaking companies, is to rely on one's native tongue. As recently as 1991 a survey of British exporting companies found that over a third used English exclusively in dealings with foreign customers. This attitude that \"one language fits all\" has also been carried through into the Internet age. A survey of the web sites of top American companies confirmed that over half made no provision for foreign language access, and another found that less than 10% of leading companies were able to respond adequately to emails other than in the company's language. Widespread though it is, however, reliance on a single language is a strategy that is fatally flawed. It makes no allowance for the growing trend in Linguistic Nationalism whereby buyers in Asia, South America and the Middle East, in particular, are asserting their right to \"work in the language of the customer\". It also fails to recognize the increasing vitality of languages such as Spanish, Arabic and Chinese that over time are likely to challenge the dominance of English as a lingua franca. In the IT arena, it ignores the rapid globalization of the Internet where the number of English-language e-commerce transactions, emails and web sites, is rapidly diminishing as a percentage of the total. Finally, the total reliance on a single language puts the English speaker at risk in negotiations. Contracts, rules and legislation are invariably written in the local language, and a company unable to operate in that language is vulnerable.\n\nC Functional Multilingualism: Another improvised approach to Language is to rely on what has been termed \"Functional Multilingualism\". Essentially what this means is to muddle through, relying on a mix of languages, pidgins and gestures to communicate by whatever means the parties have at their disposal. In a social context, such a shared effort to make one another understand might be considered an aid to the bonding process with the frustration of communication being regularly punctuated by moments of absurdity and humor. However, as the basis for business negotiations, it appears very hit-and-nuts. And yet Hagen's recent study suggests that 16% of an international business transaction; is conducted in a \"cocktail of languages.\" Functional Multilingualism shares the same defects as reliance on a lingua franca and increases the probability of cognitive divergence between the parties engaged in the communication.\n\nD External Language Resources: A more rational and obvious response to the language barrier is to employ external resources such as translators and interpreters, and certainly there are many excellent companies specialized in these fields. However, such a response is by no means an end to the language barrier. For a start these services can be very expensive with a top Simultaneous Interpreter, commanding daily rates as high as a partner in an international consulting company. Secondly, any good translator or interpreter will insist that to be fully effective they must understand the context of the subject matter. This is not always possible. In some cases, it is prohibited by the complexity or specialization of the topic. Sometimes by lack of preparation time but most often the obstacle is the reluctance of the parties to explain the wider context to an 'outsider'. Another problem is that unless there has been considerable pre-explaining between the interpreter and his clients it is likely that there will be ambiguity and cultural overtones in the source messages the interpreter has to work with. They will, of course, endeavor to provide a hi-fidelity translation but in this circumstance, the interpreter has to use initiative and guesswork. This clearly injects a potential source of misunderstanding into the proceedings. Finally, while a good interpreter will attempt to convey not only the meaning but also the spirit of any communication, there can be no doubt that there is a loss of rhetorical power when communications go through a third party. So in situations requiring negotiation, persuasion, humor etc. the use of an interpreter is a poor substitute for direct communication.\n\nE Training: The immediate and understandable reaction to any skills-shortage in business is to consider personnel development and certainly the language training industry is well developed. Offering programs at almost every level and in numerous languages. However, without doubt, the value of language training no company should be deluded into believing this to be assured of success. Training in most companies is geared to the economic cycle. When times are good, money is invested in training. When belts get tightened training is one of the first \"luxuries\" to be pared down. In a study conducted across four European countries, nearly twice as many companies said they needed language training in coming years as had conducted training in past years. This disparity between \"good intentions\" and \"actual delivery\", underlines the problems of relying upon training for language skills. Unless the company is totally committed to sustaining the strategy even though bad times, it will fail.\n\nF One notable and committed leader in the field of language training has been the Volkswagen Group. They have developed a language strategy over many years and in many respects can be regarded as a model of how to manage language professionally. However, the Volkswagen approach underlines that language training has to be considered a strategic rather than a tactical solution. In their system to progress from \"basics\" to \"communications competence\" in a language requires the completion of 6 languages stages each one demanding approximately 90 hours of a refresher course, supported by many more hours of self-study, spread over a 6-9 months period. The completion of each stage is marked by a post-stage achievement test, which is a pre-requisite for continued training. So even this professionally managed program expects a minimum of three years of fairly intensive study to produce an accountant. Engineer, buyer or salesperson capable of working effectively in a foreign language. Clearly, companies intending to pursue this route need to do so with realistic expectations and with the intention of sustaining the program over many years. Except in terms of \"brush-up\" courses for people who were previously fluent in a foreign language, training cannot be considered a quick fix.",
+          "questions": [
+            {
+              "order": 27,
+              "question_type": "matching",
+              "question_text": "Companies may face language problems when dealing with overseas ___.",
+              "correct_answer": "B",
+              "question_instructions": "Complete the summary by choosing the correct word, A-L.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "gestures",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "clients",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "transaction",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "understanding and assumption",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "accurate",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "documents",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "managers",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "body language",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "I",
+                  "option_text": "long-term",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "J",
+                  "option_text": "effective",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "K",
+                  "option_text": "rivals",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "L",
+                  "option_text": "costly",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Another problem is that unless there has been considerable pre-explaining between the interpreter and his clients it is likely that there will be ambiguity and cultural overtones in the source messages the interpreter has to work with.\" This connects \"Companies may face language problems when dealing with overseas ___.\" with \"clients\", so the correct match is B.",
+              "why_answer": "The passage states, \"Another problem is that unless there has been considerable pre-explaining between the interpreter and his clients it is likely that there will be ambiguity and cultural overtones in the source messages the interpreter has to work with.\" This connects \"Companies may face language problems when dealing with overseas ___.\" with \"clients\", so the correct match is B."
+            },
+            {
+              "order": 28,
+              "question_type": "matching",
+              "question_text": "Different national rules can affect the translation of key ___.",
+              "correct_answer": "F",
+              "question_instructions": "Complete the summary by choosing the correct word, A-L.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "gestures",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "clients",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "transaction",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "understanding and assumption",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "accurate",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "documents",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "managers",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "body language",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "I",
+                  "option_text": "long-term",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "J",
+                  "option_text": "effective",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "K",
+                  "option_text": "rivals",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "L",
+                  "option_text": "costly",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Contracts, rules and legislation are invariably written in the local language, and a company unable to operate in that language is vulnerable.\" This connects \"Different national rules can affect the translation of key ___.\" with \"documents\", so the correct match is F.",
+              "why_answer": "The passage states, \"Contracts, rules and legislation are invariably written in the local language, and a company unable to operate in that language is vulnerable.\" This connects \"Different national rules can affect the translation of key ___.\" with \"documents\", so the correct match is F."
+            },
+            {
+              "order": 29,
+              "question_type": "matching",
+              "question_text": "Communication may rely on spoken language and ___.",
+              "correct_answer": "A",
+              "question_instructions": "Complete the summary by choosing the correct word, A-L.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "gestures",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "clients",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "transaction",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "understanding and assumption",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "accurate",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "documents",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "managers",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "body language",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "I",
+                  "option_text": "long-term",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "J",
+                  "option_text": "effective",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "K",
+                  "option_text": "rivals",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "L",
+                  "option_text": "costly",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Essentially what this means is to muddle through, relying on a mix of languages, pidgins and gestures to communicate by whatever means the parties have at their disposal.\" This connects \"Communication may rely on spoken language and ___.\" with \"gestures\", so the correct match is A.",
+              "why_answer": "The passage states, \"Essentially what this means is to muddle through, relying on a mix of languages, pidgins and gestures to communicate by whatever means the parties have at their disposal.\" This connects \"Communication may rely on spoken language and ___.\" with \"gestures\", so the correct match is A."
+            },
+            {
+              "order": 30,
+              "question_type": "matching",
+              "question_text": "More than one-tenth of business ___ are processed in a third-party language setting.",
+              "correct_answer": "C",
+              "question_instructions": "Complete the summary by choosing the correct word, A-L.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "gestures",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "clients",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "transaction",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "understanding and assumption",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "accurate",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "documents",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "managers",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "body language",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "I",
+                  "option_text": "long-term",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "J",
+                  "option_text": "effective",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "K",
+                  "option_text": "rivals",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "L",
+                  "option_text": "costly",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"And yet Hagen's recent study suggests that 16% of an international business transaction; is conducted in a \"cocktail of languages.\" Functional Multilingualism shares the same defects as reliance on a lingua franca and increases the probability of cognitive divergence between the parties engaged in the communication.\" This connects \"More than one-tenth of business ___ are processed in a third-party language setting.\" with \"transaction\", so the correct match is C.",
+              "why_answer": "The passage states, \"And yet Hagen's recent study suggests that 16% of an international business transaction; is conducted in a \"cocktail of languages.\" Functional Multilingualism shares the same defects as reliance on a lingua franca and increases the probability of cognitive divergence between the parties engaged in the communication.\" This connects \"More than one-tenth of business ___ are processed in a third-party language setting.\" with \"transaction\", so the correct match is C."
+            },
+            {
+              "order": 31,
+              "question_type": "matching",
+              "question_text": "Hiring translators can be ___.",
+              "correct_answer": "L",
+              "question_instructions": "Complete the summary by choosing the correct word, A-L.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "gestures",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "clients",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "transaction",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "understanding and assumption",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "accurate",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "documents",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "managers",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "body language",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "I",
+                  "option_text": "long-term",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "J",
+                  "option_text": "effective",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "K",
+                  "option_text": "rivals",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "L",
+                  "option_text": "costly",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The passage states, \"External Language Resources: A more rational and obvious response to the language barrier is to employ external resources such as translators and interpreters, and certainly there are many excellent companies specialized in these fields.\" This connects \"Hiring translators can be ___.\" with \"costly\", so the correct match is L.",
+              "why_answer": "The passage states, \"External Language Resources: A more rational and obvious response to the language barrier is to employ external resources such as translators and interpreters, and certainly there are many excellent companies specialized in these fields.\" This connects \"Hiring translators can be ___.\" with \"costly\", so the correct match is L."
+            },
+            {
+              "order": 32,
+              "question_type": "matching",
+              "question_text": "Unprepared translators may have to rely on their own ___ work.",
+              "correct_answer": "D",
+              "question_instructions": "Complete the summary by choosing the correct word, A-L.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "gestures",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "clients",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "transaction",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "understanding and assumption",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "accurate",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "F",
+                  "option_text": "documents",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "G",
+                  "option_text": "managers",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "H",
+                  "option_text": "body language",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "I",
+                  "option_text": "long-term",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "J",
+                  "option_text": "effective",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "K",
+                  "option_text": "rivals",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "L",
+                  "option_text": "costly",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"External Language Resources: A more rational and obvious response to the language barrier is to employ external resources such as translators and interpreters, and certainly there are many excellent companies specialized in these fields.\" This connects \"Unprepared translators may have to rely on their own ___ work.\" with \"understanding and assumption\", so the correct match is D.",
+              "why_answer": "The passage states, \"External Language Resources: A more rational and obvious response to the language barrier is to employ external resources such as translators and interpreters, and certainly there are many excellent companies specialized in these fields.\" This connects \"Unprepared translators may have to rely on their own ___ work.\" with \"understanding and assumption\", so the correct match is D."
+            },
+            {
+              "order": 33,
+              "question_type": "short_answer",
+              "question_text": "What understandable reactions does Training pay attention to according to the author?",
+              "correct_answer": "personnel development",
+              "question_instructions": "Choose NO MORE THAN THREE WORDS AND/OR A NUMBER from the passage for each answer.",
+              "explanation": "The passage states, \"Training: The immediate and understandable reaction to any skills-shortage in business is to consider personnel development and certainly the language training industry is well developed.\" This provides \"personnel development\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Training: The immediate and understandable reaction to any skills-shortage in business is to consider personnel development and certainly the language training industry is well developed.\" This provides \"personnel development\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 34,
+              "question_type": "short_answer",
+              "question_text": "In what term does the writer describe training during the economic depression?",
+              "correct_answer": "the first luxury",
+              "question_instructions": "Choose NO MORE THAN THREE WORDS AND/OR A NUMBER from the passage for each answer.",
+              "explanation": "The passage states, \"Training in most companies is geared to the economic cycle.\" This provides \"the first luxury\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Training in most companies is geared to the economic cycle.\" This provides \"the first luxury\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 35,
+              "question_type": "short_answer",
+              "question_text": "What contribution does the Volkswagen Group set up for multinational companies?",
+              "correct_answer": "developed",
+              "question_instructions": "Choose NO MORE THAN THREE WORDS AND/OR A NUMBER from the passage for each answer.",
+              "explanation": "The passage states, \"Training: The immediate and understandable reaction to any skills-shortage in business is to consider personnel development and certainly the language training industry is well developed.\" This provides \"developed\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"Training: The immediate and understandable reaction to any skills-shortage in business is to consider personnel development and certainly the language training industry is well developed.\" This provides \"developed\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 36,
+              "question_type": "short_answer",
+              "question_text": "What does Volkswagen Group consider language training as in their company?",
+              "correct_answer": "strategic solution",
+              "question_instructions": "Choose NO MORE THAN THREE WORDS AND/OR A NUMBER from the passage for each answer.",
+              "explanation": "The passage states, \"However, the Volkswagen approach underlines that language training has to be considered a strategic rather than a tactical solution.\" This provides \"strategic solution\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"However, the Volkswagen approach underlines that language training has to be considered a strategic rather than a tactical solution.\" This provides \"strategic solution\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 37,
+              "question_type": "short_answer",
+              "question_text": "How many stages are needed from a basic course to advanced in training?",
+              "correct_answer": "6 stages",
+              "question_instructions": "Choose NO MORE THAN THREE WORDS AND/OR A NUMBER from the passage for each answer.",
+              "explanation": "The passage states, \"In their system to progress from \"basics\" to \"communications competence\" in a language requires the completion of 6 languages stages each one demanding approximately 90 hours of a refresher course, supported by many more hours of self-study, spread over a 6-9 months period.\" This provides \"6 stages\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"In their system to progress from \"basics\" to \"communications competence\" in a language requires the completion of 6 languages stages each one demanding approximately 90 hours of a refresher course, supported by many more hours of self-study, spread over a 6-9 months period.\" This provides \"6 stages\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 38,
+              "question_type": "short_answer",
+              "question_text": "How long does a refresher course (single-stage) need normally?",
+              "correct_answer": "90 hours",
+              "question_instructions": "Choose NO MORE THAN THREE WORDS AND/OR A NUMBER from the passage for each answer.",
+              "explanation": "The passage states, \"In their system to progress from \"basics\" to \"communications competence\" in a language requires the completion of 6 languages stages each one demanding approximately 90 hours of a refresher course, supported by many more hours of self-study, spread over a 6-9 months period.\" This provides \"90 hours\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"In their system to progress from \"basics\" to \"communications competence\" in a language requires the completion of 6 languages stages each one demanding approximately 90 hours of a refresher course, supported by many more hours of self-study, spread over a 6-9 months period.\" This provides \"90 hours\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 39,
+              "question_type": "short_answer",
+              "question_text": "At least how long is needed for a specific professional to acquire a foreign language?",
+              "correct_answer": "three years",
+              "question_instructions": "Choose NO MORE THAN THREE WORDS AND/OR A NUMBER from the passage for each answer.",
+              "explanation": "The passage states, \"So even this professionally managed program expects a minimum of three years of fairly intensive study to produce an accountant.\" This provides \"three years\" as the information required by the question, so it completes the answer.",
+              "why_answer": "The passage states, \"So even this professionally managed program expects a minimum of three years of fairly intensive study to produce an accountant.\" This provides \"three years\" as the information required by the question, so it completes the answer."
+            },
+            {
+              "order": 40,
+              "question_type": "mcq",
+              "question_text": "40 What is the main function of this passage?",
+              "correct_answer": "C",
+              "question_instructions": "Choose the correct answer.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "to reveal all kinds of language problems that companies may encounter",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "to exhibits some well-known companies successfully dealing with language difficulties",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "to evaluate various approaches for language barrier in multinational companies",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "to testify that training is an only feasible approach to solve the language problem",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The passage states, \"Before attempting to consider language management strategies, companies will have to evaluate the magnitude of the language barrier confronting them and in doing so they will need to examine it in three dimensions: the Language Diversity, the Language Penetration and the Language Sophistication.\" This evidence supports option(s) C (to evaluate various approaches for language barrier in multinational companies), which answer the question.",
+              "why_answer": "The passage states, \"Before attempting to consider language management strategies, companies will have to evaluate the magnitude of the language barrier confronting them and in doing so they will need to examine it in three dimensions: the Language Diversity, the Language Penetration and the Language Sophistication.\" This evidence supports option(s) C (to evaluate various approaches for language barrier in multinational companies), which answer the question."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "module_type": "listening",
+      "duration_minutes": 30,
+      "is_active": false,
+      "instructions": "Listening audio and answer key are not yet provided. This module is inactive until its audio and answers are added.",
+      "sections": [
+        {
+          "order": 1,
+          "title": "Listening Section 1: Health and Fitness Club Membership",
+          "instructions": "Transcript for review after listening. Audio is not attached yet.",
+          "questions": [
+            {
+              "order": 1,
+              "question_type": "fill_blank",
+              "question_text": "Sarah's Health and Fitness Club membership form. First name: Harry. Last name: ___",
+              "correct_answer": "Symonds",
+              "question_instructions": "Write NO MORE THAN TWO WORDS OR A NUMBER. Answers will be added when the audio or answer key is provided.",
+              "explanation": "The applicant spells the surname ?S Y M O N D S,? so the surname is Symonds.",
+              "why_answer": "The applicant spells the surname ?S Y M O N D S,? so the surname is Symonds.",
+              "answer_location": "Transcript 01:05",
+              "passage_excerpt": "No. Um, it's S Y M O N D S. Most people"
+            },
+            {
+              "order": 2,
+              "question_type": "fill_blank",
+              "question_text": "Date of birth: 11th December ___",
+              "correct_answer": "1996",
+              "question_instructions": "Write NO MORE THAN TWO WORDS OR A NUMBER. Answers will be added when the audio or answer key is provided.",
+              "explanation": "He gives his birth year as 1996 after confirming the date of 11 December.",
+              "why_answer": "He gives his birth year as 1996 after confirming the date of 11 December.",
+              "answer_location": "Transcript 01:38",
+              "passage_excerpt": "1996."
+            },
+            {
+              "order": 3,
+              "question_type": "fill_blank",
+              "question_text": "Type of membership: ___",
+              "correct_answer": "full-time",
+              "question_instructions": "Write NO MORE THAN TWO WORDS OR A NUMBER. Answers will be added when the audio or answer key is provided.",
+              "explanation": "He rejects off-peak and weekend-only access and says he will have to be a full-time member.",
+              "why_answer": "He rejects off-peak and weekend-only access and says he will have to be a full-time member.",
+              "answer_location": "Transcript 02:21",
+              "passage_excerpt": "fulltime."
+            },
+            {
+              "order": 4,
+              "question_type": "fill_blank",
+              "question_text": "Activities: badminton and ___",
+              "correct_answer": "swimming",
+              "question_instructions": "Write NO MORE THAN TWO WORDS OR A NUMBER. Answers will be added when the audio or answer key is provided.",
+              "explanation": "He says he is keen on swimming and will do a lot of it; badminton is the other activity already printed on the form.",
+              "why_answer": "He says he is keen on swimming and will do a lot of it; badminton is the other activity already printed on the form.",
+              "answer_location": "Transcript 03:06",
+              "passage_excerpt": "I'm glad you have a pool. I'll certainly"
+            },
+            {
+              "order": 5,
+              "question_type": "fill_blank",
+              "question_text": "Payment details: total ?450, to be paid ___",
+              "correct_answer": "monthly",
+              "question_instructions": "Write NO MORE THAN TWO WORDS OR A NUMBER. Answers will be added when the audio or answer key is provided.",
+              "explanation": "He prefers regular small payments rather than paying a large amount at once; monthly payment is available.",
+              "why_answer": "He prefers regular small payments rather than paying a large amount at once; monthly payment is available.",
+              "answer_location": "Transcript 03:36",
+              "passage_excerpt": "Oh, I'd prefer to pay regularly in small"
+            },
+            {
+              "order": 6,
+              "question_type": "fill_blank",
+              "question_text": "What exercises do you do regularly? ___",
+              "correct_answer": "jogging",
+              "question_instructions": "Write NO MORE THAN TWO WORDS. Answers will be added when the audio or answer key is provided.",
+              "explanation": "He says that every few days he goes jogging.",
+              "why_answer": "He says that every few days he goes jogging.",
+              "answer_location": "Transcript 04:44",
+              "passage_excerpt": "Well, every few days I go jogging."
+            },
+            {
+              "order": 7,
+              "question_type": "fill_blank",
+              "question_text": "Do you have any injuries? Has a ___",
+              "correct_answer": "ankle",
+              "question_instructions": "Write NO MORE THAN TWO WORDS. Answers will be added when the audio or answer key is provided.",
+              "explanation": "He says he injured his ankle last week and it is sore; the earlier foot injury has healed.",
+              "why_answer": "He says he injured his ankle last week and it is sore; the earlier foot injury has healed.",
+              "answer_location": "Transcript 05:18",
+              "passage_excerpt": "bad ankle. I think I must have injured"
+            },
+            {
+              "order": 8,
+              "question_type": "fill_blank",
+              "question_text": "What is your goal or target? A better ___",
+              "correct_answer": "fitness",
+              "question_instructions": "Write NO MORE THAN TWO WORDS. Answers will be added when the audio or answer key is provided.",
+              "explanation": "He identifies building up his fitness level as his main aim.",
+              "why_answer": "He identifies building up his fitness level as his main aim.",
+              "answer_location": "Transcript 05:49",
+              "passage_excerpt": "up my fitness level."
+            },
+            {
+              "order": 9,
+              "question_type": "fill_blank",
+              "question_text": "What is your occupation? A ___",
+              "correct_answer": "charity worker",
+              "question_instructions": "Write NO MORE THAN TWO WORDS. Answers will be added when the audio or answer key is provided.",
+              "explanation": "Asked what he does now, he says he is a charity worker.",
+              "why_answer": "Asked what he does now, he says he is a charity worker.",
+              "answer_location": "Transcript 06:14",
+              "passage_excerpt": "Well, I'm a charity worker."
+            },
+            {
+              "order": 10,
+              "question_type": "fill_blank",
+              "question_text": "How did you hear about the club? ___",
+              "correct_answer": "radio",
+              "question_instructions": "Write NO MORE THAN TWO WORDS. Answers will be added when the audio or answer key is provided.",
+              "explanation": "He explains that he heard the club mentioned on the radio.",
+              "why_answer": "He explains that he heard the club mentioned on the radio.",
+              "answer_location": "Transcript 06:46",
+              "passage_excerpt": "radio, and your club was mentioned. So,"
+            }
+          ],
+          "passage": "[00:00] You will hear a conversation between an\n[00:03] assistant at a health club and a man who\n[00:05] wants to join the club. First, you have\n[00:08] some time to look at questions 1 to 5.\n[00:24] Now listen and answer questions 1 to 5.\n[00:29] Hi, can I help you?\n[00:32] Hello. Yes. Um, is your club taking on\n[00:36] new members at the moment?\n[00:38] Oh, yes. We're always interested in\n[00:40] taking on new members.\n[00:43] Just give me a moment and I'll get an\n[00:45] application form.\n[00:48] Right. Here we are. So, let's start with\n[00:52] your name.\n[00:54] It's Harry.\n[00:56] Okay. And your surname?\n[01:00] It's Simon's.\n[01:02] Is that like Simon with an S?\n[01:05] No. Um, it's S Y M O N D S. Most people\n[01:14] find it rather difficult to spell.\n[01:17] I see. It has a silent D.\n[01:22] I guess a lot of people miss that.\n[01:25] Now, let me see.\n[01:27] Can you tell me when you were born?\n[01:30] Yes, certainly. The 11th of December.\n[01:35] Thanks.\n[01:36] And the year?\n[01:38] 1996.\n[01:41] Okay, good.\n[01:43] Now, are you thinking of becoming a\n[01:46] full-time member?\n[01:48] Uh, probably not.\n[01:51] What kind of memberships do you have?\n[01:54] Well, we also have off- peak membership\n[01:58] which is between 9 and 12 in the morning\n[02:02] and 2 and 5 in the afternoon.\n[02:05] And then we do have a weekend\n[02:08] membership.\n[02:09] So, a weekend membership is just\n[02:12] Saturday and Sunday.\n[02:13] Yes, that's right.\n[02:15] Okay. Well, that's not going to work for\n[02:18] me. It looks like I'll have to be\n[02:21] fulltime.\n[02:23] I'm afraid off peak membership won't do\n[02:26] as I'm not free at those times and I\n[02:28] don't just want to be restricted to\n[02:30] weekends.\n[02:31] Okay, I'll make a note of that.\n[02:36] Right. We have several facilities at the\n[02:39] club including a gym, a swimming pool,\n[02:43] tennis and squash courts.\n[02:46] What activities are you planning on\n[02:48] doing?\n[02:49] Well, do you have badminton? Yes, we do.\n[02:54] And table tennis?\n[02:56] I'm afraid not. Well, not at the moment\n[02:59] anyway.\n[03:00] Oh, okay.\n[03:02] Well, I'm also very keen on swimming, so\n[03:06] I'm glad you have a pool. I'll certainly\n[03:09] be doing a lot of that.\n[03:11] Okay, I've got that.\n[03:14] Will you be using the gym?\n[03:16] No, I'm not interested in that. Okay.\n[03:21] So, just let me work out what the cost\n[03:23] will be.\n[03:26] Yes, that comes to £450 for the year.\n[03:30] You can choose to pay annually for the\n[03:32] full year or monthly. It's up to you.\n[03:36] Oh, I'd prefer to pay regularly in small\n[03:39] amounts rather than have a large amount\n[03:42] to pay in one go. If that's okay.\n[03:45] Sure, that's fine. Right. I've got the\n[03:49] most important details for now.\n[03:54] Before you hear the rest of the\n[03:56] conversation, you will have some time to\n[03:58] look at the questions 6 to 10.\n[04:19] Now listen and answer questions 6 to 10.\n[04:25] So, I'd just like to ask you a few\n[04:28] questions about your lifestyle if that's\n[04:30] okay with you.\n[04:32] Yes, that's fine.\n[04:34] Um, do you do any regular exercise at\n[04:37] the moment?\n[04:39] Yes, I do a bit.\n[04:41] Good. And what do you do?\n[04:44] Well, every few days I go jogging.\n[04:48] Yes, that's good. How long do you go\n[04:51] for?\n[04:52] Well, it varies. I guess it depends on\n[04:56] how energetic I'm feeling.\n[04:58] Yes, of course. Every little bit helps.\n[05:03] Um, do you have any injuries at the\n[05:05] moment?\n[05:06] Well, I did break a bone in my foot\n[05:09] playing football a long time ago, but\n[05:12] that's all healed up now. But in the\n[05:15] last few days, I've realized I have a\n[05:18] bad ankle. I think I must have injured\n[05:21] it last week and it's a bit sore now,\n[05:26] but apart from that, I'm fine.\n[05:28] Right. I guess you might need to rest it\n[05:32] for a few days to let it recover.\n[05:34] Yes, I will.\n[05:37] So, let me just ask you what you want to\n[05:40] achieve by joining the club. Do you have\n[05:43] any targets or goals?\n[05:46] Well, I suppose my main aim is to build\n[05:49] up my fitness level.\n[05:52] Is that the kind of thing you mean?\n[05:54] Yes, that's fine. All the activities\n[05:58] you're going to be doing should\n[05:59] certainly help you with that.\n[06:01] Okay.\n[06:03] And could you tell me what you do for a\n[06:05] living?\n[06:06] Well, I was a student up until recently.\n[06:10] Okay. So, what are you doing at the\n[06:13] moment?\n[06:14] Well, I'm a charity worker.\n[06:18] Oh, that's fine.\n[06:20] I'll write that down.\n[06:23] Okay, nearly done. One last question.\n[06:27] Can I ask how you heard about the club?\n[06:30] Did you see it advertised or did you go\n[06:33] to our website, for example?\n[06:36] Well, I've been looking for a health\n[06:38] club for a while, and I asked my friends\n[06:40] for suggestions, but they weren't much\n[06:43] help. And then I was listening to the\n[06:46] radio, and your club was mentioned. So,\n[06:50] I thought I'll go along and see what\n[06:52] it's like.\n[06:53] Great. Well, we look forward to having\n[06:56] you as a member.\n[07:00] That is the end of section one. You now\n[07:04] have half a minute to check your\n[07:06] answers."
+        },
+        {
+          "order": 2,
+          "title": "Listening Section 2: Hotel Event Arrangements",
+          "instructions": "Transcript for review after listening. Audio is not attached yet.",
+          "questions": [
+            {
+              "order": 11,
+              "question_type": "mcq",
+              "question_text": "The next event at the hotel will be:",
+              "correct_answer": "C",
+              "question_instructions": "Choose the correct letter, A, B or C. Answer key pending audio.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "trade fair",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "wedding",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "party",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The manager says the event this weekend is a birthday party; option C is party.",
+              "why_answer": "The manager says the event this weekend is a birthday party; option C is party.",
+              "answer_location": "Transcript 08:12",
+              "passage_excerpt": "birthday party this weekend. The events"
+            },
+            {
+              "order": 12,
+              "question_type": "mcq",
+              "question_text": "The number of guests will be:",
+              "correct_answer": "B",
+              "question_instructions": "Choose the correct letter, A, B or C. Answer key pending audio.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "less than 50",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "from 50 to 100",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "more than 100",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "They expect more than their usual group of fewer than 50, but will not exceed 100, matching 50 to 100.",
+              "why_answer": "They expect more than their usual group of fewer than 50, but will not exceed 100, matching 50 to 100.",
+              "answer_location": "Transcript 08:31",
+              "passage_excerpt": "groups of less than 50, we will have"
+            },
+            {
+              "order": 13,
+              "question_type": "mcq",
+              "question_text": "Guests will start arriving at:",
+              "correct_answer": "A",
+              "question_instructions": "Choose the correct letter, A, B or C. Answer key pending audio.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "7.15",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "7.30",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "7.45",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Although the invitation says 7:30?7:45, the manager expects the first guests at 7:15.",
+              "why_answer": "Although the invitation says 7:30?7:45, the manager expects the first guests at 7:15.",
+              "answer_location": "Transcript 09:11",
+              "passage_excerpt": "7:15."
+            },
+            {
+              "order": 14,
+              "question_type": "mcq",
+              "question_text": "The entertainment will be a:",
+              "correct_answer": "B",
+              "question_instructions": "Choose the correct letter, A, B or C. Answer key pending audio.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "live band",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "comedian",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "magician",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "The live band is cancelled and a comedian will replace it; option B is comedian.",
+              "why_answer": "The live band is cancelled and a comedian will replace it; option B is comedian.",
+              "answer_location": "Transcript 09:39",
+              "passage_excerpt": "know someone who is a comedian who will"
+            },
+            {
+              "order": 15,
+              "question_type": "matching",
+              "question_text": "Who will be responsible for offering drinks to guests as they arrive?",
+              "correct_answer": "C",
+              "question_instructions": "Choose a name, A?E. Answer key pending audio.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Susan",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Ahmed",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Gary",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Olav",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Monica",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Gary asks to provide drinks, and the manager assigns him that job; Gary is option C.",
+              "why_answer": "Gary asks to provide drinks, and the manager assigns him that job; Gary is option C.",
+              "answer_location": "Transcript 10:43",
+              "passage_excerpt": "it this time, so that will be his job."
+            },
+            {
+              "order": 16,
+              "question_type": "matching",
+              "question_text": "Who will be responsible for taking guests' coats and hats?",
+              "correct_answer": "E",
+              "question_instructions": "Choose a name, A?E. Answer key pending audio.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Susan",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Ahmed",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Gary",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Olav",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Monica",
+                  "is_correct": true
+                }
+              ],
+              "explanation": "The manager keeps Monica on the coats-and-hats task; Monica is option E.",
+              "why_answer": "The manager keeps Monica on the coats-and-hats task; Monica is option E.",
+              "answer_location": "Transcript 11:05",
+              "passage_excerpt": "Monica, last time this was your"
+            },
+            {
+              "order": 17,
+              "question_type": "matching",
+              "question_text": "Who will be responsible for showing guests where to go?",
+              "correct_answer": "A",
+              "question_instructions": "Choose a name, A?E. Answer key pending audio.",
+              "options": [
+                {
+                  "option_key": "A",
+                  "option_text": "Susan",
+                  "is_correct": true
+                },
+                {
+                  "option_key": "B",
+                  "option_text": "Ahmed",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "C",
+                  "option_text": "Gary",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "D",
+                  "option_text": "Olav",
+                  "is_correct": false
+                },
+                {
+                  "option_key": "E",
+                  "option_text": "Monica",
+                  "is_correct": false
+                }
+              ],
+              "explanation": "Susan is selected to guide guests after they arrive; Susan is option A.",
+              "why_answer": "Susan is selected to guide guests after they arrive; Susan is option A.",
+              "answer_location": "Transcript 11:32",
+              "passage_excerpt": "discussed the problems with Susan and"
+            },
+            {
+              "order": 18,
+              "question_type": "fill_blank",
+              "question_text": "To get the guests to move to the restaurant, the hotel manager will ___",
+              "correct_answer": "ring a bell",
+              "question_instructions": "Write NO MORE THAN THREE WORDS. Answers will be added when the audio or answer key is provided.",
+              "explanation": "The manager will ring a bell to tell guests it is time to move to the restaurant.",
+              "why_answer": "The manager will ring a bell to tell guests it is time to move to the restaurant.",
+              "answer_location": "Transcript 12:02",
+              "passage_excerpt": "bell so that everyone knows it's time to"
+            },
+            {
+              "order": 19,
+              "question_type": "fill_blank",
+              "question_text": "Seating plans will be placed on each table and also in the ___",
+              "correct_answer": "lounge",
+              "question_instructions": "Write NO MORE THAN THREE WORDS. Answers will be added when the audio or answer key is provided.",
+              "explanation": "The master seating plan will also be placed in the lounge.",
+              "why_answer": "The master seating plan will also be placed in the lounge.",
+              "answer_location": "Transcript 12:32",
+              "passage_excerpt": "also put a plan there. This should speed"
+            },
+            {
+              "order": 20,
+              "question_type": "fill_blank",
+              "question_text": "There will be a total of three ___",
+              "correct_answer": "speeches",
+              "question_instructions": "Write NO MORE THAN THREE WORDS. Answers will be added when the audio or answer key is provided.",
+              "explanation": "The organizer and two colleagues will give speeches, so restaurant activity must stop.",
+              "why_answer": "The organizer and two colleagues will give speeches, so restaurant activity must stop.",
+              "answer_location": "Transcript 12:51",
+              "passage_excerpt": "saying a few words, and so will two of"
+            }
+          ],
+          "passage": "[07:13] Now turn to section two.\n[07:16] You will hear a hotel manager talking to\n[07:19] her staff about the arrangements for an\n[07:21] event to be held at the weekend.\n[07:24] First, you have some time to look at\n[07:27] questions 11 to 14.\n[07:44] Now listen carefully and answer\n[07:46] questions 11 to 14.\n[07:50] Good morning everyone. I hope you're all\n[07:53] feeling okay after the activities of the\n[07:55] last week or so. I know you've all been\n[07:58] working very hard recently and we've\n[08:01] been exceptionally busy, especially with\n[08:04] the wedding last weekend and the trade\n[08:07] fair straight after that. And now we\n[08:10] have only 3 days to prepare for the\n[08:12] birthday party this weekend. The events\n[08:16] recently have gone extremely well and\n[08:19] the hotel is beginning to get a very\n[08:21] good reputation, so we need to keep it\n[08:24] up. At the moment, we don't have\n[08:26] [clears throat] exact numbers of guests,\n[08:29] and though we usually only cater for\n[08:31] groups of less than 50, we will have\n[08:34] quite a few more than that. So, as I\n[08:37] said, not sure of numbers, but of\n[08:40] course, we won't go over the maximum of\n[08:43] 100, but it's likely that we will need\n[08:46] all of you to work this weekend. So, if\n[08:49] any of you can't, please let me know as\n[08:52] soon as possible.\n[08:54] Right. So, what time will the event\n[08:56] start? Well, the invitation says guests\n[08:59] should arrive between 7:30 and 7:45,\n[09:03] but our experience is that there are\n[09:06] always a few who like to arrive early,\n[09:09] so we'll expect the first people at\n[09:11] 7:15.\n[09:13] As the numbers are quite large, this\n[09:15] will certainly be the case. Food will be\n[09:18] served at around 8:30 and then depending\n[09:22] on how long the meal takes, the\n[09:24] entertainment will start about 2 hours\n[09:26] later.\n[09:27] Now, for this, we were expecting a live\n[09:30] band for the occasion, which is always\n[09:33] fun, but apparently this has been\n[09:36] cancelled due to illness. So, the hosts\n[09:39] know someone who is a comedian who will\n[09:42] be replacing the band. We had hoped that\n[09:45] the resident magician who worked here\n[09:47] through the summer would be able to help\n[09:49] out, but they weren't keen on that idea.\n[09:54] Before you hear the rest of the talk,\n[09:56] you have some time to look at questions\n[09:58] 15 to 20.\n[10:14] Now listen and answer questions 15 to\n[10:17] 20.\n[10:19] So, I'd just like to go through who's\n[10:23] doing what when the guests arrive. And I\n[10:25] think we'll make a few changes from the\n[10:28] last party held here. If I remember\n[10:31] correctly, it was Olaf who coordinated\n[10:34] the task of providing the guests with\n[10:36] drinks. Or was it Ahmed?\n[10:39] Um, I'm not sure, but Gary asked to do\n[10:43] it this time, so that will be his job.\n[10:46] There's been no decision yet on what the\n[10:48] drinks are going to be, but I hope they\n[10:51] decide soon in case we need to order\n[10:53] something special.\n[10:55] Now, for receiving the guests coats and\n[10:58] hats, it's important we have someone\n[11:00] experienced doing this as we don't want\n[11:03] guests losing their belongings. And\n[11:05] Monica, last time this was your\n[11:07] responsibility.\n[11:09] Susan, I know you wanted to do this, but\n[11:12] as the numbers are quite high for this\n[11:14] event, I won't make a change here. Right\n[11:18] now, last time there was some confusion\n[11:21] as to where guests were supposed to go\n[11:23] once they had deposited their things and\n[11:25] we had guests roaming around the whole\n[11:28] hotel. So, Ahmed and Olaf, I believe you\n[11:32] discussed the problems with Susan and\n[11:34] thought she would be good at guiding\n[11:36] guests after they had arrived. and I'm\n[11:39] fine with that.\n[11:41] Right. And now for some general\n[11:44] instructions.\n[11:45] Once the guests have arrived, they will\n[11:47] be in and around the lounge area. And\n[11:50] then at around 8:30, we need to get them\n[11:53] to move to the restaurant for their\n[11:55] meal. This often proves difficult and\n[11:58] can take a long time. So, I will ring a\n[12:02] bell so that everyone knows it's time to\n[12:04] eat. Hopefully, this will speed things\n[12:07] up a bit. Also, for this event, there'll\n[12:10] be a seating plan, so the guests won't\n[12:13] be able to decide for themselves where\n[12:15] to sit. They'll have to sit according to\n[12:18] the plan. There will be a plan on each\n[12:21] table, and I've been thinking about\n[12:22] where to put the master plan so everyone\n[12:25] can view it before they enter the\n[12:27] restaurant. As they'll be spending quite\n[12:30] a while in the lounge, I've decided to\n[12:32] also put a plan there. This should speed\n[12:35] up the start of the meal.\n[12:38] Once the meal starts, you'll all be very\n[12:41] busy waiting on the tables, and I'm sure\n[12:43] I don't need to tell you to be good\n[12:46] humored and polite to all the guests.\n[12:49] The organizer of the event will be\n[12:51] saying a few words, and so will two of\n[12:54] his colleagues.\n[12:56] So when the speeches start, all activity\n[12:59] must stop in the restaurant so that the\n[13:02] three people giving them can be heard.\n[13:05] This shouldn't take long and it should\n[13:08] be towards the end of the meal. After\n[13:10] that, the guests will move back to the\n[13:12] lounge for the entertainment.\n[13:15] So I think that's it. Any questions?\n[13:18] Come and see me later.\n[13:23] That is the end of section two.\n[13:26] You now have half a minute to check your\n[13:28] answers."
+        },
+        {
+          "order": 3,
+          "title": "Listening Section 3: Paper Production Assignment",
+          "instructions": "Transcript for review after listening. Audio is not attached yet.",
+          "questions": [
+            {
+              "order": 21,
+              "question_type": "fill_blank",
+              "question_text": "Production: Get raw materials from ___, then remove the bark.",
+              "correct_answer": "pine forests",
+              "question_instructions": "Complete the flow chart. Write NO MORE THAN TWO WORDS. Answer key pending audio.",
+              "explanation": "They say the raw materials for paper production tend to come from pine forests.",
+              "why_answer": "They say the raw materials for paper production tend to come from pine forests.",
+              "answer_location": "Transcript 15:02",
+              "passage_excerpt": "forests."
+            },
+            {
+              "order": 22,
+              "question_type": "fill_blank",
+              "question_text": "After chopping the wood, add ___, then heat and pulp the mixture.",
+              "correct_answer": "water",
+              "question_instructions": "Complete the flow chart. Write NO MORE THAN TWO WORDS. Answer key pending audio.",
+              "explanation": "The flow-chart discussion says water is added before the mixture is heated and pulped.",
+              "why_answer": "The flow-chart discussion says water is added before the mixture is heated and pulped.",
+              "answer_location": "Transcript 15:19",
+              "passage_excerpt": "Um it says water is added and then the"
+            },
+            {
+              "order": 23,
+              "question_type": "fill_blank",
+              "question_text": "Complete the production step shown in the flow chart: ___ and distribute materials.",
+              "correct_answer": "print",
+              "question_instructions": "Complete the flow chart. Write NO MORE THAN TWO WORDS. Answer key pending audio.",
+              "explanation": "They choose ?print? as the step after paper is produced, before distribution.",
+              "why_answer": "They choose ?print? as the step after paper is produced, before distribution.",
+              "answer_location": "Transcript 15:56",
+              "passage_excerpt": "should write print as the next step"
+            },
+            {
+              "order": 24,
+              "question_type": "fill_blank",
+              "question_text": "Complete the recycling step shown in the flow chart: ___ used paper.",
+              "correct_answer": "sort",
+              "question_instructions": "Complete the flow chart. Write NO MORE THAN TWO WORDS. Answer key pending audio.",
+              "explanation": "They say collected paper is taken somewhere so someone or something can sort it.",
+              "why_answer": "They say collected paper is taken somewhere so someone or something can sort it.",
+              "answer_location": "Transcript 16:23",
+              "passage_excerpt": "someone or something can sort it. I"
+            },
+            {
+              "order": 25,
+              "question_type": "fill_blank",
+              "question_text": "Use chemicals to ___ the used paper before heating and pulping the recycled mixture.",
+              "correct_answer": "remove ink",
+              "question_instructions": "Complete the flow chart. Write NO MORE THAN TWO WORDS. Answer key pending audio.",
+              "explanation": "They explain that the chemicals are used to remove ink.",
+              "why_answer": "They explain that the chemicals are used to remove ink.",
+              "answer_location": "Transcript 16:53",
+              "passage_excerpt": "But this is how they remove ink. So,"
+            },
+            {
+              "order": 26,
+              "question_type": "short_answer",
+              "question_text": "What part of the assignment is Alan going to start working on?",
+              "correct_answer": "introduction",
+              "question_instructions": "Write NO MORE THAN TWO WORDS. Answers will be added when the audio or answer key is provided.",
+              "explanation": "Ellen agrees to start writing the introduction.",
+              "why_answer": "Ellen agrees to start writing the introduction.",
+              "answer_location": "Transcript 18:10",
+              "passage_excerpt": "Yes. Okay. Well, I can start doing that."
+            },
+            {
+              "order": 27,
+              "question_type": "short_answer",
+              "question_text": "Where will Melanie get more information on used paper collection?",
+              "correct_answer": "council",
+              "question_instructions": "Write NO MORE THAN TWO WORDS. Answers will be added when the audio or answer key is provided.",
+              "explanation": "Melanie decides to contact the council for information about paper collection.",
+              "why_answer": "Melanie decides to contact the council for information about paper collection.",
+              "answer_location": "Transcript 18:42",
+              "passage_excerpt": "council?"
+            },
+            {
+              "order": 28,
+              "question_type": "short_answer",
+              "question_text": "What will they add to the assignment to make it more interesting?",
+              "correct_answer": "data",
+              "question_instructions": "Write NO MORE THAN TWO WORDS. Answers will be added when the audio or answer key is provided.",
+              "explanation": "They agree that adding data would make the assignment more interesting.",
+              "why_answer": "They agree that adding data would make the assignment more interesting.",
+              "answer_location": "Transcript 19:10",
+              "passage_excerpt": "would be to include some data, provided"
+            },
+            {
+              "order": 29,
+              "question_type": "short_answer",
+              "question_text": "What do they agree to complete by the end of the month?",
+              "correct_answer": "first draft",
+              "question_instructions": "Write NO MORE THAN TWO WORDS. Answers will be added when the audio or answer key is provided.",
+              "explanation": "They decide to get the first draft done by the end of the month.",
+              "why_answer": "They decide to get the first draft done by the end of the month.",
+              "answer_location": "Transcript 19:41",
+              "passage_excerpt": "first draft done by then. So, we can"
+            },
+            {
+              "order": 30,
+              "question_type": "short_answer",
+              "question_text": "Who will they ask to review their work?",
+              "correct_answer": "tutor",
+              "question_instructions": "Write NO MORE THAN TWO WORDS. Answers will be added when the audio or answer key is provided.",
+              "explanation": "They choose their tutor to review the work because Henry will be away.",
+              "why_answer": "They choose their tutor to review the work because Henry will be away.",
+              "answer_location": "Transcript 20:06",
+              "passage_excerpt": "tutor. Henry's very good, but he's"
+            }
+          ],
+          "passage": "[13:34] Now turn to section three.\n[13:37] You will hear two students discussing an\n[13:40] assignment.\n[13:41] First you have some time to look at\n[13:43] questions 21 to 25.\n[14:02] Now listen and answer questions 21 to\n[14:06] 25.\n[14:08] Hi Melanie. What did you think of the\n[14:11] assignment that we got today? It looks\n[14:14] interesting, doesn't it?\n[14:16] Yes, Ellen. I've always been interested\n[14:18] in recycling, but there's a lot of\n[14:21] research to do.\n[14:23] Yes, there are a lot of things I'm\n[14:25] unsure of, so it's going to be good\n[14:28] working with you.\n[14:30] Okay. Well, why don't we start by making\n[14:33] a flowchart from the notes our tutor\n[14:36] gave us?\n[14:36] Yes. Um, so on one side we could have\n[14:42] the paper production cycle here on the\n[14:45] left and on the other side the\n[14:48] recycling.\n[14:49] Good idea.\n[14:51] Let's start at the top with the\n[14:53] production.\n[14:54] The first step in the process is to get\n[14:57] the raw materials.\n[14:58] Yes. And they tend to come from pine\n[15:02] forests.\n[15:03] Okay.\n[15:05] And then the bark is removed from the\n[15:08] outside of the tree and after that the\n[15:11] wood is chopped up. That's the first\n[15:14] three stages.\n[15:16] It sounds a bit complicated after that.\n[15:19] Um it says water is added and then the\n[15:24] mixture is heated and made into pulp. Uh\n[15:28] this will be the thick paste that is\n[15:31] used to make paper. Yes, you're right\n[15:34] because after that they use a machine to\n[15:37] make the paper and we can put that right\n[15:40] in the center of the flowchart because\n[15:42] it's also where the recycled paper joins\n[15:45] the process.\n[15:47] Yes. So once the paper has been produced\n[15:50] in the machine,\n[15:53] what happens then? Well, I think we\n[15:56] should write print as the next step\n[15:59] because this is when newspapers,\n[16:02] magazines, etc. are produced\n[16:05] and we could also add that they have to\n[16:08] be distributed to stores and people's\n[16:11] homes.\n[16:12] Right? Then the recycling bit starts.\n[16:16] The old paper's collected and then it\n[16:20] says it's taken somewhere so that\n[16:23] someone or something can sort it. I\n[16:27] imagine there are different kinds of\n[16:29] paper or things like paper clips that\n[16:33] need to be removed.\n[16:34] Yes, let's have a step after that.\n[16:39] Now, how did our tutor say they do this?\n[16:43] Oh, yes. It involves chemicals.\n[16:47] [snorts] So, how is your chemistry?\n[16:50] Well, not very good, I'm afraid.\n[16:53] But this is how they remove ink. So,\n[16:57] this is definitely going to need a bit\n[16:59] of research,\n[17:00] right?\n[17:02] Uh the last step in the recycling\n[17:05] section is similar to the last step in\n[17:08] the production process with heating and\n[17:12] pulping before the cycle begins again.\n[17:18] Before you hear the rest of the\n[17:19] conversation,\n[17:21] you have some time to look at questions\n[17:23] 26 to 30.\n[17:44] Now listen and answer questions 26 to\n[17:47] 30.\n[17:50] So I think going through the processes\n[17:53] helped. Now, we need to decide how we're\n[17:57] going to do this assignment.\n[17:59] Yes. I guess what we need to do is take\n[18:03] the processes and divide them up between\n[18:06] us. But we could start thinking about an\n[18:09] introduction.\n[18:10] Yes. Okay. Well, I can start doing that.\n[18:14] I think I have enough to go on already.\n[18:16] Good. And there are a few areas where we\n[18:20] need a lot more information.\n[18:23] I think I'll start with something easy.\n[18:27] Let's say the paper collection. I could\n[18:30] go to the resource center to do some\n[18:32] research.\n[18:33] Well, I think a better idea would be to\n[18:36] approach someone who's involved in the\n[18:39] process. What about contacting the\n[18:42] council?\n[18:43] Oh, good idea. Yes, I'll do that\n[18:46] instead. They're bound to have some\n[18:49] information\n[18:50] and I know just the thing to add to our\n[18:53] work to make it even more interesting.\n[18:56] And what's that?\n[18:57] Well, in my last assignment, I added a\n[19:01] few pictures. And the feedback I got was\n[19:04] that this wasn't academic enough.\n[19:08] So, what might really bring it to life\n[19:10] would be to include some data, provided\n[19:13] we can find some.\n[19:15] Yes, that sounds excellent.\n[19:17] Well, we certainly have a lot to do and\n[19:20] not much time to do it in.\n[19:23] You're right. I think we have about 5\n[19:26] weeks. So, I suggest we create a plan of\n[19:30] work today. The end of the month is\n[19:33] nearly 3 weeks away and then we have a\n[19:36] few days holiday.\n[19:37] Yes. So, let's see if we can get the\n[19:41] first draft done by then. So, we can\n[19:44] take a short break.\n[19:45] Okay. Then after the break, we'll have\n[19:48] just over a week to complete it. I\n[19:52] wonder if we could get someone to review\n[19:54] our work for us a few days before the\n[19:56] deadline so we can make some final\n[19:59] changes.\n[20:01] What about your friend Henry?\n[20:03] Well, the best person would be our\n[20:06] tutor. Henry's very good, but he's\n[20:09] taking a whole week's holiday, and there\n[20:12] won't be enough time when he returns.\n[20:14] Okay, then that's fine.\n[20:20] That is the end of section three. You\n[20:23] now have half a minute to check your\n[20:25] answers."
+        },
+        {
+          "order": 4,
+          "title": "Listening Section 4: Facts About Hair",
+          "instructions": "Transcript for review after listening. Audio is not attached yet.",
+          "questions": [
+            {
+              "order": 31,
+              "question_type": "fill_blank",
+              "question_text": "Facts about hair: Main purposes ? warmth and ___",
+              "correct_answer": "protection",
+              "question_instructions": "Complete the notes. Write NO MORE THAN ONE WORD OR A NUMBER. Answers will be added when the audio or answer key is provided.",
+              "explanation": "The lecturer says hair also provides protection, alongside warmth.",
+              "why_answer": "The lecturer says hair also provides protection, alongside warmth.",
+              "answer_location": "Transcript 22:04",
+              "passage_excerpt": "other is for protection. And again, this"
+            },
+            {
+              "order": 32,
+              "question_type": "fill_blank",
+              "question_text": "Main component keratin ? makes fingernails ___",
+              "correct_answer": "flexible",
+              "question_instructions": "Complete the notes. Write NO MORE THAN ONE WORD OR A NUMBER. Answers will be added when the audio or answer key is provided.",
+              "explanation": "Keratin is what makes fingernails flexible.",
+              "why_answer": "Keratin is what makes fingernails flexible.",
+              "answer_location": "Transcript 22:34",
+              "passage_excerpt": "flexible and without it they would be"
+            },
+            {
+              "order": 33,
+              "question_type": "fill_blank",
+              "question_text": "A full head of hair can support a large weight equal to two ___",
+              "correct_answer": "elephants",
+              "question_instructions": "Complete the notes. Write NO MORE THAN ONE WORD OR A NUMBER. Answers will be added when the audio or answer key is provided.",
+              "explanation": "A full head of hair can support 12 tons, described as the equivalent of a couple of elephants.",
+              "why_answer": "A full head of hair can support 12 tons, described as the equivalent of a couple of elephants.",
+              "answer_location": "Transcript 23:00",
+              "passage_excerpt": "which is the equivalent of a couple of"
+            },
+            {
+              "order": 34,
+              "question_type": "fill_blank",
+              "question_text": "Average number of strands of hair ? ___ for an adult",
+              "correct_answer": "100,000",
+              "question_instructions": "Complete the notes. Write NO MORE THAN ONE WORD OR A NUMBER. Answers will be added when the audio or answer key is provided.",
+              "explanation": "The lecturer gives 100,000 as the strand count for an average adult.",
+              "why_answer": "The lecturer gives 100,000 as the strand count for an average adult.",
+              "answer_location": "Transcript 23:22",
+              "passage_excerpt": "average adult, the strand count is"
+            },
+            {
+              "order": 35,
+              "question_type": "fill_blank",
+              "question_text": "A large amount of money is spent on ___ for hair in the UK",
+              "correct_answer": "products",
+              "question_instructions": "Complete the notes. Write NO MORE THAN ONE WORD OR A NUMBER. Answers will be added when the audio or answer key is provided.",
+              "explanation": "The lecturer says a fortune is spent on hair products.",
+              "why_answer": "The lecturer says a fortune is spent on hair products.",
+              "answer_location": "Transcript 24:01",
+              "passage_excerpt": "etc., a fortune is spent just on hair"
+            },
+            {
+              "order": 36,
+              "question_type": "fill_blank",
+              "question_text": "Structure of hair ? bulb: like a ___ over the end of the hair follicle",
+              "correct_answer": "cap",
+              "question_instructions": "Complete the notes. Write NO MORE THAN ONE WORD OR A NUMBER. Answers will be added when the audio or answer key is provided.",
+              "explanation": "The bulb acts rather like a cap and encloses the end of the hair.",
+              "why_answer": "The bulb acts rather like a cap and encloses the end of the hair.",
+              "answer_location": "Transcript 24:36",
+              "passage_excerpt": "The bulb acts rather like a cap. It"
+            },
+            {
+              "order": 37,
+              "question_type": "fill_blank",
+              "question_text": "Structure of hair ? root: contains glands that supply ___ to the hair strand",
+              "correct_answer": "oil",
+              "question_instructions": "Complete the notes. Write NO MORE THAN ONE WORD OR A NUMBER. Answers will be added when the audio or answer key is provided.",
+              "explanation": "Glands in the root produce oil, which flows along the hair.",
+              "why_answer": "Glands in the root produce oil, which flows along the hair.",
+              "answer_location": "Transcript 25:03",
+              "passage_excerpt": "produce oil which flows along the length"
+            },
+            {
+              "order": 38,
+              "question_type": "fill_blank",
+              "question_text": "Structure of hair ? shaft: not ___",
+              "correct_answer": "active",
+              "question_instructions": "Complete the notes. Write NO MORE THAN ONE WORD OR A NUMBER. Answers will be added when the audio or answer key is provided.",
+              "explanation": "The shaft is above the skin and is not active.",
+              "why_answer": "The shaft is above the skin and is not active.",
+              "answer_location": "Transcript 25:24",
+              "passage_excerpt": "this is not active. And I say"
+            },
+            {
+              "order": 39,
+              "question_type": "fill_blank",
+              "question_text": "Changes in diet will take longer to affect your hair than your ___",
+              "correct_answer": "diet",
+              "question_instructions": "Complete the notes. Write NO MORE THAN ONE WORD OR A NUMBER. Answers will be added when the audio or answer key is provided.",
+              "explanation": "The lecturer says changes in diet take longer to affect hair than skin.",
+              "why_answer": "The lecturer says changes in diet take longer to affect hair than skin.",
+              "answer_location": "Transcript 26:00",
+              "passage_excerpt": "take a lot longer. A change in diet"
+            },
+            {
+              "order": 40,
+              "question_type": "fill_blank",
+              "question_text": "Vitamins C, D and E are important for healthy hair, and ___ are one of the best sources of Vitamin C",
+              "correct_answer": "blueberries",
+              "question_instructions": "Complete the notes. Write NO MORE THAN ONE WORD OR A NUMBER. Answers will be added when the audio or answer key is provided.",
+              "explanation": "Blueberries are named as one of the best foods to eat for vitamin C.",
+              "why_answer": "Blueberries are named as one of the best foods to eat for vitamin C.",
+              "answer_location": "Transcript 26:37",
+              "passage_excerpt": "are blueberries. For vitamin D, the best"
+            }
+          ],
+          "passage": "[20:34] Now turn to section four. You will hear\n[20:38] a lecture about hair.\n[20:40] First, you have some time to look at\n[20:42] questions 31 to 40.\n[21:13] Now listen carefully and answer\n[21:15] questions 31 to 40.\n[21:19] Good morning and welcome to this lecture\n[21:22] on hair which is a part of the human\n[21:25] biology course.\n[21:27] This lecture covers a number of facts\n[21:30] about hair, its structure, and what can\n[21:33] affect the general health of hair.\n[21:36] So, first of all, what is hair and why\n[21:40] do we have it? If we look back at our\n[21:43] ancestors, we'll see that they had a lot\n[21:46] more hair on their bodies than we do\n[21:48] now. And there are or were two main\n[21:52] reasons for having hair.\n[21:55] One is to provide warmth. But as humans\n[21:58] have worn clothes for many years, body\n[22:01] hair has significantly reduced. The\n[22:04] other is for protection. And again, this\n[22:07] isn't as significant as it was once. But\n[22:10] hair does still benefit areas of the\n[22:13] body such as the head and around the\n[22:15] eyes.\n[22:17] Now hair whatever it is for and wherever\n[22:20] it is on the human body is composed\n[22:23] mainly of a protein called keratin.\n[22:27] This by the way is also found in\n[22:30] fingernails.\n[22:31] In fact it's keratin which makes them\n[22:34] flexible and without it they would be\n[22:36] very rigid.\n[22:39] Another interesting fact about hair is\n[22:41] that it is very strong as strong as\n[22:44] iron. In fact, one single strand can\n[22:48] support a weight of up to 100 g. This\n[22:52] may not sound all that much, but a full\n[22:55] head of hair can support up to 12 tons,\n[23:00] which is the equivalent of a couple of\n[23:02] elephants, which is simply amazing.\n[23:05] Though, I advise you not to put this to\n[23:08] the test.\n[23:10] Humans lose up to 100 strands of hair a\n[23:13] day, but we do have quite a lot of hair\n[23:16] to start with. There's some variation\n[23:20] depending on hair color, but for an\n[23:22] average adult, the strand count is\n[23:25] 100,000.\n[23:26] So, losing 100 a day is not too bad.\n[23:30] Although this is the average, people\n[23:33] with red hair have around 80,000\n[23:36] strands. black or brown hair 100,000 and\n[23:41] blondes have about 120,000.\n[23:45] So hair used to be important for the\n[23:48] reasons I mentioned earlier, but\n[23:50] nowadays I'd say the main importance of\n[23:53] hair is the fact that it is big\n[23:55] business. Apart from the money involved\n[23:58] in hair cutting, shaving, trimming,\n[24:01] etc., a fortune is spent just on hair\n[24:05] products. In the UK alone, consumers\n[24:09] spend over5 billion pounds each year on\n[24:12] these.\n[24:14] So next, I'd like to just give you a\n[24:17] quick overview of the structure of hair.\n[24:20] As you can see, along the length of the\n[24:23] hair, there are three main parts called\n[24:26] the bulb, the root, and the shaft. A\n[24:31] single hair is fixed at one end below\n[24:33] the skin in the bulb.\n[24:36] The bulb acts rather like a cap. It\n[24:40] encloses the end of the hair in the\n[24:42] head.\n[24:44] The next part of the hair is the root\n[24:46] and this is the part of the hair which\n[24:48] lies just beneath the skin and in terms\n[24:52] of hair production is the most\n[24:54] important. This can be considered the\n[24:57] control center for each strand of hair\n[25:00] and is where the glands are found. These\n[25:03] produce oil which flows along the length\n[25:06] of the hair and the health of the root\n[25:09] determines the overall health of the\n[25:11] strand of hair.\n[25:13] The last part is the shaft and this is\n[25:17] the hair which is above the skin and is\n[25:20] of course what we can see. Fortunately,\n[25:24] this is not active. And I say\n[25:26] fortunately because otherwise it would\n[25:29] be very painful to have your hair cut.\n[25:33] And finally, I'd just like to go over a\n[25:36] few factors that impact on the overall\n[25:38] health of hair. Like every other part of\n[25:42] the body, our diet, that is what we eat,\n[25:46] is extremely important to the condition\n[25:48] of our hair. But whereas a change in\n[25:51] your diet to, for example, eating\n[25:54] unhealthy foods will soon be noticeable\n[25:56] in your skin, changes to your hair will\n[26:00] take a lot longer. A change in diet\n[26:03] today could take several months to have\n[26:06] an effect on your hair. And so, what is\n[26:10] the key to healthy hair? Well, eating a\n[26:15] balanced diet is the most important\n[26:17] thing. There are a number of vitamins\n[26:19] that are vital for good hair health. The\n[26:22] main ones being vitamins C, D, and E.\n[26:28] And in a balanced diet, all these\n[26:30] vitamins should be readily available. If\n[26:33] you need a boost of vitamin C, for\n[26:35] example, one of the best things to eat\n[26:37] are blueberries. For vitamin D, the best\n[26:41] examples are fish, mushrooms, and eggs.\n[26:44] and for vitamin E, nuts, and seeds.\n[26:49] Right. So, let's go on to what?\n[26:54] That is the end of section 4. You now\n[26:58] have half a minute to check your\n[26:59] answers."
+        }
+      ]
+    }
+  ]
+}
