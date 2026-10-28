@@ -110,7 +110,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Helper: Count words
     function countWords(value) {
-        return (value.trim().match(/\S+/g) || []).length;
+        if (!value || typeof value !== 'string') return 0;
+        const trimmed = value.trim();
+        if (!trimmed) return 0;
+        return (trimmed.match(/\S+/g) || []).length;
     }
 
     // Helper: Read answer value from question panel
@@ -708,6 +711,54 @@ document.addEventListener("DOMContentLoaded", () => {
         const nextBtn = document.getElementById("nextQuestion");
         let currentIndex = 0;
 
+        // Restore saved answers and bind writing editors for live word count and autosave
+        panels.forEach((panel) => {
+            const editor = panel.querySelector("textarea.writing-editor");
+            const countEl = panel.querySelector(".word-count span");
+
+            // Restore saved answer
+            const row = saved.get(panel.dataset.questionId);
+            if (row && editor) {
+                editor.value = row.answer_text || "";
+            }
+
+            function updatePanelCount() {
+                if (!editor) return;
+                const count = countWords(editor.value);
+                if (countEl) countEl.textContent = String(count);
+                updateWritingTotal();
+            }
+
+            if (editor) {
+                // Initialize word count on load
+                updatePanelCount();
+
+                // Live updates on keystroke, input, and paste
+                editor.addEventListener("input", () => {
+                    updatePanelCount();
+                    markDirty(panel);
+                    renderWritingNavigation();
+                });
+                editor.addEventListener("keyup", () => {
+                    updatePanelCount();
+                });
+                editor.addEventListener("change", () => {
+                    updatePanelCount();
+                    markDirty(panel);
+                });
+                editor.addEventListener("paste", () => {
+                    setTimeout(() => {
+                        updatePanelCount();
+                        markDirty(panel);
+                        renderWritingNavigation();
+                    }, 0);
+                });
+            }
+        });
+
+        // Initialize total words count on load
+        updateWritingTotal();
+
         function renderWritingNavigation() {
             if (!questionNav) return;
             questionNav.innerHTML = "";
@@ -735,11 +786,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
         function showWritingTask(pos) {
             if (pos < 0 || pos >= panels.length) return;
+            if (dirty.size) {
+                void saveAll().catch(console.warn);
+            }
             panels.forEach((p, idx) => { p.hidden = idx !== pos; });
             currentIndex = pos;
             if (prevBtn) prevBtn.disabled = currentIndex === 0;
             if (nextBtn) nextBtn.disabled = currentIndex === panels.length - 1;
             renderWritingNavigation();
+
+            const activeEditor = panels[pos].querySelector("textarea.writing-editor");
+            const activeCountEl = panels[pos].querySelector(".word-count span");
+            if (activeEditor && activeCountEl) {
+                activeCountEl.textContent = String(countWords(activeEditor.value));
+            }
+            updateWritingTotal();
         }
 
         if (panels.length) showWritingTask(0);
