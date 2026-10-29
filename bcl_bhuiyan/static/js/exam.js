@@ -253,6 +253,23 @@ document.addEventListener("DOMContentLoaded", () => {
     let activeSectionIndex = 0;
 
     if (isReading || isListening) {
+        const blankMeasureCanvas = document.createElement("canvas");
+        const blankMeasureContext = blankMeasureCanvas.getContext("2d");
+
+        function resizeBlankInput(input) {
+            if (!blankMeasureContext) return;
+            const styles = window.getComputedStyle(input);
+            blankMeasureContext.font = styles.font;
+            const letterSpacing = Number.parseFloat(styles.letterSpacing) || 0;
+            const text = input.value || input.placeholder;
+            const textWidth = blankMeasureContext.measureText(text).width
+                + Math.max(0, text.length - 1) * letterSpacing;
+            const minWidth = Math.max(68, Number.parseFloat(styles.minWidth) || 0);
+            const prompt = input.closest(".fill-blank-prompt");
+            const maxWidth = Math.max(minWidth, (prompt?.clientWidth || window.innerWidth) - 16);
+            input.style.width = `${Math.min(maxWidth, Math.max(minWidth, Math.ceil(textWidth + 16)))}px`;
+        }
+
         // 1. Column Resizer (Reading only: Left Passage vs Right Questions)
         if (isReading) {
             const resizer = document.getElementById("splitResizer");
@@ -658,10 +675,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (flag) flag.checked = row.is_flagged;
                 }
 
+                panel.querySelectorAll(".blank-input").forEach(resizeBlankInput);
+
                 // Bind input listeners for autosave dirty tracking
                 panel.querySelectorAll("input, select, textarea").forEach(input => {
                     const eventName = (input.type === "radio" || input.type === "checkbox" || input.tagName === "SELECT") ? "change" : "input";
-                    input.addEventListener(eventName, () => markDirty(panel));
+                    input.addEventListener(eventName, () => {
+                        if (input.classList.contains("blank-input")) resizeBlankInput(input);
+                        markDirty(panel);
+                    });
                 });
             });
         }
