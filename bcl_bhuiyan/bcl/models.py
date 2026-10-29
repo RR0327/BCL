@@ -329,6 +329,11 @@ class CandidateAttempt(models.Model):
         validators=[MinValueValidator(Decimal("0.0")), MaxValueValidator(Decimal("9.0"))],
         blank=True, null=True,
     )
+    answers_payload = models.JSONField(
+        default=dict,
+        blank=True,
+        help_text="Stores candidate submitted answers payload (e.g. for HTML-based Listening modules).",
+    )
 
     class Meta:
         ordering = ["-started_at"]

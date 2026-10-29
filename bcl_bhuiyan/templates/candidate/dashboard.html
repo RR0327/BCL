@@ -304,12 +304,21 @@
 
                             <div class="individual-modules-grid" style="grid-template-columns: repeat({{ test.ordered_modules|length }}, minmax(0, 1fr));">
                                 {% for module in test.ordered_modules %}
-                                    <a class="exam-link exam-link-module"
-                                       href="{% url 'bcl:exam_rules' module.id %}"
-                                       title="Take {{ module.get_module_type_display }} ({{ module.duration_minutes }} min)">
-                                        <span class="module-btn-name">{{ module.get_module_type_display }}</span>
-                                        <span class="module-btn-time">{{ module.duration_minutes }} min</span>
-                                    </a>
+                                    {% if module.module_type == 'listening' %}
+                                        <a class="exam-link exam-link-module"
+                                           href="{% url 'bcl:mock_listening' test.id %}"
+                                           title="Take {{ module.get_module_type_display }} ({{ module.duration_minutes }} min)">
+                                            <span class="module-btn-name">{{ module.get_module_type_display }}</span>
+                                            <span class="module-btn-time">{{ module.duration_minutes }} min</span>
+                                        </a>
+                                    {% else %}
+                                        <a class="exam-link exam-link-module"
+                                           href="{% url 'bcl:exam_rules' module.id %}"
+                                           title="Take {{ module.get_module_type_display }} ({{ module.duration_minutes }} min)">
+                                            <span class="module-btn-name">{{ module.get_module_type_display }}</span>
+                                            <span class="module-btn-time">{{ module.duration_minutes }} min</span>
+                                        </a>
+                                    {% endif %}
                                 {% endfor %}
                             </div>
 
@@ -391,9 +400,9 @@
                         <div>
                             {% if full_attempt.status == 'in_progress' %}
                                 {% if full_attempt.current_step == 'listening' and full_attempt.listening_attempt and full_attempt.listening_attempt.status == 'in_progress' %}
-                                    <button type="button" class="exam-link" style="background:#94a3b8;color:#ffffff;cursor:not-allowed;opacity:0.65;border:none;" disabled title="Listening examinations cannot be resumed.">
+                                    <a class="exam-link" href="{% url 'bcl:mock_listening' full_attempt.mock_test_id %}">
                                         Resume
-                                    </button>
+                                    </a>
                                 {% else %}
                                     <a class="exam-link" href="{% url 'bcl:full_mock_rules' full_attempt.mock_test_id %}">
                                         Resume
@@ -448,9 +457,9 @@
                         <div>
                             {% if attempt.status == 'in_progress' %}
                                 {% if attempt.module.module_type == 'listening' %}
-                                    <button type="button" class="exam-link" style="background:#94a3b8;color:#ffffff;cursor:not-allowed;opacity:0.65;border:none;" disabled title="Listening examinations cannot be resumed.">
+                                    <a class="exam-link" href="{% url 'bcl:mock_listening' attempt.module.mock_test_id %}">
                                         Resume
-                                    </button>
+                                    </a>
                                 {% else %}
                                     <a class="exam-link" href="{% url 'bcl:exam_session' attempt.id %}">
                                         Resume

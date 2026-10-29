@@ -1,0 +1,3477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS CDI Listening Practice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            line-height: 1.4;
+            font-size: 16px;
+            padding-bottom: 90px; /* nav-row height (80px) + some extra spacing */
+        }
+
+        .header {
+            background-color: #ffffff;
+            padding: 12px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: 60px;
+        }
+
+        .ielts-logo {
+            display: none;
+        }
+
+        .test-info {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .audio-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+        }
+
+        .audio-icon {
+            width: 16px;
+            height: 16px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon></svg>') no-repeat center;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .telegram-link {
+            color: #0088cc;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .telegram-link:hover {
+            text-decoration: underline;
+        }
+
+        .telegram-link::before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: currentColor;
+            -webkit-mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23l7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3L3.64 12c-.88-.25-.89-1.37.2-1.64l16.56-6.4c.75-.29 1.4.22 1.2.94l-2.67 12.61c-.22.95-1.13 1.18-1.78.73l-4.5-3.32l-2.23 2.15c-.47.44-1.29.21-1.48-.37z"/></svg>');
+            mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23l7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3L3.64 12c-.88-.25-.89-1.37.2-1.64l16.56-6.4c.75-.29 1.4.22 1.2.94l-2.67 12.61c-.22.95-1.13 1.18-1.78.73l-4.5-3.32l-2.23 2.15c-.47.44-1.29.21-1.48-.37z"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        #volume-slider {
+            -webkit-appearance: none;
+            appearance: none; /* Add standard property for compatibility */
+            width: 80px;
+            height: 4px;
+            background: #ddd;
+            outline: none;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        #volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #333;
+            cursor: pointer;
+        }
+
+        #volume-slider::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #333;
+            cursor: pointer;
+            border: none;
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            opacity: 0.7;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .icon:hover {
+            opacity: 1;
+        }
+        
+        #play-pause-btn {
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .main-container {
+            margin-top: 60px;
+            display: flex;
+            background: #ffffff;
+            padding-bottom: 100px; /* Space for bottom nav */
+        }
+
+        .main-container.results-mode {
+            display: flex;
+            flex-direction: row;
+        }
+
+        /* Left Panel */
+        .left-panel {
+            width: 100%;
+            padding: 20px;
+            transition: width 0.4s ease;
+        }
+
+        .main-container.results-mode .left-panel {
+            width: 100%;
+            overflow-y: auto;
+            height: calc(100vh - 195px);
+        }
+
+        /* Right Panel */
+        .right-panel {
+            display: none;
+            width: 50%;
+            padding: 20px;
+            position: relative;
+            border-left: 1px solid #e0e0e0;
+            overflow-y: auto;
+            height: calc(100vh - 195px);
+        }
+
+        #transcription-container h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        #transcription-text {
+            white-space: pre-wrap;
+            font-family: inherit;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        
+        .transcription-instruction {
+            display: block;
+            margin: 1em 0;
+            font-style: italic;
+            color: #444;
+        }
+
+        .main-container.results-mode .right-panel {
+            display: block;
+            width: 50%;
+            border-left: 1px solid #e0e0e0;
+            border-top: none;
+            height: calc(100vh - 195px);
+            overflow-y: auto;
+        }
+
+        .help-button {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+
+        .correct-answer-text {
+            color: #28a745;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .help-button:hover {
+            background: #357abd;
+        }
+
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .people-section {
+            margin-bottom: 30px;
+        }
+
+        .people-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ccc;
+        }
+
+        .people-table th {
+            text-align: left;
+            padding: 10px;
+            font-weight: bold;
+            border: 1px solid #ddd;
+        }
+
+        .people-table td {
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+        }
+
+        .person-name {
+            font-size: 16px;
+        }
+
+        .question-number {
+            background: white;
+            border: 1px solid #4a90e2;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #4a90e2;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .assigned-responsibility {
+            background: #f0f0f0;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+        }
+
+        .responsibilities-section {
+            margin-bottom: 30px;
+        }
+
+        .responsibility-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .responsibility-item {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: move;
+            font-size: 16px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .responsibility-item:hover {
+            background: #e9ecef;
+            transform: translateY(-1px);
+        }
+
+        .responsibility-item.dragging {
+            opacity: 0.5;
+            transform: rotate(2deg);
+        }
+
+        .questions-section {
+            margin-bottom: 20px;
+        }
+
+        .question-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .instruction {
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .centered-title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* Map Styles */
+        .map-container {
+            position: relative;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 600px;
+            display: block;
+        }
+        .map-container img {
+            width: 100%;
+            display: block;
+        }
+        .map-drop-zone {
+            position: absolute;
+            width: 13%;
+            height: 15%;
+            border: 2px dashed #999;
+            background-color: rgba(255, 255, 255, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #555;
+            border-radius: 4px;
+            padding: 2px;
+        }
+        .map-drop-zone:hover {
+            background-color: rgba(230, 244, 255, 0.7);
+            border-color: #4a90e2;
+        }
+        .map-drop-zone .drag-item {
+            font-size: 16px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2px;
+        }
+        .map-options-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .map-options-list .drag-item {
+            width: calc(25% - 10px);
+            text-align: center;
+        }
+
+        /* Navigation Arrows */
+        .nav-arrows {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            display: flex;
+            gap: 5px;
+            z-index: 101;
+        }
+
+        .nav-arrow {
+            width: 50px;
+            height: 50px;
+            background: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .nav-arrow:hover {
+            background: #555;
+        }
+
+        .nav-arrow:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Bottom Navigation - Exact Match */
+        .nav-row {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+        
+            padding: 0;
+            display: flex;
+            align-items: center;
+            height: 80px;
+            z-index: 100;
+
+            /* Allow horizontal scrolling on smaller screens */
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .footer__questionWrapper___1tZ46 {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+
+        .footer__questionNo___3WNct {
+            background: none;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background-color 0.2s;
+        }
+
+        .footer__questionNo___3WNct:hover {
+            background-color: #f8f9fa;
+        }
+
+        .section-prefix {
+            font-size: 16px;
+        }
+
+        .sectionNr {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .attemptedCount {
+            font-size: 14px;
+            color: #666;
+            margin-left: 5px;
+            font-weight: 400; /* Normal weight */
+        }
+
+        @media (max-width: 1024px) {
+            .attemptedCount {
+                display: none;
+            }
+        }
+
+        .footer__questionWrapper___1tZ46.selected .attemptedCount {
+            display: none;
+        }
+
+        .footer__subquestionWrapper___9GgoP {
+            display: none;
+            gap: 2px;
+            margin-left: 10px;
+        }
+
+        .footer__questionWrapper___1tZ46.selected .footer__subquestionWrapper___9GgoP {
+            display: flex;
+        }
+
+        .subQuestion {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #ccc;
+            background: white;
+            color: #333;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            border-radius: 2px;
+        }
+
+        .subQuestion.answered {
+            background-color: #e9ecef;
+            border-color: #ddd;
+        }
+        .subQuestion.correct {
+            background-color: #28a745;
+            color: white;
+            border-color: #28a745;
+        }
+        .subQuestion.incorrect {
+            background-color: #dc3545;
+            color: white;
+            border-color: #dc3545;
+        }
+
+        .subQuestion:hover {
+            background-color: #f0f0f0;
+            border-color: #999;
+        }
+
+        .subQuestion.active {
+            background-color: #4a90e2;
+            color: white;
+            border-color: #4a90e2;
+        }
+
+        .subQuestion.completed {
+            background-color: #28a745;
+            color: white;
+            border-color: #28a745;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .footer__deliverButton___3FM07 {
+            margin-left: auto;
+            margin-right: 20px;
+            background-color: #f0f0f0;
+            color: #333;
+            border: 1px solid #ccc;
+            padding: 12px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.2s, border-color 0.2s;
+            min-width: 170px;
+            justify-content: center;
+        }
+
+        .footer__deliverButton___3FM07:hover {
+            background-color: #e0e0e0;
+            border-color: #bbb;
+        }
+
+        .footer__deliverButton___3FM07:disabled {
+            background: #e9ecef;
+            color: #6c757d;
+            cursor: not-allowed;
+            border-color: #ddd;
+        }
+
+        .fa-check::before {
+            content: "✓";
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Context Menu */
+        .context-menu {
+            position: absolute;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            display: none;
+            min-width: 140px;
+        }
+
+        .context-menu-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            font-size: 16px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .context-menu-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .context-menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .highlight {
+            background-color: #ffff00;
+        }
+
+        .comment-highlight {
+            background-color: #90EE90;
+            position: relative;
+            cursor: help;
+        }
+
+        .comment-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            white-space: nowrap;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .comment-highlight:hover .comment-tooltip {
+            opacity: 1;
+        }
+
+        .question {
+            margin-bottom: 40px;
+        }
+        .question p {
+            margin-bottom: 10px;
+        }
+        .question ul, .question .people-table {
+            margin-top: 0;
+        }
+        .question-prompt {
+            margin-bottom: 20px;
+        }
+        .question ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .question ul li {
+            margin-bottom: 5px;
+        }
+        .answer-input {
+            border: 1px solid #888;
+            border-radius: 4px;
+            background-color: #fff;
+            padding: 4px 8px;
+            font-size: 16px;
+            text-align: center;
+            margin-right: 4px;
+            margin-left: 4px;
+            width: 140px;
+            max-width: 160px;
+            min-width: 120px;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            white-space: normal;
+            height: 24px;
+            min-height: 24px;
+            line-height: 1.2;
+            vertical-align: middle;
+        }
+        .answer-input::placeholder {
+            color: #999;
+            font-weight: bold;
+            text-align: center;
+        }
+        .answer-input.correct {
+            border-color: #28a745;
+            background-color: #e9f7ef;
+        }
+        .answer-input.incorrect {
+            border-color: #dc3545;
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .answer-input {
+    z-index: 10;
+    position: relative;
+    pointer-events: auto;
+}
+        .drag-drop-container {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+            align-items: flex-start;
+        }
+        .recommendations-box {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            min-height: 200px;
+        }
+        .drag-item {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 6px 8px;
+            border-radius: 4px;
+            cursor: move;
+            font-size: 16px;
+            transition: all 0.2s;
+            user-select: none;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            text-align: center;
+            line-height: 1.2;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        .drag-item:hover {
+            background: #e9ecef;
+        }
+        .drag-item.dragging {
+            opacity: 0.5;
+            transform: rotate(2deg);
+        }
+        .drop-zone {
+            border: 1px dashed #ccc;
+            border-radius: 4px;
+            min-height: 40px;
+            height: auto;
+            max-width: 120px;
+            min-width: 100px;
+            transition: background-color 0.2s, border-color 0.2s;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            text-align: center;
+            line-height: 1.2;
+        }
+        .drop-zone.drag-over {
+            background-color: #e6f4ff;
+            border-color: #4a90e2;
+        }
+        .drop-zone.correct {
+            background-color: #e9f7ef;
+            border-color: #28a745;
+            border-style: solid;
+        }
+        .drop-zone.incorrect {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+            border-style: solid;
+        }
+        .drop-zone .drag-item {
+            cursor: default;
+        }
+        .drag-item.selected {
+            border-color: #4a90e2;
+            box-shadow: 0 0 0 1px #4a90e2;
+        }
+        .questions-container {
+            width: 50%;
+        }
+        audio {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .part-header {
+            background-color: #f1f2ec;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+        }
+        .part-header p {
+            margin: 0;
+        }
+
+        .question li.correct {
+            color: #155724;
+            font-weight: bold;
+        }
+        .question li.incorrect {
+            color: #721c24;
+        }
+        .question li.correct::before {
+            content: '✔ ';
+            color: #28a745;
+        }
+        .question li.incorrect::before {
+            content: '✖ ';
+            color: #dc3545;
+        }
+
+        .example-box {
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .timer-container {
+            display: none; /* Timer hidden */
+            color: #333;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .timer-container .timer-tooltip {
+            display: none;
+        }
+
+        .audio-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(40, 40, 40, 0.9);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+        .audio-modal-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            max-width: 500px;
+            padding: 20px;
+        }
+        .audio-modal-content p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #eee;
+        }
+        .audio-modal-icon {
+            margin-bottom: 20px;
+        }
+        .modal-play-btn {
+            background-color: #000;
+            color: white;
+            border: 1px solid white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.2s;
+        }
+        .modal-play-btn:hover {
+            background-color: #333;
+        }
+        #goto-widget {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        #goto-input {
+            width: 80px;
+            padding: 4px 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #goto-btn {
+            padding: 4px 10px;
+            border: 1px solid #ccc;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        @keyframes flash {
+            0% { background-color: #e6f4ff; }
+            100% { background-color: transparent; }
+        }
+
+        .question.flash {
+            animation: flash 1s ease-out;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .modal-header h2 {
+            font-size: 24px;
+            color: #333;
+        }
+        .modal-close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #888;
+            line-height: 1;
+        }
+        .modal-close-btn:hover {
+            color: #333;
+        }
+        #score-summary {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        #result-details table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        #result-details th, #result-details td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            vertical-align: middle;
+        }
+        #result-details th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+        #result-details td:nth-child(1) {
+            font-weight: bold;
+            text-align: center;
+        }
+        .result-correct {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .result-incorrect {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .result-partial {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        .context-menu-icon {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        .matching-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-top: 20px;
+            align-items: flex-start;
+        }
+        .matching-table {
+            flex: 4;
+            border-collapse: collapse;
+        }
+        .matching-table th, .matching-table td {
+            border: 1px solid #ddd;
+            padding: 6px 12px;
+            text-align: left;
+            vertical-align: middle;
+        }
+        .matching-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+        .matching-table .drop-zone {
+            min-height: 35px;
+            height: 35px;
+            width: 100%;
+            max-width: none;
+            min-width: 300px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+            background-color: #fff;
+            border: 1px dashed #ccc;
+            border-radius: 4px;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            text-align: left;
+            line-height: 1.2;
+        }
+        .matching-table .drop-zone .drag-item {
+            width: auto;
+            max-width: none;
+            text-align: left;
+            padding: 6px 8px;
+            font-size: 16px;
+            line-height: 1.2;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            box-sizing: border-box;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 2px;
+        }
+        .matching-options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex: 1;
+            background-color: transparent;
+            padding: 0;
+            border: none;
+            min-height: 250px;
+            min-width: 280px; /* ensure enough width for long option text to stay on one line */
+        }
+        .matching-options-list .drag-item {
+            width: 100%;
+        }
+        .matching-question-item .drop-zone .placeholder {
+            color: #999;
+            font-weight: bold;
+        }
+
+        .option strong,
+        .question ul li label strong {
+            display: none;
+        }
+
+        /* Mobile selection toolbar */
+        .mobile-selection-menu {
+            position: absolute;
+            background: #333;
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 6px;
+            display: flex;
+            gap: 8px;
+            z-index: 3000;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+        }
+        .mobile-selection-menu button {
+            background: transparent;
+            border: 1px solid #fff;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .mobile-selection-menu.hidden {
+            display: none;
+        }
+
+        /* === MCQ table styling for Questions 11-15 === */
+        .mcq-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .mcq-table th,
+        .mcq-table td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            vertical-align: middle;
+            text-align: center;
+        }
+        .mcq-table th {
+            background-color: #1e6de6; /* vibrant blue header like screenshot */
+            color: #ffffff;
+            font-weight: 600;
+            text-align: center;
+        }
+        .mcq-table th:first-child {
+            text-align: left;
+        }
+        .mcq-table tbody td:first-child {
+            font-weight: 500;
+            text-align: left;
+        }
+        .mcq-table tr:nth-child(even) td {
+            background-color: #f8faff; /* subtle alternating row colour */
+        }
+        .mcq-table input[type="radio"] {
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+        /* list of options (A, B, C) shown above the table */
+        .mcq-options {
+            list-style: none;
+            padding-left: 0;
+            margin: 10px 0;
+        }
+        .mcq-options li {
+            margin-bottom: 4px;
+            font-size: 16px;
+        }
+
+        /* Compact single-choice list */
+        .single-choice-container { margin: 10px 0; display: flex; flex-direction: column; gap: 18px; }
+        .single-choice label { display: block; margin-left: 20px; margin-top: 4px; font-size: 16px; }
+
+        .aligned-form .question-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .aligned-form .question-label {
+            width: 230px;
+            padding-right: 10px;
+        }
+
+        /* Responsive adjustments for tablets */
+        @media (max-width: 1024px) {
+            .main-container {
+                flex-direction: column;
+            }
+            .right-panel, .main-container.results-mode .right-panel {
+                display: none;
+            }
+            .left-panel, .main-container.results-mode .left-panel {
+                width: 100%;
+                padding: 20px 10px;
+                height: auto; /* Reset height for mobile */
+            }
+            .questions-container {
+                width: 100%;
+            }
+        }
+
+        .single-choice label.correct {
+            color: #155724;
+            font-weight: bold;
+        }
+        .single-choice label.correct::before {
+            content: '✔ ';
+            color: #28a745;
+        }
+        .single-choice label.incorrect {
+            color: #721c24;
+            text-decoration: line-through;
+        }
+        .single-choice label.incorrect::before {
+            content: '✖ ';
+            color: #dc3545;
+        }
+        .mcq-table tbody tr.correct {
+            background-color: #d4edda !important;
+            color: #155724;
+            font-weight: bold;
+        }
+        .mcq-table tbody tr.incorrect {
+            background-color: #f8d7da !important;
+            text-decoration: line-through;
+        }
+        .mcq-table tbody tr.incorrect td {
+            color: #721c24;
+        }
+
+        /* New Audio Player Styles */
+        .audio-player-container {
+            position: fixed;
+            top: 65px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 500px;
+            max-width: 90%;
+            height: 40px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            z-index: 99;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .main-container {
+            margin-top: 115px;
+        }
+        .player-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .player-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: #333;
+        }
+        .progress-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        #progress-bar {
+            flex-grow: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 4px;
+            background: #ddd;
+            outline: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        #progress-bar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #4a90e2;
+            cursor: pointer;
+        }
+        #progress-bar::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #4a90e2;
+            cursor: pointer;
+            border: none;
+        }
+        #current-time, #total-duration {
+            font-size: 12px;
+            color: #555;
+            min-width: 35px;
+            text-align: center;
+        }
+        .controls-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .volume-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        #new-volume-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 60px;
+            height: 3px;
+            background: #ccc;
+            outline: none;
+            border-radius: 2px;
+            cursor: pointer;
+            margin-left: 8px;
+            display: block; 
+        }
+    
+        #new-volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #333;
+        }
+        #new-volume-slider::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #333;
+            border: none;
+        }
+        .speed-container {
+            position: relative;
+        }
+        #speed-btn {
+            font-size: 12px;
+            font-weight: 600;
+            color: #333;
+            background-color: #e9ecef;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            padding: 4px 8px;
+        }
+        #speed-options {
+            position: absolute;
+            top: calc(100% + 5px); /* Position below the button with a small gap */
+            right: 0;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        #speed-options div {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+        #speed-options div:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Flowchart styles */
+        .flowchart-container {
+            border: 1px solid #ccc;
+            padding: 0 20px;
+        }
+        .flowchart-step {
+            text-align: center;
+            margin: 0;
+            padding: 20px 0;
+            border-top: 1px solid #ddd;
+        }
+        .flowchart-step:first-child {
+            border-top: none;
+            padding-top: 20px;
+            margin-top: 0;
+        }
+        .flowchart-arrow {
+            text-align: center;
+            margin: 0;
+            padding: 15px 0;
+            font-size: 20px;
+            color: #555;
+            border-top: 1px solid #ddd;
+        }
+        .flowchart-split {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            gap: 20px;
+            border-top: 1px solid #ddd;
+        }
+        .flowchart-split-col {
+            width: 48%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .flowchart-split .flowchart-step {
+            border-top: none;
+            padding-top: 0;
+            margin-top: 0;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0;
+        }
+        .flowchart-split .flowchart-arrow {
+            border-top: none;
+            padding: 15px 0;
+        }
+
+
+        /* Responsive adjustments for tablets */
+        @media (max-width: 1024px) {
+            .main-container {
+                flex-direction: column;
+            }
+            .right-panel, .main-container.results-mode .right-panel {
+                display: none;
+            }
+            .left-panel, .main-container.results-mode .left-panel {
+                width: 100%;
+                padding: 20px 10px;
+                height: auto; /* Reset height for mobile */
+            }
+            .questions-container {
+                width: 100%;
+            }
+            
+            /* Adjust input boxes for tablets */
+            .answer-input {
+                width: 90px;
+                max-width: 110px;
+                font-size: 15px;
+            }
+            
+            .drop-zone {
+                max-width: 200px;
+                min-width: 150px;
+            }
+            
+            .matching-table .drop-zone {
+                max-width: 200px;
+                min-width: 150px;
+            }
+        }
+        
+        /* Responsive adjustments for mobile phones */
+        @media (max-width: 768px) {
+            .answer-input {
+                width: 80px;
+                max-width: 100px;
+                font-size: 14px;
+                padding: 2px 4px;
+            }
+            
+            .drop-zone {
+                max-width: 180px;
+                min-width: 120px;
+                font-size: 14px;
+            }
+            
+            .matching-table .drop-zone {
+                max-width: 180px;
+                min-width: 120px;
+            }
+            
+            .drag-item {
+                font-size: 16px;
+                padding: 4px 6px;
+            }
+            
+            .matching-table .drop-zone .drag-item {
+                font-size: 16px;
+            }
+            
+            /* Ensure drag-drop containers are more mobile-friendly */
+            .drag-drop-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .matching-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+        
+        /* Extra small screens */
+        @media (max-width: 480px) {
+            .answer-input {
+                width: 70px;
+                max-width: 90px;
+                font-size: 13px;
+            }
+            
+            .drop-zone {
+                max-width: 90px;
+                min-width: 70px;
+            }
+            
+            .matching-table .drop-zone {
+                max-width: 90px;
+                min-width: 70px;
+            }
+        }
+
+        .result-partial {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        .result-button {
+            background-color: #28a745 !important; /* Green */
+            color: white !important;
+            border: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="timer-container">
+            <span class="timer-display">60:00</span>
+        </div>
+        <a href="https://t.me/mindless_writer" target="_blank" class="telegram-link">
+            MINDLESS_WRITER
+        </a>
+        <div class="header-icons">
+        
+        </div>
+    </div>
+
+    <div class="audio-player-container">
+        <button id="play-pause-btn" class="player-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <div class="progress-container">
+            <span id="current-time">0:00</span>
+            <input type="range" id="progress-bar" value="0" step="1" style="width: 100%;">
+            <span id="total-duration">0:00</span>
+        </div>
+        <div class="controls-container">
+            <div class="volume-container">
+                <button id="volume-btn" class="player-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                </button>
+                <input type="range" id="new-volume-slider" min="0" max="1" step="0.01" value="1">
+            </div>
+            <div class="speed-container">
+                <button id="speed-btn" class="player-btn">1x</button>
+                <div id="speed-options" class="hidden">
+                    <div data-speed="0.5">0.5x</div>
+                    <div data-speed="0.75">0.75x</div>
+                    <div data-speed="1">1x</div>
+                    <div data-speed="1.25">1.25x</div>
+                    <div data-speed="1.5">1.5x</div>
+                    <div data-speed="2">2x</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <!-- Left Panel -->
+        <div class="left-panel">
+            
+            <div id="part-1" class="question-part">
+                <div class="part-header">
+                    <p><strong>Part 1</strong></p>
+                    <p>Listen and answer questions 1–10.</p>
+                </div>
+                <div class="questions-container">
+                    <div class="question">
+                        <div class="question-prompt">
+                            <p><strong>Questions 1-10</strong></p>
+                            <p>Complete the notes below.</p>
+                            <p>Write <strong>NO MORE THAN TWO WORDS AND/OR A NUMBER</strong> for each answer.</p>
+                        </div>
+                        <div style="border: 1px solid #000000; padding: 15px;"> <p class="centered-title">Phone interview</p>
+                            <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+                                
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Example</td>
+                                        <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Answer</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px; border: 1px solid #ddd;">Name:</td>
+                                        <td style="padding: 8px; border: 1px solid #ddd;">John Murphy</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px; border: 1px solid #ddd;">Position applying for:</td>
+                                        <td style="padding: 8px; border: 1px solid #ddd;">lifeguard</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px; border: 1px solid #ddd;">Street Address:</td>
+                                        <td style="padding: 8px; border: 1px solid #ddd;">45 <input type="text" id="q1" class="answer-input" placeholder="1" style="width: 120px; margin-right: 5px;"> Court</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px; border: 1px solid #ddd;">Contact phone number:</td>
+                                        <td style="padding: 8px; border: 1px solid #ddd;"><input type="text" id="q2" class="answer-input" placeholder="2" style="width: 120px; margin-right: 5px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px; border: 1px solid #ddd;">Current part-time job:</td>
+                                        <td style="padding: 8px; border: 1px solid #ddd;"><input type="text" id="q3" class="answer-input" placeholder="3" style="width: 120px; margin-right: 5px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px; border: 1px solid #ddd;">Previous job at Ridgemont High School:</td>
+                                        <td style="padding: 8px; border: 1px solid #ddd;"><input type="text" id="q4" class="answer-input" placeholder="4" style="width: 120px; margin-right: 5px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px; border: 1px solid #ddd;">Additional relevant work experience:</td>
+                                        <td style="padding: 8px; border: 1px solid #ddd;"><input type="text" id="q5" class="answer-input" placeholder="5" style="width: 120px; margin-right: 5px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px; border: 1px solid #ddd;">Relevant skills/qualifications:</td>
+                                        <td style="padding: 8px; border: 1px solid #ddd;">CPR certification & <input type="text" id="q6" class="answer-input" placeholder="6" style="width: 120px; margin-right: 5px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px; border: 1px solid #ddd;">CPR certification expiration date:</td>
+                                        <td style="padding: 8px; border: 1px solid #ddd;"><input type="text" id="q7" class="answer-input" placeholder="7" style="width: 120px; margin-right: 5px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px; border: 1px solid #ddd;">Preferred weekly shift:</td>
+                                        <td style="padding: 8px; border: 1px solid #ddd;"><input type="text" id="q8" class="answer-input" placeholder="8" style="width: 120px; margin-right: 5px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px; border: 1px solid #ddd;">Time available to start work:</td>
+                                        <td style="padding: 8px; border: 1px solid #ddd;"><input type="text" id="q9" class="answer-input" placeholder="9" style="width: 120px; margin-right: 5px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 8px; border: 1px solid #ddd;">Advertisement source:</td>
+                                        <td style="padding: 8px; border: 1px solid #ddd;"><input type="text" id="q10" class="answer-input" placeholder="10" style="width: 120px; margin-right: 5px;"></td>
+                                    </tr>
+                                </table>
+                            </div></div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div id="part-2" class="question-part hidden">
+                <div class="part-header">
+                    <p><strong>Part 2</strong></p>
+                    <p>Listen and answer questions 11–20.</p>
+                </div>
+                <div class="questions-container">
+                    <div class="question">
+                        <div class="question-prompt">
+                            <p><strong>Questions 11-20</strong></p>
+                            <p>Choose the correct letter, A, B or C</p>
+                        </div>
+                        <div class="single-choice-container">
+                            <div class="single-choice">
+                                <p><strong>11</strong>   The lecture was organised by</p>
+                                <label><input type="radio" name="q11" value="A">&nbsp;&nbsp;City of Nottingham.</label>
+                                <label><input type="radio" name="q11" value="B">&nbsp;&nbsp;University of Nottingham Students' Union.</label>
+                                <label><input type="radio" name="q11" value="C">&nbsp;&nbsp;Nottingham Police Department.</label>
+                            </div>
+                            <div class="single-choice">
+                                <p><strong>12</strong>   The majority of crime on campus is</p>
+                                <label><input type="radio" name="q12" value="A">&nbsp;&nbsp;Drugs and Alcohol.</label>
+                                <label><input type="radio" name="q12" value="B">&nbsp;&nbsp;Violence</label>
+                                <label><input type="radio" name="q12" value="C">&nbsp;&nbsp;Theft</label>
+                            </div>
+                            <div class="single-choice">
+                                <p><strong>13</strong>   The campus crime rate has ………….. so far this year.</p>
+                                <label><input type="radio" name="q13" value="A">&nbsp;&nbsp;increased</label>
+                                <label><input type="radio" name="q13" value="B">&nbsp;&nbsp;decreased</label>
+                                <label><input type="radio" name="q13" value="C">&nbsp;&nbsp;stayed the same</label>
+                            </div>
+                            <div class="single-choice">
+                                <p><strong>14</strong>   Why is there added concern about crime?</p>
+                                <label><input type="radio" name="q14" value="A">&nbsp;&nbsp;exaggeration in media</label>
+                                <label><input type="radio" name="q14" value="B">&nbsp;&nbsp;crime TV shows</label>
+                                <label><input type="radio" name="q14" value="C">&nbsp;&nbsp;factual news articles</label>
+                            </div>
+                            <div class="single-choice">
+                                <p><strong>15</strong>   Carlos says if you are the victim of a crime, you should</p>
+                                <label><input type="radio" name="q15" value="A">&nbsp;&nbsp;run away.</label>
+                                <label><input type="radio" name="q15" value="B">&nbsp;&nbsp;resist</label>
+                                <label><input type="radio" name="q15" value="C">&nbsp;&nbsp;seek help.</label>
+                            </div>
+                            <div class="single-choice">
+                                <p><strong>16</strong>   What is the primary method for increasing safety?</p>
+                                <label><input type="radio" name="q16" value="A">&nbsp;&nbsp;informing students and staff of safety precautions</label>
+                                <label><input type="radio" name="q16" value="B">&nbsp;&nbsp;offering free self-defense courses to students</label>
+                                <label><input type="radio" name="q16" value="C">&nbsp;&nbsp;reminding students to carry a mobile phone at all times</label>
+                            </div>
+                            <div class="single-choice">
+                                <p><strong>17</strong>   If a student must work late, it is most important to</p>
+                                <label><input type="radio" name="q17" value="A">&nbsp;&nbsp;not return home until the morning.</label>
+                                <label><input type="radio" name="q17" value="B">&nbsp;&nbsp;go back with a friend.</label>
+                                <label><input type="radio" name="q17" value="C">&nbsp;&nbsp;bring a mobile phone.</label>
+                            </div>
+                            <div class="single-choice">
+                                <p><strong>18</strong>   It is dangerous to</p>
+                                <label><input type="radio" name="q18" value="A">&nbsp;&nbsp;drive home late at night.</label>
+                                <label><input type="radio" name="q18" value="B">&nbsp;&nbsp;carry a knife.</label>
+                                <label><input type="radio" name="q18" value="C">&nbsp;&nbsp;carry pepper spray.</label>
+                            </div>
+                            <div class="single-choice">
+                                <p><strong>19</strong>   Students who complete a self-defense course are</p>
+                                <label><input type="radio" name="q19" value="A">&nbsp;&nbsp;more aware of dangers.</label>
+                                <label><input type="radio" name="q19" value="B">&nbsp;&nbsp;mentally tougher.</label>
+                                <label><input type="radio" name="q19" value="C">&nbsp;&nbsp;walking more confidently.</label>
+                            </div>
+                            <div class="single-choice">
+                                <p><strong>20</strong>   A university is</p>
+                                <label><input type="radio" name="q20" value="A">&nbsp;&nbsp;not surrounded by walls.</label>
+                                <label><input type="radio" name="q20" value="B">&nbsp;&nbsp;patrolled by military.</label>
+                                <label><input type="radio" name="q20" value="C">&nbsp;&nbsp;completely safe.</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="part-3" class="question-part hidden">
+                <div class="part-header">
+                    <p><strong>Part 3</strong></p>
+                    <p>Listen and answer questions 21–30.</p>
+                </div>
+                <div class="questions-container">
+                    <div class="question">
+                        <div class="question-prompt">
+                            <p><strong>Questions 21-23</strong></p>
+                            <p>Choose the correct letter, A, B or C.</p>
+                        </div>
+                        <div class="single-choice-container">
+                            <div class="single-choice">
+                                <p><strong>21</strong>   The proposal will</p>
+                                <label><input type="radio" name="q21" value="A">&nbsp;&nbsp;be reviewed by two examiners.</label>
+                                <label><input type="radio" name="q21" value="B">&nbsp;&nbsp;be added to the final grade.</label>
+                                <label><input type="radio" name="q21" value="C">&nbsp;&nbsp;be returned with feedback.</label>
+                            </div>
+                            <div class="single-choice">
+                                <p><strong>22</strong>   The proposal will consist mostly of</p>
+                                <label><input type="radio" name="q22" value="A">&nbsp;&nbsp;topics</label>
+                                <label><input type="radio" name="q22" value="B">&nbsp;&nbsp;methods</label>
+                                <label><input type="radio" name="q22" value="C">&nbsp;&nbsp;results</label>
+                            </div>
+                            <div class="single-choice">
+                                <p><strong>23</strong>   For the practice paper, the tutor has directed the students to make sure to</p>
+                                <label><input type="radio" name="q23" value="A">&nbsp;&nbsp;pay attention to time limits.</label>
+                                <label><input type="radio" name="q23" value="B">&nbsp;&nbsp;write at least 6,000 words.</label>
+                                <label><input type="radio" name="q23" value="C">&nbsp;&nbsp;keep on topic.</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <div class="question-prompt">
+                            <p><strong>Questions 24-30</strong></p>
+                            <p>Complete the sentences below.</p>
+                            <p>Write <strong>ONE WORD AND/OR A NUMBER</strong> for each answer</p>
+                        </div>
+                        <div style="border: 1px solid #000000; padding: 15px;">
+                            <ul style="list-style-type: none; padding-left: 20px;">
+                                <li>There is no need to <input type="text" class="answer-input" id="q24" placeholder="24"> lots of people.</li>
+                                <li>Pay attention to the <input type="text" class="answer-input" id="q25" placeholder="25"> of the final report.</li>
+                                <li>Prepare two <input type="text" class="answer-input" id="q26" placeholder="26">, one for the teacher, another for the students themselves.</li>
+                                <li>The deadline of the final paper is <input type="text" class="answer-input" id="q27" placeholder="27"></li>
+                                <li>The students can <input type="text" class="answer-input" id="q28" placeholder="28"> their topics before the beginning of April.</li>
+                                <li>Students deciding to change topics must deliver a <input type="text" class="answer-input" id="q29" placeholder="29"> to the teacher in advance.</li>
+                                <li>At the beginning of the report, the hypothesis and an outline of the <input type="text" class="answer-input" id="q30" placeholder="30"> are needed.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="part-4" class="question-part hidden">
+                <div class="part-header">
+                    <p><strong>Part 4</strong></p>
+                    <p>Listen and answer questions 31–40.</p>
+                </div>
+                <div class="questions-container">
+                    <div class="question">
+                        <div class="question-prompt">
+                            <p><strong>Questions 31-40</strong></p>
+                            <p>Complete the notes below.</p>
+                            <p>Write <strong>NO MORE THAN TWO WORDS</strong> for each answer.</p>
+                        </div>
+                        <div style="border: 1px solid #000000; padding: 15px;"> <p class="centered-title">Advertising Effect</p>
+                        <p><strong>The important factor to consider</strong></p>
+                        <ul style="list-style-type: none; padding-left: 20px;">
+                            <li>&bull;&nbsp;&nbsp;The <input type="text" class="answer-input" id="q31" placeholder="31"> that customers must travel affects the probability that they will buy the product.</li>
+                        </ul>
+                        <p><strong>Methods of communication</strong></p>
+                        <ul style="list-style-type: none; padding-left: 20px;">
+                            <li>&bull;&nbsp;&nbsp;Advertising slogans are easier to remember if there is a <input type="text" class="answer-input" id="q32" placeholder="32"> played with them.</li>
+                            <li>&bull;&nbsp;&nbsp;Mandy's Candy Store appeals to people's sense of <input type="text" class="answer-input" id="q33" placeholder="33"> to draw in customers.</li>
+                            <li>&bull;&nbsp;&nbsp;To an ad campaign for digital products, it is <input type="text" class="answer-input" id="q34" placeholder="34"> that is extremely important.</li>
+                        </ul>
+                        <p><strong>Effect on your product sales</strong></p>
+                        <ul style="list-style-type: none; padding-left: 20px;">
+                            <li>&bull;&nbsp;&nbsp;The customer's <input type="text" class="answer-input" id="q35" placeholder="35"> after he or she experiences the ad is most important.</li>
+                        </ul>
+                        <p><strong>Marketing strategies</strong></p>
+                        <ul style="list-style-type: none; padding-left: 20px;">
+                            <li>&bull;&nbsp;&nbsp;On international flights, it is wise for advertisements to be displayed in the common <input type="text" class="answer-input" id="q36" placeholder="36"> of most passengers.</li>
+                            <li>&bull;&nbsp;&nbsp;Very few young people buy <input type="text" class="answer-input" id="q37" placeholder="37"></li>
+                            <li>&bull;&nbsp;&nbsp;The UNESCO website would be a good place to advertise for companies aiming to improve the <input type="text" class="answer-input" id="q38" placeholder="38"></li>
+                            <li>&bull;&nbsp;&nbsp;One good location to place ads for suntan lotion is the <input type="text" class="answer-input" id="q39" placeholder="39"></li>
+                            <li>&bull;&nbsp;&nbsp;A good scene for a water purification commercial would be wonderful sights of a <input type="text" class="answer-input" id="q40" placeholder="40"></li>
+                        </ul>
+                    </div>
+
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="right-panel">
+            <div id="transcription-container">
+                <h2>Transcription</h2>
+                <pre id="transcription-text"></pre>
+            </div>
+        </div>
+    </div>
+
+    <div id="transcription-data" style="display:none;">
+        <div data-part="1"><strong>SECTION 1</strong>
+
+EMPLOYER: Hello, is this John Murphy?
+
+APPLICANT: Hi, yes it is.
+
+EMPLOYER: Hi John, this is Ed Heisenburg from the Wild Dunes Spa and Resort calling about your application for our lifeguard (Example) position. Do you have a few minutes to talk?
+
+APPLICANT: Yes, absolutely.
+
+EMPLOYER: Great. Could you give me your address?
+
+APPLICANT: Sure. My address is 45 Elsinore (Q1) Court.
+
+EMPLOYER: I'm sorry, was that Eleanor? Could you spell that for me?
+
+APPLICANT: Sure – it's Elsinore. E-L-S-I-N-O-R-E.
+
+EMPLOYER: Okay, thanks. And is this the number we should reach you at in the future? 099885767?
+
+APPLICANT: No, this is my home phone, but let me give you my mobile phone number instead: 077896245 (Q2). Call me on that one.
+
+EMPLOYER: Okay – I'll make a note of that. Could you tell me your availability?
+
+APPLICANT: Sure. I am usually available during afternoons or weekends.I would prefer not to be scheduled on weeknights because I work part-time as a waiter (Q3).
+
+EMPLOYER: That shouldn't be a problem, since we don't stay open very late anyway. And do you have any other employment experience?
+
+APPLICANT: Yes, I have worked at a few other places. I was the baseball coach (Q4) at Ridgemont High School last season.
+
+EMPLOYER: I see. And do you have any other experience that you would like us to note on your application?
+
+APPLICANT: Yes. Last year I worked at the beach as a rescue diver (Q5).
+
+EMPLOYER: Rescue diver? That sounds intense!
+
+APPLICANT: Well, it's really just like being a lifeguard, except in the ocean instead of a pool. So kind of like being a lifeguard at the world's largest pool.
+
+EMPLOYER: Haha. I see.
+
+EMPLOYER: So could you tell me about the relevant skills you have? I'm guessing a lot, given your experience.
+
+APPLICANT: I am CPR certified and have 2 years of diving experience (Q6).
+
+EMPLOYER: Great! It sounds like you are well qualified for this position. When does your CPR certification expire?
+
+APPLICANT: Hm. I think in November, but let me quickly check my CPR card … actually, it expires in October (Q7).
+
+EMPLOYER: Okay, so regardless you have it through the end of the summer. When is your ideal time to work?
+
+APPLICANT: Since I work in the restaurant on weeknights, I like weekends best – specifically Saturday mornings (Q8).
+
+EMPLOYER: I see. We do already have a lot of staff available on Saturdays, but I do need an early morning shift lifeguard. How early could you work Saturday morning?
+
+APPLICANT: I can get there by 6.00 (Q9) if need be.
+
+EMPLOYER: You'll be happy to know we open a little later than that, but I'll put you down for Saturday mornings here.
+
+APPLICANT: Oh awesome! I can't wait to get started.
+
+EMPLOYER: How about you come in next Saturday, the 12th?
+
+APPLICANT: That sounds good.
+
+EMPLOYER: Great – we can figure out other shifts for you to work when you come in then. One last thing – just out of curiosity, where did you hear about us?
+
+APPLICANT: I heard your ad on the radio (Q10) while I was driving this morning.
+
+EMPLOYER: You know, I think you're the first person who has responded to our radio ads. It's almost always people who have seen us in the newspaper.
+
+APPLICANT: Yeah, I don't have time to read through the newspaper every morning. I have plenty of time in the car to listen to radio ads.
+
+EMPLOYER: That makes sense. Well, thanks for your time, and we'll look forward to seeing you on the 12th.</div>
+        <div data-part="2"><strong>SECTION 2</strong>
+
+GEOFFREY: Good evening, I'm Geoffrey Miller, from the University of Nottingham Student Union. And in this week's free class, Carlos Garcia is going to tell us about safety around campus. Over to you, Carlos.
+
+CARLOS: Thank you, Geoffrey. And thank you for all of your attendance today. Also, I would like to thank the student union here at the university for organising this lecture (Q11).
+
+Well, I have been serving and protecting the city of Nottingham for over 20 years now as a member of the police department. Does anyone know what type of crime is the most prevalent on campus? I heard someone say drugs and alcohol – that actually isn't too much of an issue. Violence? Nope.
+
+Actually, the biggest thing we worry about here is theft (Q12). The nature of crime on Nottingham's campus is quite different from that of the surrounding areas.
+
+Crime rates across the East Midlands are very difficult to control. We would like to see the rate stay the same for this calendar year, but it has been increasing steadily over the past three years. On campus, however, I'm happy to say that the overall crime rate has fallen this year (Q13). You wouldn't think so if you have seen the extremely exaggerated stories in the media. The media has done nothing but cause more concern about crime in our area (Q14).
+
+Even the crime shows you see today are a little bit farfetched, but at least viewers know they are not real events. We would really like to see more factual news articles out there so the public can have a rational sense of the safety level of our society.
+
+OK, let's move on to what to do when you see a crime. Do not get involved if at all possible, and do not draw too much attention to yourself by running away in a conspicuous manner. Though most likely (and hopefully) you will not have to experience this situation, if you are being mugged please do not try to resist. Instead, be compliant and, seek help after the incident (Q15).
+
+Like I said, though, it is highly unlikely that you will find yourself amidst a crime, but it is important to be prepared should it ever happen. We find that educating students and staff on the correct precautions to take is the best way to increase your safety (Q16). Just remember to be smart when you're out late at night, and avoid any area or person that looks suspicious. I know it sounds obvious, but I cannot stress this enough.
+
+It is also not a bad idea to have your mobile phone with you at all times, but be careful. If you are chatting on your smart phone on your way home, you are a prime target for thieves. I'd like to see a show of hands – how many people have left work or the library after 10 p.m. to go home before? A lot of you, right? If you do have to go home late at night, please don't walk home alone.
+
+More often than not there is someone there that will be walking the same direction as you at some point. Walk home with a friend or coworker. Even if you must use your phone to call someone that is nearby to walk with you, it is always safer to walk home with someone (Q17).
+
+So when you're walking home, you may feel more comfortable with some sort of self-defense, such as pepper spray. Now, it's your call whether you want to carry something like this or not. However, I absolutely advise against carrying a knife or any other offensive weapon. All too often they can be used against you if you are disarmed, putting yourself in more danger (Q18).
+
+For all those interested, the recreation centre offers a free self-defense class to all students every Thursday evening. While obviously an introductory self-defense class may not equip you to fight off villains like a regular superhero, it does come in handy sometimes. After taking a self-defense class, you will surely be more aware of possible dangers (Q19) and how to deal with them.
+
+So hopefully now you have a more complete understanding of the nature of crimes committed on your campus, and how to avoid being a victim. I know most students at the University of Nottingham are not the criminal types, but remember that there is no barrier like a wall (Q20) or something keeping nonstudents out. There is no army force securing the borders, and I doubt anyone wants it that way. The campus is generally a safe place, but it is not immune to small crimes once in a while.
+
+Alright. That's all I have to say for today. Stay safe!</div>
+        <div data-part="3"><strong>SECTION 3</strong>
+
+TUTOR: So you were both given your project assignments for your senior thesis today, right?
+
+JANE: Yes, and we already have to submit our topics next week!
+
+MARK: But how could they give us a grade this soon?
+
+TUTOR: No, next week's due date will not be counted towards your final grade. The teachers are just going to read your topic and give you feedback (Q21).
+
+JANE: Oh, I see. So first we should come up with our topics, and then what?
+
+TUTOR: Well, once you know what you want to study, you need to think about how you'll study it. You need to decide on your research methods. The methods will be the main part of your paper (Q22).
+
+MARK: What about the results section?
+
+TUTOR: Well, I can give you feedback on that, but you will be the one carrying out an experiment and thus will have to produce the results on your own. What I would like to do today is practice writing research papers before you even begin your report. I'll give you samples of old data from past experience, and you can practice writing results and drawing conclusions.
+
+JANE: I think that would be really helpful.
+
+MARK: Yeah, it sounds like a lot of extra work, but I'm sure it will make our actual project easier.
+
+TUTOR: You are exactly right. So let's get started. First, let's try this simple experiment on fruit flies. Read the information, and then take 25 minutes to summarise a results and conclusion section. That's really important – pay attention to the time limit (Q23).
+
+JANE: OK, does it still have to be 6,000 words?
+
+TUTOR: No, don't worry about that.
+
+MARK: What if we get off topic?
+
+TUTOR: I wouldn't worry too much – you will have so much information to write about that it should be easy to stay on topic.
+
+JANE: But what about other sources?
+
+TUTOR: Well for this assignment, you can use the one from your textbook. In your actual paper, you should find old experiments that support your topic.
+
+MARK: So do we need to find different types of sources? For instance, should I be conducting lots of interviews to use in my paper?
+
+TUTOR: No, there's no need to conduct lots of interviews (Q24) or anything like that.
+
+MARK: OK, I'm ready to get started. I'm still a little confused though, on how we should format our paper.
+
+TUTOR: Don't worry about it for now, but on your final paper, make sure to pay attention to the format (Q25). It should follow the guidelines exactly.
+
+JANE: Oh man, I'm starting to understand why they give us all semester to do this. Are there any other small details like that that we should know about?
+
+TUTOR: Not a whole lot, make sure you provide two copies (Q26) – one for your teacher of course, but one for yourself as well. And of course, you know the due date, right?
+
+MARK: Uh, it's April 11, right?
+
+JANE: What? No! It's May 11. Right?
+
+TUTOR: Yes. The due date is May 11 (Q27). Write it down!
+
+MARK: Oh wow. Yeah, I need to note it. Also, I'm having trouble finding information on my topic. What if I can't find enough good sources?
+
+TUTOR: It's alright to change (Q28) your topic. Just make sure to do it before the beginning of April.
+
+MARK: Oh really? Wow, I'm definitely going to change it then.
+
+TUTOR: Just make sure to write a note (Q29) to your teacher letting him or her know.
+
+JANE: Okay. So getting back to writing this sample paper, where do we start? Should I just explain the experiment and what happened?
+
+TUTOR: Well, you need to start with your hypothesis – what you think will happen – and then describe your procedure (Q30). Then you can write up the results and your conclusions.
+
+JANE: Oh boy, I don't know if I can handle any more instructions…</div>
+        <div data-part="4"><strong>SECTION 4</strong>
+
+Hello class, and welcome back to Marketing Strategies. This week I will expand upon last week's lecture by talking about factors you should consider when creating advertising materials and the effects they can have on your product sales.
+
+Lesson one: limit your advertising to the geographic area of your target market. Though you may have a product that people want in a large area, the distance (Q31) that customers are willing to travel is a significant factor in their choice of where to purchase that product.
+
+Take this example – if you are really hungry and decide you want a burrito, would you choose the restaurant that is a block from your apartment, or the one that is just as good – or even slightly better – across town? Of course you'll pick the closer restaurant.
+
+Next, there's the method of communication to your target market. How do you decide among radio ads, TV commercials, fliers, or even word of mouth?
+
+While we often think of the visual presentation of ads, there is much more to advertising than the look. Studies show that consumers are much more likely to remember advertising slogans if there is also a sound (Q32) played. Did you know that your sense of smell is closely linked with memory? Think about Mandy's Candy Store up the road. Every time you walk past it, you can just smell (Q33) the chocolate, right? I bet you can almost smell it now. Just mentioning the name brings about the smell memory, and in turn a chocolate craving. What better way to sell chocolate bars?
+
+Obviously sometimes appealing to the senses isn't the most practical way to advertise. For example, it is a good idea to come up with a marketing strategy that adapts to the product, especially digital products. The flexibility (Q34) of this kind of product is extremely important, so it is very common for advertisers to form one single layout for all of their ads – the visual, the medium, even the majority of the content – and simply update the ad each time they come out with a new version.
+
+Remember, advertising is all about stirring up the right feeling in your potential customers, whether by stimulating the senses, appealing to intellect, and so on. Once the customer experiences the ad, the important thing is his or her reaction (Q35). Someone could love the ad you made, but unless he or she considers buying the product, you have failed to get the reaction you were looking for.
+
+So once you have successfully reached your target customer and you have his or her business, often you will want to expand to a larger market. More often than not, the same marketing strategies you used in your small campaign may not work for a larger audience. The larger you scale your product, the more factors you must consider. For instance, Apple operates worldwide, so they must tailor their advertising for each market they enter. Often you'll see Apple ads on international flights that appear not only in English, which is the lingua franca of most regions, but also in the native language (Q36) of the majority of passengers. I traveled to Russia last week, and it was really interesting to see the same Nike ad that I have seen a hundred times – except this time it was in Russian!
+
+Okay, going back to the medium of the advertisement, even after choosing to create print ads (instead of radio announcements, television commercials, etc) there is more to consider. If you print your ad in a newspaper, it will be read by a far different audience than if you print your ad in a popular magazine. Would you put an ad for the new Justin Bieber album in a newspaper? Probably not, because that product is most suitable for youths. Let's face it – do you know anyone under the age of 25 that buys a newspaper (Q37)? No!
+
+Now let's try a few strategy exercises. Imagine you are a company that is aiming to improve the environment (Q38) by making products that reduce human waste. How would you advertise your product? Clearly it would send the wrong message if you put up fliers or other materials that cause lots of waste paper. Consider instead putting commercials on the Health Channel, or buying ad space on websites like UNESCO.
+
+Or here's another example: What is one great place to advertise suntan lotion? How about a swimming pool (Q39)? It has the exact group of people that need the product.
+
+Alright, one last thing. Let's say you're filming a commercial for a water filter pitcher. What would be good scenery to use for the background? Think about somewhere calm and relaxing with clean, fresh water. Can't you see how much more effective a commercial with the beautiful scenery and flowing rivers of a national park (Q40) would be than, say, water dripping from a tap?
+
+So to wrap things up today, think about the geography of your target market, the type of marketing material you should use, and the most effective way to appeal to the customer in order to make a successful ad campaign.
+
+That is all I have for you all today. Make sure to read through chapter 8 for Monday if you have not done so already. OK, now I'd be happy to answer any questions you may have…</div>
+    </div>
+
+    <audio id="global-audio-player" class="hidden"></audio>
+
+    <!-- Navigation Arrows -->
+    <div class="nav-arrows">
+        <button class="nav-arrow" onclick="previousPart()" id="prevBtn">‹</button>
+        <button class="nav-arrow" onclick="nextPart()" id="nextBtn">›</button>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="nav-row perScorableItem" aria-label="Questions">
+        <div class="footer__questionWrapper___1tZ46 multiple" role="tablist">
+            <button role="tab" class="footer__questionNo___3WNct" onclick="switchToPart(1)">
+                <span>
+                    <span aria-hidden="true" class="section-prefix">Part </span>
+                    <span class="sectionNr" aria-hidden="true">1</span>
+                    <span class="attemptedCount" aria-hidden="true">0 of 10</span>
+                </span>
+            </button>
+            <div class="footer__subquestionWrapper___9GgoP">
+                <button class="subQuestion scorable-item" onclick="goToQuestion(1)"><span class="sr-only">Question 1</span><span aria-hidden="true">1</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(2)"><span class="sr-only">Question 2</span><span aria-hidden="true">2</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(3)"><span class="sr-only">Question 3</span><span aria-hidden="true">3</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(4)"><span class="sr-only">Question 4</span><span aria-hidden="true">4</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(5)"><span class="sr-only">Question 5</span><span aria-hidden="true">5</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(6)"><span class="sr-only">Question 6</span><span aria-hidden="true">6</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(7)"><span class="sr-only">Question 7</span><span aria-hidden="true">7</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(8)"><span class="sr-only">Question 8</span><span aria-hidden="true">8</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(9)"><span class="sr-only">Question 9</span><span aria-hidden="true">9</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(10)"><span class="sr-only">Question 10</span><span aria-hidden="true">10</span></button>
+            </div>
+        </div>
+        
+        <div class="footer__questionWrapper___1tZ46 selected multiple" role="tablist">
+            <button role="tab" class="footer__questionNo___3WNct" onclick="switchToPart(2)">
+                <span>
+                    <span aria-hidden="true" class="section-prefix">Part </span>
+                    <span class="sectionNr" aria-hidden="true">2</span>
+                    <span class="attemptedCount" aria-hidden="true">0 of 10</span>
+                </span>
+            </button>
+            <div class="footer__subquestionWrapper___9GgoP">
+                <button class="subQuestion scorable-item" onclick="goToQuestion(11)"><span class="sr-only">Question 11</span><span aria-hidden="true">11</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(12)">
+                    <span class="sr-only">Question 12</span>
+                    <span aria-hidden="true">12</span>
+                </button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(13)">
+                    <span class="sr-only">Question 13</span>
+                    <span aria-hidden="true">13</span>
+                </button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(14)">
+                    <span class="sr-only">Question 14</span>
+                    <span aria-hidden="true">14</span>
+                </button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(15)">
+                    <span class="sr-only">Question 15</span>
+                    <span aria-hidden="true">15</span>
+                </button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(16)">
+                    <span class="sr-only">Question 16</span>
+                    <span aria-hidden="true">16</span>
+                </button>
+                <button class="subQuestion active scorable-item" onclick="goToQuestion(17)">
+                    <span class="sr-only">Question 17</span>
+                    <span aria-hidden="true">17</span>
+                </button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(18)">
+                    <span class="sr-only">Question 18</span>
+                    <span aria-hidden="true">18</span>
+                </button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(19)">
+                    <span class="sr-only">Question 19</span>
+                    <span aria-hidden="true">19</span>
+                </button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(20)">
+                    <span class="sr-only">Question 20</span>
+                    <span aria-hidden="true">20</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="footer__questionWrapper___1tZ46 multiple" role="tablist">
+            <button role="tab" class="footer__questionNo___3WNct" onclick="switchToPart(3)">
+                <span>
+                    <span aria-hidden="true" class="section-prefix">Part </span>
+                    <span class="sectionNr" aria-hidden="true">3</span>
+                    <span class="attemptedCount" aria-hidden="true">0 of 10</span>
+                </span>
+            </button>
+            <div class="footer__subquestionWrapper___9GgoP">
+                <button class="subQuestion scorable-item" onclick="goToQuestion(21)"><span class="sr-only">Question 21</span><span aria-hidden="true">21</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(22)"><span class="sr-only">Question 22</span><span aria-hidden="true">22</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(23)"><span class="sr-only">Question 23</span><span aria-hidden="true">23</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(24)"><span class="sr-only">Question 24</span><span aria-hidden="true">24</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(25)"><span class="sr-only">Question 25</span><span aria-hidden="true">25</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(26)"><span class="sr-only">Question 26</span><span aria-hidden="true">26</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(27)"><span class="sr-only">Question 27</span><span aria-hidden="true">27</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(28)"><span class="sr-only">Question 28</span><span aria-hidden="true">28</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(29)"><span class="sr-only">Question 29</span><span aria-hidden="true">29</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(30)"><span class="sr-only">Question 30</span><span aria-hidden="true">30</span></button>
+            </div>
+        </div>
+        
+        <div class="footer__questionWrapper___1tZ46 multiple" role="tablist">
+            <button role="tab" class="footer__questionNo___3WNct" onclick="switchToPart(4)">
+                <span>
+                    <span aria-hidden="true" class="section-prefix">Part </span>
+                    <span class="sectionNr" aria-hidden="true">4</span>
+                    <span class="attemptedCount" aria-hidden="true">0 of 10</span>
+                </span>
+            </button>
+            <div class="footer__subquestionWrapper___9GgoP">
+                <button class="subQuestion scorable-item" onclick="goToQuestion(31)"><span class="sr-only">Question 31</span><span aria-hidden="true">31</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(32)"><span class="sr-only">Question 32</span><span aria-hidden="true">32</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(33)"><span class="sr-only">Question 33</span><span aria-hidden="true">33</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(34)"><span class="sr-only">Question 34</span><span aria-hidden="true">34</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(35)"><span class="sr-only">Question 35</span><span aria-hidden="true">35</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(36)"><span class="sr-only">Question 36</span><span aria-hidden="true">36</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(37)"><span class="sr-only">Question 37</span><span aria-hidden="true">37</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(38)"><span class="sr-only">Question 38</span><span aria-hidden="true">38</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(39)"><span class="sr-only">Question 39</span><span aria-hidden="true">39</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(40)"><span class="sr-only">Question 40</span><span aria-hidden="true">40</span></button>
+            </div>
+        </div>
+        
+        <button id="deliver-button" aria-label="Review your answers" class="footer__deliverButton___3FM07">
+            <i class="fa fa fa-check" aria-hidden="true"></i>
+            <span>Check Answers</span>
+        </button>
+    </nav>
+
+    <!-- Context Menu -->
+    <div id="contextMenu" class="context-menu">
+        <div class="context-menu-item" id="highlight-item" onclick="highlightText()">
+            <span class="context-menu-icon">
+                <svg viewBox="0 0 24 24" fill="black"><path d="M15.24 12.32L12.28 9.36l-1.04 1.04-1.04-1.04-1.04 1.04-1.04-1.04-1.04 1.04-1.04-1.04-3.12 3.12c-.59.58-1.54.58-2.12 0l-1.04-1.04c-.58-.59-.58-1.54 0-2.12L7.88.88c.59-.58 1.54-.58 2.12 0l1.04 1.04 1.04-1.04 1.04 1.04 1.04-1.04 1.04 1.04 1.04-1.04 3.12 3.12c.58.59.58 1.54 0 2.12l-1.04 1.04c-.58.59-1.54.59-2.12 0zM12 15l-3 3-7-7 3-3 7 7zm-9-5l-2.29 2.29c-.39.39-.39 1.02 0 1.41l8.29 8.29c.39.39 1.02.39 1.41 0L22.7 8.41c.39-.39.39-1.02 0-1.41L14.42.29c-.39-.39-1.02-.39-1.41 0L3 10z"/></svg>
+            </span>
+            <span>Highlight</span>
+        </div>
+        <div class="context-menu-item" id="comment-item" onclick="addComment()">
+            <span class="context-menu-icon">
+                <svg viewBox="0 0 24 24" fill="black"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 12H5.17L4 15.17V4h16v10z"/></svg>
+            </span>
+            <span>Comment</span>
+        </div>
+        <div class="context-menu-item" id="clear-item" onclick="clearHighlight()" style="display:none;">
+            <span class="context-menu-icon">
+                <svg viewBox="0 0 24 24" fill="black"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+            </span>
+            <span>Clear</span>
+        </div>
+        <div class="context-menu-item" onclick="clearAllHighlights()">
+            <span class="context-menu-icon">
+                <svg viewBox="0 0 24 24" fill="black"><path d="M16 9h-2.29l3-3-1.42-1.42-3 3V5h-2v2.29l-3-3-1.42 1.42 3 3H5v2h2.29l-3 3 1.42 1.42 3-3V17h2v-2.29l3 3 1.42-1.42-3-3H17V9h-2zm-4 4h-2v-2h2v2z"/></svg>
+            </span>
+            <span>Clear All</span>
+        </div>
+    </div>
+
+    <!-- Mobile highlight/comment toolbar -->
+    <div id="mobile-selection-menu" class="mobile-selection-menu hidden">
+        <button onclick="highlightText()">Highlight</button>
+        <button onclick="addComment()">Comment</button>
+    </div>
+
+    <!-- Result Modal -->
+    <div id="result-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Your Results</h2>
+                <button id="modal-close-button" class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="score-summary"></p>
+                <div id="result-details"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPart = 1;
+        let currentQuestion = 1;
+        let selectedText = '';
+        let selectedRange = null;
+        let draggedElement = null;
+        let testStarted = false;
+        let timeInSeconds = 3600;
+        let isHovering = false;
+        let timerInterval;
+        let contextElement = null;
+
+        function updateAnsweredIndicators() {
+            for (let qNum = 1; qNum <= 40; qNum++) {
+                const btn = document.querySelector(`.subQuestion[onclick="goToQuestion(${qNum})"]`);
+                if (!btn) continue;
+
+                // Do not change style if it's already marked correct or incorrect
+                if (btn.classList.contains('correct') || btn.classList.contains('incorrect')) {
+                    continue;
+                }
+
+                let isAnswered = false;
+                const textInput = document.getElementById(`q${qNum}`);
+                const radioInput = document.querySelector(`input[name="q${qNum}"]:checked`);
+                const dropZone = document.querySelector(`.drop-zone[data-question-id="${qNum}"]`);
+
+                if (textInput && textInput.value.trim() !== '') {
+                    isAnswered = true;
+                } else if (radioInput) {
+                    isAnswered = true;
+                } else if (dropZone && dropZone.querySelector('.drag-item')) {
+                    isAnswered = true;
+                } else if ((qNum >= 17 && qNum <= 18) && document.querySelector('input[name="q17-18"]:checked')) {
+                    isAnswered = true;
+                } else if ((qNum >= 19 && qNum <= 20) && document.querySelector('input[name="q19-20"]:checked')) {
+                    isAnswered = true;
+                } else if ((qNum >= 21 && qNum <= 23) && document.querySelector('input[name="q21-23"]:checked')) {
+                    isAnswered = true;
+                }
+
+                if (isAnswered) {
+                    btn.classList.add('answered');
+                } else {
+                    btn.classList.remove('answered');
+                }
+            }
+        }
+
+        const audioPlayer = document.getElementById('global-audio-player');
+        const timerContainer = document.querySelector('.timer-container');
+        const timerDisplay = document.querySelector('.timer-display');
+        const volumeSlider = document.getElementById('new-volume-slider');
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const currentTimeEl = document.getElementById('current-time');
+        const totalDurationEl = document.getElementById('total-duration');
+        const speedBtn = document.getElementById('speed-btn');
+        const speedOptions = document.getElementById('speed-options');
+        const volumeBtn = document.getElementById('volume-btn');
+
+        const audioSource = 'https://ia601006.us.archive.org/28/items/mix-26m-29s-audio-joiner.com-copy-copy-copy-copy-copy-copy-copy-copy-copy-copy-copy/mix_26m29s%20%28audio-joiner.com%29%20-%20CopyCopyCopyCopyCopyCopyCopyCopyCopyCopyCopy.mp3';
+        audioPlayer.src = audioSource;
+
+        const correctAnswers = {
+            'q1': ['Elsinore'],
+            'q2': ['077896245'],
+            'q3': ['waiter'],
+            'q4': ['baseball coach'],
+            'q5': ['rescue diver'],
+            'q6': ['diving experience'],
+            'q7': ['October'],
+            'q8': ['Saturday mornings'],
+            'q9': ['6', "6 o'clock", '6.00', "six o'clock", '6:00'],
+            'q10': ['radio', 'the radio'],
+            'q11': 'B',
+            'q12': 'C',
+            'q13': 'B',
+            'q14': 'A',
+            'q15': 'C',
+            'q16': 'A',
+            'q17': 'B',
+            'q18': 'B',
+            'q19': 'A',
+            'q20': 'A',
+            'q21': 'C',
+            'q22': 'B',
+            'q23': 'A',
+            'q24': ['interviews', 'interview'],
+            'q25': ['format'],
+            'q26': ['copies'],
+            'q27': ['May 11th', '11th May', 'may 11', '11 may'],
+            'q28': ['change'],
+            'q29': ['note'],
+            'q30': ['procedure', 'procedures'],
+            'q31': ['distance'],
+            'q32': ['sound'],
+            'q33': ['smell'],
+            'q34': ['flexibility', 'the flexibility'],
+            'q35': ['reaction'],
+            'q36': ['native languages'],
+            'q37': ['newspaper', 'newspapers', 'a newspaper', 'a newspapers'],
+            'q38': ['environment'],
+            'q39': ['swimming pool'],
+            'q40': ['national park']
+        };
+        
+        const questionTypes = {
+            'q1': 'text', 'q2': 'text', 'q3': 'text', 'q4': 'text', 'q5': 'text',
+            'q6': 'text', 'q7': 'text', 'q8': 'text', 'q9': 'text', 'q10': 'text',
+            'q11': 'mcq', 'q12': 'mcq', 'q13': 'mcq', 'q14': 'mcq', 'q15': 'mcq',
+            'q16': 'mcq', 'q17': 'mcq', 'q18': 'mcq', 'q19': 'mcq', 'q20': 'mcq',
+            'q21': 'mcq', 'q22': 'mcq', 'q23': 'mcq', 'q24': 'text', 'q25': 'text',
+            'q26': 'text', 'q27': 'text', 'q28': 'text', 'q29': 'text', 'q30': 'text',
+            'q31': 'text', 'q32': 'text', 'q33': 'text', 'q34': 'text', 'q35': 'text',
+            'q36': 'text', 'q37': 'text', 'q38': 'text', 'q39': 'text', 'q40': 'text'
+        };
+
+
+        function findOptionTextByLetter(letter, questionNumber) {
+            // Find the matching container based on question number
+            let container;
+            if (questionNumber >= 16 && questionNumber <= 20) {
+                // Part 2 questions 16-20
+                container = document.querySelector('#part-2 .matching-options-list');
+            } else if (questionNumber >= 25 && questionNumber <= 30) {
+                // Part 3 questions 25-30
+                container = document.querySelector('#part-3 .matching-options-list');
+            }
+            
+            if (container) {
+                const optionElement = container.querySelector(`[data-option-id="${letter}"]`);
+                if (optionElement) {
+                    return optionElement.textContent.trim();
+                }
+            }
+            
+            // Fallback to just the letter if option text not found
+            return letter;
+        }
+
+        function setupCheckboxLimits() {
+            const checkboxGroups = [
+                { name: 'q18-20', limit: 3 },
+            ];
+
+            checkboxGroups.forEach(group => {
+                const checkboxes = document.querySelectorAll(`input[name="${group.name}"]`);
+                checkboxes.forEach(checkbox => {
+                    checkbox.addEventListener('click', () => {
+                        const checkedCount = document.querySelectorAll(`input[name="${group.name}"]:checked`).length;
+                        if (checkedCount > group.limit) {
+                            checkbox.checked = false;
+                        }
+                    });
+                });
+            });
+        }
+
+        function switchToPart(partNumber, andPlay = false) {
+            if (currentPart !== partNumber) {
+                const firstQuestionOfPart = (partNumber - 1) * 10 + 1;
+                currentQuestion = firstQuestionOfPart;
+            }
+            
+            currentPart = partNumber;
+
+            updateNavigation();
+            document.querySelectorAll('.question-part').forEach(part => part.classList.add('hidden'));
+            const partToShow = document.getElementById(`part-${partNumber}`);
+            if (partToShow) {
+                partToShow.classList.remove('hidden');
+            }
+
+            if (document.querySelector('.main-container.results-mode')) {
+                const transcriptionSource = document.querySelector(`#transcription-data [data-part="${partNumber}"]`);
+                const transcriptionTarget = document.getElementById('transcription-text');
+                if (transcriptionSource && transcriptionTarget) {
+                    transcriptionTarget.innerHTML = transcriptionSource.innerHTML;
+                }
+            }
+
+            updateNavigation();
+        }
+
+        function updateNavigation() {
+            document.querySelectorAll('.footer__questionWrapper___1tZ46').forEach((wrapper, index) => {
+                wrapper.classList.remove('selected');
+                updateAttemptedCount(index + 1);
+            });
+            const currentWrapper = document.querySelectorAll('.footer__questionWrapper___1tZ46')[currentPart - 1];
+            if (currentWrapper) {
+                currentWrapper.classList.add('selected');
+            }
+            document.getElementById('prevBtn').disabled = currentQuestion === 1;
+            document.getElementById('nextBtn').disabled = currentQuestion === 40;
+        }
+
+        function goToQuestion(questionNumber) {
+            currentQuestion = questionNumber;
+            let partNumber = 1;
+            if (questionNumber > 10 && questionNumber <= 20) partNumber = 2;
+            else if (questionNumber > 20 && questionNumber <= 30) partNumber = 3;
+            else if (questionNumber > 30) partNumber = 4;
+            if (currentPart !== partNumber) {
+                switchToPart(partNumber);
+            }
+            document.querySelectorAll('.subQuestion').forEach(btn => btn.classList.remove('active'));
+            const questionBtn = document.querySelector(`.subQuestion[onclick="goToQuestion(${questionNumber})"]`);
+            if (questionBtn) questionBtn.classList.add('active');
+
+            // Scroll to the question
+            let questionElement;
+            if (questionNumber >= 18 && questionNumber <= 20) {
+                questionElement = document.querySelector('input[name="q18-20"]');
+            } else if (questionNumber >= 17 && questionNumber <= 18) {
+                questionElement = document.querySelector('input[name="q17-18"]');
+            } else if (questionNumber >= 19 && questionNumber <= 20) {
+                questionElement = document.querySelector('input[name="q19-20"]');
+            } else {
+                questionElement = document.getElementById(`q${questionNumber}`) || // text inputs
+                                document.querySelector(`[data-question-id="${questionNumber}"]`) || // drag-drop
+                                document.querySelector(`input[name="q${questionNumber}"]`); // radio buttons
+            }
+            
+            if (questionElement) {
+                const questionContainer = questionElement.closest('.question');
+                if(questionContainer) {
+                    questionContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    questionContainer.classList.add('flash');
+                    setTimeout(() => {
+                        questionContainer.classList.remove('flash');
+                    }, 1000);
+                }
+            }
+            updateNavigation();
+        }
+
+        function nextPart() {
+            if (currentQuestion < 40) {
+                goToQuestion(currentQuestion + 1);
+            }
+        }
+
+        function previousPart() {
+            if (currentQuestion > 1) {
+                goToQuestion(currentQuestion - 1);
+            }
+        }
+
+        function highlightText() {
+            if (!selectedRange || selectedRange.collapsed) {
+                closeContextMenu();
+                return;
+            }
+            
+            try {
+                // Check if selection spans multiple elements
+                const startContainer = selectedRange.startContainer;
+                const endContainer = selectedRange.endContainer;
+                
+                if (startContainer === endContainer && startContainer.nodeType === Node.TEXT_NODE) {
+                    // Simple case: selection within a single text node
+                    const span = document.createElement('span');
+                    span.className = 'highlight';
+                    selectedRange.surroundContents(span);
+                } else {
+                    // Complex case: selection spans multiple elements
+                    // Handle partial text selections and complex DOM structures
+                    
+                    // First, handle partial text at the start
+                    const startOffset = selectedRange.startOffset;
+                    const endOffset = selectedRange.endOffset;
+                    
+                    if (startContainer.nodeType === Node.TEXT_NODE && startOffset > 0) {
+                        // Split the start text node if selection starts in the middle
+                        const startText = startContainer.textContent;
+                        const beforeText = startText.substring(0, startOffset);
+                        const selectedStartText = startText.substring(startOffset);
+                        
+                        const beforeNode = document.createTextNode(beforeText);
+                        const selectedNode = document.createTextNode(selectedStartText);
+                        
+                        const parent = startContainer.parentNode;
+                        parent.insertBefore(beforeNode, startContainer);
+                        parent.insertBefore(selectedNode, startContainer);
+                        parent.removeChild(startContainer);
+                        
+                        // Update the range to start from the new node
+                        selectedRange.setStart(selectedNode, 0);
+                    }
+                    
+                    if (endContainer.nodeType === Node.TEXT_NODE && endOffset < endContainer.textContent.length) {
+                        // Split the end text node if selection ends in the middle
+                        const endText = endContainer.textContent;
+                        const selectedEndText = endText.substring(0, endOffset);
+                        const afterText = endText.substring(endOffset);
+                        
+                        const selectedNode = document.createTextNode(selectedEndText);
+                        const afterNode = document.createTextNode(afterText);
+                        
+                        const parent = endContainer.parentNode;
+                        parent.insertBefore(selectedNode, endContainer);
+                        parent.insertBefore(afterNode, endContainer);
+                        parent.removeChild(endContainer);
+                        
+                        // Update the range to end at the new node
+                        selectedRange.setEnd(selectedNode, selectedNode.textContent.length);
+                    }
+                    
+                    // Now extract the contents and highlight all text nodes
+                    const fragment = selectedRange.extractContents();
+                    
+                    // Create a tree walker to find all text nodes
+                    const walker = document.createTreeWalker(
+                        fragment,
+                        NodeFilter.SHOW_TEXT,
+                        {
+                            acceptNode: function(node) {
+                                // Accept text nodes that have content (not just whitespace)
+                                return node.textContent.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+                            }
+                        },
+                        false
+                    );
+                    
+                    const textNodes = [];
+                    let node;
+                    while (node = walker.nextNode()) {
+                        textNodes.push(node);
+                    }
+                    
+                    // Wrap each text node in a highlight span
+                    textNodes.forEach(textNode => {
+                        const span = document.createElement('span');
+                        span.className = 'highlight';
+                        const parent = textNode.parentNode;
+                        if (parent) {
+                            parent.insertBefore(span, textNode);
+                            span.appendChild(textNode);
+                        }
+                    });
+                    
+                    // Insert the highlighted fragment back
+                    selectedRange.insertNode(fragment);
+                }
+            } catch(err) {
+                console.warn('Primary highlighting failed, trying robust fallback:', err);
+                
+                // Robust fallback for complex selections
+                try {
+                    const selection = window.getSelection();
+                    if (selection.rangeCount > 0) {
+                        const range = selection.getRangeAt(0);
+                        
+                        // Get all nodes in the selection
+                        const startContainer = range.startContainer;
+                        const endContainer = range.endContainer;
+                        const commonAncestor = range.commonAncestorContainer;
+                        
+                        // Create a temporary range to work with
+                        const tempRange = document.createRange();
+                        tempRange.selectNodeContents(commonAncestor);
+                        
+                        // Find the start and end positions
+                        const startPos = range.startOffset;
+                        const endPos = range.endOffset;
+                        
+                        // Extract and highlight the content
+                        const contents = range.extractContents();
+                        
+                        // Recursively highlight all text content
+                        function highlightAllText(node) {
+                            if (node.nodeType === Node.TEXT_NODE) {
+                                if (node.textContent.trim()) {
+                                    const span = document.createElement('span');
+                                    span.className = 'highlight';
+                                    span.style.backgroundColor = '#ffff00';
+                                    const parent = node.parentNode;
+                                    if (parent) {
+                                        parent.insertBefore(span, node);
+                                        span.appendChild(node);
+                                    }
+                                }
+                            } else if (node.nodeType === Node.ELEMENT_NODE) {
+                                Array.from(node.childNodes).forEach(child => {
+                                    highlightAllText(child);
+                                });
+                            }
+                        }
+                        
+                        highlightAllText(contents);
+                        range.insertNode(contents);
+                    }
+                } catch(e2) {
+                    console.warn('Robust fallback failed, using final method:', e2);
+                    // Final fallback - use execCommand
+                    try {
+                        document.execCommand('backColor', false, 'yellow');
+                    } catch(e3) {
+                        console.error('All highlighting methods failed:', e3);
+                        // Show user feedback
+                        alert('Highlighting failed for this selection. Please try selecting smaller portions of text.');
+                    }
+                }
+            }
+            
+            window.getSelection().removeAllRanges();
+            closeContextMenu();
+        }
+
+        function addComment() {
+            const commentText = prompt('Enter your comment:');
+            if (!commentText || !selectedRange || selectedRange.collapsed) {
+                closeContextMenu();
+                return;
+            }
+            try {
+                const span = document.createElement('span');
+                span.className = 'comment-highlight';
+                const tooltip = document.createElement('span');
+                tooltip.className = 'comment-tooltip';
+                tooltip.textContent = commentText;
+                span.appendChild(tooltip);
+                selectedRange.surroundContents(span);
+            }catch(err){
+                console.warn('Complex selection – cannot comment');
+            }
+            window.getSelection().removeAllRanges();
+            closeContextMenu();
+        }
+
+        function clearHighlight() {
+            const elementToClear = contextElement; // Set by contextmenu handler
+            if (!elementToClear) {
+                closeContextMenu();
+                return;
+            }
+
+            const highlightId = elementToClear.getAttribute('data-highlight-id');
+            const elementsToClear = highlightId
+                ? Array.from(document.querySelectorAll(`[data-highlight-id="${highlightId}"]`))
+                : [elementToClear];
+
+            let commonParent = null;
+            if (elementsToClear.length > 0) {
+                commonParent = elementsToClear[0].parentNode;
+            }
+
+            elementsToClear.forEach(element => {
+                const parent = element.parentNode;
+                const fragment = document.createDocumentFragment();
+
+                while (element.firstChild) {
+                    // Don't keep the tooltip for comments. Just unwrap everything.
+                    if (element.firstChild.nodeType === 1 && element.firstChild.classList.contains('comment-tooltip')) {
+                        element.removeChild(element.firstChild);
+                    } else {
+                        fragment.appendChild(element.firstChild);
+                    }
+                }
+                parent.replaceChild(fragment, element);
+            });
+            
+            if (commonParent) {
+                commonParent.normalize(); // Merges adjacent text nodes
+            }
+            
+            closeContextMenu();
+        }
+
+        function clearAllHighlights() {
+            document.querySelectorAll('.highlight, .comment-highlight').forEach(element => {
+                const parent = element.parentNode;
+                const fragment = document.createDocumentFragment();
+
+                while (element.firstChild) {
+                    if (element.firstChild.nodeType === 1 && element.firstChild.classList.contains('comment-tooltip')) {
+                        element.removeChild(element.firstChild);
+                    } else {
+                        fragment.appendChild(element.firstChild);
+                    }
+                }
+                parent.replaceChild(fragment, element);
+            });
+            closeContextMenu();
+        }
+        
+        function closeContextMenu() {
+            document.getElementById('contextMenu').style.display = 'none';
+            contextElement = null;
+        }
+
+        function updateAttemptedCount(partNumber) {
+            const partContainer = document.getElementById(`part-${partNumber}`);
+            if (!partContainer) return;
+            const inputs = partContainer.querySelectorAll('input.answer-input:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled])');
+            let answeredCount = 0;
+            const answeredGroups = {};
+            inputs.forEach(input => {
+                if (input.type === 'radio' || input.type === 'checkbox') {
+                    if (input.checked && !answeredGroups[input.name]) {
+                        answeredCount++;
+                        answeredGroups[input.name] = true;
+                    }
+                } else {
+                    if (input.value.trim() !== '') answeredCount++;
+                }
+            });
+            const countDisplay = document.querySelector(`.footer__questionWrapper___1tZ46:nth-child(${partNumber}) .attemptedCount`);
+            if (countDisplay) countDisplay.textContent = `${answeredCount} of 10`;
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            let resultsData = [];
+            document.querySelectorAll('.correct, .incorrect, .correct-answer-text').forEach(el => el.classList.contains('correct-answer-text') ? el.remove() : el.classList.remove('correct', 'incorrect'));
+            
+            Object.keys(correctAnswers).forEach(key => {
+                const qNum = parseInt(key.replace('q', ''), 10);
+
+                const correctAnswer = correctAnswers[key];
+                let userAnswer = '';
+                let isCorrect = false;
+                let currentQuestionScore = 0; // Initialize score for current question
+
+                const questionType = questionTypes[key];
+                const btn = document.querySelector(`.subQuestion[onclick="goToQuestion(${qNum})"]`);
+                
+                switch(questionType) {
+                    case 'text':
+                        const element = document.getElementById(key);
+                        if (element) {
+                            userAnswer = element.value.trim();
+                            const acceptedAnswers = Array.isArray(correctAnswer) ? correctAnswer : [String(correctAnswer)];
+                            isCorrect = acceptedAnswers.some(ans => ans.toLowerCase() === userAnswer.toLowerCase());
+                            currentQuestionScore = isCorrect ? 1 : 0;
+                            element.classList.add(isCorrect ? 'correct' : 'incorrect');
+                            if (!isCorrect) {
+                                const correctAnswerSpan = document.createElement('span');
+                                correctAnswerSpan.className = 'correct-answer-text';
+                                correctAnswerSpan.textContent = `(Correct: ${acceptedAnswers.join(' / ')})`;
+                                element.parentNode.insertBefore(correctAnswerSpan, element.nextSibling);
+                            }
+                        }
+                        break;
+                    
+                    case 'mcq':
+                        const radioChecked = document.querySelector(`input[name="${key}"]:checked`);
+                        userAnswer = radioChecked ? radioChecked.value : '';
+                        isCorrect = userAnswer.toLowerCase() === correctAnswer.toLowerCase();
+                        currentQuestionScore = isCorrect ? 1 : 0;
+                        const isTable = document.querySelector(`input[name="${key}"]`) ? document.querySelector(`input[name="${key}"]`).closest('.mcq-table') : false;
+
+                        if (radioChecked) {
+                            if (isTable) {
+                                const rowToMark = radioChecked.closest('tr');
+                                if (rowToMark) {
+                                    rowToMark.classList.add(isCorrect ? 'correct' : 'incorrect');
+                                }
+                            } else {
+                                const labelToMark = radioChecked.closest('label');
+                                if (labelToMark) {
+                                    labelToMark.classList.add(isCorrect ? 'correct' : 'incorrect');
+                                }
+                            }
+                        }
+                        
+                        if (!isCorrect) {
+                            const correctRadio = document.querySelector(`input[name="${key}"][value="${correctAnswer}"]`);
+                            if (correctRadio) {
+                                if (isTable) {
+                                    const correctRow = correctRadio.closest('tr');
+                                    if (correctRow) {
+                                        correctRow.classList.add('correct');
+                                    }
+                                } else {
+                                    const correctLabel = correctRadio.closest('label');
+                                    if (correctLabel) {
+                                        correctLabel.classList.add('correct');
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    
+                    case 'drag_drop':
+                        const dropZone = document.querySelector(`.drop-zone[data-question-id="${qNum}"]`);
+                        if (dropZone) {
+                            const droppedItem = dropZone.querySelector('.drag-item');
+                            if (droppedItem) {
+                                userAnswer = droppedItem.getAttribute('data-option-id');
+                            } else {
+                                userAnswer = '';
+                            }
+                            isCorrect = userAnswer.toUpperCase() === correctAnswer.toUpperCase();
+                            currentQuestionScore = isCorrect ? 1 : 0;
+                            dropZone.classList.add(isCorrect ? 'correct' : 'incorrect');
+                            if (!isCorrect) {
+                                const correctOptionText = findOptionTextByLetter(correctAnswer, qNum);
+                                const correctAnswerSpan = document.createElement('span');
+                                correctAnswerSpan.className = 'correct-answer-text';
+                                correctAnswerSpan.textContent = correctOptionText;
+                                dropZone.appendChild(correctAnswerSpan);
+                            }
+                        }
+                        break;
+                    
+                    case 'map_selection':
+                        const selectElement = document.getElementById(key);
+                        if (selectElement) {
+                            userAnswer = selectElement.value;
+                            isCorrect = userAnswer.toUpperCase() === correctAnswer.toUpperCase();
+                            currentQuestionScore = isCorrect ? 1 : 0;
+                            selectElement.classList.add(isCorrect ? 'correct' : 'incorrect');
+                            if (!isCorrect) {
+                                const correctAnswerSpan = document.createElement('span');
+                                correctAnswerSpan.className = 'correct-answer-text';
+                                correctAnswerSpan.textContent = `(Correct: ${correctAnswer})`;
+                                selectElement.parentNode.insertBefore(correctAnswerSpan, selectElement.nextSibling);
+                            }
+                        }
+                        break;
+                    
+                    case 'multiple_choice':
+                        let checkboxes;
+                        if (key === 'q26') {
+                            checkboxes = document.querySelectorAll(`input[name="q25"]:checked`);
+                        } else if (key === 'q28') {
+                            checkboxes = document.querySelectorAll(`input[name="q27"]:checked`);
+                        } else if (key === 'q30') {
+                            checkboxes = document.querySelectorAll(`input[name="q29"]:checked`);
+                        } else {
+                            checkboxes = document.querySelectorAll(`input[name="${key}"]:checked`);
+                        }
+                        const userAnswers = Array.from(checkboxes).map(cb => cb.value);
+                        userAnswer = userAnswers.join(', ');
+
+                        const correctAnswersArray = Array.isArray(correctAnswer) ? correctAnswer : [correctAnswer];
+                        const userAnswersSet = new Set(userAnswers);
+                        const correctAnswersSet = new Set(correctAnswersArray);
+
+                        const correctAnswersSelected = correctAnswersArray.filter(answer => userAnswersSet.has(answer)).length;
+                        const totalCorrectAnswers = correctAnswersArray.length;
+                        // const partialScore = totalCorrectAnswers > 0 ? correctAnswersSelected / totalCorrectAnswers : 0;
+
+                        // isCorrect determines the UI class (correct/incorrect for the question button)
+                        isCorrect = correctAnswersSelected > 0;
+
+                        // FIXED: Score should equal the number of correct answers selected
+                        // If correct answers are [B, D] and user selects only B, score = 1
+                        // If correct answers are [B, D] and user selects both B and D, score = 2
+                        currentQuestionScore = correctAnswersSelected;
+
+                        // Debug logging for questions 25-30
+                        if (['q25', 'q26', 'q27', 'q28', 'q29', 'q30'].includes(key)) {
+                            console.log(`=== Question ${key} Debug ===`);
+                            console.log('User selected checkboxes:', checkboxes);
+                            console.log('User answers:', userAnswers);
+                            console.log('User answers set:', userAnswersSet);
+                            console.log('Correct answer:', correctAnswer);
+                            console.log('Correct answers array:', correctAnswersArray);
+                            console.log('Correct answers set:', correctAnswersSet);
+                            console.log('Correct answers selected:', correctAnswersSelected);
+                            console.log('Current question score:', currentQuestionScore);
+                            console.log('Set sizes match:', userAnswersSet.size === correctAnswersSet.size);
+                            console.log('All correct answers present:', correctAnswersArray.every(answer => userAnswersSet.has(answer)));
+                            console.log('User answer string:', userAnswer);
+                            console.log('========================');
+                        }
+
+                        // Mark each individual checkbox based on whether it's correct or not
+                        checkboxes.forEach(checkbox => {
+                            const label = checkbox.closest('label');
+                            if (label) {
+                                const isThisAnswerCorrect = correctAnswersArray.includes(checkbox.value);
+                                label.classList.add(isThisAnswerCorrect ? 'correct' : 'incorrect');
+                            }
+                        });
+
+                        // Also mark the correct answers that weren't selected
+                        correctAnswersArray.forEach(correctAns => {
+                            const correctCheckbox = document.querySelector(`input[name="${key === 'q26' ? 'q25' : (key === 'q28' ? 'q27' : (key === 'q30' ? 'q29' : key)) }"][value="${correctAns}"]`);
+                            if (correctCheckbox && !correctCheckbox.checked) {
+                                const correctLabel = correctCheckbox.closest('label');
+                                if (correctLabel) {
+                                    correctLabel.classList.add('correct');
+                                }
+                            }
+                        });
+                        break;
+                }
+
+                // Add score for all questions
+                score += currentQuestionScore;
+
+                if (btn) {
+                    btn.classList.remove('answered');
+                    btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+                }
+
+                // Format the correct answer for display
+                let displayCorrectAnswer;
+                if (questionTypes[`q${qNum}`] === 'drag_drop') {
+                    displayCorrectAnswer = findOptionTextByLetter(correctAnswer, qNum);
+                } else if (questionTypes[`q${qNum}`] === 'map_selection') {
+                    displayCorrectAnswer = String(correctAnswer);
+                } else if (questionTypes[`q${qNum}`] === 'multiple_choice') {
+                    displayCorrectAnswer = Array.isArray(correctAnswer) ? correctAnswer.join(' / ') : String(correctAnswer);
+                } else {
+                    displayCorrectAnswer = Array.isArray(correctAnswer) ? correctAnswer.join(' / ') : String(correctAnswer);
+                }
+
+                resultsData.push({
+                    question: qNum,
+                    userAnswer: userAnswer || 'No Answer',
+                    correctAnswer: displayCorrectAnswer,
+                    isCorrect: isCorrect,
+                    partialScore: currentQuestionScore // Store the score awarded for this question
+                });
+            });
+
+            const deliverButton = document.getElementById('deliver-button');
+            const band = (function(raw){
+                if(raw>=39) return 9;
+                if(raw>=37) return 8.5;
+                if(raw>=35) return 8;
+                if(raw>=32) return 7.5;
+                if(raw>=30) return 7;
+                if(raw>=26) return 6.5;
+                if(raw>=23) return 6;
+                if(raw>=18) return 5.5;
+                if(raw>=16) return 5;
+                if(raw>=13) return 4.5;
+                if(raw>=10) return 4;
+                if(raw>=8)  return 3.5;
+                if(raw>=6)  return 3;
+                if(raw>=4)  return 2.5;
+                if(raw>=2)  return 2;
+                if(raw===1) return 1.5;
+                return 0;
+            })(score);
+            deliverButton.innerHTML = `<span>My Result</span>`;
+            deliverButton.disabled = false;
+            deliverButton.classList.add('result-button');
+
+            document.querySelector('.main-container').classList.add('results-mode');
+            switchToPart(currentPart);
+            
+            const modal = document.getElementById('result-modal');
+            const scoreSummary = document.getElementById('score-summary');
+            const resultDetails = document.getElementById('result-details');
+            
+            scoreSummary.textContent = `You scored ${score} out of 40 (Band ${band}).`;
+            
+            let tableHTML = '<table><tr><th>Question</th><th>Your Answer</th><th>Correct Answer</th><th>Result</th></tr>';
+            resultsData.sort((a,b) => parseInt(a.question, 10) - parseInt(b.question, 10)).forEach(res => {
+                let resultText;
+                let resultClass;
+                if (res.isCorrect) {
+                    resultText = '✔ Correct';
+                    resultClass = 'result-correct';
+                } else {
+                    resultText = '✖ Incorrect';
+                    resultClass = 'result-incorrect';
+                }
+                
+                tableHTML += `
+                    <tr>
+                        <td>${res.question}</td>
+                        <td>${res.userAnswer}</td>
+                        <td>${res.correctAnswer}</td>
+                        <td class="${resultClass}">
+                            ${resultText}
+                        </td>
+                    </tr>
+                `;
+            });
+            tableHTML += '</table>';
+            resultDetails.innerHTML = tableHTML;
+
+            modal.style.display = 'flex';
+        }
+        
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeInSeconds--;
+                const minutes = Math.floor(timeInSeconds / 60);
+                const seconds = timeInSeconds % 60;
+                timerDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                if (timeInSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    timerDisplay.textContent = "Time's up!";
+                    checkAnswers();
+                }
+            }, 1000);
+        }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = Math.floor(seconds % 60);
+            return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+        }
+
+        // Event Listeners
+        playPauseBtn.addEventListener('click', () => {
+            if (!testStarted) {
+                testStarted = true; // Timer removed, skip startTimer
+                switchToPart(currentPart, true);
+            } else {
+                if (audioPlayer.paused) {
+                    // If paused, ensure the audio source is for the current part
+                    if (!audioPlayer.src.includes(audioSource)) {
+                        audioPlayer.src = audioSource;
+                    }
+                    audioPlayer.play();
+                } else {
+                    audioPlayer.pause();
+                }
+            }
+        });
+        
+        audioPlayer.addEventListener('play', () => {
+            playPauseBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
+        });
+
+        audioPlayer.addEventListener('pause', () => {
+            playPauseBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`;
+        });
+
+        audioPlayer.addEventListener('ended', () => {
+            if (currentPart < 4) {
+                switchToPart(currentPart + 1, true);
+            }
+        });
+
+        audioPlayer.addEventListener('loadedmetadata', () => {
+            progressBar.max = audioPlayer.duration;
+            totalDurationEl.textContent = formatTime(audioPlayer.duration);
+        });
+
+        audioPlayer.addEventListener('timeupdate', () => {
+            progressBar.value = audioPlayer.currentTime;
+            currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
+        });
+
+        progressBar.addEventListener('input', () => {
+            audioPlayer.currentTime = progressBar.value;
+        });
+
+        volumeSlider.addEventListener('input', (e) => audioPlayer.volume = e.target.value);
+
+        speedBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            speedOptions.classList.toggle('hidden');
+        });
+
+        speedOptions.addEventListener('click', (e) => {
+            if (e.target.dataset.speed) {
+                const speed = parseFloat(e.target.dataset.speed);
+                audioPlayer.playbackRate = speed;
+                speedBtn.textContent = `${speed}x`;
+                speedOptions.classList.add('hidden');
+            }
+        });
+        
+        document.addEventListener('click', () => {
+            if (!speedOptions.classList.contains('hidden')) {
+                speedOptions.classList.add('hidden');
+            }
+        });
+
+        document.getElementById('deliver-button').addEventListener('click', checkAnswers);
+        
+        // Limit checkbox selection to 2 for Questions 25-30
+        const multipleChoiceQuestions = ['q25', 'q26', 'q27', 'q28', 'q29', 'q30'];
+        
+        multipleChoiceQuestions.forEach(questionName => {
+            const checkboxes = document.querySelectorAll(`input[name="${questionName}"]`);
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const checkedBoxes = document.querySelectorAll(`input[name="${questionName}"]:checked`);
+                    if (checkedBoxes.length > 2) {
+                        this.checked = false; // Uncheck the current checkbox
+                    }
+                });
+            });
+        });
+        
+        // Go To Question Widget Logic
+        const gotoWidget = document.getElementById('goto-widget');
+        const gotoInput = document.getElementById('goto-input');
+        const gotoBtn = document.getElementById('goto-btn');
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key >= '0' && e.key <= '9' && document.activeElement.tagName !== 'INPUT') {
+                e.preventDefault();
+                gotoWidget.classList.remove('hidden');
+                gotoInput.focus();
+                gotoInput.value = e.key;
+            }
+            if (e.key === 'Enter' && document.activeElement === gotoInput) {
+                gotoBtn.click();
+            }
+            if (e.key === 'Escape') {
+                gotoWidget.classList.add('hidden');
+                gotoInput.value = '';
+            }
+        });
+
+        if (gotoBtn) {
+            gotoBtn.addEventListener('click', () => {
+                const qNum = parseInt(gotoInput.value, 10);
+                if (qNum >= 1 && qNum <= 40) {
+                    goToQuestion(qNum);
+                    gotoWidget.classList.add('hidden');
+                    gotoInput.value = '';
+                } else {
+                    alert('Please enter a number between 1 and 40.');
+                }
+            });
+        }
+
+        // Add listener for the modal close button
+        document.getElementById('modal-close-button').addEventListener('click', () => {
+            document.getElementById('result-modal').style.display = 'none';
+        });
+
+        // === Tap-to-select & tap-to-drop for drag items (mobile support) ===
+        document.body.addEventListener('click', function(e){
+            const item = e.target.closest('.drag-item');
+            if(item && item.getAttribute('draggable')){
+                // Toggle selection
+                document.querySelectorAll('.drag-item.selected').forEach(i=>i.classList.remove('selected'));
+                item.classList.add('selected');
+                draggedElement = item;
+                return;
+            }
+            const dz = e.target.closest('.drop-zone');
+            if(dz && draggedElement){
+                // If already filled, move old back
+                const optionsList = document.querySelector('.matching-options-list');
+                if(dz.children.length>0 && dz.firstElementChild!==draggedElement){
+                    optionsList.appendChild(dz.firstElementChild);
+                }
+                dz.appendChild(draggedElement);
+                draggedElement.classList.remove('selected');
+                draggedElement=null;
+                updateAnsweredIndicators();
+            }
+        });
+
+        // === Mobile highlight/comment toolbar ===
+        const mobileToolbar = document.getElementById('mobile-selection-menu');
+        function positionToolbar(){
+            const sel = window.getSelection();
+            if(sel.rangeCount===0 || sel.isCollapsed){
+                mobileToolbar.classList.add('hidden');
+                return;
+            }
+            const range = sel.getRangeAt(0);
+            const rect = range.getBoundingClientRect();
+            mobileToolbar.style.top = window.scrollY + rect.top - mobileToolbar.offsetHeight - 8 + 'px';
+            mobileToolbar.style.left = window.scrollX + rect.left + 'px';
+            mobileToolbar.classList.remove('hidden');
+        }
+        document.addEventListener('selectionchange', () => {
+            const sel = window.getSelection();
+            if(sel && sel.rangeCount>0 && !sel.isCollapsed){
+                selectedRange = sel.getRangeAt(0);
+                selectedText = sel.toString();
+            }
+            if('ontouchstart' in window || navigator.maxTouchPoints>0){
+                setTimeout(positionToolbar, 0);
+            }
+        });
+        document.addEventListener('click', (e)=>{
+            if(!e.target.closest('#mobile-selection-menu')){
+                mobileToolbar.classList.add('hidden');
+            }
+        });
+
+        /* ---------------- Drag and Drop for Matching Questions ---------------- */
+
+        (function initDragAndDrop() {
+            const container = document.querySelector('.left-panel');
+            if (!container) return;
+
+            container.addEventListener('dragstart', (e) => {
+                if (e.target.classList.contains('drag-item')) {
+                    draggedElement = e.target;
+                    setTimeout(() => {
+                        e.target.classList.add('dragging');
+                    }, 0);
+                }
+            });
+
+            container.addEventListener('dragend', (e) => {
+                if (draggedElement) {
+                    draggedElement.classList.remove('dragging');
+                    draggedElement = null;
+                }
+            });
+
+            container.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                const target = e.target;
+                const dropZone = target.closest('.drop-zone');
+                const optionsList = target.closest('.matching-options-list');
+
+                if (dropZone || optionsList) {
+                    const overElement = dropZone || optionsList;
+                    document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+                    overElement.classList.add('drag-over');
+                }
+            });
+
+            container.addEventListener('dragleave', (e) => {
+                const target = e.target;
+                const dropZone = target.closest('.drop-zone');
+                const optionsList = target.closest('.matching-options-list');
+                if (dropZone || optionsList) {
+                    const overElement = dropZone || optionsList;
+                    overElement.classList.remove('drag-over');
+                }
+            });
+
+
+            container.addEventListener('drop', (e) => {
+                e.preventDefault();
+                if (!draggedElement) return;
+
+                const dropTarget = e.target.closest('.drop-zone, .matching-options-list');
+                if (!dropTarget) {
+                    draggedElement.classList.remove('dragging');
+                    draggedElement = null;
+                    return;
+                }
+
+                document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+                
+                const existingItem = dropTarget.matches('.drop-zone') ? dropTarget.querySelector('.drag-item') : null;
+                const originalParent = draggedElement.parentNode;
+
+                // If there's an item in the target dropzone, swap them
+                if (existingItem) {
+                    originalParent.appendChild(existingItem);
+                }
+                
+                dropTarget.appendChild(draggedElement);
+
+                if(dropTarget.matches('.drop-zone')) {
+                    const placeholder = dropTarget.querySelector('.placeholder');
+                    if (placeholder) placeholder.style.display = 'none';
+                }
+
+                draggedElement.classList.remove('dragging');
+                draggedElement = null;
+                updateAnsweredIndicators();
+            });
+        })();
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            switchToPart(1);
+            goToQuestion(1);
+            setupCheckboxLimits();
+
+            document.body.addEventListener('contextmenu', function (e) {
+                const text = window.getSelection().toString();
+                if (!text) return;
+                e.preventDefault();
+                const menu = document.getElementById('contextMenu');
+                menu.style.left = e.pageX + 'px';
+                menu.style.top = e.pageY + 'px';
+                menu.style.display = 'block';
+
+                const target = e.target;
+                const clearItem = document.getElementById('clear-item');
+                contextElement = target.closest('.highlight, .comment-highlight');
+                if(contextElement){
+                    clearItem.style.display = 'block';
+                } else {
+                    clearItem.style.display = 'none';
+                }
+            });
+            
+            document.body.addEventListener('click', function(e) {
+                if (e.target.closest('.context-menu')) return;
+                document.getElementById('contextMenu').style.display = 'none';
+            });
+        });
+
+        // Initial setup on DOM load
+        document.addEventListener('DOMContentLoaded', updateAnsweredIndicators);
+
+        document.querySelectorAll('.mcq-table td').forEach(cell => {
+            cell.addEventListener('click', (e) => {
+                if (e.target.tagName !== 'INPUT') {
+                    const radio = cell.querySelector('input[type="radio"]');
+                    if (radio && !radio.disabled) {
+                        radio.checked = true;
+                    }
+                }
+            });
+        });
+
+        document.querySelectorAll('.answer-input, input[type="radio"], input[type="checkbox"]').forEach(input => {
+            input.addEventListener('input', updateAnsweredIndicators);
+            input.addEventListener('change', updateAnsweredIndicators);
+        });
+
+        function initAllDragAndDrop() {
+            const dragItems = document.querySelectorAll('.drag-item');
+            const dropZones = document.querySelectorAll('.drop-zone');
+
+            dragItems.forEach(item => {
+                item.addEventListener('dragstart', handleDragStart);
+                item.addEventListener('dragend', handleDragEnd);
+            });
+
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', handleDragOver);
+                zone.addEventListener('dragleave', handleDragLeave);
+                zone.addEventListener('drop', handleDrop);
+            });
+
+            function handleDragStart(e) {
+                draggedElement = e.target;
+                setTimeout(() => e.target.classList.add('dragging'), 0);
+            }
+
+            function handleDragEnd(e) {
+                e.target.classList.remove('dragging');
+            }
+
+            function handleDragOver(e) {
+                e.preventDefault();
+                const zone = e.target.closest('.drop-zone');
+                if (zone) zone.classList.add('drag-over');
+            }
+
+            function handleDragLeave(e) {
+                const zone = e.target.closest('.drop-zone');
+                if (zone) zone.classList.remove('drag-over');
+            }
+
+            function handleDrop(e) {
+                e.preventDefault();
+                const targetZone = e.target.closest('.drop-zone');
+                if (!targetZone || !draggedElement) return;
+                
+                targetZone.classList.remove('drag-over');
+
+                const sourceContainer = draggedElement.parentNode;
+                const itemInTargetZone = targetZone.querySelector('.drag-item');
+                
+                // Prevent dropping on self or non-droppable area inside zone
+                if (e.target.classList.contains('drag-item') && e.target !== draggedElement) {
+                    return; // Or handle swap explicitly here if needed
+                }
+                
+                if (itemInTargetZone && itemInTargetZone !== draggedElement) {
+                    // If source is an options list, move the existing item back
+                    const optionsList = findParentOptionsList(targetZone);
+                    if (sourceContainer.classList.contains('matching-options-list') || sourceContainer.classList.contains('map-options-list')) {
+                    optionsList.appendChild(itemInTargetZone);
+                    } 
+                    // If source is another drop zone (swapping)
+                    else if (sourceContainer.classList.contains('drop-zone')) {
+                        sourceContainer.appendChild(itemInTargetZone);
+                    }
+                }
+
+                targetZone.appendChild(draggedElement);
+                if (targetZone.querySelector('.placeholder')) {
+                    targetZone.querySelector('.placeholder').style.display = 'none';
+                }
+                
+                updateAnsweredIndicators();
+            }
+
+            function findParentOptionsList(element) {
+                // Specific for map
+                if (element.closest('#map-drag-container')) {
+                    return document.getElementById('map-options-q11-15');
+                }
+                // Generic for matching
+                const container = element.closest('.matching-container');
+                if (container) {
+                    return container.querySelector('.matching-options-list');
+                }
+                return null;
+            }
+        }
+
+        let transcriptionHighlighted = false;
+        function highlightAnswersInTranscription() {
+            if (transcriptionHighlighted) return;
+
+            const highlightedTranscripts = { 1: '', 2: '', 3: '', 4: '' };
+
+            for (let i = 1; i <= 4; i++) {
+                const partElement = document.querySelector(`#transcription-data [data-part="${i}"]`);
+                if (partElement) highlightedTranscripts[i] = partElement.innerHTML;
+            }
+
+            for (const key in correctAnswers) {
+                const answers = Array.isArray(correctAnswers[key]) ? correctAnswers[key] : [correctAnswers[key]];
+                if (answers.every(answer => /^[A-G]$/.test(answer))) {
+                    continue;
+                }
+
+                const qNum = parseInt(key.match(/\d+/)[0]);
+                let partNumber = 1;
+                if (qNum > 10 && qNum <= 20) partNumber = 2;
+                else if (qNum > 20 && qNum <= 30) partNumber = 3;
+                else if (qNum > 30) partNumber = 4;
+
+                if (!highlightedTranscripts[partNumber]) continue;
+
+                let answersToHighlight = correctAnswers[key];
+                if (!Array.isArray(answersToHighlight)) {
+                    answersToHighlight = [answersToHighlight];
+                }
+
+                for (const answer of answersToHighlight) {
+                    if (/^[A-G]$/.test(answer)) continue;
+                    
+                    let searchTerm = answer.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                    searchTerm = searchTerm.replace(/\\\(s\\\)/g, '(s)?');
+                    
+                    const regex = new RegExp(`\\b(${searchTerm})\\b`, 'gi');
+                    
+                    highlightedTranscripts[partNumber] = highlightedTranscripts[partNumber].replace(
+                        regex,
+                        '<span class="highlight">$1</span>'
+                    );
+                }
+            }
+
+            for (let i = 1; i <= 4; i++) {
+                const partElement = document.querySelector(`#transcription-data [data-part="${i}"]`);
+                if(partElement) partElement.innerHTML = highlightedTranscripts[i];
+            }
+            transcriptionHighlighted = true;
+        }
+        
+        function closeContextMenu() {
+            document.getElementById('contextMenu').style.display = 'none';
+            contextElement = null;
+        }
+    </script>
+</body>
+</html>

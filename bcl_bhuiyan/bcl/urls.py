@@ -42,4 +42,12 @@ urlpatterns = [
     path("writing/reviews/<int:attempt_id>/export/<str:format>/", writing_exports.writing_export, name="writing_export"),
     path("admin-tools/export/attempt/<int:attempt_id>/<str:format>/", result_exports.export_candidate_attempt, name="export_candidate_attempt"),
     path("admin-tools/export/full-mock/<int:full_attempt_id>/<str:format>/", result_exports.export_full_mock_attempt, name="export_full_mock_attempt"),
+    path("start-mock/", exam_views.start_mock_shortcut, name="start_mock_shortcut"),
+    path("mock/<int:mock_id>/listening/", exam_views.mock_listening_view, name="mock_listening"),
+    path("mock/<int:mock_id>/listening/submit/", exam_views.mock_listening_submit, name="mock_listening_submit"),
+    path("mock/<int:mock_id>/reading/", exam_views.mock_reading_view, name="mock_reading"),
+    path("mock/<int:mock_id>/reading/submit/", exam_views.mock_reading_submit, name="mock_reading_submit"),
+    path("mock/<int:mock_id>/writing/", exam_views.mock_writing_view, name="mock_writing"),
+    path("mock/<int:mock_id>/writing/submit/", exam_views.mock_writing_submit, name="mock_writing_submit"),
+    path("mock/<int:mock_id>/consolidated-result/", exam_views.mock_consolidated_result, name="mock_consolidated_result"),
 ]
