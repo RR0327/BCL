@@ -25,8 +25,8 @@ class IELTSMockTest(models.Model):
 
     @property
     def ordered_modules(self):
-        """Return active modules ordered: Reading (left), Listening (middle), Writing (right)."""
-        order_map = {"reading": 1, "listening": 2, "writing": 3}
+        """Return active modules in full-mock order: Listening, Reading, Writing."""
+        order_map = {"listening": 1, "reading": 2, "writing": 3}
         return sorted(
             [m for m in self.modules.all() if m.is_active],
             key=lambda m: order_map.get(m.module_type, 99),
@@ -206,6 +206,18 @@ class QuestionOption(models.Model):
         return f"{self.option_key}: {self.option_text}"
 
 
+def get_writing_task_questions(module):
+    """Return essay prompts in task order, including tests storing both in one section."""
+    return list(
+        Question.objects.filter(
+            section__module=module,
+            question_type=Question.QuestionType.ESSAY,
+        )
+        .select_related("section")
+        .order_by("section__order", "order", "pk")
+    )
+
+
 class FullMockAttempt(models.Model):
     class AttemptStatus(models.TextChoices):
         IN_PROGRESS = "in_progress", "In Progress"
@@ -217,8 +229,8 @@ class FullMockAttempt(models.Model):
     status = models.CharField(max_length=20, choices=AttemptStatus.choices, default=AttemptStatus.IN_PROGRESS)
     current_step = models.CharField(
         max_length=20,
-        default="reading",
-        help_text="Current active module step: reading, listening, writing, or completed.",
+        default="listening",
+        help_text="Current active module step: listening, reading, writing, or completed.",
     )
     reading_attempt = models.ForeignKey(
         "CandidateAttempt",
@@ -423,8 +435,16 @@ class WritingTaskEvaluation(models.Model):
                 errors["question"] = "The question is not in this attempt's module."
             elif self.question.question_type != Question.QuestionType.ESSAY:
                 errors["question"] = "Only an Essay question can be graded."
-            elif self.question.section.order != self.task_number:
-                errors["question"] = "Question section order must match Task 1 or Task 2."
+            elif self.task_number not in {1, 2}:
+                errors["task_number"] = "Writing task number must be Task 1 or Task 2."
+            elif self.question.pk not in {
+                question.pk
+                for task_number, question in enumerate(
+                    get_writing_task_questions(self.attempt.module), start=1
+                )
+                if task_number == self.task_number
+            }:
+                errors["question"] = "Question order must match the evaluated Writing task."
         if self.examiner_id and not self.examiner.is_staff:
             errors["examiner"] = "The examiner must be a staff member."
         for field in self.SCORE_FIELDS:

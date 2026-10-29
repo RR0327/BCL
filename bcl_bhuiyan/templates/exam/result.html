@@ -634,11 +634,6 @@
             <!-- Tasks & Responses -->
             {% for s_data in sections_data %}
             <section class="p-6 rounded-xl bg-white dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 shadow-2xs space-y-4">
-                <div class="flex items-center justify-between border-b border-slate-100 dark:border-zinc-700 pb-3">
-                    <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest">Part {{ forloop.counter }} &mdash; {{ s_data.section.title }}</span>
-                    <span class="text-xs text-slate-500 font-medium">{% if s_data.section.order == 1 %}Suggested min 150 words{% else %}Suggested min 250 words{% endif %}</span>
-                </div>
-
                 {% if s_data.section.passage_instructions or s_data.section.instructions %}
                 <p class="text-sm text-slate-600 dark:text-slate-300 italic">
                     {% if s_data.section.passage_instructions %}{{ s_data.section.passage_instructions }}{% else %}{{ s_data.section.instructions }}{% endif %}
@@ -652,6 +647,15 @@
                 {% endif %}
 
                 {% for q_data in s_data.questions %}
+                    <div class="flex items-center justify-between border-b border-slate-100 dark:border-zinc-700 pb-3">
+                        <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest">Writing Task {{ q_data.question.writing_task_number }}</span>
+                        <span class="text-xs text-slate-500 font-medium">{% if q_data.question.writing_task_number == 1 %}Suggested min 150 words{% elif q_data.question.writing_task_number == 2 %}Suggested min 250 words{% endif %}</span>
+                    </div>
+
+                    {% if q_data.question.question_instructions %}
+                    <p class="text-sm text-slate-600 dark:text-slate-300 italic">{{ q_data.question.question_instructions }}</p>
+                    {% endif %}
+
                     {% if q_data.question.image %}
                     <div class="p-3 rounded-lg border border-slate-200 dark:border-zinc-700 bg-slate-50 dark:bg-zinc-900 flex flex-col items-center">
                         <img src="{% url 'bcl:review_question_media' attempt.pk q_data.question.pk %}" alt="Question illustration" class="max-h-72 object-contain rounded-md">
@@ -675,11 +679,9 @@
                             {% if q_data.answer_text %}{{ q_data.answer_text }}{% else %}<em class="text-slate-400">No response entered.</em>{% endif %}
                         </div>
                     </div>
-                {% endfor %}
 
-                <!-- Task Evaluation Details (if available) -->
-                {% for eval in task_evaluations %}
-                    {% if eval.task_number == s_data.section.order %}
+                    {% for eval in task_evaluations %}
+                    {% if eval.task_number == q_data.question.writing_task_number %}
                     <div class="mt-4 pt-4 border-t border-slate-200 dark:border-zinc-700 space-y-3">
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Examiner Evaluation</span>
@@ -711,6 +713,7 @@
                         {% endif %}
                     </div>
                     {% endif %}
+                    {% endfor %}
                 {% endfor %}
             </section>
             {% endfor %}

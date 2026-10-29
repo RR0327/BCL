@@ -11,7 +11,7 @@ from django.views.decorators.http import require_http_methods
 
 from .models import (
     CandidateAnswer, CandidateAttempt, ExamModule, Question,
-    WritingTaskEvaluation,
+    WritingTaskEvaluation, get_writing_task_questions,
 )
 
 
@@ -99,15 +99,11 @@ def writing_review_detail(request, attempt_id):
         messages.error(request, "This attempt has not been submitted yet.")
         return redirect("bcl:writing_review_list")
 
-    prompts = {}
-    for task_number in (1, 2):
-        prompts[task_number] = list(
-            Question.objects.filter(
-                section__module_id=attempt.module_id,
-                section__order=task_number,
-                question_type=Question.QuestionType.ESSAY,
-            ).select_related("section").order_by("order", "pk")
-        )
+    prompts = {1: [], 2: []}
+    essay_questions = get_writing_task_questions(attempt.module)
+    for task_number, question in enumerate(essay_questions, start=1):
+        if task_number in prompts:
+            prompts[task_number].append(question)
 
     existing = {item.task_number: item for item in attempt.task_evaluations.select_related("examiner")}
     forms_by_task = {}
@@ -133,14 +129,14 @@ def writing_review_detail(request, attempt_id):
         task_cards.append({
             "number": n, "question": question, "answer": answer,
             "form": form, "evaluation": instance,
-            "configuration_error": len(prompts[n]) != 1,
+            "configuration_error": len(essay_questions) != 2 or len(prompts[n]) != 1,
         })
 
     if request.method == "POST":
         n = int(posted_task)
         question = prompts[n][0] if len(prompts[n]) == 1 else None
-        if not question:
-            messages.error(request, "Configure exactly one Essay question in this Writing task section.")
+        if len(essay_questions) != 2 or not question:
+            messages.error(request, "Configure exactly two Essay questions in this Writing module, ordered as Task 1 and Task 2.")
             return redirect("bcl:writing_review_detail", attempt_id=attempt.pk)
         form = forms_by_task[n]
         if form.is_valid():

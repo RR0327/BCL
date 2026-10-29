@@ -491,7 +491,7 @@ class IELTSMockTestAdmin(QuestionSetterBaseAdmin):
         if not modules:
             return format_html('<span class="admin-badge badge-draft">No modules</span>')
         badges = []
-        for m in sorted(modules, key=lambda x: {"reading": 1, "listening": 2, "writing": 3}.get(x.module_type, 99)):
+        for m in sorted(modules, key=lambda x: {"listening": 1, "reading": 2, "writing": 3}.get(x.module_type, 99)):
             m_type = m.get_module_type_display()
             sec_count = m.sections.count()
             css_class = f"badge-{m.module_type}"
@@ -1302,4 +1302,3 @@ def custom_admin_index(request, extra_context=None):
 
 
 admin.site.index = custom_admin_index
-

@@ -341,20 +341,20 @@
     <div class="inter-card">
         <!-- 3-Step Breadcrumbs -->
         <div class="step-progress">
-            <!-- Step 1: Reading -->
-            <div class="step-item {% if full_mock.reading_attempt and full_mock.reading_attempt.status != 'in_progress' %}completed{% elif full_mock.current_step == 'reading' %}active{% endif %}">
-                <div class="step-circle">
-                    {% if full_mock.reading_attempt and full_mock.reading_attempt.status != 'in_progress' %}&check;{% else %}1{% endif %}
-                </div>
-                <span class="step-label">Reading</span>
-            </div>
-
-            <!-- Step 2: Listening -->
+            <!-- Step 1: Listening -->
             <div class="step-item {% if full_mock.listening_attempt and full_mock.listening_attempt.status != 'in_progress' %}completed{% elif full_mock.current_step == 'listening' %}active{% endif %}">
                 <div class="step-circle">
-                    {% if full_mock.listening_attempt and full_mock.listening_attempt.status != 'in_progress' %}&check;{% else %}2{% endif %}
+                    {% if full_mock.listening_attempt and full_mock.listening_attempt.status != 'in_progress' %}&check;{% else %}1{% endif %}
                 </div>
                 <span class="step-label">Listening</span>
+            </div>
+
+            <!-- Step 2: Reading -->
+            <div class="step-item {% if full_mock.reading_attempt and full_mock.reading_attempt.status != 'in_progress' %}completed{% elif full_mock.current_step == 'reading' %}active{% endif %}">
+                <div class="step-circle">
+                    {% if full_mock.reading_attempt and full_mock.reading_attempt.status != 'in_progress' %}&check;{% else %}2{% endif %}
+                </div>
+                <span class="step-label">Reading</span>
             </div>
 
             <!-- Step 3: Writing -->
@@ -387,7 +387,7 @@
         <div class="next-module-card">
             <div class="next-badge">Next Up &bull; Stage {{ step_info.stage_number }} of {{ step_info.total_stages }}</div>
             <h2 class="next-title">
-                {% if step_info.next_module_type == 'listening' %}🎧{% elif step_info.next_module_type == 'writing' %}✍️{% endif %}
+                {% if step_info.next_module_type == 'listening' %}🎧{% elif step_info.next_module_type == 'reading' %}📖{% elif step_info.next_module_type == 'writing' %}✍️{% endif %}
                 {{ step_info.next_module_name }} Module ({{ step_info.next_duration }} Minutes)
             </h2>
             <ul class="next-tips">

@@ -22,6 +22,7 @@ from .models import (
     ExamModule,
     FullMockAttempt,
     Question,
+    get_writing_task_questions,
 )
 from .writing_views import writing_result_band
 
@@ -81,13 +82,13 @@ def get_module_attempt_data(attempt_id):
     if module_type == ExamModule.ModuleType.WRITING:
         writing_band = writing_result_band(attempt)
         evaluations = {e.task_number: e for e in attempt.task_evaluations.select_related("examiner")}
+        essay_questions = get_writing_task_questions(module)
         for n in (1, 2):
-            sec = next((s for s in sections if s.order == n), None)
-            q = sec.questions.first() if sec else None
+            q = essay_questions[n - 1] if len(essay_questions) == 2 else None
             resp = answers.get(q.pk).answer_text if (q and q.pk in answers) else ""
             writing_tasks.append({
                 "task_number": n,
-                "title": sec.title if sec else f"Task {n}",
+                "title": f"Writing Task {n}",
                 "prompt": q.question_text if q else "Task prompt not configured",
                 "response": resp or "[No response submitted]",
                 "word_count": len(resp.strip().split()) if resp.strip() else 0,
@@ -160,7 +161,7 @@ def export_candidate_attempt(request, attempt_id, format):
         # Content based on module type
         if module_type == "writing":
             for task in data["writing_tasks"]:
-                doc.add_heading(f"Writing Task {task['task_number']}: {task['title']}", level=1)
+                doc.add_heading(f"Writing Task {task['task_number']}", level=1)
                 p_prompt = doc.add_paragraph()
                 p_prompt.add_run("Task Prompt: ").bold = True
                 p_prompt.add_run(task["prompt"])
@@ -254,7 +255,7 @@ def export_candidate_attempt(request, attempt_id, format):
 
         if module_type == "writing":
             for task in data["writing_tasks"]:
-                story.append(Paragraph(f"<b>Writing Task {task['task_number']}: {escape(task['title'])}</b>", h1_style))
+                story.append(Paragraph(f"<b>Writing Task {task['task_number']}</b>", h1_style))
                 story.append(Paragraph(f"<b>Prompt:</b> {escape(task['prompt'])}", body_style))
                 story.append(Spacer(1, 4))
                 resp_text = escape(task["response"]).replace("\n", "<br/>") or "[No response submitted]"
@@ -393,7 +394,7 @@ def export_full_mock_attempt(request, full_attempt_id, format):
         if writing_data and writing_data["writing_tasks"]:
             doc.add_heading("Writing Tasks & Examiner Feedback", level=1)
             for t in writing_data["writing_tasks"]:
-                doc.add_heading(f"Task {t['task_number']}: {t['title']}", level=2)
+                doc.add_heading(f"Writing Task {t['task_number']}", level=2)
                 p = doc.add_paragraph()
                 p.add_run(f"Candidate Essay ({t['word_count']} words):\n").bold = True
                 p.add_run(t["response"])
@@ -463,7 +464,7 @@ def export_full_mock_attempt(request, full_attempt_id, format):
         if writing_data and writing_data["writing_tasks"]:
             story.append(Paragraph("<b>Writing Tasks & Examiner Feedback</b>", h1_style))
             for task in writing_data["writing_tasks"]:
-                story.append(Paragraph(f"<b>Task {task['task_number']}: {escape(task['title'])}</b> ({task['word_count']} words)", body_style))
+                story.append(Paragraph(f"<b>Writing Task {task['task_number']}</b> ({task['word_count']} words)", body_style))
                 story.append(Spacer(1, 3))
                 resp_snippet = escape(task["response"][:350]) + ("..." if len(task["response"]) > 350 else "")
                 story.append(Paragraph(f"<i>Candidate Response:</i> {resp_snippet}", cell_style))

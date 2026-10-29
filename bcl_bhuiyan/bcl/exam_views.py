@@ -14,7 +14,10 @@ from django.urls import reverse
 from django.utils import timezone
 from django.views.decorators.http import require_GET, require_POST
 
-from .models import CandidateAnswer, CandidateAttempt, ExamModule, Question, FullMockAttempt, IELTSMockTest
+from .models import (
+    CandidateAnswer, CandidateAttempt, ExamModule, Question, FullMockAttempt,
+    IELTSMockTest, get_writing_task_questions,
+)
 from .scoring import finalize_attempt_score
 
 
@@ -248,6 +251,17 @@ def exam_session(request, attempt_id):
         return redirect("bcl:exam_rules", module_id=attempt.module_id)
 
     sections = list(attempt.module.sections.order_by("order", "pk").prefetch_related("questions__options"))
+    if attempt.module.module_type == ExamModule.ModuleType.WRITING:
+        writing_task_numbers = {
+            question.pk: task_number
+            for task_number, question in enumerate(
+                get_writing_task_questions(attempt.module), start=1
+            )
+        }
+        for section in sections:
+            for question in section.questions.all():
+                question.writing_task_number = writing_task_numbers.get(question.pk, question.order)
+
     global_counter = 1
     for section in sections:
         q_list, global_counter = annotate_question_groups(
@@ -560,15 +574,15 @@ def submit_exam(request, attempt_id):
                 full_mock.save()
                 messages.success(request, "Your All-Module examination session has ended.")
                 return redirect("bcl:full_mock_ended", full_attempt_id=full_mock.pk)
-            elif attempt.module.module_type == ExamModule.ModuleType.READING:
-                full_mock.current_step = "listening"
-                full_mock.save(update_fields=["current_step"])
-                messages.success(request, "Reading module completed. Next stage: Listening.")
-                return redirect("bcl:full_mock_intermission", full_attempt_id=full_mock.pk)
             elif attempt.module.module_type == ExamModule.ModuleType.LISTENING:
+                full_mock.current_step = "reading"
+                full_mock.save(update_fields=["current_step"])
+                messages.success(request, "Listening module completed. Next stage: Reading.")
+                return redirect("bcl:full_mock_intermission", full_attempt_id=full_mock.pk)
+            elif attempt.module.module_type == ExamModule.ModuleType.READING:
                 full_mock.current_step = "writing"
                 full_mock.save(update_fields=["current_step"])
-                messages.success(request, "Listening module completed. Next stage: Writing.")
+                messages.success(request, "Reading module completed. Next stage: Writing.")
                 return redirect("bcl:full_mock_intermission", full_attempt_id=full_mock.pk)
 
     messages.success(request, "Your examination session has ended.")
@@ -624,6 +638,10 @@ def exam_result(request, attempt_id):
             Question.objects.filter(section__module=module).values_list("marks", flat=True)
         )
         sections = list(module.sections.order_by("order", "pk").prefetch_related("questions"))
+        writing_task_numbers = {
+            question.pk: task_number
+            for task_number, question in enumerate(get_writing_task_questions(module), start=1)
+        }
         answers = {
             a.question_id: a for a in CandidateAnswer.objects.filter(attempt=attempt)
         }
@@ -631,6 +649,7 @@ def exam_result(request, attempt_id):
         for section in sections:
             questions_data = []
             for q in section.questions.order_by("order"):
+                q.writing_task_number = writing_task_numbers.get(q.pk, q.order)
                 ans = answers.get(q.pk)
                 ans_text = ans.answer_text if ans else ""
                 words = len(ans_text.strip().split()) if ans_text.strip() else 0
@@ -799,17 +818,17 @@ def full_mock_rules(request, mock_test_id):
         .first()
     )
     if active_full:
-        if active_full.current_step == "reading" and active_full.reading_attempt:
-            att = expire_attempt_if_needed(active_full.reading_attempt)
+        if active_full.current_step == "listening" and active_full.listening_attempt:
+            att = expire_attempt_if_needed(active_full.listening_attempt)
             if att.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
                 return redirect("bcl:exam_session", attempt_id=att.pk)
             else:
-                active_full.current_step = "listening"
+                active_full.current_step = "reading"
                 active_full.save(update_fields=["current_step"])
                 return redirect("bcl:full_mock_intermission", full_attempt_id=active_full.pk)
 
-        elif active_full.current_step == "listening" and active_full.listening_attempt:
-            att = expire_attempt_if_needed(active_full.listening_attempt)
+        elif active_full.current_step == "reading" and active_full.reading_attempt:
+            att = expire_attempt_if_needed(active_full.reading_attempt)
             if att.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
                 return redirect("bcl:exam_session", attempt_id=att.pk)
             else:
@@ -829,7 +848,7 @@ def full_mock_rules(request, mock_test_id):
                 active_full.save()
                 return redirect("bcl:full_mock_ended", full_attempt_id=active_full.pk)
 
-        elif active_full.current_step in {"listening", "writing"}:
+        elif active_full.current_step in {"listening", "reading", "writing"}:
             return redirect("bcl:full_mock_intermission", full_attempt_id=active_full.pk)
         elif active_full.current_step == "completed":
             return redirect("bcl:full_mock_ended", full_attempt_id=active_full.pk)
@@ -863,7 +882,7 @@ def start_full_mock(request, mock_test_id):
         messages.error(request, "This mock test does not have all three modules configured.")
         return redirect("bcl:dashboard")
 
-    reading_module = mock_test.modules.get(module_type=ExamModule.ModuleType.READING, is_active=True)
+    listening_module = mock_test.modules.get(module_type=ExamModule.ModuleType.LISTENING, is_active=True)
 
     with transaction.atomic():
         get_user_model().objects.select_for_update().get(pk=request.user.pk)
@@ -880,29 +899,29 @@ def start_full_mock(request, mock_test_id):
                 candidate=request.user,
                 mock_test=mock_test,
                 status=FullMockAttempt.AttemptStatus.IN_PROGRESS,
-                current_step="reading",
+                current_step="listening",
                 started_at=now,
             )
 
-        if not active_full.reading_attempt:
-            reading_attempt = CandidateAttempt.objects.create(
+        if not active_full.listening_attempt:
+            listening_attempt = CandidateAttempt.objects.create(
                 candidate=request.user,
-                module=reading_module,
+                module=listening_module,
                 full_mock=active_full,
                 started_at=now,
-                expires_at=now + timedelta(minutes=reading_module.duration_minutes),
+                expires_at=now + timedelta(minutes=listening_module.duration_minutes),
                 status=CandidateAttempt.AttemptStatus.IN_PROGRESS,
             )
-            active_full.reading_attempt = reading_attempt
-            active_full.save(update_fields=["reading_attempt"])
+            active_full.listening_attempt = listening_attempt
+            active_full.save(update_fields=["listening_attempt"])
         else:
-            reading_attempt = expire_attempt_if_needed(active_full.reading_attempt)
-            if reading_attempt.status != CandidateAttempt.AttemptStatus.IN_PROGRESS:
-                active_full.current_step = "listening"
+            listening_attempt = expire_attempt_if_needed(active_full.listening_attempt)
+            if listening_attempt.status != CandidateAttempt.AttemptStatus.IN_PROGRESS:
+                active_full.current_step = "reading"
                 active_full.save(update_fields=["current_step"])
                 return redirect("bcl:full_mock_intermission", full_attempt_id=active_full.pk)
 
-    return redirect("bcl:exam_session", attempt_id=active_full.reading_attempt.pk)
+    return redirect("bcl:exam_session", attempt_id=active_full.listening_attempt.pk)
 
 
 @login_required
@@ -921,28 +940,32 @@ def full_mock_intermission(request, full_attempt_id):
         return redirect("bcl:full_mock_ended", full_attempt_id=full_mock.pk)
 
     step_info = {}
-    if full_mock.current_step == "listening":
+    if full_mock.current_step == "reading":
         step_info = {
-            "completed_module_name": "Reading",
-            "completed_attempt": full_mock.reading_attempt,
-            "next_module_name": "Listening",
-            "next_module_type": "listening",
-            "next_duration": 30,
+            "completed_module_name": "Listening",
+            "completed_attempt": full_mock.listening_attempt,
+            "next_module_name": "Reading",
+            "next_module_type": "reading",
+            "next_duration": full_mock.mock_test.modules.get(
+                module_type=ExamModule.ModuleType.READING, is_active=True
+            ).duration_minutes,
             "stage_number": 2,
             "total_stages": 3,
             "tips": [
-                "Ensure your audio device or headphones are working clearly.",
-                "Listening audio will play continuously and cannot be paused once started.",
-                "The listening test consists of 4 parts and 40 questions in total.",
+                "The Reading test has three passages and 40 questions.",
+                "You can move between questions and review your answers before submitting.",
+                "The Listening answers you submitted are now locked.",
             ],
         }
     elif full_mock.current_step == "writing":
         step_info = {
-            "completed_module_name": "Listening",
-            "completed_attempt": full_mock.listening_attempt,
+            "completed_module_name": "Reading",
+            "completed_attempt": full_mock.reading_attempt,
             "next_module_name": "Writing",
             "next_module_type": "writing",
-            "next_duration": 60,
+            "next_duration": full_mock.mock_test.modules.get(
+                module_type=ExamModule.ModuleType.WRITING, is_active=True
+            ).duration_minutes,
             "stage_number": 3,
             "total_stages": 3,
             "tips": [
@@ -952,8 +975,8 @@ def full_mock_intermission(request, full_attempt_id):
             ],
         }
     else:
-        if full_mock.reading_attempt:
-            return redirect("bcl:exam_session", attempt_id=full_mock.reading_attempt.pk)
+        if full_mock.listening_attempt:
+            return redirect("bcl:exam_session", attempt_id=full_mock.listening_attempt.pk)
         return redirect("bcl:full_mock_rules", mock_test_id=full_mock.mock_test_id)
 
     return render(request, "exam/full_mock_intermission.html", {
@@ -981,26 +1004,26 @@ def full_mock_next_module(request, full_attempt_id):
             return redirect("bcl:full_mock_ended", full_attempt_id=full_mock.pk)
 
         now = timezone.now()
-        if full_mock.current_step == "listening":
-            listening_mod = full_mock.mock_test.modules.get(module_type=ExamModule.ModuleType.LISTENING, is_active=True)
-            if not full_mock.listening_attempt:
-                listening_att = CandidateAttempt.objects.create(
+        if full_mock.current_step == "reading":
+            reading_mod = full_mock.mock_test.modules.get(module_type=ExamModule.ModuleType.READING, is_active=True)
+            if not full_mock.reading_attempt:
+                reading_att = CandidateAttempt.objects.create(
                     candidate=request.user,
-                    module=listening_mod,
+                    module=reading_mod,
                     full_mock=full_mock,
                     started_at=now,
-                    expires_at=now + timedelta(minutes=listening_mod.duration_minutes),
+                    expires_at=now + timedelta(minutes=reading_mod.duration_minutes),
                     status=CandidateAttempt.AttemptStatus.IN_PROGRESS,
                 )
-                full_mock.listening_attempt = listening_att
-                full_mock.save(update_fields=["listening_attempt"])
+                full_mock.reading_attempt = reading_att
+                full_mock.save(update_fields=["reading_attempt"])
             else:
-                listening_att = expire_attempt_if_needed(full_mock.listening_attempt)
-                if listening_att.status != CandidateAttempt.AttemptStatus.IN_PROGRESS:
+                reading_att = expire_attempt_if_needed(full_mock.reading_attempt)
+                if reading_att.status != CandidateAttempt.AttemptStatus.IN_PROGRESS:
                     full_mock.current_step = "writing"
                     full_mock.save(update_fields=["current_step"])
                     return redirect("bcl:full_mock_intermission", full_attempt_id=full_mock.pk)
-            return redirect("bcl:exam_session", attempt_id=full_mock.listening_attempt.pk)
+            return redirect("bcl:exam_session", attempt_id=full_mock.reading_attempt.pk)
 
         elif full_mock.current_step == "writing":
             writing_mod = full_mock.mock_test.modules.get(module_type=ExamModule.ModuleType.WRITING, is_active=True)
@@ -1043,7 +1066,7 @@ def full_mock_ended(request, full_attempt_id):
         candidate=request.user,
     )
     if full_mock.status == FullMockAttempt.AttemptStatus.IN_PROGRESS:
-        if full_mock.current_step in {"listening", "writing"} and not getattr(full_mock, f"{full_mock.current_step}_attempt"):
+        if full_mock.current_step in {"listening", "reading", "writing"} and not getattr(full_mock, f"{full_mock.current_step}_attempt"):
             return redirect("bcl:full_mock_intermission", full_attempt_id=full_mock.pk)
         active_att = getattr(full_mock, f"{full_mock.current_step}_attempt", None)
         if active_att:
@@ -1089,25 +1112,20 @@ def full_mock_result(request, full_attempt_id):
 
     writing_tasks = []
     if writing_att:
-        sections = list(writing_att.module.sections.order_by("order", "pk").prefetch_related("questions"))
         ans_map = {a.question_id: a for a in CandidateAnswer.objects.filter(attempt=writing_att)}
         eval_map = {ev.task_number: ev for ev in writing_evaluations}
-        task_num = 1
-        for sec in sections:
-            for q in sec.questions.order_by("order"):
-                user_ans = ans_map.get(q.pk)
-                ans_text = user_ans.answer_text if user_ans else ""
-                words = len(ans_text.strip().split()) if ans_text.strip() else 0
-                evaluation = eval_map.get(task_num)
-                writing_tasks.append({
-                    "task_number": task_num,
-                    "section": sec,
-                    "question": q,
-                    "answer_text": ans_text,
-                    "word_count": words,
-                    "evaluation": evaluation,
-                })
-                task_num += 1
+        for task_num, q in enumerate(get_writing_task_questions(writing_att.module), start=1):
+            user_ans = ans_map.get(q.pk)
+            ans_text = user_ans.answer_text if user_ans else ""
+            words = len(ans_text.strip().split()) if ans_text.strip() else 0
+            writing_tasks.append({
+                "task_number": task_num,
+                "section": q.section,
+                "question": q,
+                "answer_text": ans_text,
+                "word_count": words,
+                "evaluation": eval_map.get(task_num),
+            })
 
     reading_time = "00:00"
     if full_mock.reading_attempt and full_mock.reading_attempt.submitted_at:

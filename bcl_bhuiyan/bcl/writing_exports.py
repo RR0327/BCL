@@ -11,7 +11,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_GET
 
-from .models import CandidateAttempt, CandidateAnswer, ExamModule, Question
+from .models import CandidateAttempt, CandidateAnswer, ExamModule, get_writing_task_questions
 from .writing_views import writing_result_band
 
 
@@ -23,19 +23,14 @@ def get_export_data(attempt_id):
     if attempt.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
         from django.http import Http404
         raise Http404("An active Writing attempt cannot be exported.")
-    questions = list(Question.objects.filter(
-        section__module_id=attempt.module_id,
-        section__order__in=(1, 2),
-        question_type=Question.QuestionType.ESSAY,
-    ).select_related("section").order_by("section__order", "order", "pk"))
+    questions = get_writing_task_questions(attempt.module)
     answers = {a.question_id: a.answer_text for a in CandidateAnswer.objects.filter(
         attempt=attempt, question_id__in=[q.pk for q in questions]
     )}
     evaluations = {e.task_number: e for e in attempt.task_evaluations.select_related("examiner")}
     tasks = []
     for n in (1, 2):
-        matching = [q for q in questions if q.section.order == n]
-        q = matching[0] if len(matching) == 1 else None
+        q = questions[n - 1] if len(questions) == 2 else None
         tasks.append({"number": n, "prompt": q.question_text if q else "Task not configured uniquely",
                       "response": answers.get(q.pk, "") if q else "", "evaluation": evaluations.get(n)})
     return attempt, tasks, writing_result_band(attempt)

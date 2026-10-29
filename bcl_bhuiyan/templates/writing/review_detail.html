@@ -724,7 +724,7 @@
         {% for task in task_cards %}
         <section class="task-card">
             <div class="task-header">
-                <h2>Task {{ task.number }}: {% if task.number == 1 %}Graph / Diagram Summary{% else %}Discursive / Argumentative Essay{% endif %}</h2>
+                <h2>Writing Task {{ task.number }}: {% if task.number == 1 %}Graph / Diagram Summary{% else %}Discursive / Argumentative Essay{% endif %}</h2>
                 {% if task.evaluation %}
                     <span class="task-badge graded">
                         ✓ Graded: Criterion Avg {{ task.evaluation.criterion_average }}
@@ -740,10 +740,10 @@
                 <div class="config-error-box">
                     <strong>⚠️ Section Configuration Notice:</strong>
                     <p style="margin: 8px 0;">
-                        Writing section order <strong>{{ task.number }}</strong> for this module does not yet have an Essay question configured.
+                        Writing Task <strong>{{ task.number }}</strong> does not yet have an Essay question configured.
                     </p>
                     <p>
-                        To enable grading for this task, please open the <a href="{% url 'admin:bcl_examsection_changelist' %}" target="_blank">Django Admin Exam Sections</a> and ensure Section order {{ task.number }} of <em>{{ attempt.module }}</em> has exactly one Question with type <code>Writing Task (Essay)</code>.
+                        To enable grading, configure exactly two Essay questions in <em>{{ attempt.module }}</em>. Questions are numbered by section order, then question order.
                     </p>
                 </div>
             {% else %}
@@ -755,7 +755,7 @@
                         <div class="section-bar question-bar">
                             <div class="bar-left">
                                 <span class="badge-pill question">QUESTION</span>
-                                <h4>Task {{ task.number }} Official Exam Prompt</h4>
+                                <h4>Writing Task {{ task.number }} Official Exam Prompt</h4>
                             </div>
                             <span style="font-size: 11.5px; opacity: 0.85;">Instructions given to student</span>
                         </div>

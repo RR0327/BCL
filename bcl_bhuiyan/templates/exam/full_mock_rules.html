@@ -328,17 +328,17 @@
         <!-- 3 Sequential Stages -->
         <div class="stages-grid">
             <div class="stage-box">
-                <span class="stage-order">Stage 1 &bull; 60 Mins</span>
-                <span class="stage-name">📖 Reading</span>
-                <span class="stage-meta">3 Passages, 40 Questions. Split-screen view with passage notes and highlighter.</span>
-            </div>
-            <div class="stage-box">
-                <span class="stage-order">Stage 2 &bull; 30 Mins</span>
+                <span class="stage-order">Stage 1 &bull; {{ listening_module.duration_minutes }} Mins</span>
                 <span class="stage-name">🎧 Listening</span>
                 <span class="stage-meta">4 Parts, 40 Questions. Continuous audio stream with synchronized answer saving.</span>
             </div>
             <div class="stage-box">
-                <span class="stage-order">Stage 3 &bull; 60 Mins</span>
+                <span class="stage-order">Stage 2 &bull; {{ reading_module.duration_minutes }} Mins</span>
+                <span class="stage-name">📖 Reading</span>
+                <span class="stage-meta">3 Passages, 40 Questions. Split-screen view with passage notes and highlighter.</span>
+            </div>
+            <div class="stage-box">
+                <span class="stage-order">Stage 3 &bull; {{ writing_module.duration_minutes }} Mins</span>
                 <span class="stage-name">✍️ Writing</span>
                 <span class="stage-meta">Task 1 (min 150w) &amp; Task 2 (min 250w). Autosaved responses &amp; live word counters.</span>
             </div>
@@ -347,8 +347,8 @@
         <div class="rules-box">
             <h3>Examination Rules &amp; Guidelines</h3>
             <ul>
-                <li><strong>Sequential Order:</strong> You must complete the modules in the required order: Reading &rarr; Listening &rarr; Writing.</li>
-                <li><strong>Dedicated Module Timers:</strong> Each module has its own independent countdown timer (60m Reading, 30m Listening, 60m Writing).</li>
+                <li><strong>Sequential Order:</strong> You must complete the modules in the required order: Listening &rarr; Reading &rarr; Writing.</li>
+                <li><strong>Dedicated Module Timers:</strong> Each module has its own independent countdown timer ({{ listening_module.duration_minutes }}m Listening, {{ reading_module.duration_minutes }}m Reading, {{ writing_module.duration_minutes }}m Writing).</li>
                 <li><strong>Intermission Screen:</strong> After submitting each module, you will see an intermission screen displaying your completion status and instructions before launching the next module.</li>
                 <li><strong>Listening Audio Notice:</strong> Listening audio plays continuously from the start and cannot be paused. Please ensure your audio or headphones are connected before proceeding.</li>
                 <li><strong>Integrity &amp; Exit:</strong> Navigating away or clicking the Back button will submit your active module and end your All-Module examination session.</li>
@@ -376,7 +376,7 @@
 
             <label class="agreement-box" for="acceptRules">
                 <input type="checkbox" id="acceptRules" name="accept_rules" value="yes" required>
-                <span>I have read and agree to follow all examination rules. I am ready to begin with Stage 1 (Reading).</span>
+                <span>I have read and agree to follow all examination rules. I am ready to begin with Stage 1 (Listening).</span>
             </label>
 
             <div class="actions-row">

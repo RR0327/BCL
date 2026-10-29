@@ -41,7 +41,7 @@
             <span class="subtitle text-xs text-gray-500 hidden sm:inline-block">· {{ module.get_module_type_display }} #{{ attempt.pk }}</span>
             {% if attempt.full_mock %}
             <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-100 text-indigo-700 dark:bg-indigo-900/60 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 shrink-0">
-                Full Mock · Stage {% if module.module_type == 'reading' %}1/3 (Reading){% elif module.module_type == 'listening' %}2/3 (Listening){% else %}3/3 (Writing){% endif %}
+                Full Mock · Stage {% if module.module_type == 'listening' %}1/3 (Listening){% elif module.module_type == 'reading' %}2/3 (Reading){% else %}3/3 (Writing){% endif %}
             </span>
             {% endif %}
         </div>
@@ -557,80 +557,54 @@
 
         {% else %}
         <!-- WRITING EXAM WORKSPACE -->
-        <div class="standard-exam-container flex flex-1 overflow-hidden">
-            <aside class="side-panel w-72 shrink-0 bg-white border-r border-slate-200 p-4 overflow-y-auto">
-                <h2 class="text-base font-bold text-slate-800 mb-1">Writing Tasks</h2>
-                <p class="helper text-xs text-slate-500 mb-3">Select Task 1 or Task 2 to switch editors. Your responses are saved separately.</p>
-                <div id="writingTotalWords" class="writing-total text-xs font-bold text-indigo-700 bg-indigo-50 p-2 rounded-lg mb-3">Total words: 0</div>
-                <div id="questionNav" class="question-nav grid grid-cols-2 gap-2 mb-4"></div>
-                <div class="legend flex flex-col gap-1.5 text-xs text-slate-600 mb-3">
-                    <span><i class="dot answered"></i> Completed</span>
-                    <span><i class="dot"></i> Incomplete</span>
-                </div>
-                <p id="answeredCount" class="helper text-xs text-slate-500 font-medium mb-2">0 completed</p>
-                <p class="helper text-xs text-slate-400">Responses autosave every 15 seconds and when you switch tasks.</p>
-            </aside>
+        <div class="writing-exam-workspace flex flex-1 flex-col overflow-hidden">
+            <p class="integrity-hint text-xs text-amber-800 bg-amber-50 border border-amber-200 rounded-lg p-3 mx-4 mt-3" id="integrityHint">
+                Exam integrity: leaving this tab or switching windows triggers a warning; a 3rd recorded violation automatically submits this exam.
+            </p>
 
-            <div class="exam-content flex-1 overflow-y-auto p-6 bg-slate-50">
-                <section class="writing-overview" aria-label="Writing exam information">
-                    <div>
-                        <strong class="text-base font-bold text-slate-800 block mb-1">IELTS Academic Writing</strong>
-                        <p class="text-sm text-slate-600">Complete both Task 1 and Task 2 within the shared exam time. You may switch between tasks at any time.</p>
-                    </div>
-                    <p class="helper text-xs text-slate-400 mt-2">Task 1: about 20 minutes · Task 2: about 40 minutes.</p>
-                </section>
-
-                <p class="integrity-hint text-xs text-amber-800 bg-amber-50 border border-amber-200 rounded-lg p-3 mb-4" id="integrityHint">
-                    Exam integrity: leaving this tab or switching windows triggers a warning; a 3rd recorded violation automatically submits this exam.
-                </p>
-
+            <div class="writing-task-list flex-1 overflow-hidden">
                 {% for section in sections %}
                     {% for question in section.questions.all %}
-                        <section class="question-panel bg-white border border-slate-200 rounded-xl p-6 mb-6 shadow-sm" data-question-id="{{ question.pk }}" data-section-id="{{ section.pk }}" data-task-label="{{ section.title }}" hidden>
-                            <div class="question-heading flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
-                                <span class="section-name text-xs font-bold text-indigo-600 uppercase">{{ section.title }}</span>
-                                <span class="question-number text-xs font-semibold text-slate-500">Task {{ forloop.parentloop.counter }}</span>
-                            </div>
+                        <section class="question-panel writing-task-panel" data-question-id="{{ question.pk }}" data-section-id="{{ section.pk }}" data-task-label="Writing Task {{ question.writing_task_number }}" hidden>
+                            <header class="writing-task-heading">
+                                <strong>Writing Task {{ question.writing_task_number }}</strong>
+                                <span>You should spend about {% if question.writing_task_number == 1 %}20 minutes on this task. Write at least 150 words.{% elif question.writing_task_number == 2 %}40 minutes on this task. Write at least 250 words.{% else %}60 minutes on this task.{% endif %}</span>
+                            </header>
+                            <div class="writing-task-split">
+                                <div class="writing-question-pane">
+                                    {% if question.question_instructions %}
+                                    <p class="question-instructions whitespace-pre-line">{{ question.question_instructions }}</p>
+                                    {% endif %}
 
-                            {% if question.question_instructions %}
-                            <p class="question-instructions text-sm text-slate-600 italic mb-4 whitespace-pre-line">{{ question.question_instructions }}</p>
-                            {% endif %}
+                                    {% if section.image %}
+                                    <img class="section-image max-h-72 object-contain rounded-lg mb-4" src="{% url 'bcl:section_media' attempt.pk section.pk 'image' %}" alt="Writing Task {{ question.writing_task_number }} illustration">
+                                    {% endif %}
 
-                            {% if section.image %}
-                            <img class="section-image max-h-72 object-contain rounded-lg mb-4" src="{% url 'bcl:section_media' attempt.pk section.pk 'image' %}" alt="Section illustration">
-                            {% endif %}
+                                    {% if question.image %}
+                                    <div class="question-figure mb-4 rounded-lg border border-slate-200 bg-white p-2.5 flex flex-col items-center">
+                                        <img src="{% url 'bcl:question_media' attempt.pk question.pk %}" alt="Writing Task {{ question.writing_task_number }} illustration" class="max-h-72 object-contain rounded-md">
+                                    </div>
+                                    {% endif %}
 
-                            {% if question.image %}
-                            <div class="question-figure mb-4 rounded-lg border border-slate-200 bg-white p-2.5 flex flex-col items-center">
-                                <img src="{% url 'bcl:question_media' attempt.pk question.pk %}" alt="Task illustration" class="max-h-72 object-contain rounded-md">
-                            </div>
-                            {% endif %}
+                                    {% if question.table_content %}
+                                    <div class="question-table-wrapper mb-4 overflow-x-auto rounded-lg border border-slate-200 bg-white p-3 text-sm">
+                                        {{ question.table_content|safe }}
+                                    </div>
+                                    {% endif %}
 
-                            {% if question.table_content %}
-                            <div class="question-table-wrapper mb-4 overflow-x-auto rounded-lg border border-slate-200 bg-white p-3 text-sm">
-                                {{ question.table_content|safe }}
-                            </div>
-                            {% endif %}
-
-                            <div class="question-answer-area">
-                                <h2 class="question-prompt text-base font-semibold text-slate-800 mb-4 whitespace-pre-line">{{ question.question_text }}</h2>
-                                <div class="writing-task-info bg-indigo-50/60 border border-indigo-100 rounded-lg p-3 mb-3 flex items-center justify-between">
-                                    <strong class="text-xs font-bold text-indigo-900">{{ section.title }}</strong>
-                                    <span class="writing-target text-xs text-indigo-700 font-medium">{% if section.order == 1 %}Suggested minimum: 150 words{% elif section.order == 2 %}Suggested minimum: 250 words{% else %}Writing response{% endif %}</span>
+                                    <h2 class="question-prompt whitespace-pre-line">{{ question.question_text }}</h2>
                                 </div>
-                                <label for="answer-{{ question.pk }}" class="block text-xs font-bold text-slate-700 mb-1">Your writing response</label>
-                                <textarea id="answer-{{ question.pk }}" class="answer-field writing-editor" rows="16" maxlength="20000" spellcheck="true" placeholder="Write your response here..."></textarea>
-                                <p class="word-count text-xs font-bold text-indigo-600 mt-2" aria-live="polite">Words: <span>0</span> <span class="writing-save-note font-normal text-slate-400">· Saved automatically every 15 seconds</span></p>
+                                <div class="writing-answer-pane">
+                                    <label for="answer-{{ question.pk }}" class="sr-only">Answer Writing Task {{ question.writing_task_number }}</label>
+                                    <textarea id="answer-{{ question.pk }}" class="answer-field writing-editor" maxlength="20000" spellcheck="true" placeholder="{% if section.order == 1 %}Start writing your response here...{% else %}Write your essay here...{% endif %}"></textarea>
+                                    <p class="word-count" aria-live="polite">Words: <span>0</span> <span class="writing-save-note">· Saved automatically every 15 seconds</span></p>
+                                </div>
                             </div>
                         </section>
                     {% endfor %}
                 {% endfor %}
-
-                <nav class="question-controls flex items-center justify-between mt-6" aria-label="Question controls">
-                    <button type="button" id="prevQuestion" class="px-4 py-2 border border-slate-300 rounded-lg text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 transition-colors disabled:opacity-40">&larr; Previous Task</button>
-                    <button type="button" id="nextQuestion" class="px-4 py-2 border border-slate-300 rounded-lg text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 transition-colors disabled:opacity-40">Next Task &rarr;</button>
-                </nav>
             </div>
+            <p id="answeredCount" class="sr-only" aria-live="polite">0 of 0 completed</p>
         </div>
         {% endif %}
 
@@ -648,6 +622,10 @@
 
     <!-- Bottom Navigation Bar (Footer) -->
     <footer class="exam-footer flex items-stretch h-14 bg-gradient-to-t from-blue-50 via-indigo-50 to-purple-50/95 backdrop-blur-xl border-t border-indigo-200 shrink-0 z-20">
+        {% if module.module_type == 'writing' %}
+        <nav id="questionNav" class="writing-task-nav flex items-center gap-2 flex-1 min-w-0 px-4" aria-label="Writing tasks navigation"></nav>
+        <span id="writingTotalWords" class="writing-total">Total words: 0</span>
+        {% else %}
         <!-- Part Tabs (Part 1, Part 2, Part 3) -->
         <div id="partNav" class="part-nav flex items-stretch flex-1 min-w-0" aria-label="Parts navigation">
             {% for part in sections %}
@@ -668,6 +646,7 @@
         </div>
 
         <div class="w-px bg-gray-200 shrink-0"></div>
+        {% endif %}
 
         <!-- Right Action Buttons -->
         <div class="flex items-center gap-2 px-3 shrink-0">

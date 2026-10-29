@@ -771,6 +771,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 btn.type = "button";
                 btn.className = "q-nav-btn p-2 rounded-lg border border-slate-200 text-xs font-bold text-center cursor-pointer transition-colors";
                 btn.textContent = panel.dataset.taskLabel || `Task ${pos + 1}`;
+                btn.setAttribute("aria-label", `Go to ${btn.textContent}`);
+                if (pos === currentIndex) btn.setAttribute("aria-current", "step");
                 btn.classList.toggle("bg-emerald-100", hasAnswer);
                 btn.classList.toggle("border-emerald-300", hasAnswer);
                 btn.classList.toggle("ring-2", pos === currentIndex);
@@ -929,10 +931,10 @@ document.addEventListener("DOMContentLoaded", () => {
         submitBtnFooter.addEventListener("click", () => {
             let msg = "Are you sure you want to submit your examination? You cannot modify answers after submitting.";
             if (isFullMock) {
-                if (currentModuleType === "reading") {
-                    msg = "Are you sure you want to submit Reading and proceed to the Listening module? You cannot change Reading answers after submitting.";
-                } else if (currentModuleType === "listening") {
-                    msg = "Are you sure you want to submit Listening and proceed to the Writing module? You cannot change Listening answers after submitting.";
+                if (currentModuleType === "listening") {
+                    msg = "Are you sure you want to submit Listening and proceed to the Reading module? You cannot change Listening answers after submitting.";
+                } else if (currentModuleType === "reading") {
+                    msg = "Are you sure you want to submit Reading and proceed to the Writing module? You cannot change Reading answers after submitting.";
                 } else if (currentModuleType === "writing") {
                     msg = "Are you sure you want to finalize and submit all modules of your IELTS Examination?";
                 }
@@ -959,10 +961,10 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             let msg = "Are you sure you want to submit your examination? You cannot modify answers after submitting.";
             if (isFullMock) {
-                if (currentModuleType === "reading") {
-                    msg = "Are you sure you want to submit Reading and proceed to the Listening module? You cannot change Reading answers after submitting.";
-                } else if (currentModuleType === "listening") {
-                    msg = "Are you sure you want to submit Listening and proceed to the Writing module? You cannot change Listening answers after submitting.";
+                if (currentModuleType === "listening") {
+                    msg = "Are you sure you want to submit Listening and proceed to the Reading module? You cannot change Listening answers after submitting.";
+                } else if (currentModuleType === "reading") {
+                    msg = "Are you sure you want to submit Reading and proceed to the Writing module? You cannot change Reading answers after submitting.";
                 } else if (currentModuleType === "writing") {
                     msg = "Are you sure you want to finalize and submit all modules of your IELTS Examination?";
                 }

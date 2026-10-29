@@ -327,6 +327,134 @@ html[data-theme="dark"] .writing-overview {
     font-family: var(--font-sans);
     resize: vertical;
 }
+.integrity-hint {
+    background-color: #fffbeb;
+    border: 1px solid #fcd34d;
+    color: #78350f;
+}
+.writing-exam-workspace {
+    min-height: 0;
+    background: #ffffff;
+}
+.writing-task-list {
+    min-height: 0;
+}
+.writing-task-panel:not([hidden]) {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+    background: #ffffff;
+}
+.writing-task-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 48px;
+    padding: 8px 16px;
+    border-bottom: 1px solid #cbd5e1;
+    color: #0f172a;
+    background: #f8fafc;
+}
+.writing-task-heading strong {
+    flex: 0 0 auto;
+    font-size: 13px;
+    font-weight: 700;
+}
+.writing-task-heading span {
+    font-size: 13px;
+}
+.writing-task-split {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+}
+.writing-question-pane,
+.writing-answer-pane {
+    flex: 1 1 50%;
+    min-width: 0;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 20px;
+}
+.writing-question-pane {
+    border-right: 1px solid #cbd5e1;
+    background: #ffffff;
+}
+.writing-answer-pane {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: #ffffff;
+}
+.writing-question-pane .question-prompt {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.65;
+    color: #1e293b;
+}
+.writing-question-pane .question-instructions {
+    margin: 0 0 16px;
+    color: #475569;
+    font-size: 14px;
+}
+.writing-answer-pane .writing-editor {
+    flex: 1;
+    min-height: 0;
+    resize: none;
+    font-size: 16px;
+    line-height: 1.6;
+}
+.writing-answer-pane .word-count {
+    flex: 0 0 auto;
+    margin: 0;
+    color: #1d4ed8;
+    font-size: 12px;
+    font-weight: 700;
+}
+.writing-answer-pane .writing-save-note {
+    color: #94a3b8;
+    font-weight: 400;
+}
+.writing-task-nav .q-nav-btn {
+    min-width: 112px;
+    height: 36px;
+    padding: 0 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #334155;
+    font-size: 12px;
+    font-weight: 600;
+}
+.writing-task-nav .q-nav-btn.ring-2 {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px #bfdbfe;
+}
+.writing-total {
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    border-left: 1px solid #cbd5e1;
+    color: #334155;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
 .writing-editor:focus {
     outline: none;
     border-color: #6366f1;
@@ -1199,6 +1327,39 @@ html[data-theme="dark"] .writing-overview {
     background-color: #1e293b !important;
     border-color: #334155 !important;
 }
+html.dark .writing-task-panel,
+html[data-theme="dark"] .writing-task-panel,
+html.dark .writing-question-pane,
+html.dark .writing-answer-pane,
+html[data-theme="dark"] .writing-question-pane,
+html[data-theme="dark"] .writing-answer-pane {
+    background-color: #0f172a !important;
+}
+html.dark .writing-task-heading,
+html[data-theme="dark"] .writing-task-heading {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+html.dark .writing-question-pane,
+html[data-theme="dark"] .writing-question-pane {
+    border-right-color: #334155 !important;
+}
+html.dark .writing-question-pane .question-prompt,
+html[data-theme="dark"] .writing-question-pane .question-prompt {
+    color: #f8fafc !important;
+}
+html.dark .writing-task-nav .q-nav-btn,
+html[data-theme="dark"] .writing-task-nav .q-nav-btn {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+    color: #e2e8f0 !important;
+}
+html.dark .writing-total,
+html[data-theme="dark"] .writing-total {
+    border-color: #334155 !important;
+    color: #e2e8f0 !important;
+}
 html.dark .writing-overview strong,
 html[data-theme="dark"] .writing-overview strong {
     color: #f8fafc !important;
@@ -1209,9 +1370,9 @@ html[data-theme="dark"] .writing-overview p {
 }
 html.dark .integrity-hint,
 html[data-theme="dark"] .integrity-hint {
-    background-color: rgba(245, 158, 11, 0.12) !important;
-    border-color: rgba(245, 158, 11, 0.3) !important;
-    color: #fde68a !important;
+    background-color: #422006 !important;
+    border-color: #a16207 !important;
+    color: #fef3c7 !important;
 }
 html.dark .writing-task-info,
 html[data-theme="dark"] .writing-task-info {
@@ -1225,6 +1386,37 @@ html[data-theme="dark"] .writing-task-info strong {
 html.dark .writing-task-info span,
 html[data-theme="dark"] .writing-task-info span {
     color: #cbd5e1 !important;
+}
+
+@media (max-width: 700px) {
+    .writing-task-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 2px;
+    }
+    .writing-task-split {
+        flex-direction: column;
+        overflow-y: auto;
+    }
+    .writing-question-pane,
+    .writing-answer-pane {
+        flex: 1 0 50%;
+        min-height: 220px;
+    }
+    .writing-question-pane {
+        border-right: 0;
+        border-bottom: 1px solid #cbd5e1;
+    }
+    .writing-answer-pane .writing-editor {
+        min-height: 180px;
+    }
+    .writing-task-nav .q-nav-btn {
+        min-width: auto;
+    }
+    .writing-total {
+        padding: 0 8px;
+        font-size: 11px;
+    }
 }
 html.dark .word-count,
 html[data-theme="dark"] .word-count {
