@@ -1674,3 +1674,43 @@ html.dark .listening-audio-btn.state-complete span {
 @keyframes liveSpin {
     to { transform: rotate(360deg); }
 }
+
+/* =========================================================================
+   Writing Task 1 Illustration / Diagram Sizing Enhancement
+   ========================================================================= */
+.writing-question-pane .section-image,
+.writing-question-pane .section-image-wrapper img,
+.writing-question-pane .question-figure img {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 650px !important;
+    height: auto !important;
+    object-fit: contain !important;
+    display: block !important;
+    margin: 0 auto !important;
+    border-radius: 8px !important;
+}
+
+.writing-question-pane .section-image-wrapper,
+.writing-question-pane .question-figure {
+    width: 100% !important;
+    max-width: 100% !important;
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+    padding: 14px !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05) !important;
+    margin-bottom: 20px !important;
+}
+
+html[data-theme="dark"] .writing-question-pane .section-image-wrapper,
+html[data-theme="dark"] .writing-question-pane .question-figure,
+html.dark .writing-question-pane .section-image-wrapper,
+html.dark .writing-question-pane .question-figure {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+.cursor-zoom-in {
+    cursor: zoom-in !important;
+}

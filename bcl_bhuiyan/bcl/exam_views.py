@@ -375,13 +375,89 @@ def get_listening_filepath(mock_num):
             return p
     return None
 
+
+def parse_listening_answer_key(mock_num):
+    """
+    Parse the official answer key for a listening mock test directly from its HTML file.
+    Supports single keys, lists of synonyms, range keys (e.g. q11-12, q13_14), and pickGroups.
+    Returns a dict mapping string question number ('1'..'40') to formatted string or list of valid answers.
+    """
+    import re
+    import ast
+
+    filepath = get_listening_filepath(mock_num)
+    if not filepath or not os.path.exists(filepath):
+        return {}
+
+    try:
+        with open(filepath, "r", encoding="utf-8", errors="replace") as f:
+            txt = f.read()
+    except Exception as exc:
+        logger.error("Error reading listening file %s for answer key: %s", filepath, exc)
+        return {}
+
+    answers = {}
+    m = re.search(r'(?:const|let|var)\s+correctAnswers\s*=\s*(\{[\s\S]*?\n\s*\};?)', txt)
+    if not m:
+        m = re.search(r'(?:const|let|var)\s+correctAnswers\s*=\s*(\{[\s\S]*?\});', txt)
+
+    if m:
+        raw_block = m.group(1).rstrip(';').strip()
+        matches = re.findall(r'[\'"]?([a-zA-Z0-9_\-]+)[\'"]?\s*:\s*(\[[^\]]*\]|[\'"][^\'"]*[\'"]|[^,\n}]+)', raw_block)
+        for k_raw, v_raw in matches:
+            k = k_raw.replace('q', '').strip()
+            v_str = v_raw.strip().rstrip(',')
+            if v_str.startswith('[') and v_str.endswith(']'):
+                try:
+                    val = ast.literal_eval(v_str)
+                except Exception:
+                    val = re.findall(r'[\'"]([^\'"]*)[\'"]', v_str)
+            elif (v_str.startswith('"') and v_str.endswith('"')) or (v_str.startswith("'") and v_str.endswith("'")):
+                val = v_str[1:-1]
+            else:
+                val = v_str.strip("'\"")
+
+            sep = '-' if '-' in k else ('_' if '_' in k else None)
+            if sep:
+                parts = k.split(sep)
+                if len(parts) == 2 and parts[0].isdigit() and parts[1].isdigit():
+                    p_start, p_end = int(parts[0]), int(parts[1])
+                    val_str = ", ".join(val) if isinstance(val, (list, tuple)) else str(val)
+                    for num in range(p_start, p_end + 1):
+                        answers[str(num)] = val_str
+                else:
+                    answers[k] = val
+            else:
+                answers[k] = val
+
+    pg_match = re.search(r'(?:const|let|var)\s+pickGroups\s*=\s*(\[[\s\S]*?\]);', txt)
+    if pg_match:
+        for obj_str in re.findall(r'\{[^{}]*\}', pg_match.group(1)):
+            start_m = re.search(r'qStart\s*:\s*(\d+)', obj_str)
+            end_m = re.search(r'qEnd\s*:\s*(\d+)', obj_str)
+            target_m = re.search(r'target\s*:\s*(\[[^\]]*\])', obj_str)
+            if start_m and end_m and target_m:
+                q_start = int(start_m.group(1))
+                q_end = int(end_m.group(1))
+                try:
+                    targets = ast.literal_eval(target_m.group(1))
+                except Exception:
+                    targets = re.findall(r'[\'"]([^\'"]*)[\'"]', target_m.group(1))
+                targets_str = ", ".join(targets)
+                for q_num in range(q_start, q_end + 1):
+                    if str(q_num) not in answers:
+                        answers[str(q_num)] = targets_str
+
+    return answers
+
+
 def render_listening_html(request, attempt):
     r"""
     Render client-side raw HTML listening module from D:\BCL-Bhuiyan\listening\
     Styled to seamlessly match the website design system (Geist font, modern cards, indigo accents),
     with full student info, score, and answer payload persisted to database on submit, plus modern completion modal.
     Authoritative 35-minute timer ensures 35:00 countdown both in dashboard and exam session.
-    Audio engine enforces continuous IELTS audio: audio can be started but CANNOT be paused even on page reload.
+    Audio engine enforces continuous IELTS audio: all sections play seamlessly together from start to finish.
     Includes initial exam instruction modal upon entry and full exam integrity tab-switching monitoring with auto-submit.
     """
     import os
@@ -403,13 +479,15 @@ def render_listening_html(request, attempt):
         logger.error("Error reading listening file %s: %s", filepath, exc)
         return HttpResponse(f"Error loading listening module for Mock Test {mock_num}.", status=500)
 
-    # Enforce authoritative 35-minute module duration
+    # Enforce authoritative 40-minute module duration
     now = timezone.now()
-    if attempt.module.duration_minutes != 35:
-        attempt.module.duration_minutes = 35
+    if attempt.module.duration_minutes != 40:
+        attempt.module.duration_minutes = 40
         attempt.module.save(update_fields=["duration_minutes"])
 
-    max_seconds = 35 * 60  # 2100 seconds
+    max_seconds = 40 * 60  # 2400 seconds
+    server_answer_key = parse_listening_answer_key(mock_num)
+    server_answer_key_json = json.dumps(server_answer_key)
     if not attempt.expires_at:
         attempt.expires_at = now + timedelta(seconds=max_seconds)
         attempt.save(update_fields=["expires_at"])
@@ -434,6 +512,11 @@ def render_listening_html(request, attempt):
     ended_url = reverse("bcl:full_mock_ended", args=[attempt.full_mock_id]) if is_full_mock else reverse("bcl:exam_ended", args=[attempt.pk])
     candidate_name = request.user.get_full_name() or request.user.username
     candidate_username = request.user.username
+
+    # Resolve Unified Continuous Merged Audio File if available
+    merged_audio_rel = f"/static/listening_audio/mock_{mock_num}_full.mp3"
+    merged_audio_path = os.path.join(settings.BASE_DIR, "static", "listening_audio", f"mock_{mock_num}_full.mp3")
+    merged_audio_url = merged_audio_rel if os.path.exists(merged_audio_path) else ""
 
     # Injected Website Design System Integration (Geist & Geist Mono fonts, matching exam.css)
     bcl_design_css = """
@@ -649,55 +732,89 @@ def render_listening_html(request, attempt):
             transform: translateY(-1px);
         }
 
-        /* Modern Audio Bar & Equalizer */
-        .audio-bar, .listening-player-bar, .audio-player-container {
-            height: 64px !important;
+        /* =========================================================================
+           Unified Fixed Audio Bar across all 30 Mock Tests (Clean, centered, no overlap)
+           ========================================================================= */
+        .audio-bar,
+        .listening-player-bar,
+        .audio-player-container,
+        div[class*="audio-player"] {
             position: fixed !important;
             top: 60px !important;
             left: 0 !important;
             right: 0 !important;
-            z-index: 99 !important;
-            background: linear-gradient(to right, rgba(238, 242, 255, 0.98), rgba(255, 255, 255, 0.98)) !important;
+            transform: none !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            height: 58px !important;
+            z-index: 9999 !important;
+            background: linear-gradient(to right, #f8fafc, #eff6ff, #f8fafc) !important;
             border-bottom: 1px solid #c7d2fe !important;
             display: flex !important;
             align-items: center !important;
+            justify-content: center !important;
             padding: 0 20px !important;
-            box-shadow: 0 1px 3px rgba(79, 70, 229, 0.04) !important;
+            box-shadow: 0 2px 6px rgba(79, 70, 229, 0.06) !important;
+            box-sizing: border-box !important;
+            gap: 16px !important;
         }
 
-        .audio-shell {
-            background: #ffffff !important;
-            border: 1px solid #c7d2fe !important;
-            border-radius: 12px !important;
-            box-shadow: 0 1px 3px rgba(79, 70, 229, 0.06) !important;
-            width: 100% !important;
-            max-width: 1260px !important;
-            margin: 0 auto !important;
-            height: 44px !important;
-            display: flex !important;
-            align-items: center !important;
-            padding: 0 12px !important;
-            gap: 12px !important;
+        /* Push main question content down below 60px header + 58px audio bar so questions NEVER overlap! */
+        .main-container,
+        .main-area,
+        #questionsPanel,
+        .questions-panel,
+        .left-panel,
+        .right-panel {
+            padding-top: 135px !important;
+            margin-top: 0 !important;
         }
 
-        .audio-play {
+        /* Suppress premature Check Answers / Deliver buttons on the exam page */
+        #deliver-button,
+        #checkButton,
+        #check-btn,
+        #btnCheckAnswers,
+        .footer__deliverButton___3FM07,
+        .deliver-btn,
+        .check-btn:not(#bclHeaderSubmitBtn),
+        button[onclick*="checkAnswers"]:not(#bclHeaderSubmitBtn) {
+            display: none !important;
+        }
+
+        /* Unify Master Play Button */
+        .player-btn,
+        .audio-play,
+        .audio-btn-play,
+        #play-pause-btn,
+        #btnAudioPlay,
+        #btnPlayPause {
             background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
             color: #ffffff !important;
             border: none !important;
             border-radius: 9999px !important;
-            padding: 6px 16px !important;
-            font-size: 13px !important;
+            padding: 8px 22px !important;
+            font-size: 13.5px !important;
             font-weight: 700 !important;
             display: inline-flex !important;
             align-items: center !important;
-            gap: 6px !important;
-            box-shadow: 0 2px 6px rgba(79, 70, 229, 0.3) !important;
+            justify-content: center !important;
+            gap: 8px !important;
             cursor: pointer !important;
+            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3) !important;
             transition: all 0.15s ease !important;
+            min-width: 150px !important;
+            height: 38px !important;
         }
-        .audio-play.playing {
+
+        .player-btn.playing,
+        .audio-play.playing,
+        .audio-btn-play.playing,
+        #play-pause-btn.playing,
+        #btnAudioPlay.playing,
+        #btnPlayPause.playing {
             background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important;
-            box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3) !important;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3) !important;
             cursor: default !important;
         }
 
@@ -724,32 +841,17 @@ def render_listening_html(request, attempt):
             100% { height: 4px; }
         }
 
-        #seekSlider {
-            accent-color: #4f46e5 !important;
-        }
-        #volumeSlider {
-            accent-color: #4f46e5 !important;
-        }
-        .time-text {
-            font-family: var(--font-mono) !important;
-            font-size: 13px !important;
-            font-weight: 600 !important;
-            color: #475569 !important;
+        /* Hide skip buttons & lock scrubbing */
+        #back10, #forward10, .skip-btn, .audio-btn-circle, #btnAudioBack, #btnAudioFwd {
+            display: none !important;
         }
 
-        /* Workspace & Question Containers */
-        .main-area, .main-container {
-            top: 124px !important;
-            bottom: 72px !important;
-            background: var(--bcl-bg) !important;
-            font-family: var(--font-sans) !important;
+        #seekSlider, #progress-bar, .progress-container, #audioProgressContainer {
+            pointer-events: none !important;
+            opacity: 0.85 !important;
         }
 
-        .questions-panel {
-            background: var(--bcl-bg) !important;
-            padding: 16px 20px 100px 20px !important;
-        }
-
+        /* Cards & Section Panels */
         .question-card, .notes-card, .section-content, .ldm-task, .question-block, .question, .section-panel, .question-group {
             background: #ffffff !important;
             border: 1px solid #e2e8f0 !important;
@@ -767,18 +869,6 @@ def render_listening_html(request, attempt):
             padding: 12px 18px !important;
             margin: 10px auto 16px auto !important;
             max-width: 1220px !important;
-        }
-        .section-banner p {
-            font-size: 14.5px !important;
-            font-weight: 600 !important;
-            color: #1e1b4b !important;
-            margin: 0 !important;
-        }
-        .section-banner p + p {
-            font-size: 13px !important;
-            font-weight: 400 !important;
-            color: #475569 !important;
-            margin-top: 2px !important;
         }
 
         /* Input Controls */
@@ -800,29 +890,6 @@ def render_listening_html(request, attempt):
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2) !important;
         }
 
-        /* Options */
-        .mc-option, .pick-option, .question-option, .option-item, label:has(input[type="radio"]), label:has(input[type="checkbox"]) {
-            font-family: var(--font-sans) !important;
-            font-size: 14px !important;
-            border-radius: 8px !important;
-            border: 1px solid #e2e8f0 !important;
-            background: #ffffff !important;
-            padding: 9px 14px !important;
-            margin-bottom: 7px !important;
-            cursor: pointer !important;
-            transition: all 0.15s ease !important;
-        }
-        .mc-option:hover, .pick-option:hover, .question-option:hover, .option-item:hover, label:has(input[type="radio"]):hover, label:has(input[type="checkbox"]):hover {
-            background: #f8fafc !important;
-            border-color: #c7d2fe !important;
-        }
-        .mc-option:has(input:checked), .pick-option:has(input:checked) {
-            background: #eef2ff !important;
-            border-color: #818cf8 !important;
-            color: #3730a3 !important;
-            font-weight: 600 !important;
-        }
-
         /* Bottom Navigation Bar */
         .fixed-bottom, .nav-row, .bottom-nav, .footer-nav {
             position: fixed !important;
@@ -840,66 +907,6 @@ def render_listening_html(request, attempt):
             justify-content: space-between !important;
             padding: 0 20px !important;
             z-index: 9999 !important;
-        }
-
-        .section-tab, .footer__questionNo___3WNct, .part-btn, .nav-tab, .tab-btn {
-            font-family: var(--font-sans) !important;
-            font-size: 13.5px !important;
-            font-weight: 600 !important;
-            padding: 8px 16px !important;
-            border-radius: 8px !important;
-            border: 1px solid #e2e8f0 !important;
-            background: #ffffff !important;
-            color: #475569 !important;
-            cursor: pointer !important;
-            transition: all 0.15s ease !important;
-        }
-        .section-tab.active, .footer__questionWrapper___1tZ46.selected .footer__questionNo___3WNct, .part-btn.active, .nav-tab.active, .tab-btn.active {
-            background: #eef2ff !important;
-            color: #4f46e5 !important;
-            border-color: #c7d2fe !important;
-            font-weight: 700 !important;
-            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2) !important;
-        }
-
-        .subQuestion {
-            font-family: var(--font-mono) !important;
-            font-size: 13px !important;
-            font-weight: 600 !important;
-            border-radius: 6px !important;
-            border: 1px solid #cbd5e1 !important;
-            background: #ffffff !important;
-            color: #334155 !important;
-            transition: all 0.15s ease !important;
-        }
-        .subQuestion.active {
-            background: #4f46e5 !important;
-            border-color: #4f46e5 !important;
-            color: #ffffff !important;
-            box-shadow: 0 2px 6px rgba(79, 70, 229, 0.35) !important;
-        }
-        .subQuestion.answered {
-            background: #e0e7ff !important;
-            border-color: #a5b4fc !important;
-            color: #3730a3 !important;
-        }
-
-        .check-btn {
-            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
-            color: #ffffff !important;
-            font-family: var(--font-sans) !important;
-            font-size: 13.5px !important;
-            font-weight: 700 !important;
-            border-radius: 8px !important;
-            border: none !important;
-            padding: 9px 20px !important;
-            box-shadow: 0 3px 10px rgba(79, 70, 229, 0.3) !important;
-            cursor: pointer !important;
-            transition: all 0.15s ease !important;
-        }
-        .check-btn:hover {
-            background: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%) !important;
-            transform: translateY(-1px);
         }
 
         /* Modern BCL Results Popup Modal */
@@ -1327,7 +1334,7 @@ def render_listening_html(request, attempt):
         <div class="bcl-header-group">
             <div class="bcl-timer-pill" title="Exam Timer">
                 <span>⏱️</span>
-                <span id="bclHeaderTimer">35:00</span>
+                <span id="bclHeaderTimer">40:00</span>
             </div>
             <div class="bcl-user-badge">
                 Candidate: <strong>{candidate_name}</strong>
@@ -1393,7 +1400,7 @@ def render_listening_html(request, attempt):
 
             <div class="bcl-modal-bottom">
                 <button type="button" class="bcl-back-link" onclick="bclCloseModal()">Review on Page</button>
-                <button type="button" class="bcl-submit-btn" onclick="window.location.href='{next_url}'">
+                <button type="button" class="bcl-submit-btn" id="bclModalNextBtn" onclick="window.location.href=(window.__bclConfirmedNextUrl || '{next_url}')">
                     {next_btn_label}
                 </button>
             </div>
@@ -1410,7 +1417,7 @@ def render_listening_html(request, attempt):
                 <div>
                     <span class="bcl-stage-pill">Official Exam Guidelines</span>
                     <h2 class="bcl-instruction-title">IELTS Academic Listening Instructions</h2>
-                    <p class="bcl-instruction-sub">Test {mock_num}: {mock_test.title} &bull; 40 Questions &bull; 35 Minutes</p>
+                    <p class="bcl-instruction-sub">Test {mock_num}: {mock_test.title} &bull; 40 Questions &bull; 40 Minutes</p>
                 </div>
             </div>
 
@@ -1419,8 +1426,8 @@ def render_listening_html(request, attempt):
                 <div class="bcl-notice-card audio-notice">
                     <div class="bcl-notice-icon">🔊</div>
                     <div class="bcl-notice-content">
-                        <strong>Continuous Audio Recording (Plays ONCE only)</strong>
-                        <div>The recording will play continuously from start to finish. Once started, <strong>it cannot be paused, rewound, or stopped</strong>. Please adjust your audio volume to a comfortable level now before starting.</div>
+                        <strong>Continuous Audio Recording (All 4 Sections Merge &amp; Play ONCE)</strong>
+                        <div>The listening recording plays continuously from Section 1 through Section 4. Once started, <strong>it cannot be paused, rewound, or stopped</strong>. You can navigate between test parts at any time without interrupting the recording.</div>
                     </div>
                 </div>
 
@@ -1445,11 +1452,11 @@ def render_listening_html(request, attempt):
                     </div>
                     <div class="bcl-rule-item">
                         <span class="bcl-check-bullet">&check;</span>
-                        <span><strong>35-Minute Server Timer:</strong> The countdown starts immediately. Refreshing the browser does not pause your exam timer or audio.</span>
+                        <span><strong>40-Minute Server Timer:</strong> The countdown starts immediately. Refreshing the browser does not pause your exam timer or audio.</span>
                     </div>
                     <div class="bcl-rule-item">
                         <span class="bcl-check-bullet">&check;</span>
-                        <span><strong>Submission:</strong> When finished, click <em>Submit Listening &check;</em> to record your score and review your answers.</span>
+                        <span><strong>Official Submission:</strong> When finished, click <em>Submit Listening &check;</em> in the top header to save your test and review your answers.</span>
                     </div>
                 </div>
             </div>
@@ -1480,10 +1487,11 @@ def render_listening_html(request, attempt):
     </div>
     """
 
-    # Client-Side Bridge JavaScript with Authoritative 35:00 Timer, Continuous Audio Engine, and Tab-Switch Detection
+    # Client-Side Bridge JavaScript with Continuous Multi-Section Audio Engine
     bcl_bridge_js = f"""
     <script>
     (function() {{
+        const attemptId = {attempt.pk};
         const mockId = {mock_id};
         const submitUrl = "{submit_url}";
         const nextUrl = "{next_url}";
@@ -1492,10 +1500,11 @@ def render_listening_html(request, attempt):
         const csrfToken = "{csrf_token}";
         let alreadySubmitted = false;
 
-        // Authoritative 35-Minute Timer (strictly starts at 35:00 or remaining seconds)
+        // Authoritative 40-Minute Timer
+        const serverAnswerKey = {server_answer_key_json};
         let timeRemaining = {remaining_seconds};
         if (!timeRemaining || timeRemaining <= 0 || isNaN(timeRemaining)) {{
-            timeRemaining = 35 * 60;
+            timeRemaining = 40 * 60;
         }}
 
         function formatTimerString(totalSec) {{
@@ -1526,9 +1535,7 @@ def render_listening_html(request, attempt):
             timerSelectors.forEach(function(sel) {{
                 document.querySelectorAll(sel).forEach(function(el) {{
                     el.textContent = timeStr;
-                    if (timeRemaining <= 300) {{
-                        el.style.color = '#dc2626';
-                    }}
+                    if (timeRemaining <= 300) el.style.color = '#dc2626';
                 }});
             }});
         }}
@@ -1543,7 +1550,7 @@ def render_listening_html(request, attempt):
                 clearInterval(bclTimerInterval);
                 timeRemaining = 0;
                 syncAllTimers();
-                alert("Time is up (35 minutes)! Your listening answers are being submitted.");
+                alert("Time is up (40 minutes)! Your listening answers are being submitted.");
                 bclTriggerSubmission();
             }}
         }}, 1000);
@@ -1551,9 +1558,7 @@ def render_listening_html(request, attempt):
         window.toggleTimer = function() {{}};
         window.startTimer = function() {{}};
 
-        // =========================================================================
-        // INSTRUCTION MODAL CONTROLS
-        // =========================================================================
+        // Instruction Modal Controls
         window.bclDismissInstructions = function() {{
             const m = document.getElementById('bcl-instruction-modal');
             if (m) m.style.display = 'none';
@@ -1565,21 +1570,57 @@ def render_listening_html(request, attempt):
         }};
 
         // =========================================================================
-        // BCL IELTS CONTINUOUS AUDIO ENGINE: Start Once, Never Pause, Persist on Reload
+        // UNIVERSAL CONTINUOUS AUDIO ENGINE: ALL 4 SECTIONS MERGE & PLAY SEAMLESSLY
         // =========================================================================
-        const audioStorageKey = 'bcl_listening_audio_' + mockId;
+        const audioStorageKey = 'bcl_listening_audio_attempt_' + attemptId;
+        const mergedAudioUrl = "{merged_audio_url}";
         window.__bclAllowSubmissionPause = false;
-        let audioEl = null;
 
-        function getAudioElement() {{
-            return document.getElementById('mainAudio') 
-                || document.getElementById('global-audio-player') 
-                || document.getElementById('audio1') 
-                || document.querySelector('audio');
+        // Detect all audio elements on page
+        const audioElements = [];
+        for (let i = 1; i <= 4; i++) {{
+            const el = document.getElementById('audio' + i);
+            if (el) audioElements.push(el);
+        }}
+        const masterSingleAudio = document.getElementById('mainAudio') 
+            || document.getElementById('global-audio-player') 
+            || document.getElementById('audio1') 
+            || document.querySelector('audio');
+
+        if (masterSingleAudio && mergedAudioUrl) {{
+            masterSingleAudio.src = mergedAudioUrl;
+            masterSingleAudio.preload = 'auto';
         }}
 
-        function updatePlayButtonsUI(isPlaying) {{
-            const playBtns = document.querySelectorAll('#audioPlay, #play-pause-btn, .audio-play, #btnPlayAudio');
+        if (audioElements.length === 0 && masterSingleAudio) {{
+            audioElements.push(masterSingleAudio);
+        }}
+
+        let activeTrackIndex = 0;
+        let isMasterPlaying = false;
+
+        // Setup loadedmetadata to guarantee progress bar displays the full combined duration!
+        if (masterSingleAudio) {{
+            function updateMasterDurationUI() {{
+                if (masterSingleAudio.duration && !isNaN(masterSingleAudio.duration)) {{
+                    const progressBar = document.getElementById('progress-bar') || document.querySelector('.progress-bar');
+                    const totalDurationEl = document.getElementById('total-duration') || document.querySelector('.total-duration');
+                    if (progressBar) progressBar.max = masterSingleAudio.duration;
+                    if (totalDurationEl) {{
+                        const m = Math.floor(masterSingleAudio.duration / 60);
+                        const s = Math.floor(masterSingleAudio.duration % 60);
+                        totalDurationEl.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+                    }}
+                }}
+            }}
+            masterSingleAudio.addEventListener('loadedmetadata', updateMasterDurationUI);
+            masterSingleAudio.addEventListener('durationchange', updateMasterDurationUI);
+            masterSingleAudio.addEventListener('canplay', updateMasterDurationUI);
+        }}
+
+        function updateAllPlayButtonsUI(isPlaying) {{
+            isMasterPlaying = isPlaying;
+            const playBtns = document.querySelectorAll('#audioPlay, #play-pause-btn, .audio-play, .audio-btn-play, #btnAudioPlay, #btnPlayPause, #audio-play-btn');
             playBtns.forEach(function(btn) {{
                 if (isPlaying) {{
                     btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:6px;"><span class="audio-wave-bars playing"><span></span><span></span><span></span><span></span></span> Playing 🎧</span>';
@@ -1594,43 +1635,39 @@ def render_listening_html(request, attempt):
             }});
         }}
 
-        function lockAudioContinuous(audio) {{
+        function lockAudioContinuous(audio) {{ lockAudioElement(audio); }}
+        function lockAudioElement(audio) {{
             if (!audio || audio.__bclLocked) return;
             audio.__bclLocked = true;
 
             const origPause = HTMLMediaElement.prototype.pause;
-            window.__bclOrigAudioPause = origPause;
-
-            // Strict prevention: audio cannot be paused once started
             audio.pause = function() {{
                 if (window.__bclAllowSubmissionPause) {{
                     origPause.call(audio);
                 }} else {{
-                    console.warn("BCL IELTS Architecture: Listening audio cannot be paused during examination.");
+                    console.warn("BCL IELTS Engine: Continuous audio playback cannot be paused.");
                 }}
             }};
 
-            // Record start epoch and persist continuous playback
             audio.addEventListener('play', function() {{
                 let state = null;
-                try {{
-                    state = JSON.parse(localStorage.getItem(audioStorageKey) || '{{}}');
-                }} catch(e) {{}}
+                try {{ state = JSON.parse(localStorage.getItem(audioStorageKey) || '{{}}'); }} catch(e) {{}}
                 if (!state || !state.is_started) {{
                     state = {{
                         is_started: true,
+                        track_index: activeTrackIndex,
                         start_epoch: Date.now() - (audio.currentTime * 1000)
                     }};
                     localStorage.setItem(audioStorageKey, JSON.stringify(state));
                 }}
-                updatePlayButtonsUI(true);
+                updateAllPlayButtonsUI(true);
             }});
 
-            // Continuously update position into localStorage
             audio.addEventListener('timeupdate', function() {{
                 try {{
                     let state = JSON.parse(localStorage.getItem(audioStorageKey) || '{{}}');
                     state.is_started = true;
+                    state.track_index = activeTrackIndex;
                     state.last_pos = audio.currentTime;
                     if (!state.start_epoch) {{
                         state.start_epoch = Date.now() - (audio.currentTime * 1000);
@@ -1638,19 +1675,149 @@ def render_listening_html(request, attempt):
                     localStorage.setItem(audioStorageKey, JSON.stringify(state));
                 }} catch(e) {{}}
             }});
+        }}
 
-            // Disable skip buttons and lock seek slider for IELTS test integrity
-            document.querySelectorAll('#back10, #forward10, .skip-btn').forEach(function(btn) {{
-                btn.style.display = 'none';
-            }});
-            const seekSlider = document.getElementById('seekSlider');
-            if (seekSlider) {{
-                seekSlider.style.pointerEvents = 'none';
-                seekSlider.style.opacity = '0.85';
+        // Setup all audio tags
+        audioElements.forEach(lockAudioElement);
+        if (masterSingleAudio) lockAudioElement(masterSingleAudio);
+
+        // Chain multiple audio tracks: Section 1 -> Section 2 -> Section 3 -> Section 4 (Mocks 22, 24-29)
+        if (audioElements.length > 1) {{
+            for (let i = 0; i < audioElements.length; i++) {{
+                (function(idx) {{
+                    const aud = audioElements[idx];
+                    aud.addEventListener('ended', function() {{
+                        if (idx + 1 < audioElements.length) {{
+                            activeTrackIndex = idx + 1;
+                            const nextAud = audioElements[activeTrackIndex];
+                            if (nextAud) {{
+                                nextAud.currentTime = 0;
+                                nextAud.play();
+                            }}
+                        }}
+                    }});
+                }})(i);
             }}
         }}
 
-        function showAutoplayResumePill(targetPos) {{
+        // Chain audioSources object (Mocks 2 & 18: audioSources = {{ 1: ..., 2: ..., 3: ..., 4: ... }})
+        let currentSourcePart = 1;
+        if (masterSingleAudio) {{
+            masterSingleAudio.addEventListener('ended', function() {{
+                if (typeof window.audioSources === 'object' && currentSourcePart < 4) {{
+                    currentSourcePart++;
+                    if (window.audioSources[currentSourcePart]) {{
+                        masterSingleAudio.src = window.audioSources[currentSourcePart];
+                        masterSingleAudio.currentTime = 0;
+                        masterSingleAudio.play();
+                    }}
+                }}
+            }});
+        }}
+
+        // NEUTRALIZE INTERNAL PART SWITCHERS: Changing tabs NEVER stops audio!
+        const origSwitchToPart = window.switchToPart;
+        window.switchToPart = function(partNumber) {{
+            const aud = masterSingleAudio || document.querySelector('audio');
+            const wasPlaying = aud && !aud.paused;
+            const curTime = aud ? aud.currentTime : 0;
+            const curSrc = aud ? aud.src : '';
+
+            // Switch question panels in DOM
+            document.querySelectorAll('.question-part, [id^="part-"]').forEach(part => part.classList.add('hidden'));
+            const partToShow = document.getElementById('part-' + partNumber);
+            if (partToShow) partToShow.classList.remove('hidden');
+
+            // Update footer question wrappers
+            document.querySelectorAll('.footer__questionWrapper___1tZ46, .section-tab, .nav-tab').forEach((wrapper, index) => {{
+                if (index === partNumber - 1) wrapper.classList.add('selected', 'active');
+                else wrapper.classList.remove('selected', 'active');
+            }});
+
+            try {{
+                if (origSwitchToPart) {{
+                    const origPause = aud ? aud.pause : null;
+                    if (aud) aud.pause = function() {{}};
+                    origSwitchToPart(partNumber, false);
+                    if (aud && origPause) aud.pause = origPause;
+                }}
+            }} catch(e) {{}}
+
+            // Ensure single continuous audio remained intact
+            if (aud) {{
+                if (mergedAudioUrl && !aud.src.endsWith(mergedAudioUrl)) {{
+                    aud.src = mergedAudioUrl;
+                    aud.currentTime = curTime;
+                }} else if (curSrc && aud.src !== curSrc) {{
+                    aud.src = curSrc;
+                    aud.currentTime = curTime;
+                }}
+                if (wasPlaying && aud.paused) {{
+                    aud.currentTime = curTime;
+                    aud.play().catch(function() {{}});
+                }}
+            }}
+        }};
+
+        const origSwitchToSection = window.switchToSection;
+        window.switchToSection = function(n) {{
+            const aud = masterSingleAudio || document.querySelector('audio');
+            const wasPlaying = aud && !aud.paused;
+            const curTime = aud ? aud.currentTime : 0;
+            const curSrc = aud ? aud.src : '';
+
+            for (let i = 1; i <= 4; i++) {{
+                const p = document.getElementById('section' + i + '-panel');
+                if (p) {{
+                    if (i === n) p.classList.remove('hidden');
+                    else p.classList.add('hidden');
+                }}
+                const t = document.getElementById('tab' + i);
+                if (t) {{
+                    if (i === n) t.classList.add('active');
+                    else t.classList.remove('active');
+                }}
+            }}
+
+            try {{
+                if (origSwitchToSection) {{
+                    const origPause = aud ? aud.pause : null;
+                    if (aud) aud.pause = function() {{}};
+                    origSwitchToSection(n);
+                    if (aud && origPause) aud.pause = origPause;
+                }}
+            }} catch(e) {{}}
+
+            if (aud) {{
+                if (mergedAudioUrl && !aud.src.endsWith(mergedAudioUrl)) {{
+                    aud.src = mergedAudioUrl;
+                    aud.currentTime = curTime;
+                }} else if (curSrc && aud.src !== curSrc) {{
+                    aud.src = curSrc;
+                    aud.currentTime = curTime;
+                }}
+                if (wasPlaying && aud.paused) {{
+                    aud.currentTime = curTime;
+                    aud.play().catch(function() {{}});
+                }}
+            }}
+        }};
+
+        function startMasterPlayback() {{
+            const aud = masterSingleAudio || audioElements[0];
+            if (aud) {{
+                if (mergedAudioUrl && !aud.src.endsWith(mergedAudioUrl)) {{
+                    aud.src = mergedAudioUrl;
+                }}
+                aud.play().then(function() {{
+                    updateAllPlayButtonsUI(true);
+                }}).catch(function(e) {{
+                    console.warn("Audio play error:", e);
+                }});
+            }}
+        }}
+
+        function showAutoplayResumePill(targetPos, trackIdx) {{
             if (document.getElementById('bclAudioResumeBanner')) return;
             const banner = document.createElement('div');
             banner.id = 'bclAudioResumeBanner';
@@ -1658,9 +1825,10 @@ def render_listening_html(request, attempt):
             banner.innerHTML = '<span>🎧 Listening Audio in Progress &bull; Click anywhere to resume audio</span>';
 
             const resumeAction = function() {{
-                if (audioEl) {{
-                    if (targetPos && !isNaN(targetPos)) audioEl.currentTime = targetPos;
-                    audioEl.play();
+                const targetAud = (audioElements.length > 1 && trackIdx < audioElements.length) ? audioElements[trackIdx] : masterSingleAudio;
+                if (targetAud) {{
+                    if (targetPos && !isNaN(targetPos)) targetAud.currentTime = targetPos;
+                    targetAud.play();
                 }}
                 if (banner && banner.parentNode) banner.parentNode.removeChild(banner);
                 document.removeEventListener('click', resumeAction);
@@ -1672,74 +1840,54 @@ def render_listening_html(request, attempt):
         }}
 
         function initAudioEngine() {{
-            audioEl = getAudioElement();
-            if (!audioEl) {{
-                setTimeout(initAudioEngine, 250);
-                return;
-            }}
-
-            lockAudioContinuous(audioEl);
-
-            // Check if audio was already playing before reload
+            // Check if audio was already playing in this attempt before reload
             let state = null;
-            try {{
-                state = JSON.parse(localStorage.getItem(audioStorageKey) || '{{}}');
-            }} catch(e) {{}}
+            try {{ state = JSON.parse(localStorage.getItem(audioStorageKey) || '{{}}'); }} catch(e) {{}}
 
             if (state && state.is_started) {{
+                const trackIdx = state.track_index || 0;
+                activeTrackIndex = trackIdx;
                 const elapsed = Math.max(0, (Date.now() - (state.start_epoch || Date.now())) / 1000);
-                const targetPos = (elapsed > 0 && elapsed < (audioEl.duration || 3600)) ? elapsed : (state.last_pos || 0);
+                const aud = (audioElements.length > 1 && trackIdx < audioElements.length) ? audioElements[trackIdx] : masterSingleAudio;
 
-                const tryResumeAudio = function() {{
-                    try {{
-                        if (targetPos && !isNaN(targetPos)) {{
-                            audioEl.currentTime = targetPos;
+                if (aud) {{
+                    const targetPos = (elapsed > 0 && elapsed < (aud.duration || 3600)) ? elapsed : (state.last_pos || 0);
+                    const tryResume = function() {{
+                        try {{
+                            if (targetPos && !isNaN(targetPos)) aud.currentTime = targetPos;
+                            const p = aud.play();
+                            if (p && p.catch) p.catch(() => showAutoplayResumePill(targetPos, trackIdx));
+                        }} catch(e) {{
+                            showAutoplayResumePill(targetPos, trackIdx);
                         }}
-                        const p = audioEl.play();
-                        if (p && p.catch) {{
-                            p.catch(function() {{
-                                showAutoplayResumePill(targetPos);
-                            }});
-                        }}
-                    }} catch(e) {{
-                        showAutoplayResumePill(targetPos);
+                    }};
+
+                    if (aud.readyState >= 1) tryResume();
+                    else {{
+                        aud.addEventListener('loadedmetadata', tryResume, {{ once: true }});
+                        aud.addEventListener('canplay', tryResume, {{ once: true }});
+                        setTimeout(tryResume, 600);
                     }}
-                }};
-
-                if (audioEl.readyState >= 1) {{
-                    tryResumeAudio();
-                }} else {{
-                    audioEl.addEventListener('loadedmetadata', tryResumeAudio, {{ once: true }});
-                    audioEl.addEventListener('canplay', tryResumeAudio, {{ once: true }});
-                    setTimeout(tryResumeAudio, 600);
                 }}
             }} else {{
-                // Fresh test start: Display initial instructions modal
+                // Fresh attempt start: Show instruction modal and start audio from 0:00
                 bclShowInstructions();
             }}
 
-            // Intercept play buttons so clicking again cannot pause audio
-            const playBtns = document.querySelectorAll('#audioPlay, #play-pause-btn, .audio-play, #btnPlayAudio');
+            // Intercept ALL play button clicks
+            const playBtns = document.querySelectorAll('#audioPlay, #play-pause-btn, .audio-play, .audio-btn-play, #btnAudioPlay, #btnPlayPause, #audio-play-btn');
             playBtns.forEach(function(btn) {{
                 btn.addEventListener('click', function(e) {{
-                    let s = null;
-                    try {{ s = JSON.parse(localStorage.getItem(audioStorageKey) || '{{}}'); }} catch(err) {{}}
-                    if (s && s.is_started && !audioEl.paused) {{
+                    if (isMasterPlaying) {{
                         e.preventDefault();
                         e.stopPropagation();
                         return false;
                     }}
-                    audioEl.play();
+                    startMasterPlayback();
                 }}, true);
             }});
 
-            if (typeof window.toggleAudio === 'function') {{
-                window.toggleAudio = function() {{
-                    if (audioEl && audioEl.paused) {{
-                        audioEl.play();
-                    }}
-                }};
-            }}
+            window.toggleAudio = startMasterPlayback;
         }}
 
         initAudioEngine();
@@ -1760,13 +1908,9 @@ def render_listening_html(request, attempt):
             violationPending = true;
 
             let extractedAnswers = null;
-            try {{
-                extractedAnswers = extractAnswersAndScore();
-            }} catch(e) {{}}
+            try {{ extractedAnswers = extractAnswersAndScore(); }} catch(e) {{}}
 
-            const reqPayload = {{
-                reason: reason
-            }};
+            const reqPayload = {{ reason: reason }};
             if (extractedAnswers) {{
                 reqPayload.raw_score = extractedAnswers.score;
                 reqPayload.answers_payload = {{
@@ -1790,19 +1934,14 @@ def render_listening_html(request, attempt):
                     keepalive: true,
                 }});
 
-                const data = await response.json().catch(function() {{ return {{}}; }});
+                const data = await response.json().catch(() => ({{}}));
 
                 if (response.status === 409 || data.status === 'auto_submitted' || data.auto_submitted) {{
                     finishing = true;
                     alreadySubmitted = true;
                     window.__bclAllowSubmissionPause = true;
-                    try {{
-                        const audio = getAudioElement();
-                        if (audio && window.__bclOrigAudioPause) {{
-                            window.__bclOrigAudioPause.call(audio);
-                        }}
-                        localStorage.removeItem(audioStorageKey);
-                    }} catch(e) {{}}
+                    audioElements.forEach(a => {{ try {{ HTMLMediaElement.prototype.pause.call(a); }} catch(e) {{}} }});
+                    localStorage.removeItem(audioStorageKey);
 
                     const dest = data.redirect_url || endedUrl || '/dashboard/';
                     alert("Exam Auto-Submitted: You exceeded the allowed tab-switching violations. Your examination has been automatically submitted.");
@@ -1840,13 +1979,10 @@ def render_listening_html(request, attempt):
         }};
 
         document.addEventListener('visibilitychange', function() {{
-            if (document.hidden) {{
-                reportViolation('tab_hidden');
-            }} else {{
-                if (warningOpen) {{
-                    const ackBtn = document.getElementById('bclAcknowledgeViolation');
-                    if (ackBtn) ackBtn.focus();
-                }}
+            if (document.hidden) reportViolation('tab_hidden');
+            else if (warningOpen) {{
+                const ackBtn = document.getElementById('bclAcknowledgeViolation');
+                if (ackBtn) ackBtn.focus();
             }}
         }});
 
@@ -1859,7 +1995,7 @@ def render_listening_html(request, attempt):
         }});
 
         // =========================================================================
-        // SUBMISSION & REVIEW MODAL
+        // OFFICIAL SUBMISSION & RESULTS
         // =========================================================================
         window.bclCloseModal = function() {{
             const m = document.getElementById('bcl-listening-modal');
@@ -1867,26 +2003,21 @@ def render_listening_html(request, attempt):
         }};
 
         window.bclTriggerSubmission = function() {{
+            // Run grader first so #result-details / #resultsTable are populated
+            // before we extract answers and correct answers from the DOM.
             if (typeof window.checkAnswers === 'function') {{
-                window.checkAnswers();
-            }} else {{
-                const dBtn = document.getElementById('checkButton') 
-                    || document.getElementById('deliver-button') 
-                    || document.getElementById('btnCheckAnswers')
-                    || document.querySelector('.check-btn')
-                    || document.querySelector('.deliver-btn');
-                if (dBtn) dBtn.click();
+                try {{ window.checkAnswers(); }} catch(e) {{}}
             }}
+            const extracted = extractAnswersAndScore();
+            submitToBackend(extracted);
         }};
 
         function extractAnswersAndScore() {{
             let score = 0;
             let answers = {{}};
 
-            // Extract score
-            const scoreSum = document.getElementById('resultsSummary')
-                || document.getElementById('score-summary')
-                || document.getElementById('scoreSummary');
+            // Extract score from raw DOM if computed
+            const scoreSum = document.getElementById('resultsSummary') || document.getElementById('score-summary') || document.getElementById('scoreSummary');
             if (scoreSum && scoreSum.textContent) {{
                 const m = scoreSum.textContent.match(/(\d+)\s*(?:out of|\/)\s*40/i);
                 if (m) score = parseInt(m[1], 10);
@@ -1896,18 +2027,12 @@ def render_listening_html(request, attempt):
                 const m = resScore.textContent.match(/(\d+)/);
                 if (m) score = parseInt(m[1], 10);
             }}
-            const delBtn = document.getElementById('checkButton') || document.getElementById('deliver-button');
-            if (!score && delBtn && delBtn.textContent) {{
-                const m = delBtn.textContent.match(/(\d+)\s*\/\s*40/i);
-                if (m) score = parseInt(m[1], 10);
-            }}
             if (!score) {{
                 if (typeof window.totalCorrect !== 'undefined') score = window.totalCorrect;
                 else if (typeof window.score !== 'undefined') score = window.score;
             }}
 
-            // Extract question-by-question breakdown
-            // Pattern A: #resultsTable .result-row (Vol 3 test 9, Vol 3 test 10, modern IELTS format)
+            // Pattern A: #resultsTable .result-row (Vol 3 format)
             const vol3Rows = document.querySelectorAll('#resultsTable .result-row');
             if (vol3Rows.length > 0) {{
                 vol3Rows.forEach(function(row) {{
@@ -1923,11 +2048,7 @@ def render_listening_html(request, attempt):
                             || row.getAttribute('data-correct') === '1'
                             || row.getAttribute('data-score') === '1'
                             || (sEl && sEl.textContent.includes('✓'));
-                        answers[qNum] = {{
-                            "user_answer": uAns,
-                            "correct_answer": cAns,
-                            "is_correct": isCor
-                        }};
+                        answers[qNum] = {{ "user_answer": uAns, "correct_answer": cAns, "is_correct": isCor }};
                     }}
                 }});
             }}
@@ -1942,63 +2063,94 @@ def render_listening_html(request, attempt):
                             const qNum = cols[0].textContent.trim();
                             const uAns = cols[1].textContent.trim();
                             const cAns = cols[2].textContent.trim();
-                            const isCor = cols[3].classList.contains('result-correct') 
-                                || cols[3].textContent.includes('✓') 
-                                || cols[3].textContent.includes('Correct');
-                            answers[qNum] = {{
-                                "user_answer": uAns,
-                                "correct_answer": cAns,
-                                "is_correct": isCor
-                            }};
+                            const isCor = cols[3].classList.contains('result-correct') || cols[3].textContent.includes('✓') || cols[3].textContent.includes('Correct');
+                            answers[qNum] = {{ "user_answer": uAns, "correct_answer": cAns, "is_correct": isCor }};
                         }}
                     }}
                 }}
             }}
 
-            // Pattern C: #resultsTableBody (Mock 22-30 format)
+            // Pattern C: #resultsTableBody or #res-table-body (Mocks 22-29)
             if (Object.keys(answers).length === 0) {{
-                const resRows = document.querySelectorAll('#resultsTableBody .result-row, #resultsTableBody tr');
-                if (resRows.length > 0) {{
-                    resRows.forEach(function(row) {{
-                        const qEl = row.querySelector('.res-q-num') || row.children[0];
-                        const uEl = row.querySelector('.res-user-ans') || row.children[1];
-                        const cEl = row.querySelector('.res-correct-ans') || row.children[2];
-                        const sEl = row.querySelector('.res-status') || row.children[3];
-                        if (qEl && uEl && cEl) {{
-                            const qNum = qEl.textContent.trim();
-                            const uAns = uEl.textContent.trim();
-                            const cAns = cEl.textContent.trim();
-                            const isCor = row.classList.contains('res-correct') || (sEl && sEl.textContent.includes('✓'));
-                            answers[qNum] = {{
-                                "user_answer": uAns,
-                                "correct_answer": cAns,
-                                "is_correct": isCor
-                            }};
+                const modernRows = document.querySelectorAll('#resultsTableBody .result-row, #res-table-body .result-row');
+                if (modernRows.length > 0) {{
+                    modernRows.forEach(function(row) {{
+                        const qEl = row.querySelector('.res-q-num, .q-num') || row.children[0];
+                        const uEl = row.querySelector('.res-user-ans, .user-ans') || row.children[1];
+                        const cEl = row.querySelector('.res-correct-ans, .correct-ans') || row.children[2];
+                        const sEl = row.querySelector('.res-status, .result-status') || row.children[3];
+                        if (qEl) {{
+                            const qNum = qEl.textContent.replace(/[^0-9]/g, '').trim();
+                            const uAns = uEl ? uEl.textContent.trim() : '';
+                            const cAns = cEl ? cEl.textContent.trim() : '';
+                            const isCor = row.classList.contains('correct')
+                                || row.getAttribute('data-correct') === '1'
+                                || (sEl && (sEl.textContent.includes('✓') || sEl.textContent.toLowerCase().includes('correct')));
+                            if (qNum) answers[qNum] = {{ "user_answer": uAns, "correct_answer": cAns, "is_correct": isCor }};
                         }}
                     }});
                 }}
             }}
 
-            // Fallback: Scan DOM inputs
-            if (Object.keys(answers).length === 0) {{
-                for (let i = 1; i <= 40; i++) {{
-                    const input = document.getElementById('q' + i) 
-                        || document.querySelector('input[name="q' + i + '"]:checked') 
-                        || document.querySelector('input[name="q' + i + '"]');
-                    if (input) {{
-                        answers[String(i)] = {{
-                            "user_answer": input.value || "",
-                            "correct_answer": "",
-                            "is_correct": input.classList.contains('correct')
-                        }};
-                    }}
+            // Authoritative Completion & Normalization: Ensure all Q1-40 have genuine correct answers (never '-')
+            for (let i = 1; i <= 40; i++) {{
+                const k = String(i);
+                let uAns = '';
+                if (answers[k] && answers[k].user_answer) {{
+                    uAns = answers[k].user_answer.trim();
+                }} else {{
+                    const input = document.getElementById('q' + i)
+                        || document.querySelector('input[name="q' + i + '"]:checked')
+                        || document.querySelector('input[name="q' + i + '"]')
+                        || document.querySelector('select[name="q' + i + '"]');
+                    if (input) uAns = (input.value || '').trim();
                 }}
+
+                // Determine official correct answer from serverAnswerKey
+                const rawKey = serverAnswerKey[k] || serverAnswerKey['q' + k] || '';
+                let displayCorrect = '';
+                let validOptions = [];
+
+                if (Array.isArray(rawKey)) {{
+                    displayCorrect = rawKey.join(' / ');
+                    validOptions = rawKey.map(x => String(x).trim().toLowerCase());
+                }} else if (typeof rawKey === 'string') {{
+                    displayCorrect = rawKey;
+                    if (rawKey.includes(',')) {{
+                        validOptions = rawKey.split(',').map(x => x.trim().toLowerCase());
+                    }}
+                    validOptions.push(rawKey.trim().toLowerCase());
+                }}
+
+                let cAns = (answers[k] && answers[k].correct_answer && answers[k].correct_answer !== '-') 
+                    ? answers[k].correct_answer 
+                    : displayCorrect;
+
+                let isCor = false;
+                if (answers[k] && typeof answers[k].is_correct === 'boolean') {{
+                    isCor = answers[k].is_correct;
+                }}
+                if (!isCor && uAns && validOptions.length > 0) {{
+                    isCor = validOptions.includes(uAns.toLowerCase());
+                }}
+
+                answers[k] = {{
+                    "user_answer": uAns,
+                    "correct_answer": cAns,
+                    "is_correct": isCor
+                }};
             }}
 
-            return {{
-                score: score,
-                answers: answers
-            }};
+            // Calculate overall score from all 40 questions
+            let evaluatedScore = 0;
+            for (let i = 1; i <= 40; i++) {{
+                if (answers[String(i)] && answers[String(i)].is_correct) {{
+                    evaluatedScore++;
+                }}
+            }}
+            score = Math.max(score, evaluatedScore);
+
+            return {{ score: score, answers: answers }};
         }}
 
         function calculateBand(score) {{
@@ -2030,11 +2182,7 @@ def render_listening_html(request, attempt):
 
             if (tableBody) {{
                 let rowsHtml = '';
-                const keys = Object.keys(answers).sort(function(a, b) {{
-                    const na = parseInt(a, 10) || 0;
-                    const nb = parseInt(b, 10) || 0;
-                    return na - nb;
-                }});
+                const keys = Object.keys(answers).sort((a, b) => (parseInt(a, 10) || 0) - (parseInt(b, 10) || 0));
 
                 keys.forEach(function(k) {{
                     const item = answers[k];
@@ -2059,13 +2207,14 @@ def render_listening_html(request, attempt):
 
             // Allow stopping audio on final test submission
             window.__bclAllowSubmissionPause = true;
-            try {{
-                const audio = getAudioElement();
-                if (audio && window.__bclOrigAudioPause) {{
-                    window.__bclOrigAudioPause.call(audio);
-                }}
-                localStorage.removeItem(audioStorageKey);
-            }} catch(e) {{}}
+            audioElements.forEach(a => {{ try {{ HTMLMediaElement.prototype.pause.call(a); }} catch(e) {{}} }});
+            localStorage.removeItem(audioStorageKey);
+
+            // Re-extract after checkAnswers was already called by bclTriggerSubmission
+            const freshExtracted = extractAnswersAndScore();
+            if (freshExtracted.score > extracted.score || Object.keys(freshExtracted.answers).length > Object.keys(extracted.answers).length) {{
+                extracted = freshExtracted;
+            }}
 
             const band = calculateBand(extracted.score);
             const payload = {{
@@ -2082,33 +2231,41 @@ def render_listening_html(request, attempt):
             formData.append('module_type', 'listening');
             formData.append('answers_payload', JSON.stringify(payload));
 
+            // Show modal immediately with full answers
+            displayBclModal(extracted.score, band, extracted.answers);
+
+            const proceedBtn = document.getElementById('bclModalNextBtn');
+            if (proceedBtn) {{
+                proceedBtn.disabled = true;
+                proceedBtn.textContent = 'Saving Result...';
+                proceedBtn.style.opacity = '0.7';
+            }}
+
             fetch(submitUrl, {{
                 method: 'POST',
                 body: formData,
-                headers: {{
-                    'X-Requested-With': 'XMLHttpRequest'
+                headers: {{ 'X-Requested-With': 'XMLHttpRequest' }}
+            }}).then(res => res.json()).then(data => {{
+                console.log('Listening submission recorded to DB:', data);
+                const confirmedNext = (data && data.next_url) ? data.next_url : nextUrl;
+                window.__bclConfirmedNextUrl = confirmedNext;
+                if (proceedBtn) {{
+                    proceedBtn.disabled = false;
+                    proceedBtn.style.opacity = '1';
+                    proceedBtn.innerHTML = '{next_btn_label}';
+                    proceedBtn.onclick = function() {{ window.location.href = confirmedNext; }};
                 }}
-            }}).then(function(res) {{
-                return res.json();
-            }}).then(function(data) {{
-                console.log('Listening submission recorded to DB successfully:', data);
-            }}).catch(function(err) {{
+            }}).catch(err => {{
                 console.error('Submission error:', err);
+                window.__bclConfirmedNextUrl = nextUrl;
+                if (proceedBtn) {{
+                    proceedBtn.disabled = false;
+                    proceedBtn.style.opacity = '1';
+                    proceedBtn.innerHTML = '{next_btn_label}';
+                    proceedBtn.onclick = function() {{ window.location.href = nextUrl; }};
+                }}
             }});
-
-            displayBclModal(extracted.score, band, extracted.answers);
         }}
-
-        const origCheckAnswers = window.checkAnswers;
-        window.checkAnswers = function() {{
-            if (origCheckAnswers) {{
-                try {{ origCheckAnswers.apply(this, arguments); }} catch(e) {{ console.error(e); }}
-            }}
-            setTimeout(function() {{
-                const extracted = extractAnswersAndScore();
-                submitToBackend(extracted);
-            }}, 350);
-        }};
     }})();
     </script>
     """
@@ -2533,6 +2690,13 @@ def submit_exam(request, attempt_id):
                 messages.success(request, "Reading module completed. Next stage: Writing.")
                 return redirect("bcl:full_mock_intermission", full_attempt_id=full_mock.pk)
 
+    if request.headers.get("x-requested-with") == "XMLHttpRequest":
+        return JsonResponse({
+            "status": "ok",
+            "raw_score": attempt.raw_score,
+            "band_score": str(attempt.band_score) if attempt.band_score else None,
+            "next_url": reverse("bcl:dashboard"),
+        })
     messages.success(request, "Your examination session has ended.")
     return redirect("bcl:exam_ended", attempt_id=attempt.pk)
 
@@ -2627,6 +2791,146 @@ def exam_result(request, attempt_id):
         finalize_attempt_score(attempt)
         attempt.refresh_from_db()
     sections = list(module.sections.order_by("order", "pk").prefetch_related("questions__options"))
+
+    # Dedicated Listening Review: Synthesize full 4-part review for raw HTML client-side listening tests
+    if module_type == ExamModule.ModuleType.LISTENING or (not sections and module_type == 'listening'):
+        mock_num = mock_test.test_number
+        server_keys = parse_listening_answer_key(mock_num)
+        payload = attempt.answers_payload or {}
+        cand_answers = payload.get("answers", {})
+
+        class DummyQuestion:
+            def __init__(self, num, text, correct_ans, explanation=""):
+                self.pk = num
+                self.order = num
+                self.global_num = num
+                self.question_type = "short_answer"
+                self.question_text = text
+                self.correct_answer = correct_ans
+                self.explanation = explanation
+                self.passage_excerpt = ""
+                self.answer_location = ""
+                self.what_question_asks = ""
+                self.what_passage_says = ""
+                self.why_answer = ""
+                self.paraphrase = ""
+                self.tip = ""
+                self.image = None
+                self.table_content = ""
+                self.has_rich_explanation = False
+
+        class DummySection:
+            def __init__(self, title, part_num, passage=""):
+                self.pk = part_num
+                self.title = title
+                self.instructions = f"Listen to the recording and answer questions {(part_num-1)*10 + 1} to {part_num*10}."
+                self.passage_instructions = ""
+                self.passage = passage
+                self.image = None
+
+        correct_count = 0
+        wrong_count = 0
+        sections_data = []
+
+        part_ranges = [
+            (1, 1, 10, "Part 1: Questions 1–10"),
+            (2, 11, 20, "Part 2: Questions 11–20"),
+            (3, 21, 30, "Part 3: Questions 21–30"),
+            (4, 31, 40, "Part 4: Questions 31–40"),
+        ]
+
+        for part_num, start_q, end_q, part_title in part_ranges:
+            sec_correct = 0
+            sec_total = 0
+            questions_data = []
+            sec = DummySection(part_title, part_num, f"Listen to the audio recording using the audio player above to review your answers for {part_title}.")
+
+            for q_num in range(start_q, end_q + 1):
+                k = str(q_num)
+                ans_item = cand_answers.get(k) or cand_answers.get(f"q{q_num}") or {}
+                if isinstance(ans_item, dict):
+                    cand_ans = str(ans_item.get("user_answer", "")).strip()
+                    is_cor = bool(ans_item.get("is_correct", False))
+                elif isinstance(ans_item, str):
+                    cand_ans = ans_item.strip()
+                    is_cor = False
+                else:
+                    cand_ans = ""
+                    is_cor = False
+
+                correct_raw = server_keys.get(k) or server_keys.get(f"q{q_num}") or ""
+                if isinstance(correct_raw, (list, tuple)):
+                    correct_display = " / ".join(str(x) for x in correct_raw)
+                    valid_lower = [str(x).strip().lower() for x in correct_raw]
+                    if cand_ans and cand_ans.lower() in valid_lower:
+                        is_cor = True
+                elif isinstance(correct_raw, str):
+                    correct_display = correct_raw
+                    if cand_ans and correct_raw:
+                        if "," in correct_raw:
+                            tokens = [t.strip().lower() for t in correct_raw.split(",") if t.strip()]
+                            if cand_ans.lower() in tokens or cand_ans.lower() == correct_raw.lower():
+                                is_cor = True
+                        elif cand_ans.lower() == correct_raw.strip().lower():
+                            is_cor = True
+                else:
+                    correct_display = str(correct_raw)
+
+                if is_cor:
+                    correct_count += 1
+                    sec_correct += 1
+                else:
+                    wrong_count += 1
+                sec_total += 1
+
+                q_obj = DummyQuestion(q_num, f"Question {q_num}", correct_display, f"Official Answer: {correct_display}")
+                questions_data.append({
+                    "question": q_obj,
+                    "global_num": q_num,
+                    "blank_count": 1,
+                    "group_header": None,
+                    "candidate_answer": cand_ans,
+                    "is_correct": is_cor,
+                    "is_blank": not bool(cand_ans),
+                    "explanation": q_obj.explanation,
+                    "display_options": [],
+                    "options": [],
+                })
+
+            sections_data.append({
+                "section": sec,
+                "correct_count": sec_correct,
+                "total_count": sec_total,
+                "questions": questions_data,
+            })
+
+        total_marks = 40
+        if attempt.raw_score != correct_count or attempt.band_score is None:
+            attempt.raw_score = correct_count
+            from .scoring import band_for_raw
+            from decimal import Decimal
+            attempt.band_score = Decimal(str(band_for_raw(ExamModule.ModuleType.LISTENING, correct_count)))
+            attempt.save(update_fields=["raw_score", "band_score"])
+
+        review_module_audio_url = f"/static/listening_audio/mock_{mock_num}_full.mp3"
+        merged_audio_path = os.path.join(settings.BASE_DIR, "static", "listening_audio", f"mock_{mock_num}_full.mp3")
+        if not os.path.exists(merged_audio_path):
+            review_module_audio_url = ""
+
+        return render(request, "exam/result.html", {
+            "attempt": attempt,
+            "module": module,
+            "mock_test": mock_test,
+            "module_type": module_type,
+            "time_taken": time_taken_str,
+            "correct_count": correct_count,
+            "wrong_count": wrong_count,
+            "total_marks": total_marks,
+            "task_evaluations": task_evaluations,
+            "sections_data": sections_data,
+            "review_module_audio_url": review_module_audio_url,
+        })
+
     answers = {
         a.question_id: a for a in CandidateAnswer.objects.filter(attempt=attempt)
     }
@@ -3108,7 +3412,7 @@ def full_mock_result(request, full_attempt_id):
 
 @login_required
 def mock_listening_view(request, mock_id):
-    """Architecture route: GET /mock/<id>/listening/"""
+    """Architecture route: GET /mock/<id>/listening/ with independent practice support."""
     if not is_candidate(request.user):
         messages.error(request, "Candidates only.")
         return redirect("bcl:dashboard")
@@ -3123,36 +3427,67 @@ def mock_listening_view(request, mock_id):
     with transaction.atomic():
         get_user_model().objects.select_for_update().get(pk=request.user.pk)
         now = timezone.now()
+        
+        # Check if candidate has an active full mock for this test
         full_mock = (
             FullMockAttempt.objects.select_for_update()
             .filter(candidate=request.user, mock_test=mock_test, status=FullMockAttempt.AttemptStatus.IN_PROGRESS)
             .order_by("-started_at")
             .first()
         )
-        if not full_mock:
-            full_mock = FullMockAttempt.objects.create(
-                candidate=request.user,
-                mock_test=mock_test,
-                status=FullMockAttempt.AttemptStatus.IN_PROGRESS,
-                current_step="listening",
-                started_at=now,
-            )
-
-        if not full_mock.listening_attempt:
-            attempt = CandidateAttempt.objects.create(
-                candidate=request.user,
-                module=listening_mod,
-                full_mock=full_mock,
-                started_at=now,
-                expires_at=now + timedelta(minutes=listening_mod.duration_minutes),
-                status=CandidateAttempt.AttemptStatus.IN_PROGRESS,
-            )
-            full_mock.listening_attempt = attempt
-            full_mock.save(update_fields=["listening_attempt"])
-        else:
-            attempt = expire_attempt_if_needed(full_mock.listening_attempt)
-            if attempt.status != CandidateAttempt.AttemptStatus.IN_PROGRESS:
+        
+        if full_mock and full_mock.current_step == "listening":
+            # Taking listening as part of full mock
+            if not full_mock.listening_attempt:
+                attempt = CandidateAttempt.objects.create(
+                    candidate=request.user,
+                    module=listening_mod,
+                    full_mock=full_mock,
+                    started_at=now,
+                    expires_at=now + timedelta(minutes=listening_mod.duration_minutes),
+                    status=CandidateAttempt.AttemptStatus.IN_PROGRESS,
+                )
+                full_mock.listening_attempt = attempt
+                full_mock.save(update_fields=["listening_attempt"])
+            else:
+                attempt = expire_attempt_if_needed(full_mock.listening_attempt)
+                if attempt.status != CandidateAttempt.AttemptStatus.IN_PROGRESS:
+                    return redirect("bcl:mock_reading", mock_id=mock_id)
+        elif full_mock and full_mock.current_step in ("reading", "writing"):
+            # Candidate is in reading/writing step of full mock; redirect to active step
+            if full_mock.current_step == "reading":
                 return redirect("bcl:mock_reading", mock_id=mock_id)
+            return redirect("bcl:mock_writing", mock_id=mock_id)
+        else:
+            # Individual Listening Practice: completely independent from full mock!
+            active_attempt = (
+                CandidateAttempt.objects.select_for_update()
+                .filter(candidate=request.user, module=listening_mod, status=CandidateAttempt.AttemptStatus.IN_PROGRESS)
+                .order_by("-started_at")
+                .first()
+            )
+            if active_attempt:
+                attempt = expire_attempt_if_needed(active_attempt)
+                if attempt.status != CandidateAttempt.AttemptStatus.IN_PROGRESS:
+                    # Expired -> start fresh attempt
+                    attempt = CandidateAttempt.objects.create(
+                        candidate=request.user,
+                        module=listening_mod,
+                        full_mock=None,
+                        started_at=now,
+                        expires_at=now + timedelta(minutes=listening_mod.duration_minutes),
+                        status=CandidateAttempt.AttemptStatus.IN_PROGRESS,
+                    )
+            else:
+                # Fresh attempt: audio plays from start!
+                attempt = CandidateAttempt.objects.create(
+                    candidate=request.user,
+                    module=listening_mod,
+                    full_mock=None,
+                    started_at=now,
+                    expires_at=now + timedelta(minutes=listening_mod.duration_minutes),
+                    status=CandidateAttempt.AttemptStatus.IN_PROGRESS,
+                )
 
     return render_listening_html(request, attempt)
 
@@ -3184,14 +3519,15 @@ def mock_listening_submit(request, mock_id):
             .first()
         )
         if completed_attempt:
+            dest_url = reverse("bcl:mock_reading", args=[mock_id]) if completed_attempt.full_mock_id else reverse("bcl:dashboard")
             if request.headers.get("x-requested-with") == "XMLHttpRequest":
                 return JsonResponse({
                     "status": "ok",
                     "raw_score": completed_attempt.raw_score,
                     "band_score": str(completed_attempt.band_score) if completed_attempt.band_score else None,
-                    "next_url": reverse("bcl:mock_reading", args=[mock_id]),
+                    "next_url": dest_url,
                 })
-            return redirect("bcl:mock_reading", mock_id=mock_id)
+            return redirect(dest_url)
         return JsonResponse({"error": "No active listening attempt found."}, status=404)
 
     return submit_exam(request, attempt.pk)
@@ -3225,7 +3561,21 @@ def mock_reading_view(request, mock_id):
             return redirect("bcl:mock_listening", mock_id=mock_id)
 
         # Sequence Guard: Validate Listening is completed
-        if not full_mock.listening_attempt or full_mock.listening_attempt.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
+        # Candidate clicked to proceed to Reading: safely finalize Listening attempt if still in progress
+        if full_mock.listening_attempt and full_mock.listening_attempt.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
+            full_mock.listening_attempt.status = CandidateAttempt.AttemptStatus.SUBMITTED
+            full_mock.listening_attempt.submitted_at = now
+            full_mock.listening_attempt.save(update_fields=["status", "submitted_at"])
+            finalize_attempt_score(full_mock.listening_attempt)
+            full_mock.current_step = "reading"
+            full_mock.save(update_fields=["current_step"])
+
+        listening_done = (
+            full_mock.listening_attempt is not None
+            and full_mock.listening_attempt.status != CandidateAttempt.AttemptStatus.IN_PROGRESS
+        )
+        step_already_advanced = full_mock.current_step in ("reading", "writing", "completed")
+        if not listening_done and not step_already_advanced:
             messages.warning(request, "You must complete and submit the Listening module before starting Reading.")
             return redirect("bcl:mock_listening", mock_id=mock_id)
 
@@ -3303,6 +3653,14 @@ def mock_writing_view(request, mock_id):
             return redirect("bcl:mock_listening", mock_id=mock_id)
 
         # Sequence Guard: Validate Listening and Reading are completed
+        if full_mock.reading_attempt and full_mock.reading_attempt.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
+            full_mock.reading_attempt.status = CandidateAttempt.AttemptStatus.SUBMITTED
+            full_mock.reading_attempt.submitted_at = now
+            full_mock.reading_attempt.save(update_fields=["status", "submitted_at"])
+            finalize_attempt_score(full_mock.reading_attempt)
+            full_mock.current_step = "writing"
+            full_mock.save(update_fields=["current_step"])
+
         if not full_mock.listening_attempt or full_mock.listening_attempt.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
             messages.warning(request, "You must complete the Listening module first.")
             return redirect("bcl:mock_listening", mock_id=mock_id)
@@ -3382,7 +3740,31 @@ def mock_consolidated_result(request, mock_id):
 @require_POST
 def start_mock_shortcut(request):
     """Architecture route: POST /start-mock/"""
+    if not is_candidate(request.user):
+        messages.error(request, "Candidates only.")
+        return redirect("bcl:dashboard")
     mock_id = request.POST.get("mock_id") or request.POST.get("mock_test_id")
     if not mock_id:
         return JsonResponse({"error": "mock_id is required."}, status=400)
+    mock_test = get_mock_test_object(mock_id)
+    if not mock_test:
+        raise Http404(f"Mock test {mock_id} not found.")
+
+    with transaction.atomic():
+        get_user_model().objects.select_for_update().get(pk=request.user.pk)
+        now = timezone.now()
+        full_mock = (
+            FullMockAttempt.objects.select_for_update()
+            .filter(candidate=request.user, mock_test=mock_test, status=FullMockAttempt.AttemptStatus.IN_PROGRESS)
+            .order_by("-started_at")
+            .first()
+        )
+        if not full_mock:
+            full_mock = FullMockAttempt.objects.create(
+                candidate=request.user,
+                mock_test=mock_test,
+                status=FullMockAttempt.AttemptStatus.IN_PROGRESS,
+                current_step="listening",
+                started_at=now,
+            )
     return redirect("bcl:mock_listening", mock_id=mock_id)

@@ -577,12 +577,16 @@
                                     {% endif %}
 
                                     {% if section.image %}
-                                    <img class="section-image max-h-72 object-contain rounded-lg mb-4" src="{% url 'bcl:section_media' attempt.pk section.pk 'image' %}" alt="Writing Task {{ question.writing_task_number }} illustration">
+                                    <div class="section-image-wrapper mb-4 rounded-xl border border-slate-200 bg-white p-3 flex flex-col items-center shadow-sm">
+                                        <img class="section-image w-full max-h-[650px] object-contain rounded-lg cursor-zoom-in hover:opacity-95 transition-all" src="{% url 'bcl:section_media' attempt.pk section.pk 'image' %}" alt="Writing Task {{ question.writing_task_number }} illustration" onclick="openImageLightbox(this.src, this.alt)" title="Click to view full size">
+                                        <span class="text-xs text-slate-400 mt-2">🔍 Click image to enlarge</span>
+                                    </div>
                                     {% endif %}
 
                                     {% if question.image %}
-                                    <div class="question-figure mb-4 rounded-lg border border-slate-200 bg-white p-2.5 flex flex-col items-center">
-                                        <img src="{% url 'bcl:question_media' attempt.pk question.pk %}" alt="Writing Task {{ question.writing_task_number }} illustration" class="max-h-72 object-contain rounded-md">
+                                    <div class="question-figure mb-4 rounded-xl border border-slate-200 bg-white p-3 flex flex-col items-center shadow-sm">
+                                        <img src="{% url 'bcl:question_media' attempt.pk question.pk %}" alt="Writing Task {{ question.writing_task_number }} illustration" class="w-full max-h-[650px] object-contain rounded-lg cursor-zoom-in hover:opacity-95 transition-all" onclick="openImageLightbox(this.src, this.alt)" title="Click to view full size">
+                                        <span class="text-xs text-slate-400 mt-2">🔍 Click image to enlarge</span>
                                     </div>
                                     {% endif %}
 
@@ -677,5 +681,38 @@
 </div>
 
 {{ saved_answers|json_script:"savedAnswersData" }}
+
+<!-- Image Lightbox Modal for Writing Task 1 Diagrams -->
+<div id="imageLightboxModal" class="fixed inset-0 z-[10000] hidden items-center justify-center bg-black/85 backdrop-blur-sm p-4" onclick="closeImageLightbox()">
+    <div class="relative max-w-6xl max-h-[95vh] flex flex-col items-center" onclick="event.stopPropagation()">
+        <button type="button" class="absolute -top-10 right-0 text-white hover:text-slate-200 text-2xl font-bold bg-white/20 hover:bg-white/30 rounded-full w-9 h-9 flex items-center justify-center transition-all" onclick="closeImageLightbox()">&times;</button>
+        <img id="imageLightboxImg" src="" alt="Enlarged Diagram" class="max-w-full max-h-[88vh] object-contain rounded-xl shadow-2xl bg-white p-2">
+        <p id="imageLightboxCaption" class="text-white text-sm mt-2 font-medium text-center"></p>
+    </div>
+</div>
+<script>
+function openImageLightbox(src, alt) {
+    const modal = document.getElementById('imageLightboxModal');
+    const img = document.getElementById('imageLightboxImg');
+    const caption = document.getElementById('imageLightboxCaption');
+    if (modal && img) {
+        img.src = src;
+        if (caption) caption.textContent = alt || 'Task 1 Diagram';
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+}
+function closeImageLightbox() {
+    const modal = document.getElementById('imageLightboxModal');
+    if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }
+}
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeImageLightbox();
+});
+</script>
+
 </body>
 </html>

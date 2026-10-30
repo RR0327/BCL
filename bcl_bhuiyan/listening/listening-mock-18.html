@@ -1879,11 +1879,12 @@
             const speedOptions = document.getElementById('speed-options');
             const volumeBtn = document.getElementById('volume-btn');
 
+            const fullMockAudio = '/static/listening_audio/mock_18_full.mp3';
             const audioSources = {
-                1: 'https://ieltstrainingonline.com/wp-content/uploads/2021/07/2019-IELTS-Listening-Actual-Test-12-Section1.mp3?_=1',
-                2: 'https://ieltstrainingonline.com/wp-content/uploads/2021/07/2019-IELTS-Listening-Actual-Test-12-Section2.mp3?_=2',
-                3: 'https://ieltstrainingonline.com/wp-content/uploads/2021/07/2019-IELTS-Listening-Actual-Test-12-Section3.mp3?_=3',
-                4: 'https://ieltstrainingonline.com/wp-content/uploads/2021/07/2019-IELTS-Listening-Actual-Test-12-Section4.mp3?_=4'
+                1: fullMockAudio,
+                2: fullMockAudio,
+                3: fullMockAudio,
+                4: fullMockAudio
             };
 
             const correctAnswers = {
@@ -1963,9 +1964,9 @@
                 }
                 
                 currentPart = partNumber;
-                audioPlayer.pause();
-                playPauseBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
-                audioPlayer.src = audioSources[partNumber];
+                if (!audioPlayer.src || !audioPlayer.src.includes('mock_18_full.mp3')) {
+                    audioPlayer.src = audioSources[partNumber];
+                }
 
                 updateNavigation();
                 document.querySelectorAll('.question-part').forEach(part => part.classList.add('hidden'));
