@@ -2148,24 +2148,24 @@ def render_listening_html(request, attempt):
             formData.append('attempt_id', String(attemptId));
             formData.append('answers_payload', JSON.stringify(payload));
 
-            // Show modal immediately with full answers
-            displayBclModal(extracted.score, band, extracted.answers);
-
-            const proceedBtn = document.getElementById('bclModalNextBtn');
-            if (proceedBtn) {{
-                proceedBtn.disabled = true;
-                proceedBtn.textContent = 'Saving Result...';
-                proceedBtn.style.opacity = '0.7';
-            }}
-
             fetch(submitUrl, {{
                 method: 'POST',
                 body: formData,
                 headers: {{ 'X-Requested-With': 'XMLHttpRequest' }}
             }}).then(res => res.json()).then(data => {{
+                if (!data || data.status !== 'ok') {{
+                    throw new Error((data && data.error) || 'Listening submission failed.');
+                }}
                 console.log('Listening submission recorded to DB:', data);
                 const confirmedNext = (data && data.next_url) ? data.next_url : nextUrl;
                 window.__bclConfirmedNextUrl = confirmedNext;
+                const completedButton = document.getElementById('bclHeaderSubmitBtn');
+                if (completedButton) {{
+                    completedButton.innerHTML = '{next_btn_label}';
+                    completedButton.onclick = function() {{ window.location.href = confirmedNext; }};
+                }}
+                displayBclModal(extracted.score, band, extracted.answers);
+                const proceedBtn = document.getElementById('bclModalNextBtn');
                 if (proceedBtn) {{
                     proceedBtn.disabled = false;
                     proceedBtn.style.opacity = '1';
@@ -2174,13 +2174,8 @@ def render_listening_html(request, attempt):
                 }}
             }}).catch(err => {{
                 console.error('Submission error:', err);
-                window.__bclConfirmedNextUrl = nextUrl;
-                if (proceedBtn) {{
-                    proceedBtn.disabled = false;
-                    proceedBtn.style.opacity = '1';
-                    proceedBtn.innerHTML = '{next_btn_label}';
-                    proceedBtn.onclick = function() {{ window.location.href = nextUrl; }};
-                }}
+                alreadySubmitted = false;
+                alert('The Listening result could not be saved. Please check your connection and try again.');
             }});
         }}
     }})();
@@ -2600,12 +2595,12 @@ def submit_exam(request, attempt_id):
                         "band_score": str(attempt.band_score) if attempt.band_score else None,
                         "next_url": reverse("bcl:mock_reading", args=[attempt.module.mock_test_id]),
                     })
-                return redirect("bcl:full_mock_intermission", full_attempt_id=full_mock.pk)
+                return redirect("bcl:mock_reading", mock_id=attempt.module.mock_test_id)
             elif attempt.module.module_type == ExamModule.ModuleType.READING:
                 full_mock.current_step = "writing"
                 full_mock.save(update_fields=["current_step"])
                 messages.success(request, "Reading module completed. Next stage: Writing.")
-                return redirect("bcl:full_mock_intermission", full_attempt_id=full_mock.pk)
+                return redirect("bcl:exam_result", attempt_id=attempt.pk)
 
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
         return JsonResponse({
@@ -2649,6 +2644,11 @@ def exam_result(request, attempt_id):
     module = attempt.module
     mock_test = module.mock_test
     module_type = module.module_type
+    next_module_url = ""
+    next_module_label = ""
+    if attempt.full_mock_id and module_type == ExamModule.ModuleType.READING:
+        next_module_url = reverse("bcl:mock_writing", args=[mock_test.pk])
+        next_module_label = "Go to Writing Module"
 
     time_taken_str = "00:00"
     if attempt.submitted_at and attempt.started_at:
@@ -2701,6 +2701,8 @@ def exam_result(request, attempt_id):
             "task_evaluations": task_evaluations,
             "sections_data": sections_data,
             "is_evaluated": len(task_evaluations) == 2,
+            "next_module_url": next_module_url,
+            "next_module_label": next_module_label,
         })
 
     # Objective: Reading or Listening
@@ -2846,6 +2848,8 @@ def exam_result(request, attempt_id):
             "task_evaluations": task_evaluations,
             "sections_data": sections_data,
             "review_module_audio_url": review_module_audio_url,
+            "next_module_url": next_module_url,
+            "next_module_label": next_module_label,
         })
 
     answers = {
@@ -2940,7 +2944,6 @@ def exam_result(request, attempt_id):
     if audio_file and audio_file.name:
         try:
             if audio_file.storage.exists(audio_file.name):
-                from django.urls import reverse
                 review_module_audio_url = reverse("bcl:review_module_media", args=[attempt.pk, "audio"])
         except Exception:
             pass
@@ -2957,6 +2960,8 @@ def exam_result(request, attempt_id):
         "task_evaluations": task_evaluations,
         "sections_data": sections_data,
         "review_module_audio_url": review_module_audio_url,
+        "next_module_url": next_module_url,
+        "next_module_label": next_module_label,
     })
 
 
