@@ -1,0 +1,200 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ current_module_name }} Completed — {{ mock_test.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/exam.css' %}">
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    <script>
+        (function() {
+            try {
+                var t = localStorage.getItem("test-theme") || "device";
+                var isDark = (t === "dark") || (t === "device" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+                if (isDark) {
+                    document.documentElement.classList.add("dark");
+                    document.documentElement.setAttribute("data-theme", "dark");
+                } else {
+                    document.documentElement.classList.remove("dark");
+                    document.documentElement.setAttribute("data-theme", "light");
+                }
+            } catch (e) {}
+        })();
+    </script>
+    <style>
+        :root {
+            --inter-bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-title: #0f172a;
+            --text-muted: #64748b;
+            --border-card: #e2e8f0;
+            --box-bg: #f1f5f9;
+        }
+        html.dark {
+            --inter-bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-title: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-card: #334155;
+            --box-bg: #0f172a;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--inter-bg);
+            color: var(--text-title);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding: 24px 16px;
+        }
+        .stage-pill {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+        }
+        .stage-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 15px;
+            transition: all 0.2s ease;
+        }
+        .stage-circle.green {
+            background-color: #10b981;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+        }
+        .stage-circle.blue {
+            background-color: #2563eb;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+        }
+        .stage-circle.gray {
+            background-color: var(--border-card);
+            color: var(--text-muted);
+        }
+        .stage-label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .stage-label.green { color: #10b981; }
+        .stage-label.blue { color: #3b82f6; }
+        .stage-label.gray { color: var(--text-muted); }
+    </style>
+</head>
+<body>
+
+<div class="max-w-2xl w-full bg-[var(--card-bg)] border border-[var(--border-card)] rounded-2xl p-8 sm:p-10 shadow-2xl text-center space-y-8">
+    <!-- Header Icon -->
+    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-500/15 text-emerald-500 text-3xl font-black">
+        &check;
+    </div>
+
+    <div>
+        <span class="text-xs font-bold uppercase tracking-widest text-indigo-500">Stage Complete</span>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-[var(--text-title)] mt-1">
+            {{ current_module_name }} Module Completed
+        </h1>
+        <p class="text-sm text-[var(--text-muted)] mt-2">
+            Your {{ current_module_name }} answers have been successfully saved to the database.
+        </p>
+    </div>
+
+    <!-- Visual Sequence Stepper with Green/Blue Badges -->
+    <div class="flex items-center justify-between gap-2 p-5 rounded-2xl bg-[var(--box-bg)] border border-[var(--border-card)]">
+        <!-- Listening Stage -->
+        <div class="stage-pill">
+            <div class="stage-circle {% if stages.listening == 'completed' %}green{% elif stages.listening == 'pending' %}blue{% else %}gray{% endif %}">
+                {% if stages.listening == 'completed' %}&check;{% else %}1{% endif %}
+            </div>
+            <span class="stage-label {% if stages.listening == 'completed' %}green{% elif stages.listening == 'pending' %}blue{% else %}gray{% endif %}">
+                Listening
+            </span>
+            <span class="text-[11px] font-medium text-[var(--text-muted)]">
+                {% if stages.listening == 'completed' %}Completed{% else %}Pending{% endif %}
+            </span>
+        </div>
+
+        <div class="w-12 h-0.5 {% if stages.listening == 'completed' and stages.reading == 'completed' %}bg-emerald-500{% else %}bg-slate-300 dark:bg-slate-700{% endif %}"></div>
+
+        <!-- Reading Stage -->
+        <div class="stage-pill">
+            <div class="stage-circle {% if stages.reading == 'completed' %}green{% elif stages.reading == 'pending' %}blue{% else %}gray{% endif %}">
+                {% if stages.reading == 'completed' %}&check;{% else %}2{% endif %}
+            </div>
+            <span class="stage-label {% if stages.reading == 'completed' %}green{% elif stages.reading == 'pending' %}blue{% else %}gray{% endif %}">
+                Reading
+            </span>
+            <span class="text-[11px] font-medium text-[var(--text-muted)]">
+                {% if stages.reading == 'completed' %}Completed{% else %}Pending{% endif %}
+            </span>
+        </div>
+
+        <div class="w-12 h-0.5 {% if stages.reading == 'completed' and stages.writing == 'completed' %}bg-emerald-500{% else %}bg-slate-300 dark:bg-slate-700{% endif %}"></div>
+
+        <!-- Writing Stage -->
+        <div class="stage-pill">
+            <div class="stage-circle {% if stages.writing == 'completed' %}green{% elif stages.writing == 'pending' %}blue{% else %}gray{% endif %}">
+                {% if stages.writing == 'completed' %}&check;{% else %}3{% endif %}
+            </div>
+            <span class="stage-label {% if stages.writing == 'completed' %}green{% elif stages.writing == 'pending' %}blue{% else %}gray{% endif %}">
+                Writing
+            </span>
+            <span class="text-[11px] font-medium text-[var(--text-muted)]">
+                {% if stages.writing == 'completed' %}Completed{% else %}Pending{% endif %}
+            </span>
+        </div>
+    </div>
+
+    <!-- Completed Attempt Score Details -->
+    {% if completed_attempt %}
+    <div class="flex items-center justify-center gap-6 py-2 text-sm">
+        {% if completed_attempt.raw_score is not None %}
+        <div class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-[var(--border-card)]">
+            <span class="text-xs text-[var(--text-muted)] block font-semibold">Raw Score</span>
+            <strong class="text-base text-[var(--text-title)]">{{ completed_attempt.raw_score }} / 40</strong>
+        </div>
+        {% endif %}
+        {% if completed_attempt.band_score is not None %}
+        <div class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-[var(--border-card)]">
+            <span class="text-xs text-[var(--text-muted)] block font-semibold">IELTS Band</span>
+            <strong class="text-base text-emerald-600 dark:text-emerald-400">Band {{ completed_attempt.band_score }}</strong>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Action Buttons (Strictly GET Links & Form POSTs) -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 border-t border-[var(--border-card)]">
+        {% if completed_attempt %}
+        <!-- View Current Result (GET in new tab) -->
+        <a href="{% url 'bcl:exam_result' completed_attempt.pk %}" target="_blank"
+           class="w-full sm:w-auto px-6 py-3.5 rounded-xl border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors inline-flex items-center justify-center gap-2">
+            View Current Result &nearr;
+        </a>
+        {% endif %}
+
+        <!-- Go to Next Module (Strict HTML Form POST) -->
+        <form method="POST" action="{{ next_module_post_url }}" class="w-full sm:w-auto">
+            {% csrf_token %}
+            <button type="submit"
+                    class="w-full px-8 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-sm shadow-lg shadow-blue-600/30 transition-all inline-flex items-center justify-center gap-2">
+                Go to Next Module &rarr;
+            </button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
+

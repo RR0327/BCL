@@ -2298,11 +2298,49 @@ def render_listening_html(request, attempt):
 @login_required
 @require_GET
 def exam_session(request, attempt_id):
-    attempt = expire_attempt_if_needed(get_candidate_attempt(request, attempt_id))
+    attempt = CandidateAttempt.objects.filter(
+        pk=attempt_id, candidate=request.user
+    ).select_related("module", "module__mock_test").first()
+
+    if not attempt:
+        # CandidateAttempt does not exist or does not belong to this user.
+        # Check if the user has an active in-progress full mock test
+        active_fm = FullMockAttempt.objects.filter(
+            candidate=request.user, status=FullMockAttempt.AttemptStatus.IN_PROGRESS
+        ).order_by("-started_at").first()
+        if active_fm:
+            test_num = active_fm.mock_test.test_number
+            step = active_fm.current_step or "listening"
+            step_dispatch = {
+                "listening": f"/mock/{test_num}/listening/",
+                "listening_done": f"/mock/{test_num}/listening/complete/",
+                "reading": f"/mock/{test_num}/reading/",
+                "reading_done": f"/mock/{test_num}/reading/complete/",
+                "writing": f"/mock/{test_num}/writing/",
+                "completed": f"/mock/{test_num}/consolidated-result/",
+            }
+            messages.info(request, "Redirected to your active full mock test session.")
+            return redirect(step_dispatch.get(step, "/dashboard/"))
+
+        active_att = CandidateAttempt.objects.filter(
+            candidate=request.user, status=CandidateAttempt.AttemptStatus.IN_PROGRESS
+        ).order_by("-started_at").first()
+        if active_att:
+            active_att = expire_attempt_if_needed(active_att)
+            if active_att.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
+                if active_att.module.module_type == ExamModule.ModuleType.LISTENING:
+                    return redirect("bcl:mock_listening", mock_id=active_att.module.mock_test_id)
+                messages.info(request, "Redirected to your active exam session.")
+                return redirect("bcl:exam_session", attempt_id=active_att.pk)
+
+        messages.warning(request, "The requested exam session was not found or has concluded.")
+        return redirect("bcl:dashboard")
+
+    attempt = expire_attempt_if_needed(attempt)
     if attempt.status != CandidateAttempt.AttemptStatus.IN_PROGRESS:
         if attempt.full_mock_id:
             return redirect("bcl:full_mock_ended", full_attempt_id=attempt.full_mock_id)
-        return redirect("bcl:exam_ended", attempt_id=attempt.pk)
+        return redirect("bcl:standalone_result", attempt_id=attempt.pk)
     # An older duplicate must not display an active exam interface.
     if is_superseded_active_attempt(attempt):
         return redirect("bcl:exam_rules", module_id=attempt.module_id)
@@ -2664,6 +2702,7 @@ def submit_exam(request, attempt_id):
             full_mock = FullMockAttempt.objects.select_for_update().get(pk=attempt.full_mock_id)
             is_exit = request.POST.get("exit_full_mock") == "true"
 
+            test_num = attempt.module.mock_test.test_number
             if is_exit or attempt.module.module_type == ExamModule.ModuleType.WRITING:
                 full_mock.status = attempt.status
                 full_mock.current_step = "completed"
@@ -2671,9 +2710,9 @@ def submit_exam(request, attempt_id):
                 full_mock.calculate_overall_score()
                 full_mock.save()
                 messages.success(request, "Your All-Module examination session has ended.")
-                return redirect("bcl:full_mock_ended", full_attempt_id=full_mock.pk)
+                return redirect("bcl:mock_consolidated_result", mock_id=test_num)
             elif attempt.module.module_type == ExamModule.ModuleType.LISTENING:
-                full_mock.current_step = "reading"
+                full_mock.current_step = "listening_done"
                 full_mock.save(update_fields=["current_step"])
                 messages.success(request, "Listening module completed. Next stage: Reading.")
                 if request.headers.get("x-requested-with") == "XMLHttpRequest":
@@ -2681,14 +2720,21 @@ def submit_exam(request, attempt_id):
                         "status": "ok",
                         "raw_score": attempt.raw_score,
                         "band_score": str(attempt.band_score) if attempt.band_score else None,
-                        "next_url": reverse("bcl:mock_reading", args=[attempt.module.mock_test_id]),
+                        "next_url": reverse("bcl:mock_listening_complete", args=[test_num]),
                     })
-                return redirect("bcl:full_mock_intermission", full_attempt_id=full_mock.pk)
+                return redirect("bcl:mock_listening_complete", mock_id=test_num)
             elif attempt.module.module_type == ExamModule.ModuleType.READING:
                 full_mock.current_step = "writing"
                 full_mock.save(update_fields=["current_step"])
                 messages.success(request, "Reading module completed. Next stage: Writing.")
-                return redirect("bcl:full_mock_intermission", full_attempt_id=full_mock.pk)
+                if request.headers.get("x-requested-with") == "XMLHttpRequest":
+                    return JsonResponse({
+                        "status": "ok",
+                        "raw_score": attempt.raw_score,
+                        "band_score": str(attempt.band_score) if attempt.band_score else None,
+                        "next_url": reverse("bcl:mock_writing", args=[test_num]),
+                    })
+                return redirect("bcl:mock_writing", mock_id=test_num)
 
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
         return JsonResponse({
@@ -2698,7 +2744,7 @@ def submit_exam(request, attempt_id):
             "next_url": reverse("bcl:dashboard"),
         })
     messages.success(request, "Your examination session has ended.")
-    return redirect("bcl:exam_ended", attempt_id=attempt.pk)
+    return redirect("bcl:standalone_result", attempt_id=attempt.pk)
 
 
 @login_required
@@ -3560,15 +3606,10 @@ def mock_reading_view(request, mock_id):
             messages.warning(request, "Please start the mock exam from the Listening module.")
             return redirect("bcl:mock_listening", mock_id=mock_id)
 
-        # Sequence Guard: Validate Listening is completed
-        # Candidate clicked to proceed to Reading: safely finalize Listening attempt if still in progress
+        # Sequence Guard: a user must finish Listening before Reading is allowed.
         if full_mock.listening_attempt and full_mock.listening_attempt.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
-            full_mock.listening_attempt.status = CandidateAttempt.AttemptStatus.SUBMITTED
-            full_mock.listening_attempt.submitted_at = now
-            full_mock.listening_attempt.save(update_fields=["status", "submitted_at"])
-            finalize_attempt_score(full_mock.listening_attempt)
-            full_mock.current_step = "reading"
-            full_mock.save(update_fields=["current_step"])
+            messages.warning(request, "You must complete and submit the Listening module before starting Reading.")
+            return redirect("bcl:mock_listening", mock_id=mock_id)
 
         listening_done = (
             full_mock.listening_attempt is not None
@@ -3652,14 +3693,14 @@ def mock_writing_view(request, mock_id):
             messages.warning(request, "Please start the mock exam from the Listening module.")
             return redirect("bcl:mock_listening", mock_id=mock_id)
 
-        # Sequence Guard: Validate Listening and Reading are completed
+        # Sequence Guard: a user must finish Listening and Reading before Writing is allowed.
+        if full_mock.listening_attempt and full_mock.listening_attempt.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
+            messages.warning(request, "You must complete the Listening module first.")
+            return redirect("bcl:mock_listening", mock_id=mock_id)
+
         if full_mock.reading_attempt and full_mock.reading_attempt.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
-            full_mock.reading_attempt.status = CandidateAttempt.AttemptStatus.SUBMITTED
-            full_mock.reading_attempt.submitted_at = now
-            full_mock.reading_attempt.save(update_fields=["status", "submitted_at"])
-            finalize_attempt_score(full_mock.reading_attempt)
-            full_mock.current_step = "writing"
-            full_mock.save(update_fields=["current_step"])
+            messages.warning(request, "You must complete the Reading module before starting Writing.")
+            return redirect("bcl:mock_reading", mock_id=mock_id)
 
         if not full_mock.listening_attempt or full_mock.listening_attempt.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
             messages.warning(request, "You must complete the Listening module first.")

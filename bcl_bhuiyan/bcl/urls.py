@@ -1,6 +1,6 @@
 from django.urls import path
 from django.views.generic import RedirectView
-from . import exam_views, views, writing_views, writing_exports, private_media, mfa_views, result_exports
+from . import exam_views, views, writing_views, writing_exports, private_media, mfa_views, result_exports, views_ssr
 
 app_name = "bcl"
 
@@ -42,12 +42,16 @@ urlpatterns = [
     path("writing/reviews/<int:attempt_id>/export/<str:format>/", writing_exports.writing_export, name="writing_export"),
     path("admin-tools/export/attempt/<int:attempt_id>/<str:format>/", result_exports.export_candidate_attempt, name="export_candidate_attempt"),
     path("admin-tools/export/full-mock/<int:full_attempt_id>/<str:format>/", result_exports.export_full_mock_attempt, name="export_full_mock_attempt"),
+    path("result/<int:attempt_id>/", views_ssr.standalone_result_redirect, name="standalone_result"),
     path("start-mock/", exam_views.start_mock_shortcut, name="start_mock_shortcut"),
-    path("mock/<int:mock_id>/listening/", exam_views.mock_listening_view, name="mock_listening"),
-    path("mock/<int:mock_id>/listening/submit/", exam_views.mock_listening_submit, name="mock_listening_submit"),
-    path("mock/<int:mock_id>/reading/", exam_views.mock_reading_view, name="mock_reading"),
-    path("mock/<int:mock_id>/reading/submit/", exam_views.mock_reading_submit, name="mock_reading_submit"),
-    path("mock/<int:mock_id>/writing/", exam_views.mock_writing_view, name="mock_writing"),
-    path("mock/<int:mock_id>/writing/submit/", exam_views.mock_writing_submit, name="mock_writing_submit"),
-    path("mock/<int:mock_id>/consolidated-result/", exam_views.mock_consolidated_result, name="mock_consolidated_result"),
+    path("mock/<int:mock_id>/start/", views_ssr.full_mock_start, name="mock_start"),
+    path("mock/<int:mock_id>/listening/", views_ssr.full_mock_listening_view, name="mock_listening"),
+    path("mock/<int:mock_id>/listening/submit/", views_ssr.full_mock_listening_submit, name="mock_listening_submit"),
+    path("mock/<int:mock_id>/listening/complete/", views_ssr.full_mock_listening_complete, name="mock_listening_complete"),
+    path("mock/<int:mock_id>/reading/", views_ssr.full_mock_reading_view, name="mock_reading"),
+    path("mock/<int:mock_id>/reading/submit/", views_ssr.full_mock_reading_submit, name="mock_reading_submit"),
+    path("mock/<int:mock_id>/reading/complete/", views_ssr.full_mock_reading_complete, name="mock_reading_complete"),
+    path("mock/<int:mock_id>/writing/", views_ssr.full_mock_writing_view, name="mock_writing"),
+    path("mock/<int:mock_id>/writing/submit/", views_ssr.full_mock_writing_submit, name="mock_writing_submit"),
+    path("mock/<int:mock_id>/consolidated-result/", views_ssr.full_mock_consolidated_result, name="mock_consolidated_result"),
 ]

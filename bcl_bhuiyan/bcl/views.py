@@ -142,7 +142,17 @@ class CandidateLoginView(LoginView):
     redirect_authenticated_user = True
 
     def get_success_url(self):
-        return self.get_redirect_url() or str(reverse_lazy("bcl:dashboard"))
+        redirect_url = self.get_redirect_url()
+        if redirect_url:
+            import re
+            m = re.search(r'/exam/session/(\d+)/', redirect_url)
+            if m:
+                attempt_id = int(m.group(1))
+                from .models import CandidateAttempt
+                if not CandidateAttempt.objects.filter(pk=attempt_id, candidate=self.request.user).exists():
+                    return str(reverse_lazy("bcl:dashboard"))
+            return redirect_url
+        return str(reverse_lazy("bcl:dashboard"))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
