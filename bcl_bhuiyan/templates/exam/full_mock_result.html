@@ -482,14 +482,20 @@
         <!-- Hero Overall Score Banner -->
         <section class="hero-banner">
             <div class="hero-left">
-                <div class="hero-badge">FULL MOCK CONSOLIDATED SCORE REPORT</div>
+                <div class="hero-badge">{% if partial_result %}FULL MOCK PARTIAL SCORE REPORT{% else %}FULL MOCK CONSOLIDATED SCORE REPORT{% endif %}</div>
                 <h1 class="hero-title">{{ mock_test.title }}</h1>
                 <p class="hero-meta">
                     Candidate: <strong>{{ full_mock.candidate.username }}</strong> &bull; Completed: {{ full_mock.submitted_at|date:"M d, Y H:i"|default:"Recently" }}
                 </p>
             </div>
 
-            {% if is_writing_evaluated %}
+            {% if partial_result %}
+                <div class="band-score-box">
+                    <div class="band-score-label">Current Band</div>
+                    <div class="band-score-number">{{ full_mock.overall_band_score|default:"—" }}</div>
+                    <div style="font-size:11px;opacity:0.85;">Based on completed modules</div>
+                </div>
+            {% elif is_writing_evaluated %}
                 <div class="band-score-box">
                     <div class="band-score-label">Overall IELTS Band</div>
                     <div class="band-score-number">{{ overall_band }}</div>
