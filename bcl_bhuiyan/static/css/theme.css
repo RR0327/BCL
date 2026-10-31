@@ -8,6 +8,8 @@
     --theme-toggle-border: #cbd5e1;
     --theme-toggle-hover: #f1f5f9;
     --theme-toggle-text: #475569;
+    --nav-menu-bg: #ffffff;
+    --nav-menu-hover: #eef3fb;
 }
 
 html.dark,
@@ -16,6 +18,8 @@ html[data-theme="dark"] {
     --theme-toggle-border: #334155;
     --theme-toggle-hover: #334155;
     --theme-toggle-text: #cbd5e1;
+    --nav-menu-bg: #111c33;
+    --nav-menu-hover: #1e293b;
 }
 
 /* Reusable Theme Toggle Button */
@@ -67,12 +71,14 @@ html.dark body {
 }
 
 /* --- Home / Landing Page --- */
-html.dark .navbar {
+html.dark .navbar,
+html[data-theme="dark"] .navbar {
     background: #0f172a !important;
     border-bottom-color: #1e293b !important;
 }
 
-html.dark .logo {
+html.dark .logo,
+html[data-theme="dark"] .logo {
     color: #f8fafc !important;
 }
 
@@ -83,12 +89,31 @@ html[data-theme="dark"] .auth-logo span {
     color: #60a5fa !important;
 }
 
-html.dark nav a {
+html.dark nav a,
+html[data-theme="dark"] nav a {
     color: #cbd5e1 !important;
 }
 
-html.dark nav a:hover {
+html.dark nav a:hover,
+html[data-theme="dark"] nav a:hover {
     color: #60a5fa !important;
+}
+
+html.dark .nav-toggle,
+html[data-theme="dark"] .nav-toggle {
+    color: #e2e8f0 !important;
+    border-color: #334155 !important;
+}
+
+html.dark .navbar nav,
+html[data-theme="dark"] .navbar nav {
+    background: var(--nav-menu-bg) !important;
+    border-color: #334155 !important;
+}
+
+html.dark .navbar nav a:hover,
+html[data-theme="dark"] .navbar nav a:hover {
+    background: var(--nav-menu-hover) !important;
 }
 
 html.dark .nav-status {
@@ -719,5 +744,4 @@ html.dark .back-home-footer a:hover,
 html[data-theme="dark"] .back-home-footer a:hover {
     color: #818cf8 !important;
 }
-
 
