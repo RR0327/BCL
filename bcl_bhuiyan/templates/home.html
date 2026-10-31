@@ -18,8 +18,8 @@
     <script>
         (function() {
             try {
-                var t = localStorage.getItem("test-theme") || "device";
-                var isDark = (t === "dark") || (t === "device" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+                var t = localStorage.getItem("test-theme") || "light";
+                var isDark = t === "dark";
                 if (isDark) {
                     document.documentElement.classList.add("dark");
                     document.documentElement.setAttribute("data-theme", "dark");
@@ -42,7 +42,6 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            flex-wrap: wrap;
             gap: 20px;
         }
 
@@ -67,6 +66,19 @@
             align-items: center;
             gap: 12px;
         }
+
+        .nav-toggle {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: transparent;
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        .nav-toggle svg { width: 20px; height: 20px; }
 
         .nav-actions form {
             margin: 0;
@@ -117,6 +129,12 @@
             font-size: 13px;
             font-weight: 600;
             color: #475569;
+        }
+
+        html.dark .nav-toggle,
+        html[data-theme="dark"] .nav-toggle {
+            color: #e2e8f0;
+            border-color: #334155;
         }
 
         /* Dark mode navbar overrides */
@@ -238,20 +256,27 @@
             color: #fca5a5;
         }
 
-        @media (max-width: 900px) {
-            .navbar {
-                justify-content: center;
-                text-align: center;
-            }
-
+        @media (max-width: 760px) {
+            .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+            .navbar { position: relative; }
             .navbar nav {
-                justify-content: center;
+                display: none;
+                position: absolute;
+                left: 20px;
+                right: 20px;
+                top: calc(100% + 8px);
+                z-index: 20;
+                padding: 14px;
+                border: 1px solid var(--border);
+                border-radius: 14px;
+                background: var(--nav-menu-bg);
+                box-shadow: var(--shadow-md);
             }
-
-            .nav-actions {
-                justify-content: center;
-                flex-wrap: wrap;
-            }
+            .navbar nav.is-open { display: flex; flex-direction: column; gap: 4px; }
+            .navbar nav a { padding: 11px 12px; border-radius: 8px; }
+            .navbar nav a:hover { background: var(--nav-menu-hover); }
+            .welcome-user, .nav-actions .login-btn, .nav-actions .logout-btn { display: none; }
+            .nav-actions { margin-left: auto; }
         }
     </style>
 
@@ -276,7 +301,13 @@
         </a>
 
         <!-- Main Navigation -->
-        <nav aria-label="Main navigation">
+        <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primaryNav" aria-label="Open navigation menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+
+        <nav id="primaryNav" aria-label="Main navigation">
 
             <a href="{% url 'bcl:home' %}">
                 Home
@@ -342,7 +373,7 @@
 
             {% endif %}
 
-            <button type="button" id="themeToggleBtn" class="theme-toggle-btn" title="Toggle theme" aria-label="Toggle theme"></button>
+            <button type="button" id="themeToggleBtn" class="theme-toggle-btn" title="Theme" aria-label="Theme"></button>
 
         </div>
 
@@ -432,6 +463,12 @@
 
                     {% endif %}
 
+                </div>
+
+                <div class="hero-trust" aria-label="Platform highlights">
+                    <div><strong>3</strong>Core modules</div>
+                    <div><strong>40+</strong>Exam-style questions</div>
+                    <div><strong>24/7</strong>Practice access</div>
                 </div>
 
             </div>
@@ -554,6 +591,26 @@
         </p>
 
     </footer>
+
+    <script>
+        (function() {
+            var toggle = document.getElementById("navToggle");
+            var nav = document.getElementById("primaryNav");
+            if (!toggle || !nav) return;
+            toggle.addEventListener("click", function() {
+                var open = nav.classList.toggle("is-open");
+                toggle.setAttribute("aria-expanded", String(open));
+                toggle.setAttribute("aria-label", open ? "Close navigation menu" : "Open navigation menu");
+            });
+            nav.addEventListener("click", function(event) {
+                if (event.target.tagName === "A") {
+                    nav.classList.remove("is-open");
+                    toggle.setAttribute("aria-expanded", "false");
+                    toggle.setAttribute("aria-label", "Open navigation menu");
+                }
+            });
+        })();
+    </script>
 
 </body>
 </html>
