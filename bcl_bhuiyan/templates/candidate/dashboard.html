@@ -401,11 +401,11 @@
                             {% if full_attempt.status == 'in_progress' %}
                                 {% if full_attempt.current_step == 'listening' and full_attempt.listening_attempt and full_attempt.listening_attempt.status == 'in_progress' %}
                                     <a class="exam-link" href="{% url 'bcl:mock_listening' full_attempt.mock_test_id %}">
-                                        Resume
+                                        Start New Attempt
                                     </a>
                                 {% else %}
                                     <a class="exam-link" href="{% url 'bcl:full_mock_rules' full_attempt.mock_test_id %}">
-                                        Resume
+                                        Start New Attempt
                                     </a>
                                 {% endif %}
                             {% else %}
