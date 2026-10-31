@@ -2583,7 +2583,9 @@ def submit_exam(request, attempt_id):
                 full_mock.calculate_overall_score()
                 full_mock.save()
                 messages.success(request, "Your All-Module examination session has ended.")
-                return redirect("bcl:full_mock_ended", full_attempt_id=full_mock.pk)
+                return redirect("bcl:full_mock_result", full_attempt_id=full_mock.pk) if is_exit else redirect(
+                    "bcl:full_mock_ended", full_attempt_id=full_mock.pk
+                )
             elif attempt.module.module_type == ExamModule.ModuleType.LISTENING:
                 full_mock.current_step = "reading"
                 full_mock.save(update_fields=["current_step"])
@@ -2985,48 +2987,6 @@ def full_mock_rules(request, mock_test_id):
         messages.error(request, "This mock test does not have all three modules (Reading, Listening, Writing) configured.")
         return redirect("bcl:dashboard")
 
-    active_full = (
-        FullMockAttempt.objects
-        .filter(candidate=request.user, mock_test=mock_test, status=FullMockAttempt.AttemptStatus.IN_PROGRESS)
-        .order_by("-started_at")
-        .first()
-    )
-    if active_full:
-        if active_full.current_step == "listening" and active_full.listening_attempt:
-            att = expire_attempt_if_needed(active_full.listening_attempt)
-            if att.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
-                return redirect("bcl:exam_session", attempt_id=att.pk)
-            else:
-                active_full.current_step = "reading"
-                active_full.save(update_fields=["current_step"])
-                return redirect("bcl:full_mock_intermission", full_attempt_id=active_full.pk)
-
-        elif active_full.current_step == "reading" and active_full.reading_attempt:
-            att = expire_attempt_if_needed(active_full.reading_attempt)
-            if att.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
-                return redirect("bcl:exam_session", attempt_id=att.pk)
-            else:
-                active_full.current_step = "writing"
-                active_full.save(update_fields=["current_step"])
-                return redirect("bcl:full_mock_intermission", full_attempt_id=active_full.pk)
-
-        elif active_full.current_step == "writing" and active_full.writing_attempt:
-            att = expire_attempt_if_needed(active_full.writing_attempt)
-            if att.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
-                return redirect("bcl:exam_session", attempt_id=att.pk)
-            else:
-                active_full.status = att.status
-                active_full.current_step = "completed"
-                active_full.submitted_at = timezone.now()
-                active_full.calculate_overall_score()
-                active_full.save()
-                return redirect("bcl:full_mock_ended", full_attempt_id=active_full.pk)
-
-        elif active_full.current_step in {"listening", "reading", "writing"}:
-            return redirect("bcl:full_mock_intermission", full_attempt_id=active_full.pk)
-        elif active_full.current_step == "completed":
-            return redirect("bcl:full_mock_ended", full_attempt_id=active_full.pk)
-
     modules_by_type = {m.module_type: m for m in mock_test.modules.filter(is_active=True)}
     return render(request, "exam/full_mock_rules.html", {
         "mock_test": mock_test,
@@ -3062,20 +3022,33 @@ def start_full_mock(request, mock_test_id):
         get_user_model().objects.select_for_update().get(pk=request.user.pk)
         now = timezone.now()
 
-        active_full = (
-            FullMockAttempt.objects.select_for_update()
-            .filter(candidate=request.user, mock_test=mock_test, status=FullMockAttempt.AttemptStatus.IN_PROGRESS)
-            .order_by("-started_at")
-            .first()
+        for active_full in FullMockAttempt.objects.select_for_update().filter(
+            candidate=request.user,
+            mock_test=mock_test,
+            status=FullMockAttempt.AttemptStatus.IN_PROGRESS,
+        ):
+            for module_attempt in (
+                active_full.listening_attempt,
+                active_full.reading_attempt,
+                active_full.writing_attempt,
+            ):
+                if module_attempt and module_attempt.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
+                    module_attempt.status = CandidateAttempt.AttemptStatus.AUTO_SUBMITTED
+                    module_attempt.submitted_at = now
+                    module_attempt.save(update_fields=["status", "submitted_at"])
+            active_full.status = FullMockAttempt.AttemptStatus.SUBMITTED
+            active_full.current_step = "completed"
+            active_full.submitted_at = now
+            active_full.calculate_overall_score()
+            active_full.save(update_fields=["status", "current_step", "submitted_at", "overall_band_score"])
+
+        active_full = FullMockAttempt.objects.create(
+            candidate=request.user,
+            mock_test=mock_test,
+            status=FullMockAttempt.AttemptStatus.IN_PROGRESS,
+            current_step="listening",
+            started_at=now,
         )
-        if not active_full:
-            active_full = FullMockAttempt.objects.create(
-                candidate=request.user,
-                mock_test=mock_test,
-                status=FullMockAttempt.AttemptStatus.IN_PROGRESS,
-                current_step="listening",
-                started_at=now,
-            )
 
         if not active_full.listening_attempt:
             listening_attempt = CandidateAttempt.objects.create(
@@ -3280,7 +3253,7 @@ def full_mock_result(request, full_attempt_id):
     writing_evaluations = list(writing_att.task_evaluations.all().order_by("task_number")) if writing_att else []
     is_writing_evaluated = bool(writing_att and len(writing_evaluations) == 2 and writing_att.band_score is not None)
 
-    if is_writing_evaluated:
+    if full_mock.reading_attempt or full_mock.listening_attempt or full_mock.writing_attempt:
         full_mock.calculate_overall_score()
         full_mock.save(update_fields=["overall_band_score"])
 
@@ -3329,6 +3302,7 @@ def full_mock_result(request, full_attempt_id):
         "writing_evaluations": writing_evaluations,
         "writing_tasks": writing_tasks,
         "overall_band": full_mock.overall_band_score if is_writing_evaluated else None,
+        "partial_result": not full_mock.writing_attempt or not full_mock.reading_attempt or not full_mock.listening_attempt,
     })
 
 
@@ -3670,18 +3644,31 @@ def start_mock_shortcut(request):
     with transaction.atomic():
         get_user_model().objects.select_for_update().get(pk=request.user.pk)
         now = timezone.now()
-        full_mock = (
-            FullMockAttempt.objects.select_for_update()
-            .filter(candidate=request.user, mock_test=mock_test, status=FullMockAttempt.AttemptStatus.IN_PROGRESS)
-            .order_by("-started_at")
-            .first()
+        for active_full in FullMockAttempt.objects.select_for_update().filter(
+            candidate=request.user,
+            mock_test=mock_test,
+            status=FullMockAttempt.AttemptStatus.IN_PROGRESS,
+        ):
+            for module_attempt in (
+                active_full.listening_attempt,
+                active_full.reading_attempt,
+                active_full.writing_attempt,
+            ):
+                if module_attempt and module_attempt.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
+                    module_attempt.status = CandidateAttempt.AttemptStatus.AUTO_SUBMITTED
+                    module_attempt.submitted_at = now
+                    module_attempt.save(update_fields=["status", "submitted_at"])
+            active_full.status = FullMockAttempt.AttemptStatus.SUBMITTED
+            active_full.current_step = "completed"
+            active_full.submitted_at = now
+            active_full.calculate_overall_score()
+            active_full.save(update_fields=["status", "current_step", "submitted_at", "overall_band_score"])
+
+        full_mock = FullMockAttempt.objects.create(
+            candidate=request.user,
+            mock_test=mock_test,
+            status=FullMockAttempt.AttemptStatus.IN_PROGRESS,
+            current_step="listening",
+            started_at=now,
         )
-        if not full_mock:
-            full_mock = FullMockAttempt.objects.create(
-                candidate=request.user,
-                mock_test=mock_test,
-                status=FullMockAttempt.AttemptStatus.IN_PROGRESS,
-                current_step="listening",
-                started_at=now,
-            )
     return redirect("bcl:mock_listening", mock_id=mock_id)
