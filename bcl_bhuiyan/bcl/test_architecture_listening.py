@@ -74,6 +74,8 @@ class ArchitectureAndIntegrityTests(TestCase):
         # Must have modern modal popup
         self.assertIn("bcl-listening-modal", content)
         self.assertIn("Exam Result &amp; Answers Review", content)
+        self.assertIn("completedButton.innerHTML", content)
+        self.assertIn("window.location.href = confirmedNext", content)
 
         # Must have student answers extraction & bridge
         self.assertIn("extractAnswersAndScore", content)
@@ -514,5 +516,4 @@ class ArchitectureAndIntegrityTests(TestCase):
         self.assertEqual(attempt.raw_score, 28)
         self.assertEqual(attempt.band_score, Decimal("6.5"))
         self.assertIn("answers", attempt.answers_payload)
-
 

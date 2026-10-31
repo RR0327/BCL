@@ -1162,6 +1162,13 @@
             {% endfor %}
         </div>
     </footer>
+    {% if next_module_url %}
+    <div class="fixed bottom-16 right-4 sm:right-8 z-30">
+        <a href="{{ next_module_url }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-lg transition-colors">
+            {{ next_module_label }} &rarr;
+        </a>
+    </div>
+    {% endif %}
     {% endif %}
 
 </div>

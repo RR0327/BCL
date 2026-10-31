@@ -93,6 +93,7 @@
 
         #volume-slider {
             -webkit-appearance: none;
+            appearance: none;
             width: 80px;
             height: 4px;
             background: #ddd;
@@ -258,6 +259,10 @@
             border: 1px solid #ddd;
         }
 
+        #part-1 table td {
+            line-height: 1.8;
+        }
+
         .person-name {
             font-size: 16px;
         }
@@ -368,7 +373,7 @@
             border-color: #4a90e2;
         }
         .map-drop-zone .drag-item {
-            font-size: 16px;
+            font-size: 14px;
             width: 100%;
             height: 100%;
             display: flex;
@@ -444,6 +449,28 @@
             overflow-y: hidden;
             white-space: nowrap;
             -webkit-overflow-scrolling: touch;
+        }
+
+        /* Prevent "Score/Band" button text overflow on small screens */
+        .footer__deliverButton___3FM07 {
+            max-width: 42%;
+            white-space: normal;          /* allow wrapping */
+            word-break: break-word;       /* break long text if needed */
+            line-height: 1.2;
+        }
+        @media (max-width: 768px) {
+            .footer__deliverButton___3FM07 {
+                max-width: 55%;
+                padding: 10px 12px;
+                font-size: 14px;
+            }
+        }
+        @media (max-width: 480px) {
+            .footer__deliverButton___3FM07 {
+                max-width: 65%;
+                padding: 8px 10px;
+                font-size: 13px;
+            }
         }
 
         .footer__questionWrapper___1tZ46 {
@@ -590,6 +617,16 @@
         .footer__deliverButton___3FM07:hover {
             background-color: #e0e0e0;
             border-color: #bbb;
+        }
+        /* Success style for "My Results" button after checking */
+        .footer__deliverButton___3FM07.success {
+            background-color: #28a745;
+            color: #fff;
+            border-color: #28a745;
+        }
+        .footer__deliverButton___3FM07.success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
         }
 
         .footer__deliverButton___3FM07:disabled {
@@ -1045,7 +1082,7 @@
             height: 35px;
             width: 100%;
             max-width: none;
-            min-width: 300px;
+            min-width: 200px;
             padding: 8px 12px;
             display: flex;
             align-items: center;
@@ -1064,7 +1101,7 @@
             max-width: none;
             text-align: left;
             padding: 6px 8px;
-            font-size: 16px;
+            font-size: 14px;
             line-height: 1.2;
             word-break: break-word;
             overflow-wrap: break-word;
@@ -1091,6 +1128,46 @@
         .matching-question-item .drop-zone .placeholder {
             color: #999;
             font-weight: bold;
+        }
+
+        /* Clickable cell styles for matching questions */
+        .clickable-cell {
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.2s;
+            min-width: 40px;
+            height: 40px;
+        }
+        .clickable-cell:hover {
+            background-color: #e6f4ff;
+        }
+        .clickable-cell.selected {
+            background-color: #4a90e2;
+            color: white;
+        }
+        .clickable-cell.selected::after {
+            content: "✓";
+            font-weight: bold;
+        }
+        .clickable-cell.correct {
+            background-color: #28a745 !important;
+            color: white !important;
+        }
+        .clickable-cell.correct::after {
+            content: "✓";
+            font-weight: bold;
+        }
+        .clickable-cell.incorrect {
+            background-color: #dc3545 !important;
+            color: white !important;
+        }
+        .clickable-cell.incorrect::after {
+            content: "✗";
+            font-weight: bold;
+        }
+        .statement {
+            font-weight: 500;
+            padding-right: 20px;
         }
 
         .option strong,
@@ -1448,13 +1525,13 @@
             }
             
             .drop-zone {
-                max-width: 200px;
-                min-width: 150px;
+                max-width: 110px;
+                min-width: 90px;
             }
             
             .matching-table .drop-zone {
-                max-width: 200px;
-                min-width: 150px;
+                max-width: 110px;
+                min-width: 90px;
             }
         }
         
@@ -1468,23 +1545,23 @@
             }
             
             .drop-zone {
-                max-width: 180px;
-                min-width: 120px;
+                max-width: 100px;
+                min-width: 80px;
                 font-size: 14px;
             }
             
             .matching-table .drop-zone {
-                max-width: 180px;
-                min-width: 120px;
+                max-width: 100px;
+                min-width: 80px;
             }
             
             .drag-item {
-                font-size: 16px;
+                font-size: 13px;
                 padding: 4px 6px;
             }
             
             .matching-table .drop-zone .drag-item {
-                font-size: 16px;
+                font-size: 12px;
             }
             
             /* Ensure drag-drop containers are more mobile-friendly */
@@ -1576,25 +1653,77 @@
                         <div class="question-prompt">
                             <p><strong>Questions 1-10</strong></p>
                             <p>Complete the notes below.</p>
-                            <p>Write <strong>ONE WORD AND/OR A NUMBER</strong> for each answer.</p>
+                            <p>Write <strong>NO MORE THAN TWO WORDS AND/OR A NUMBER</strong> for each answer.</p>
                         </div>
-                        <div style="border: 1px solid #000000; padding: 15px;"> <p class="centered-title">Revision Note</p>
-                            <div style="font-family: Arial, sans-serif; line-height: 1.6;">
-                                
-                                <ul style="list-style-type: none; padding-left: 20px;">
-                                    <li>&bull;&nbsp;&nbsp;Problem with: the brochure sample</li>
-                                    <li>&bull;&nbsp;&nbsp;Company name: <input type="text" id="q1" class="answer-input" placeholder="1" style="width: 120px; margin-right: 5px;"> Hotel Chains</li>
-                                    <li>&bull;&nbsp;&nbsp;Letters of the <input type="text" id="q2" class="answer-input" placeholder="2" style="width: 120px; margin-right: 5px;"> should be bigger.</li>
-                                    <li>&bull;&nbsp;&nbsp;The information of the <input type="text" id="q3" class="answer-input" placeholder="3" style="width: 120px; margin-right: 5px;"> should be removed.</li>
-                                    <li>&bull;&nbsp;&nbsp;Change the description under the top photo to <input type="text" id="q4" class="answer-input" placeholder="4" style="width: 120px; margin-right: 5px;"></li>
-                                    <li>&bull;&nbsp;&nbsp;Use the picture with the <input type="text" id="q5" class="answer-input" placeholder="5" style="width: 120px; margin-right: 5px;"> of the hotel.</li>
-                                    <li>&bull;&nbsp;&nbsp;The <input type="text" id="q6" class="answer-input" placeholder="6" style="width: 120px; margin-right: 5px;"> should be in red print.</li>
-                                    <li>&bull;&nbsp;&nbsp;Translate into <input type="text" id="q7" class="answer-input" placeholder="7" style="width: 120px; margin-right: 5px;"></li>
-                                    <li>&bull;&nbsp;&nbsp;Deadline: by the end of <input type="text" id="q8" class="answer-input" placeholder="8" style="width: 120px; margin-right: 5px;"></li>
-                                    <li>&bull;&nbsp;&nbsp;Address: No. <input type="text" id="q9" class="answer-input" placeholder="9" style="width: 80px; margin-right: 5px;"> Green Drive, <input type="text" id="q10" class="answer-input" placeholder="10" style="width: 120px; margin-right: 5px;">, NY21300</li>
-                                </ul>
-                            </div></div>
-                        
+                        <div style="border: 1px solid #000000; padding: 15px;">
+                            <p class="centered-title">Office Rental</p>
+                            <table>
+                                <tr>
+                                    <td><strong>Address:</strong></td>
+                                    <td>21 North Avenue</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Type of company:</strong></td>
+                                    <td><input type="text" id="q1" class="answer-input" placeholder="1"></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Full name:</strong></td>
+                                    <td>Jonathan Smith</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Position:</strong></td>
+                                    <td><input type="text" id="q2" class="answer-input" placeholder="2"></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Location:</strong></td>
+                                    <td>near the <input type="text" id="q3" class="answer-input" placeholder="3"></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>No. of people:</strong></td>
+                                    <td>30</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Preferred size of the area:</strong></td>
+                                    <td><input type="text" id="q4" class="answer-input" placeholder="4"> ft2</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Requirements:</strong></td>
+                                    <td>24-hour <input type="text" id="q5" class="answer-input" placeholder="5"></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><input type="text" id="q6" class="answer-input" placeholder="6"> on ground floor</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Preferred facilities:</strong></td>
+                                    <td>a (an) <input type="text" id="q7" class="answer-input" placeholder="7"> to cook in</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>a (an) <input type="text" id="q8" class="answer-input" placeholder="8"> away from the workspace</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>No. of power sockets:</strong></td>
+                                    <td>40</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Daily exercise:</strong></td>
+                                    <td>a (an) <input type="text" id="q9" class="answer-input" placeholder="9"></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Unnecessary:</strong></td>
+                                    <td><input type="text" id="q10" class="answer-input" placeholder="10"></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Other requirements:</strong></td>
+                                    <td>WIFI</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Arrangement of viewing:</strong></td>
+                                    <td>3p.m on Thursday</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1607,86 +1736,94 @@
                 <div class="questions-container">
                     <div class="question">
                         <div class="question-prompt">
-                            <p><strong>Questions 11-15</strong><br>Choose the correct option.</p>
+                            <p><strong>Questions 11-14</strong></p>
+                            <p>Which counsellor should you see?</p>
+                            <p>Write the correct letter <strong>A, B or C</strong>, next to questions 11-14.</p>
+                            <p><strong>A</strong> Louise Bagshaw</p>
+                            <p><strong>B</strong> Tony Denby</p>
+                            <p><strong>C</strong> Naomi Flynn</p>
                         </div>
-                        <div class="single-choice-container">
-                            <div class="single-choice">
-                                <p><strong>11</strong>   Why does the speaker recommend the Sky Hotel?</p>
-                                <label><input type="radio" name="q11" value="A">&nbsp;&nbsp;Because it is quite comfortable.</label>
-                                <label><input type="radio" name="q11" value="B">&nbsp;&nbsp;Because it provides ski and snowboard equipment rentals.</label>
-                                <label><input type="radio" name="q11" value="C">&nbsp;&nbsp;Because it has health and sports club.</label>
-                            </div>
-                            <div class="single-choice">
-                                <p><strong>12</strong>   What is new in this year's exhibition?</p>
-                                <label><input type="radio" name="q12" value="A">&nbsp;&nbsp;photos of top ski resorts worldwide</label>
-                                <label><input type="radio" name="q12" value="B">&nbsp;&nbsp;ski equipment</label>
-                                <label><input type="radio" name="q12" value="C">&nbsp;&nbsp;computer simulation</label>
-                            </div>
-                            <div class="single-choice">
-                                <p><strong>13</strong>   How do people enter the skiing and snowboarding competition?</p>
-                                <label><input type="radio" name="q13" value="A">&nbsp;&nbsp;They can send emails to the committee.</label>
-                                <label><input type="radio" name="q13" value="B">&nbsp;&nbsp;They can fill out the back of the entrance ticket.</label>
-                                <label><input type="radio" name="q13" value="C">&nbsp;&nbsp;They can check out the exhibition newsletter</label>
-                            </div>
-                            <div class="single-choice">
-                                <p><strong>14</strong>   What did the media focus on this year?</p>
-                                <label><input type="radio" name="q14" value="A">&nbsp;&nbsp;not enough snow</label>
-                                <label><input type="radio" name="q14" value="B">&nbsp;&nbsp;reduction in fee</label>
-                                <label><input type="radio" name="q14" value="C">&nbsp;&nbsp;the decline of participants</label>
-                            </div>
-                            <div class="single-choice">
-                                <p><strong>15</strong>   Why does the speaker recommend the ski program?</p>
-                                <label><input type="radio" name="q15" value="A">&nbsp;&nbsp;The instructors are quite friendly and patient.</label>
-                                <label><input type="radio" name="q15" value="B">&nbsp;&nbsp;It includes lessons and sessions that suit only beginners</label>
-                                <label><input type="radio" name="q15" value="C">&nbsp;&nbsp;It provides special offers at the moment.</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="question">
-                        <div class="question-prompt">
-                            <p><strong>Questions 16-20</strong></p>
-                            <p>Choose <strong>FIVE</strong> answers from the box and write the correct letter next to Questions 16-20.</p>
-                        </div>
-                        <div class="matching-container">
+                        <div class="table-container">
                             <table class="matching-table">
                                 <thead>
                                     <tr>
-                                        <th>Presentation</th>
-                                        <th>Answer</th>
+                                        <th></th>
+                                        <th>A</th>
+                                        <th>B</th>
+                                        <th>C</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><strong>16</strong>   Simon's talk</td>
-                                        <td><div class="drop-zone" data-question-id="16" data-question="q16"></div></td>
+                                        <td class="statement">11. If it is your first time seeing a counsellor.</td>
+                                        <td class="clickable-cell" data-question="11" data-value="A" onclick="selectCell(this, 11, 'A')"></td>
+                                        <td class="clickable-cell" data-question="11" data-value="B" onclick="selectCell(this, 11, 'B')"></td>
+                                        <td class="clickable-cell" data-question="11" data-value="C" onclick="selectCell(this, 11, 'C')"></td>
                                     </tr>
                                     <tr>
-                                        <td><strong>17</strong>   Solution</td>
-                                        <td><div class="drop-zone" data-question-id="17" data-question="q17"></div></td>
+                                        <td class="statement">12. If you are unable to see a counsellor during normal office hours.</td>
+                                        <td class="clickable-cell" data-question="12" data-value="A" onclick="selectCell(this, 12, 'A')"></td>
+                                        <td class="clickable-cell" data-question="12" data-value="B" onclick="selectCell(this, 12, 'B')"></td>
+                                        <td class="clickable-cell" data-question="12" data-value="C" onclick="selectCell(this, 12, 'C')"></td>
                                     </tr>
                                     <tr>
-                                        <td><strong>18</strong>   Film</td>
-                                        <td><div class="drop-zone" data-question-id="18" data-question="q18"></div></td>
+                                        <td class="statement">13. If you do not have an appointment.</td>
+                                        <td class="clickable-cell" data-question="13" data-value="A" onclick="selectCell(this, 13, 'A')"></td>
+                                        <td class="clickable-cell" data-question="13" data-value="B" onclick="selectCell(this, 13, 'B')"></td>
+                                        <td class="clickable-cell" data-question="13" data-value="C" onclick="selectCell(this, 13, 'C')"></td>
                                     </tr>
                                     <tr>
-                                        <td><strong>19</strong>   Tricks</td>
-                                        <td><div class="drop-zone" data-question-id="19" data-question="q19"></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>20</strong>   Johnson's talk</td>
-                                        <td><div class="drop-zone" data-question-id="20" data-question="q20"></div></td>
+                                        <td class="statement">14. If your concerns are related to anxiety.</td>
+                                        <td class="clickable-cell" data-question="14" data-value="A" onclick="selectCell(this, 14, 'A')"></td>
+                                        <td class="clickable-cell" data-question="14" data-value="B" onclick="selectCell(this, 14, 'B')"></td>
+                                        <td class="clickable-cell" data-question="14" data-value="C" onclick="selectCell(this, 14, 'C')"></td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="matching-options-list">
-                                <div class="drag-item" draggable="true" data-option-id="A">exploring new destinations</div>
-                                <div class="drag-item" draggable="true" data-option-id="B">how to make the skiing boots comfortable</div>
-                                <div class="drag-item" draggable="true" data-option-id="C">how to become a ski instructor</div>
-                                <div class="drag-item" draggable="true" data-option-id="D">how to combine other activities with skiing</div>
-                                <div class="drag-item" draggable="true" data-option-id="E">how to improve the skills of skiing</div>
-                                <div class="drag-item" draggable="true" data-option-id="F">information about skiing safety</div>
-                            </div>
                         </div>
+                    </div>
+
+                    <div class="question">
+                        <div class="question-prompt">
+                            <p><strong>Questions 15-20</strong></p>
+                            <p>Write no more than two words for each answer.</p>
+                        </div>
+                            <table class="mcq-table">
+                                <thead>
+                                    <tr>
+                                        <th>Workshop</th>
+                                        <th>Content</th>
+                                        <th>Target group</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Adjusting</td>
+                                        <td>what you need to succeed academically</td>
+                                        <td><input type="text" id="q15" class="answer-input" placeholder="15"> students</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Getting Organised</td>
+                                        <td>use time effectively, find <input type="text" id="q16" class="answer-input" placeholder="16"> between study and leisure</td>
+                                        <td>all students</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Communicating</td>
+                                        <td>talking with staff, communicating across cultures</td>
+                                        <td>all students, especially <input type="text" id="q17" class="answer-input" placeholder="17"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Anxiety</td>
+                                        <td><input type="text" id="q18" class="answer-input" placeholder="18">, breathing techniques, meditation, etc.</td>
+                                        <td>students about to sit exams</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" id="q19" class="answer-input" placeholder="19"></td>
+                                        <td>staying on track for long periods</td>
+                                        <td><input type="text" id="q20" class="answer-input" placeholder="20"> students only</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                     </div>
                 </div>
             </div>
@@ -1699,88 +1836,79 @@
                 <div class="questions-container">
                     <div class="question">
                         <div class="question-prompt">
-                            <p><strong>Questions 21-24</strong></p>
-                            <p>Choose the correct option.</p>
+                            <p><strong>Questions 21-23</strong></p>
+                            <p>Which <strong>THREE</strong> factors does Marco's tutor advise him to consider when selecting a course?</p>
                         </div>
                         <div class="single-choice-container">
                             <div class="single-choice">
-                                <p><strong>21</strong>   How old are the students on the nursing program?</p>
-                                <label><input type="radio" name="q21" value="A">&nbsp;&nbsp;They are teenagers.</label>
-                                <label><input type="radio" name="q21" value="B">&nbsp;&nbsp;They are in their twenties</label>
-                                <label><input type="radio" name="q21" value="C">&nbsp;&nbsp;They belong to different age groups</label>
+                                <label><input type="checkbox" name="q21-23" value="A">&nbsp;&nbsp;   possibility of specialisation</label>
                             </div>
                             <div class="single-choice">
-                                <p><strong>22</strong>   What do the speakers say about the group project?</p>
-                                <label><input type="radio" name="q22" value="A">&nbsp;&nbsp;It helps to improve relationship among different classmates.</label>
-                                <label><input type="radio" name="q22" value="B">&nbsp;&nbsp;It helps to develop problem solving skills.</label>
-                                <label><input type="radio" name="q22" value="C">&nbsp;&nbsp;It provides supportive learning environment.</label>
+                                <label><input type="checkbox" name="q21-23" value="B">&nbsp;&nbsp;   relevance to future career</label>
                             </div>
                             <div class="single-choice">
-                                <p><strong>23</strong>   Which part of the program surprised Paul?</p>
-                                <label><input type="radio" name="q23" value="A">&nbsp;&nbsp;There's a number of essays to write.</label>
-                                <label><input type="radio" name="q23" value="B">&nbsp;&nbsp;There's a lot of practical work.</label>
-                                <label><input type="radio" name="q23" value="C">&nbsp;&nbsp;There's internship provided.</label>
+                                <label><input type="checkbox" name="q21-23" value="C">&nbsp;&nbsp;   personal interest</label>
                             </div>
                             <div class="single-choice">
-                                <p><strong>24</strong>   What do they feel about learning law?</p>
-                                <label><input type="radio" name="q24" value="A">&nbsp;&nbsp;It is essential training.</label>
-                                <label><input type="radio" name="q24" value="B">&nbsp;&nbsp;It is too theoretical.</label>
-                                <label><input type="radio" name="q24" value="C">&nbsp;&nbsp;It takes up too much time.</label>
+                                <label><input type="checkbox" name="q21-23" value="D">&nbsp;&nbsp;   organization of course</label>
+                            </div>
+                            <div class="single-choice">
+                                <label><input type="checkbox" name="q21-23" value="E">&nbsp;&nbsp;   assessment methods</label>
+                            </div>
+                            <div class="single-choice">
+                                <label><input type="checkbox" name="q21-23" value="F">&nbsp;&nbsp;   range of topics</label>
+                            </div>
+                            <div class="single-choice">
+                                <label><input type="checkbox" name="q21-23" value="G">&nbsp;&nbsp;   reputation of lecturer</label>
                             </div>
                         </div>
                     </div>
 
                     <div class="question">
                         <div class="question-prompt">
-                            <p><strong>Questions 25-30</strong></p>
-                            <p>What are the suggestions offered by the speakers?</p>
-                            <p>Choose <strong>SIX</strong> answers from the box and write the correct letter next to Questions 25-30.</p>
+                            <p><strong>Questions 24-27</strong></p>
+                            <p>Choose the correct answer.</p>
                         </div>
-                        <div class="matching-container">
-                            <table class="matching-table">
-                                <thead>
-                                    <tr>
-                                        <th>Course of Action</th>
-                                        <th>Answer</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><strong>25</strong>   Essays</td>
-                                        <td><div class="drop-zone" data-question-id="25" data-question="q25"></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>26</strong>   Lectures</td>
-                                        <td><div class="drop-zone" data-question-id="26" data-question="q26"></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>27</strong>   Research</td>
-                                        <td><div class="drop-zone" data-question-id="27" data-question="q27"></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>28</strong>   Online forum</td>
-                                        <td><div class="drop-zone" data-question-id="28" data-question="q28"></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>29</strong>   Placement tests</td>
-                                        <td><div class="drop-zone" data-question-id="29" data-question="q29"></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>30</strong>   Freshmen</td>
-                                        <td><div class="drop-zone" data-question-id="30" data-question="q30"></div></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="matching-options-list">
-                                <div class="drag-item" draggable="true" data-option-id="A">get feedback from teaching staff</div>
-                                <div class="drag-item" draggable="true" data-option-id="B">do more reading</div>
-                                <div class="drag-item" draggable="true" data-option-id="C">get help from school supporting staff</div>
-                                <div class="drag-item" draggable="true" data-option-id="D">get help for nursing problems</div>
-                                <div class="drag-item" draggable="true" data-option-id="E">manage time properly</div>
-                                <div class="drag-item" draggable="true" data-option-id="F">be well prepared</div>
-                                <div class="drag-item" draggable="true" data-option-id="G">review the notes regularly</div>
-                                <div class="drag-item" draggable="true" data-option-id="H">don't set unrealistic goals</div>
+                        <div class="single-choice-container">
+                            <div class="single-choice">
+                                <p><strong>24</strong>   Why does Marco's tutor advise him to avoid the Team Management course?</p>
+                                <label><input type="radio" name="q24" value="A">&nbsp;&nbsp;   It will repeat work that Marco has already done.</label>
+                                <label><input type="radio" name="q24" value="B">&nbsp;&nbsp;   It is intended for students at a lower level than Marco.</label>
+                                <label><input type="radio" name="q24" value="C">&nbsp;&nbsp;   It may take too much time to do well.</label>
                             </div>
+                            <div class="single-choice">
+                                <p><strong>25</strong>   Why does Marco want to do a dissertation?</p>
+                                <label><input type="radio" name="q25" value="A">&nbsp;&nbsp;   He thinks it will help his future career.</label>
+                                <label><input type="radio" name="q25" value="B">&nbsp;&nbsp;   He would like to do a detailed study.</label>
+                                <label><input type="radio" name="q25" value="C">&nbsp;&nbsp;   He has already done some work for it.</label>
+                            </div>
+                            <div class="single-choice">
+                                <p><strong>26</strong>   What does Marco's tutor think about the dissertation outline?</p>
+                                <label><input type="radio" name="q26" value="A">&nbsp;&nbsp;   The topic is too narrow to be useful.</label>
+                                <label><input type="radio" name="q26" value="B">&nbsp;&nbsp;   The available data may be unsuitable.</label>
+                                <label><input type="radio" name="q26" value="C">&nbsp;&nbsp;   The research plan is too complicated.</label>
+                            </div>
+                            <div class="single-choice">
+                                <p><strong>27</strong>   What does Marco decide to do about his dissertation?</p>
+                                <label><input type="radio" name="q27" value="A">&nbsp;&nbsp;   Contact potential interviewees.</label>
+                                <label><input type="radio" name="q27" value="B">&nbsp;&nbsp;   Change to another topic.</label>
+                                <label><input type="radio" name="q27" value="C">&nbsp;&nbsp;   Discuss it with Professor Briggs.</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <div class="question-prompt">
+                            <p><strong>Questions 28-30</strong></p>
+                            <p>Write <strong>NO MORE THAN TWO WORDS</strong> for each answer.</p>
+                        </div>
+                        <div style="border: 1px solid #000000; padding: 15px;">
+                            <p class="centered-title">Practical details</p>
+                            <ul style="list-style-type: none; padding-left: 0px;">
+                                <li>A first draft of the dissertation should be completed by the end of <input type="text" id="q28" class="answer-input" placeholder="28"></li>
+                                <li>The dissertation should be registered with the <input type="text" id="q29" class="answer-input" placeholder="29"> of the department.</li>
+                                <li>Marco should get a copy of the statistic software from the <input type="text" id="q30" class="answer-input" placeholder="30"></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -1798,31 +1926,32 @@
                             <p>Complete the notes below.</p>
                             <p>Write <strong>ONE WORD ONLY</strong> for each answer.</p>
                         </div>
-                        <div style="border: 1px solid #000000; padding: 15px;"> <p class="centered-title">Penguins in Africa</p>
-                        <p><strong>Appearance and lifestyle</strong></p>
-                        <ul style="list-style-type: none; padding-left: 20px;">
-                            <li>&bull;&nbsp;&nbsp;They are also called Jackass Penguins for the sound they make.</li>
-                            <li>&bull;&nbsp;&nbsp;The <input type="text" class="answer-input" id="q31" placeholder="31"> of their body remains constant.</li>
-                            <li>&bull;&nbsp;&nbsp;They restrict their <input type="text" class="answer-input" id="q32" placeholder="32"> on land from dusk till dawn.</li>
-                            <li>&bull;&nbsp;&nbsp;They cannot fly because they have heavy <input type="text" class="answer-input" id="q33" placeholder="33"></li>
-                            <li>&bull;&nbsp;&nbsp;They nest under <input type="text" class="answer-input" id="q34" placeholder="34"></li>
-                            <li>&bull;&nbsp;&nbsp;They eat tree <input type="text" class="answer-input" id="q35" placeholder="35"></li>
-                        </ul>
-                        <p><strong>Predators</strong></p>
-                        <ul style="list-style-type: none; padding-left: 20px;">
-                            <li>&bull;&nbsp;&nbsp;seals</li>
-                            <li>&bull;&nbsp;&nbsp;<input type="text" class="answer-input" id="q36" placeholder="36"></li>
-                            <li>&bull;&nbsp;&nbsp;seagulls (eat the penguin <input type="text" class="answer-input" id="q37" placeholder="37">)</li>
-                        </ul>
-                        <p><strong>Threats</strong></p>
-                        <ul style="list-style-type: none; padding-left: 20px;"> 
-                            <li>&bull;&nbsp;&nbsp;They lose <input type="text" class="answer-input" id="q38" placeholder="38"> in winter.</li>
-                            <li>&bull;&nbsp;&nbsp;They are fighting for nesting <input type="text" class="answer-input" id="q39" placeholder="39"> and food because of human activities</li>
-                            <li>&bull;&nbsp;&nbsp;In order to improve survivorship, it is helpful to increase the <input type="text" class="answer-input" id="q40" placeholder="40"> of their genes.</li>
-                        </ul>
-                    </div>
-
-                            
+                        <div style="border: 1px solid #000000; padding: 15px;">
+                            <p class="centered-title">The Gherkin Building</p>
+                            <p><strong>Commissioned by:</strong> <input type="text" id="q31" class="answer-input" placeholder="31"> firm called Foster and Partners</p>
+                            <p><strong>The features of its appearance:</strong></p>
+                            <ul style="list-style-type: none; padding-left: 0px;">
+                                <li>&nbsp;&nbsp;&bull;&nbsp;&nbsp;Its shape is like a <input type="text" id="q32" class="answer-input" placeholder="32"></li>
+                                <li>&nbsp;&nbsp;&bull;&nbsp;&nbsp;It can reduce the carbon <input type="text" id="q33" class="answer-input" placeholder="33"> of the citys.</li>
+                                <li>&nbsp;&nbsp;&bull;&nbsp;&nbsp;It lets <input type="text" id="q34" class="answer-input" placeholder="34"> pass through the building, both reducing heating costs and brightening up the workspace</li>
+                                <li>&nbsp;&nbsp;&bull;&nbsp;&nbsp;One false story claimed that the exterior of the building is partly made of <input type="text" id="q35" class="answer-input" placeholder="35"></li>
+                            </ul>
+                            <p><strong>Architectural concept:</strong></p>
+                            <ul style="list-style-type: none; padding-left: 0px;">
+                                <li>&nbsp;&nbsp;&bull;&nbsp;&nbsp;links <input type="text" id="q36" class="answer-input" placeholder="36"> with the workplace.</li>
+                                <li>&nbsp;&nbsp;&bull;&nbsp;&nbsp;relies less on <input type="text" id="q37" class="answer-input" placeholder="37"> for temperature control than other similar buildings.</li>
+                            </ul>
+                            <p><strong>The features of its interior:</strong></p>
+                            <ul style="list-style-type: none; padding-left: 0px;">
+                                <li>&nbsp;&nbsp;bull;&nbsp;&nbsp;The atria that let fresh air pass through the interior are known as <input type="text" id="q38" class="answer-input" placeholder="38"></li>
+                                <li>&nbsp;&nbsp;&bull;&nbsp;&nbsp;There is a place for entertainment called the <input type="text" id="q39" class="answer-input" placeholder="39"> at the top of the building.</li>
+                            </ul>
+                            <p><strong>The future of urban planning and architecture:</strong></p>
+                            <ul style="list-style-type: none; padding-left: 0px;">
+                                <li>&nbsp;&nbsp;&bull;&nbsp;&nbsp;It is likely that the entire <input type="text" id="q40" class="answer-input" placeholder="40"> will be designed with more similarly ecofriendly buildings in future.</li>
+                                <li>&nbsp;&nbsp;&bull;&nbsp;&nbsp;A new building will be constructed aiming to produce zero waste and remove carbon dioxide from us as much as possible.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1840,168 +1969,192 @@
     <div id="transcription-data" style="display:none;">
         <div data-part="1"><strong>SECTION 1</strong>
 
-Employee:          Good afternoon. Welcome to Matrix Printing. I'm John Smith. How can I help you?
+You will hear a telephone conversation between a receptionist who works at a house renting agency and a man. First, you'll have some time to look at questions 1 to 4. You will see there is an example that has been done for you. On this occasion only, the conversation relating to this will be played first.
 
-Customer:           Good afternoon. I'm here to reprint a brochure for our hotel. There are some pages that need revising.
+Hello, how can I help you today? Ah yes, hello. I'm just phoning you as I have seen an advertisement on your website for a property that I'm interested in renting. If possible, I'd like to find out some more information before I organise a viewing.
 
-Employee:          Sure, how may I address you?
+No problem at all. What is the address of the property that you'd like to inquire about? It's 21 North Avenue. Okay.
 
-Customer:           Oh, I'm Mary Jane from Central Hotel Chains (Q1). Nice to meet you. I've got samples of the previous version.
+The address of the property is 21 North Avenue. So, 21 North has been written in the space. Now we shall begin.
 
-Employee:          I assume it is your company's advertising brochure?
+You should answer the questions as you listen, because you will not hear the recording a second time. Listen carefully and answer questions 1 to 4. Hello, how can I help you today? Ah yes, hello. I'm just phoning you as I have seen an advertisement on your website for a property that I'm interested in renting.
 
-Customer:           Yes.
+If possible, I'd like to find out some more information before I organise a viewing. No problem at all. What is the address of the property that you'd like to inquire about? It's 21 North Avenue.
 
-Employee:          What exactly is the problem?
+Okay. What is it that you'd like to know? First of all, I'd like to know what facilities the office has, as I need to make sure that it'll be suitable for my advertising company. I see.
 
-Customer:           Well, it was printed the year before, so some of the information is already out-of-date. There are also a couple of problems with the layout. Firstly, the letters of the address on the front page are far too small (Q2). It's hard to see when glancing at the cover.
+The office contains a large open plan space with a wide frontage onto a busy street with lots of passers-by, so your business would have a really good street presence. There is also a toilet and newly refurbished kitchen equipped with a dishwasher and oven. Wow, that sounds great.
 
-Employee:          How big do you need it to be?
+I'd definitely like to register my interest. Okay, perfect. I just need to take some details from you, if that's okay.
 
-Customer:           Increase the letters by 3 font sizes.
+What is your full name? Jonathan Smith. And what position do you hold in your company, Jonathan? Until recently I was sales manager, however I've recently been promoted to regional manager, so I'll be in charge of running our new office. Can I ask where the office is located? Yes, of course.
 
-Employee:          Just a minute. Let me take notes of your requirements… OK, what else needs changing?
+It's located downtown, just around the corner from Royal Square Shopping Centre. Hmm, that's a bit too far out of the centre for my liking. I'd much prefer to be located in close proximity to the station.
 
-Customer:           The information regarding the pool should be deleted, because it is currently under renovation and is not available. (Q3)
+Do you have any property located in that vicinity? It would help me to narrow down the results if you could tell me how many employees you intend to have working in the office. Our branch is made up of 30 employees and we'd like some extra space for meetings and presentations. Most average office spaces are around 8,000 square feet, but it sounds like you would need more space than that.
 
-Employee:          So all of the relevant descriptions on page 2 should be removed? What do we replace it with? We can't just leave the whole page blank.
+I think that 10,000 square feet would be more suitable for your needs. Now, let's see, we have 10 properties that match those criteria, so let's try and narrow it down. Before you hear the rest of the conversation, you have some time to look at questions 5 to 10.
 
-Customer:           Just fill it in with the introduction of our newly-opened gym. I've included all the relevant information here in this flash drive.
+Now listen and answer questions 5 to 10. Do you have any other requirements? Well, we'll need access to the office 12 hours a day, but security should be 24 hour. We don't hold any money on the premises, but it's crucial that we protect our customer information against theft.
 
-Employee:          Let me check…Um. I see. No problem then.
+Okay, anything else? Yes, ideally I would refer the new office to be split over two levels, so that the working office area is kept separate from street level. That will enable us to locate a reception of ground floor level to welcome customers when they arrive. And are there any particular facilities that you need? Our employees work very hard throughout the day and I want to make sure that they're well nourished.
 
-Customer:           What is also bothering us is that the description under the top photo on page 4 is incorrect. The wore lounge needs to be replaced with reception. (Q4)
+It would therefore be ideal if I could provide them with a kitchen to cook hot meals at lunchtime. Would you want the kitchen to be located at first floor level with the office? No, I don't want the office to be filled with the smell of food. It would be better if the new office had a basement where we could locate the kitchen and staff room area to keep it at arm's length from the workspace.
 
-Employee:          Fully noted. Is that all?
+Okay, I have now narrowed the search to two available properties. Do you have any other requirements that could narrow our search down to one result? All of our office staff will be working at desktop computers, so I'll need the office to be equipped with at least 40 power sockets if possible. Anything else? Studies have shown that exercise is very important for maintaining happiness and healthy brain function.
 
-Customer:           No, there is more. Turn to page 5. We feel that showing merely the picture of our exterior and interior decoration does not fully represent the appeal of our hotel. On second thought, we've decided to use a picture with the view of the hotel. (Q5)
+In an office environment it's very difficult to get sufficient daily exercise, so it would be great if they had access to a nearby exercise area. One of the available offices is located next door to a gym. Would this be suitable? Yes, absolutely.
 
-Employee:          Do you have the original copy of the picture?
+A gym is exactly what I was thinking of. Brilliant. Do you need the office to be furnished? I don't think so.
 
-Customer:           Yes, it is also enclosed in the flash drive.
+I already have some furniture, so I would prefer to bring this myself. That's no problem at all. And before I forget, we will definitely require Wi-Fi access as much of our work and customer recruitment is carried out online.
 
-Employee:          OK, we'll reedit the whole layout of the photos.
+No problem. It sounds like the property will suit your needs perfectly. I've taken the liberty of booking you a viewing at 3 p.m. on Thursday so you can see it for yourself.
 
-Customer:           Great.
+Is there anything else I can help you with today? No, I think that's all the information I need. Thanks very much for your help. No problem.
 
-Customer:           Let's turn to the next page.
+It's been my pleasure to be of assistance. Goodbye. That is the end of section 1. You now have half a minute to check your answers.
 
-Employee:          Yes, what's wrong with that? It seems perfectly fine to me.
-
-Customer:           At first sight, it seems fine. But according to the feedback of the customers, the prices do not stand out, so we want to change the print from black to red to make it pop out. (Q6)
-
-Employee:          OK. I've made notes of all your requests. Is there anything else?
-
-Customer:           I appreciate it. Just one final request. Could you translate the whole brochure into Spanish (Q7)? We have customers worldwide, you know, especially those from Latin countries.
-
-Employee:          No problem. What about other languages, like Japanese, Chinese or German? These are our most popular target languages.
-
-Customer:           I have to ask the manager about the Chinese version. There's been a surging number of Chinese clients during recent years. However, we don't need German or Japanese translations as we currently don't have many customers from those two countries.
-
-Employee:          Sure. Just keep me updated.
-
-Customer:           So roughly when could we get the revised print? We need it before the end of July. (Q8)
-
-Employee:          It's late June now. Roughly it'll take 3 weeks to reedit, so it will definitely be ready before the deadline.
-
-Customer:           Great.
-
-Employee:          To where shall we send the samples?
-
-Customer:           The address is No. 9 Green Drive, Cliffton, NY21300. (Q9)
-
-Employee:          How do you spell Cliffton?
-
-Customer:           C-L-I-double F-T-O-N, Cliffton.
-
-Employee:          And the telephone number?
-
-Customer:           It's 9-0-3-0-3-6-6-0-2 (Q10). Also, if you have any further questions, you can reach me through this number.
-
-Employee:          OK.</div>
+Now turn to section 2.</div>
         <div data-part="2"><strong>SECTION 2</strong>
 
-Good morning everyone and welcome to the Annual Ski and Snowboard Exhibition held from April 8th to 17th. I am Mary Granger, coordinator of the event this year. The 10-day event features many highlights. As a snow sports lover, I know you are looking forward to a great time here. Now I'd like to offer you some practical information about the whole event and what to expect from it.
+You will hear a guidance counsellor talking to a group of students. First, you have some time to look at questions 11 to 14. Listen carefully and answer questions 11 to 14.
 
-This might be the first time coming here for some of you. So for those who are still wondering about the right accommodation, I recommend Sky Hotel. It has its own health and sports clubs just like most of the hotels here, but I love it because of its incredibly cozy beds which guarantees good rest after an exhausting day of exploration (Q11). If you haven't brought your own equipment, like poles, boots and skis, they are available for purchase or rent at Ski Set or Snow Rental.
+Hello everyone. I'm the counselling administrator here at St. Ives College and I've been asked to come and talk to you about our counselling team and the services that we offer. We have three professional counsellors here at St. Ives.
 
-The exhibition this year provides a colorful look into the history of skiing and an inspiring peek into the future prospects of the sport. Apart from the fascinating photo exhibitions and the most up-to-date skiing gear like always, this year we have added four computers which can imitate the process of skiing, ensuring the same physical activity and sensations that appear during the skiing process on downhill slopes (Q12). But I have to warn you that it might be quite time-consuming to line up for the free trial experience.
+Louise Bagshaw, Tony Denby and Naomi Flynn. They each hold daily one-on-one sessions with students but which counsellor you see will depend on a number of factors. If you've never used a counsellor before then you should make an appointment with Naomi Flynn.
 
-Many have posed the question as to how to enter the skiing and snowboarding competition (Q13). Well, rather than filling out the back of the entrance ticket or bombarding the committee with emails, the most effective method is by checking out the exhibition newsletter delivered every month for availability (Q13). As the most beloved local event, the exhibition has also drawn attention from the press. Last year, massive media coverage was on the worrisome amount of snowfall. In order to avoid the same predicament, several artificial skiing slopes have been built. With more participants this year, we have lowered the entrance fee which has been widely reported by local newspapers. (Q14)
+Naomi specialises in seeing new students and offers a preliminary session where she will talk to you about what you can expect from counselling followed by some simple questions about what you would like to discuss. This can be really helpful for students who are feeling a bit worried about the counselling process. Naomi is also the best option for students who can only see a counsellor outside office hours.
 
-A bonus for our participants is the ski program. It offers a wide variety of lessons and sessions with qualified instructors ensuring that all ages and abilities are catered to from the first timers to seasoned amateurs. I strongly advise you to sign up for the program as it is offering an unprecedented 30% discount. That's mainly because we are cooperating with the program organiser who promises affordable prices only for the participants of the festival this year. (Q15)
+She is not in on Mondays but starts early on Wednesday mornings and works late on Thursday evenings so you can see her before your first class or after your last class on those days. Louise staffs our drop-in centre throughout the day. If you need to see someone without a prior appointment then she is the one to visit.
 
-Now I would like to introduce to you the list of presentations during the following week so that you can better plan your schedule.
+Please note that if you use this service then Louise will either see you herself or place you with the next available counsellor. If you want to be sure to see the same counsellor on each visit then we strongly recommend you make an appointment ahead of time. You can do this at reception during office hours or by using our online booking form.
 
-The first presenter Simon is one of our best ski instructors. As an experienced instructor, he will inform you about the dangers that face skiers and snowboarders (Q16). Accidents happen mostly to those who are careless or ignorant. Good risk management involves considering both the probability and consequences of an accident.
+Tony is our newest addition to the counselling team. He is our only male counsellor and he has an extensive background in stress management and relaxation techniques. We encourage anyone who is trying to deal with anxiety to see him.
 
-The next speech titled Solution is given by Jamie Kurt. A list of problems may occur to novice skiers and snowboarders, so he is going to offer useful information for first timers on choosing the appropriate gears, the right dress code and ways of protecting your skin (Q17). For instance, some of you may have rented the skiing equipment, but rental footwear is notoriously uncomfortable. Then Jamie will provide instructions to help make your footwear fit better.
+Tony will introduce you to a full range of techniques to help you cope with this problem such as body awareness, time management and positive reinforcement. Before you hear the rest of the talk you have some time to look at questions 15 to 20. Now listen and answer questions 15 to 20.
 
-The third speech is about a documentary introducing skiing and snowboarding and the difference between the two sports. It also depicts a group of snow lovers exploring new slopes with breath-taking views (Q18). The director Andy Fisher will be there, addressing the whole shooting experience.
+Each semester the counselling team runs a number of small group workshops. These last for two hours and are free to all enrolled students. Our first workshop is called adjusting.
 
-The fourth talk is about the tricks of skiing, presented by Harry Tyson. It is most useful for those who have already tried skiing, yet still need more practice to master the sport. Harry will teach you how to turn more skillfully (Q19). A lot of people can keep their skis roughly parallel but there's no point if you make it hard to work with and slide around out of control. Useful exercises will also be suggested to improve your parallel skiing technique so that you can tackle steeper slopes and enjoy yourself more.
+We found that tertiary education can come as a big shock for some people. After the learning environment of school it is easy to feel lost. In this workshop we will introduce you to what is necessary for academic success.
 
-Johnson Smith will be the last presenter, mainly addressing towards advanced skiers. He manages to apply snow climbing into skiing (Q20). Climbing in soft snow, you are floundering around. Walking becomes harder, so a good trick during climbing is to maintain a wider gait, approximately shoulder width, so that you are more stable while walking. This works for skiing as well.</div>
+As you might expect we're targeting first-year students with this offering. Getting organised follows on from the first workshop. Here we're going to help you break the habit of putting things off, get the most out of your time and discover the right balance between academic and recreational activities.
+
+With getting organised we're catering to a broader crowd which includes all undergraduates and postgraduates. Next up is a workshop called communicating. The way people interact here may be quite different to what you're used to especially if you've come from abroad.
+
+We'll cover an area that many foreign students struggle with how to talk with teachers and other staff. We'll cover all aspects of multicultural communication. International students tend to get a lot out of this class so we particularly encourage you to come along but I must say that sometimes students from a local background find it helpful too so everyone is welcome.
+
+The anxiety workshop is held later on in the year and deals with something you will all be familiar with, the nerves and anxiety that come when exams are approaching. Many students go through their entire academic careers suffering like this but you don't have to. Come to this workshop and we'll teach you all about relaxation and how to breathe properly as well as meditation and other strategies to remain calm.
+
+We've tailored this workshop to anyone who is going to sit exams. Finally we have the motivation workshop. The big topic here is how to stay on target and motivated during long-term research projects.
+
+This workshop is strictly for research students as less advanced students already have several workshops catering to their needs. Well that's it, thanks for your time. If you have any questions or want more information about our services do come and see us at the counselling service.
+
+That is the end of section 2. You now have half a minute to check your answers. Now turn to section 3.</div>
         <div data-part="3"><strong>SECTION 3</strong>
 
-Tutor:   Helen and Paul, congratulations to you both for doing so well the past semester. You two have exhibited an impeccable performance during your first year in the nursing program. I'd like to get some feedback from the two of you to better improve the program and to provide guidance for our prospective students. I'd like to start with you, Helen. So first of all, which aspect of the program impressed you?
+You will hear a discussion between a business student called Marco and his personal tutor about the courses that Marco should take. First you have some time to look at questions 21 to 23 on page 5. Now listen carefully and answer questions 21 to 23.
 
-Helen:   Well, to be honest, when I was enrolled into the course, I was expecting a group of classmates my age. But as I stepped into the classroom for the first time, I was surprised by the diversity. Most were in their twenties, but there were also those in their thirties or even forties (Q21). As it turns out, the intergenerational communication has sparked intense debate and new thinking, and I think that's something special about the program that I appreciate very much.
+Hi Marco, come in. Thanks. I've got a bit stuck trying to select courses for next semester.
 
-Tutor:   What about you, Paul? What do you think of the program?
+Could you help me please? Of course, sit down. First of all most people just go for the areas of business that they're interested in but even if something doesn't look very stimulating it's important that you can use it once you get a job. It's not much good choosing areas that aren't going to be helpful later on.
 
-Paul:      For me the group project we carried out last semester is another key feature of the program. The whole class was divided into 8 different groups working on 8 perspective cases. Team building sessions were conducted in a collaborative way most of the time. Comprised of five members, our group studied acute pancreatitis. During the process, we broke the task into different parts and assigned them to each member. We were then able to tackle the complex problem by pooling our knowledge and skills. More importantly, stronger links were established between the group members. Because of the project, we've all become good friends. (Q22)
+Right, I want to go into management so I'll need to think about that and should I start specialising in a particular area yet? I don't think that's wise at this stage. It's better to aim for a wide variety of subjects especially as management covers so many possibilities. You shouldn't be limiting your choices for later on.
 
-Tutor:   That's true. According to graduates, group projects prepare them for the work world in which teamwork and collaboration are increasingly the norm. So tell me, Paul, what else do you like about the program?
+Yes, I see. You should also look at how the course is made up. Will you have regular seminars and tutorials for example as well as lectures? Okay.
 
-Paul:      I want to be a registered nurse working in a public hospital after graduation. So the internship provided is a valuable opportunity for clinical practice in a supportive learning atmosphere. However, I was amazed by the amount of written assignments since I thought the course should have focused more on practice-oriented learning. (Q23)
+Some of the lecturers are quite big names in their fields aren't they? Mm-hmm. Should I aim to go to their courses? Well remember that the lecturers who aren't well-known may still be very good teachers. I'd say we have a consistently high standard of teaching in this department so you don't need to worry about it.
 
-Helen:   Well, I have to disagree with you, Paul. The essays demonstrate your understanding of the course. For me, writing essays is a process that involves critical thinking which challenges me to develop my points more thoroughly. I thus managed to gain a diversity of perspectives.
+Before you hear the rest of the discussion you have some time to look at questions 24 to 30 on pages 5 and 6. Now listen and answer questions 24 to 30. Good. Well that's a great help.
 
-Tutor:   The program is designed to deliver basic and advanced theoretical knowledge of core concepts including health care systems concepts, together with practicum or clinical practice experience to bridge the classroom content to the practice setting. So I'm afraid written work is unavoidable. Also this year, we've added a module of law. How do you feel about that?
+Now last time we met you mentioned doing management didn't you? That's right. I'm still quite keen on the idea. Mm-hmm.
 
-Helen:   At first we felt that learning law is kind of redundant and too time-consuming. After a few sessions, we realised that it is necessary in dealing with future medical disputes. (Q24)
+The trouble is that because of changes in the content of various courses team management overlaps with the introduction to management course you took in your first year. So what you learned from it would be too little for the amount of time you'd have to spend on it. I'll drop that idea then.
 
-Tutor:   Do you have any suggestions for prospective students?
+Have you had a chance to look at the outline I wrote for my finance dissertation? I left it in your pigeonhole last week. Yes. Why exactly do you want to write a dissertation instead of taking the finance modules? It'll be pretty demanding.
 
-Paul:      What bothers me most is handing in essays on time. I almost missed the deadline once because there were three essays due within the same week. So rationalising your time is critical. (Q25)
+Well I'm quite prepared to do the extra work because I'm keen to investigate something in depth instead of just skating across the surface. I realised that a broader knowledge base may be more useful to my career but I'm really keen to do this. Right.
 
-Helen:   Well, that's true. The lectures deliver so much useful information. I have poor memory so I kept making notes and revisiting them on a regular basis (Q26). To my surprise, at the end of the semester, I have learnt the key concepts by heart.
+Well I had a quick look through your outline and the first thing that struck me was that you'll have to be careful how you set about it as the way you've organised it seems unnecessarily complex. The data that you want to collect and analyse is potentially valuable but you'll need to narrow down the subject matter to make the whole thing manageable. Okay.
 
-Tutor:   How was the research? I heard that it was quite challenging. How did you manage to overcome the difficulties?
+I'll have another look at it. I was talking to Professor Briggs about it yesterday and I got some more ideas then. For part of the dissertation I was thinking of trying to persuade finance managers from three or four companies to let me ask them about their company finances.
 
-Paul:      That's true. The majority of us had no clue how to carry out the research at first. Fortunately, when I was digging up reference materials at the library, I sought help from the librarian (Q27). She taught me about finding the appropriate resources and choosing the proper research methods.
+If not I think I'll have to change to another topic. Well go ahead then. I could give you some names.
 
-Tutor:   Have you checked out the online forum?
+Thanks. Now let's talk about practicalities. Your dissertation must be finalised by the end of May so you should aim to finish the first draft by the end of March.
 
-Helen:   Yes, it has become a habit for me to visit the forum regularly. In a sense, it extends classroom learning. It is where the students post academic problems that they come across and get support from the faculty members. (Q28)
+Is that feasible? Yes it shouldn't be a problem. I'll need to register for the dissertation won't I? Is that with the registrar's department? No it's internal to this department so you just need to let the secretary know. Do that as soon as you're sure you're going to write the dissertation.
 
-Paul:      Some of my classmates didn't do so well during the placement tests. I feel that background reading is necessary. (Q29)
+Okay. Then to analyse your statistics you're going to need some suitable software. If I were you I'd drop into the computer office and ask them for a copy.
 
-Tutor:   Lastly, do you have anything to say to the freshmen?
+Right. So if I revise my outline... That is the end of section three. You now have half a minute to check your answers.
 
-Helen:   I was really ambitious at first, trying to get straight A's on my transcript. I made tons of notes and worked hard even on the optional assignments to get extra credit. I stressed myself out before having an emotional breakdown. After consulting my advisor, I found it important to set realistic goals (Q30). Don't push yourself too hard. It is wise to sort out your priorities.
+Section four. You will hear an introduction about an eco-friendly building called the Gherkin. First you have some time to look at questions 31 to 40.
 
-Tutor:   Thank you for coming here today and providing valuable feedback on the program. Have a great summer break.</div>
+Now listen carefully and answer questions 31 to 40. Today I'd like to tell you about how UK architects are playing their part to address the issue of global warming. You have seen many of these iconic buildings while going about your everyday life but you may not know how they are affecting your tomorrow.
+
+In 2003 construction was completed on the famous Swiss Rebuilding or more informally called the Gherkin. A true masterpiece commissioned by the law offices of Foster and Partners. This is not the first ambitious endeavor of the firm.
+
+They are renowned for their various philanthropic environmental efforts. The Gherkin with its cut and edge green initiative and sharp design is gaining recognition as an icon in modern architecture. You can pick it out of the London skyline by its unorthodox cigar shape.
+
+While its appearance is the obvious attribute at which to marvel there is far more to this building than meets the eye. And let's face it there's a lot about this building that meets the eye. The building helps reduce the city's carbon footprints in a number of ways.
+
+Just a quick note in case you're not familiar with the term carbon footprint get used to it. It's a buzzword you'll hear relentlessly to talk about reducing emissions. Think of it as the amount of harmful greenhouse gases that are given off into the environment by a single person, organization or product.
+
+So going back to the Gherkin building perhaps the most obvious as well as the most significant eco-friendly feature is the glass windows which allow light to pass through the building both reducing heating costs and brightening up the workspace. The ingenuity behind the various eco-friendly aspects of the Gherkin has seen its fair share of publicity both from serious and silly sources. In a recent April Fool's Day edition one e-publication printed a story detailing plans to replace 50% of the current exterior with grass which would not only make large steps in the name of sustainability but also give the building the green hue that would truly earn it the nickname of the Gherkin.
+
+The only drawback is as you may have guessed that this story was an April Fool's Day joke and completely made up. In all seriousness though the building is setting a new standard of design that other architects and city planners just cannot ignore. The building's bold and cost-efficient design has won a number of architecture awards including the Sterling Prize, the London Region Award and the Empress skyscraper award among others.
+
+The design comfortably accommodates a large number of offices while keeping maintenance and operation costs down striking a superb balance between nature and the workplace. Nature is well and good as long as the weather is nice outside. Given London's notoriously bad weather the architects knew they must devise a quality temperature regulation system and that they did.
+
+A special system designed to reduce the building's reliance on air conditioning was devised that cuts consumption in half compared to standard office buildings. There are atria that link each floor vertically to one another forming spiraling spaces of the entire building. They serve not just as social common spaces but also act as the building's lungs distributing clean air from the opening panels in the facade through the entire building.
+
+The building isn't all business though it has its fair share of fun as well. At the very top a club room offers a picturesque entertainment spot for company functions private parties etc with a breathtaking panoramic view of the city. The creation of such an innovative structure has many wondering what the future of urban planning and architecture may be.
+
+Well if the other projects currently commissioned by Foster and Partners are any indication the entire city constructed with similarly eco-friendly buildings is not far in the distance. The Masdar city development aims to create a desert city that produces zero waste and removes as much carbon dioxide from the atmosphere as it puts in. A huge feat in protecting our earth.
+
+The Gherkin is a truly impressive feat yet it is not the only one worth noting. Now to move on to another green initiative I'll tell you about the Eden Foundation building found in Cornwall. That is the end of section 4. You now have half a minute to check your answers.
+
+That is the end of the listening test.</div>
         <div data-part="4"><strong>SECTION 4</strong>
 
-Good morning everyone. Today's lecture is about a type of adorable animal — the penguin. When you think of penguins, you may picture them surrounded by snow and ice. But not all penguins live where it's cold—African penguins live in the southern tip of Africa. They are usually found within 40 kilometres of the shore and on a number of its surrounding islands.
+You will hear an introduction about an eco-friendly building called the Gherkin. First you have some time to look at questions 31 to 40.
 
-African Penguins are also known as Jackass Penguins, because they make donkey-like braying sounds to communicate. African penguins can keep their body temperature at a stable level (Q31). But their land habitat can get quite warm, so there are a number of ways for them to stay cool. They limit their daylight movements on breeding sites on land to early mornings and early evenings to avoid too much sun (Q32). The pink glands above their eyes can help them cope with the temperate climates. Like other penguins, African penguins spend most of the day feeding in the ocean, which also helps keep them cool.
+Now listen carefully and answer questions 31 to 40. Today I'd like to tell you about how UK architects are playing their part to address the issue of global warming. You have seen many of these iconic buildings while going about your everyday life but you may not know how they are affecting your tomorrow.
 
-Being a type of small to medium sized penguin species, African penguins average about 60 centimetres tall and weigh up to 3.6 kilograms. They have a black stripe and a pattern of unique black spots on their chest. Males are larger than females and have larger beaks. Even though they are categorised as birds, African penguins aren't able to fly because of their heavy bones (Q33). Their wings are more like flippers that make them particularly suited for life in the water. When they're on land, their flippers and their tails help them keep their balance and walk upright.
+In 2003 construction was completed on the famous Swiss Rebuilding or more informally called the Gherkin. A true masterpiece commissioned by the law offices of Foster and Partners. This is not the first ambitious endeavor of the firm.
 
-African Penguins begin to breed at the average age of four. When a male and female pair up, they tend to breed together for the rest of their lives. Most other penguins nest and lay their eggs out in the open, but African penguins have a different approach. They dig holes under bushes out of their own excrement, called guano, so they are sheltered from the sun and predators. (Q34)
+They are renowned for their various philanthropic environmental efforts. The Gherkin with its cut and edge green initiative and sharp design is gaining recognition as an icon in modern architecture. You can pick it out of the London skyline by its unorthodox cigar shape.
 
-The African Penguin survives on a diet that is comprised mainly of marine organisms. They feed primarily on fish like sardines, along with the occasional squid and shellfish. But when normal food is in short supply, they eat tree roots as well (Q35). The streamlined body of the African Penguin allows it to move through the water like a rocket, capable of reaching a speed of around 20 kilometres per hour when hunting for food.
+While its appearance is the obvious attribute at which to marvel there is far more to this building than meets the eye. And let's face it there's a lot about this building that meets the eye. The building helps reduce the city's carbon footprints in a number of ways.
 
-The African Penguin's smaller size means that it has many predators both in the water and also on dry land. Their natural predators at sea include seals and sharks (Q36). The biggest threat to them on land is not just towards the adult penguins. The penguin chicks are sometimes taken by seagulls into the air and dropped from above. The seagulls could thus feed on them. (Q37)
+Just a quick note in case you're not familiar with the term carbon footprint get used to it. It's a buzzword you'll hear relentlessly to talk about reducing emissions. Think of it as the amount of harmful greenhouse gases that are given off into the environment by a single person, organization or product.
 
-At risk from predators, young penguins are protected for about 40 days after hatching by both parents. They will leave the colony when they are between 3 to 5 months old and will return a few years later. The entire surface of their body is densely covered with feathers, which fall off during the winter (Q38). This process is called molting and takes about three weeks to complete. During that time, they are unable to forage. Therefore prior to this, African penguins spend about five weeks laying down fat deposits.
+So going back to the Gherkin building perhaps the most obvious as well as the most significant eco-friendly feature is the glass windows which allow light to pass through the building both reducing heating costs and brightening up the workspace. The ingenuity behind the various eco-friendly aspects of the Gherkin has seen its fair share of publicity both from serious and silly sources. In a recent April Fool's Day edition one e-publication printed a story detailing plans to replace 50% of the current exterior with grass which would not only make large steps in the name of sustainability but also give the building the green hue that would truly earn it the nickname of the Gherkin.
 
-They generally live between 10 to 15 years, however many do not reach their full life span. Their population has drastically declined. Approximately 120,000 African penguins remain in the wild, and their population has decreased by 90% in the past 60 years. They are considered to be vulnerable and have been listed as being endangered. Two major factors have contributed to their decline. They are struggling for nesting space due to human disruption and competing for food due to overfishing and pollution. (Q39)
+The only drawback is as you may have guessed that this story was an April Fool's Day joke and completely made up. In all seriousness though the building is setting a new standard of design that other architects and city planners just cannot ignore. The building's bold and cost-efficient design has won a number of architecture awards including the Sterling Prize, the London Region Award and the Empress skyscraper award among others.
 
-With the limited number of breeding pairs, survivorship becomes difficult for African penguins. This makes them especially vulnerable as environmental conditions change or an outbreak of a disease occurs. For instance, avian malaria has caused 27% of the captive-breeding penguins' deaths annually. The more genetic diversity there is within a species, the higher the likelihood that at least some of the individuals will adapt and survive. (Q40)</div>
+The design comfortably accommodates a large number of offices while keeping maintenance and operation costs down striking a superb balance between nature and the workplace. Nature is well and good as long as the weather is nice outside. Given London's notoriously bad weather the architects knew they must devise a quality temperature regulation system and that they did.
+
+A special system designed to reduce the building's reliance on air conditioning was devised that cuts consumption in half compared to standard office buildings. There are atria that link each floor vertically to one another forming spiraling spaces of the entire building. They serve not just as social common spaces but also act as the building's lungs distributing clean air from the opening panels in the facade through the entire building.
+
+The building isn't all business though it has its fair share of fun as well. At the very top a club room offers a picturesque entertainment spot for company functions private parties etc with a breathtaking panoramic view of the city. The creation of such an innovative structure has many wondering what the future of urban planning and architecture may be.
+
+Well if the other projects currently commissioned by Foster and Partners are any indication the entire city constructed with similarly eco-friendly buildings is not far in the distance. The Masdar city development aims to create a desert city that produces zero waste and removes as much carbon dioxide from the atmosphere as it puts in. A huge feat in protecting our earth.
+
+The Gherkin is a truly impressive feat yet it is not the only one worth noting. Now to move on to another green initiative I'll tell you about the Eden Foundation building found in Cornwall. That is the end of section 4. You now have half a minute to check your answers.
+
+That is the end of the listening test.</div>
+
+This is unacceptable. We need to improve the effectiveness of communication between patients, doctors and staff, so we have decided to implement a ticketing system. This means that patients are seen on a first-come, first-served basis and will never have to wait more than two hours to be seen by a doctor.
+
+The final topic that I want to cover in the lecture is the recommendations that we have put forward for future improvements to the hospital. Firstly, we intend to be the first hospital in the country to build a new unit for those suffering from sleep disturbance, which is a relatively common illness affecting up to 6% of the population. Whilst we are a hospital primarily treating patients with illnesses and injuries, we cannot ignore the significant income that those in need of plastic surgery could bring to the hospital.
+
+We will, therefore, also be proposing a new ward to give patients access to this increasingly popular treatment. After much discussion about the quality and suitability of our equipment, we have decided that it is advanced enough to cope with the treatments that we offer and that our spending should be directed to other areas where it will have a more significant impact. We feel that more effective planning is needed to improve the efficiency of the forms of communication that patients have with us.
+
+Therefore, patients who have received treatment will receive an email link to a survey that they can fill out online. This will eradicate meaningless paperwork and will also enable us to digitally monitor the data collected. Now, if anyone has any questions... That is the end of section 4. You now have half a minute to check your answers.
+
+That is the end of the listening test. In the IELTS test, you will now have 10 minutes to transfer your answers to the answer sheet.</div>
     </div>
 
     <audio id="global-audio-player" class="hidden"></audio>
@@ -2209,6 +2362,7 @@ With the limited number of breeding pairs, survivorship becomes difficult for Af
                 const textInput = document.getElementById(`q${qNum}`);
                 const radioInput = document.querySelector(`input[name="q${qNum}"]:checked`);
                 const dropZone = document.querySelector(`.drop-zone[data-question-id="${qNum}"]`);
+                const clickableCell = document.querySelector(`.clickable-cell[data-question="${qNum}"].selected`);
 
                 if (textInput && textInput.value.trim() !== '') {
                     isAnswered = true;
@@ -2216,12 +2370,14 @@ With the limited number of breeding pairs, survivorship becomes difficult for Af
                     isAnswered = true;
                 } else if (dropZone && dropZone.querySelector('.drag-item')) {
                     isAnswered = true;
-                } else if ((qNum >= 17 && qNum <= 18) && document.querySelector('input[name="q17-18"]:checked')) {
+                } else if (clickableCell) {
                     isAnswered = true;
-                } else if ((qNum >= 19 && qNum <= 20) && document.querySelector('input[name="q19-20"]:checked')) {
-                    isAnswered = true;
-                } else if ((qNum >= 21 && qNum <= 23) && document.querySelector('input[name="q21-23"]:checked')) {
-                    isAnswered = true;
+                } else if (qNum >= 21 && qNum <= 23) {
+                    if (document.querySelector('input[name="q21-23"]:checked')) isAnswered = true;
+                } else if (qNum >= 27 && qNum <= 28) {
+                    if (document.querySelector('input[name="q27-28"]:checked')) isAnswered = true;
+                } else if (qNum >= 29 && qNum <= 30) {
+                    if (document.querySelector('input[name="q29-30"]:checked')) isAnswered = true;
                 }
 
                 if (isAnswered) {
@@ -2244,102 +2400,121 @@ With the limited number of breeding pairs, survivorship becomes difficult for Af
         const speedOptions = document.getElementById('speed-options');
         const volumeBtn = document.getElementById('volume-btn');
 
-        const audioSource = 'https://ia601708.us.archive.org/10/items/mix-27m-28s-audio-joiner.com-copy-copy-copy-copy-copy-copy-copy/mix_27m28s%20%28audio-joiner.com%29%20-%20CopyCopyCopyCopyCopyCopyCopy.mp3';
+        const audioSource = 'http://ia600904.us.archive.org/25/items/mix-27m-02s-audio-joiner.com-copy-copy-copy-copy-copy-copy-copy/mix_27m02s%20%28audio-joiner.com%29%20-%20CopyCopyCopyCopyCopyCopyCopy.mp3';
         audioPlayer.src = audioSource;
 
         const correctAnswers = {
-            'q1': ['central'],
-            'q2': ['address'],
-            'q3': ['pool'],
-            'q4': ['reception'],
-            'q5': ['view'],
-            'q6': ['price', 'prices'],
-            'q7': ['spanish'],
-            'q8': ['july'],
-            'q9': ['903036602'],
-            'q10': ['cliffton'],
-            'q11': 'A',
+            'q1': ['advertising'],
+            'q2': ['regional manager'],
+            'q3': ['station'],
+            'q4': ['10,000', '10000'],
+            'q5': ['security'],
+            'q6': ['reception'],
+            'q7': ['kitchen'],
+            'q8': ['basement'],
+            'q9': ['gym'],
+            'q10': ['furniture'],
+            'q11': 'C',
             'q12': 'C',
-            'q13': 'C',
+            'q13': 'A',
             'q14': 'B',
-            'q15': 'C',
-            'q16': 'F',
-            'q17': 'B',
-            'q18': 'A',
-            'q19': 'E',
-            'q20': 'D',
-            'q21': 'C',
-            'q22': 'A',
-            'q23': 'A',
+            'q15': ['first year'],
+            'q16': ['balance', 'right balance'],
+            'q17': ['international', 'foreign', 'international students', 'foreign students'],
+            'q18': ['relaxation'],
+            'q19': ['motivation'],
+            'q20': ['research', 'advanced'],
+            'q21-23': ['B', 'D', 'F'],
             'q24': 'A',
-            'q25': 'E',
-            'q26': 'G',
-            'q27': 'C',
-            'q28': 'A',
-            'q29': 'B',
-            'q30': 'H',
-            'q31': ['temperature'],
-            'q32': ['movements'],
-            'q33': ['bones'],
-            'q34': ['bushes'],
-            'q35': ['roots'],
-            'q36': ['sharks'],
-            'q37': ['chicks'],
-            'q38': ['feathers'],
-            'q39': ['space', 'spaces'],
-            'q40': ['diversity']
+            'q25': 'B',
+            'q26': 'C',
+            'q27': 'A',
+            'q28': ['march'],
+            'q29': ['secretary'],
+            'q30': ['computer office'],
+            'q31': ['law', 'law offices'],
+            'q32': ['cigar'],
+            'q33': ['footprints'],
+            'q34': ['light'],
+            'q35': ['grass'],
+            'q36': ['nature'],
+            'q37': ['air-conditioning'],
+            'q38': ['lungs'],
+            'q39': ['clubroom'],
+            'q40': ['city']
         };
         
         const questionTypes = {
             'q1': 'text', 'q2': 'text', 'q3': 'text', 'q4': 'text', 'q5': 'text',
             'q6': 'text', 'q7': 'text', 'q8': 'text', 'q9': 'text', 'q10': 'text',
-            'q11': 'mcq', 'q12': 'mcq', 'q13': 'mcq', 'q14': 'mcq', 'q15': 'mcq',
-            'q16': 'drag_drop', 'q17': 'drag_drop', 'q18': 'drag_drop', 'q19': 'drag_drop', 'q20': 'drag_drop',
-            'q21': 'mcq', 'q22': 'mcq', 'q23': 'mcq', 'q24': 'mcq', 'q25': 'drag_drop', 'q26': 'drag_drop',
-            'q27': 'drag_drop', 'q28': 'drag_drop', 'q29': 'drag_drop', 'q30': 'drag_drop',
+            'q11': 'clickable', 'q12': 'clickable', 'q13': 'clickable', 'q14': 'clickable', 'q15': 'text',
+            'q16': 'text', 'q17': 'text', 'q18': 'text', 'q19': 'text', 'q20': 'text',
+            'q21-23': 'checkbox', 'q24': 'mcq',
+            'q25': 'mcq', 'q26': 'mcq', 'q27': 'mcq', 'q28': 'text', 'q29': 'text', 'q30': 'text',
             'q31': 'text', 'q32': 'text', 'q33': 'text', 'q34': 'text', 'q35': 'text',
             'q36': 'text', 'q37': 'text', 'q38': 'text', 'q39': 'text', 'q40': 'text'
         };
 
 
-        function findOptionTextByLetter(letter, questionNumber) {
-            // Find the matching container based on question number
-            let container;
-            if (questionNumber >= 16 && questionNumber <= 20) {
-                // Part 2 questions 16-20
-                container = document.querySelector('#part-2 .matching-options-list');
-            } else if (questionNumber >= 25 && questionNumber <= 30) {
-                // Part 3 questions 25-30
-                container = document.querySelector('#part-3 .matching-options-list');
-            }
-            
-            if (container) {
-                const optionElement = container.querySelector(`[data-option-id="${letter}"]`);
-                if (optionElement) {
-                    return optionElement.textContent.trim();
-                }
-            }
-            
-            // Fallback to just the letter if option text not found
-            return letter;
-        }
-
         function setupCheckboxLimits() {
             const checkboxGroups = [
-                { name: 'q18-20', limit: 3 },
+                { name: 'q21-23', limit: 3 },
+                { name: 'q27-28', limit: 2 },
+                { name: 'q29-30', limit: 2 },
             ];
 
+            // Track selection order per group to allow robust limiting
+            const selectionQueues = {};
+
             checkboxGroups.forEach(group => {
-                const checkboxes = document.querySelectorAll(`input[name="${group.name}"]`);
+                selectionQueues[group.name] = [];
+                const checkboxes = Array.from(document.querySelectorAll(`input[name="${group.name}"]`));
+
+                // Initialize queue with any pre-checked items (if any)
+                checkboxes.forEach(cb => {
+                    if (cb.checked) selectionQueues[group.name].push(cb);
+                });
+
                 checkboxes.forEach(checkbox => {
-                    checkbox.addEventListener('click', () => {
-                        const checkedCount = document.querySelectorAll(`input[name="${group.name}"]:checked`).length;
-                        if (checkedCount > group.limit) {
-                            checkbox.checked = false;
+                    checkbox.addEventListener('change', (e) => {
+                        const name = group.name;
+                        const limit = group.limit;
+
+                        // If checked, append to queue; if unchecked, remove from queue
+                        if (checkbox.checked) {
+                            // Avoid duplicates in queue
+                            selectionQueues[name] = selectionQueues[name].filter(cb => cb !== checkbox);
+                            selectionQueues[name].push(checkbox);
+                        } else {
+                            selectionQueues[name] = selectionQueues[name].filter(cb => cb !== checkbox);
                         }
+
+                        // Enforce limit: keep the most recent 'limit' checked, uncheck older ones
+                        if (selectionQueues[name].length > limit) {
+                            const overflow = selectionQueues[name].length - limit;
+                            const toUncheck = selectionQueues[name].splice(0, overflow);
+                            toUncheck.forEach(cb => { cb.checked = false; });
+                        }
+
+                        updateAnsweredIndicators();
+                        updateAttemptedCount(3); // Part 3 affected for q21-23
                     });
                 });
             });
+        }
+
+        function selectCell(cell, questionNumber, value) {
+            // Remove previous selection for this question
+            const table = cell.closest('table');
+            const row = cell.closest('tr');
+            const cells = row.querySelectorAll('.clickable-cell');
+            cells.forEach(c => c.classList.remove('selected'));
+            
+            // Select the clicked cell
+            cell.classList.add('selected');
+            
+            // Update answered indicators
+            updateAnsweredIndicators();
         }
 
         function switchToPart(partNumber, andPlay = false) {
@@ -2396,12 +2571,10 @@ With the limited number of breeding pairs, survivorship becomes difficult for Af
 
             // Scroll to the question
             let questionElement;
-            if (questionNumber >= 18 && questionNumber <= 20) {
-                questionElement = document.querySelector('input[name="q18-20"]');
-            } else if (questionNumber >= 17 && questionNumber <= 18) {
-                questionElement = document.querySelector('input[name="q17-18"]');
-            } else if (questionNumber >= 19 && questionNumber <= 20) {
-                questionElement = document.querySelector('input[name="q19-20"]');
+            if (questionNumber >= 27 && questionNumber <= 28) {
+               questionElement = document.querySelector('input[name="q27-28"]');
+            } else if (questionNumber >= 29 && questionNumber <= 30) {
+               questionElement = document.querySelector('input[name="q29-30"]');
             } else {
                 questionElement = document.getElementById(`q${questionNumber}`) || // text inputs
                                 document.querySelector(`[data-question-id="${questionNumber}"]`) || // drag-drop
@@ -2616,42 +2789,23 @@ With the limited number of breeding pairs, survivorship becomes difficult for Af
         }
 
         function clearHighlight() {
-            const elementToClear = contextElement; // Set by contextmenu handler
-            if (!elementToClear) {
-                closeContextMenu();
-                return;
-            }
-
-            const highlightId = elementToClear.getAttribute('data-highlight-id');
-            const elementsToClear = highlightId
-                ? Array.from(document.querySelectorAll(`[data-highlight-id="${highlightId}"]`))
-                : [elementToClear];
-
-            let commonParent = null;
-            if (elementsToClear.length > 0) {
-                commonParent = elementsToClear[0].parentNode;
-            }
-
-            elementsToClear.forEach(element => {
-                const parent = element.parentNode;
-                const fragment = document.createDocumentFragment();
-
-                while (element.firstChild) {
-                    // Don't keep the tooltip for comments. Just unwrap everything.
-                    if (element.firstChild.nodeType === 1 && element.firstChild.classList.contains('comment-tooltip')) {
-                        element.removeChild(element.firstChild);
-                    } else {
-                        fragment.appendChild(element.firstChild);
-                    }
-                }
-                parent.replaceChild(fragment, element);
-            });
-            
-            if (commonParent) {
-                commonParent.normalize(); // Merges adjacent text nodes
-            }
-            
-            closeContextMenu();
+           const elementToClear = contextElement;
+           if (!elementToClear) {
+               closeContextMenu();
+               return;
+           }
+           const parent = elementToClear.parentNode;
+           
+           while (elementToClear.firstChild) {
+               if (!elementToClear.firstChild.classList?.contains('comment-tooltip')) {
+                   parent.insertBefore(elementToClear.firstChild, elementToClear);
+               } else {
+                   elementToClear.removeChild(elementToClear.firstChild);
+               }
+           }
+           parent.removeChild(elementToClear);
+           parent.normalize();
+           closeContextMenu();
         }
 
         function clearAllHighlights() {
@@ -2702,119 +2856,188 @@ With the limited number of breeding pairs, survivorship becomes difficult for Af
             document.querySelectorAll('.correct, .incorrect, .correct-answer-text').forEach(el => el.classList.contains('correct-answer-text') ? el.remove() : el.classList.remove('correct', 'incorrect'));
             
             Object.keys(correctAnswers).forEach(key => {
-                const qNum = parseInt(key.replace('q', ''), 10);
-
                 const correctAnswer = correctAnswers[key];
                 let userAnswer = '';
                 let isCorrect = false;
-
                 const questionType = questionTypes[key];
-                const btn = document.querySelector(`.subQuestion[onclick="goToQuestion(${qNum})"]`);
                 
-                switch(questionType) {
-                    case 'text':
-                        const element = document.getElementById(key);
-                        if (element) {
-                            userAnswer = element.value.trim();
-                            const acceptedAnswers = Array.isArray(correctAnswer) ? correctAnswer : [String(correctAnswer)];
-                            isCorrect = acceptedAnswers.some(ans => ans.toLowerCase() === userAnswer.toLowerCase());
-                            element.classList.add(isCorrect ? 'correct' : 'incorrect');
-                            if (!isCorrect) {
-                                const correctAnswerSpan = document.createElement('span');
-                                correctAnswerSpan.className = 'correct-answer-text';
-                                correctAnswerSpan.textContent = `(Correct: ${acceptedAnswers.join(' / ')})`;
-                                element.parentNode.insertBefore(correctAnswerSpan, element.nextSibling);
-                            }
-                        }
-                        break;
+                // Handle different question types
+                if (key.includes('-')) {
+                    // Multi-question keys like 'q11-12', 'q13-14'
+                    const [startQ, endQ] = key.split('-').map(q => parseInt(q.replace('q', '')));
                     
-                    case 'mcq':
-                        const radioChecked = document.querySelector(`input[name="${key}"]:checked`);
-                        userAnswer = radioChecked ? radioChecked.value : '';
-                        isCorrect = userAnswer.toLowerCase() === correctAnswer.toLowerCase();
-                        const isTable = document.querySelector(`input[name="${key}"]`) ? document.querySelector(`input[name="${key}"]`).closest('.mcq-table') : false;
-
-                        if (radioChecked) {
-                            if (isTable) {
-                                // For table MCQs, mark the row
-                                const rowToMark = radioChecked.closest('tr');
-                                if (rowToMark) {
-                                    rowToMark.classList.add(isCorrect ? 'correct' : 'incorrect');
-                                }
-                            } else {
-                                // For single-choice MCQs, mark the label
-                                const labelToMark = radioChecked.closest('label');
-                                if (labelToMark) {
-                                    labelToMark.classList.add(isCorrect ? 'correct' : 'incorrect');
-                                }
-                            }
-                        }
-                        
-                        if (!isCorrect) {
-                            const correctRadio = document.querySelector(`input[name="${key}"][value="${correctAnswer}"]`);
-                            if (correctRadio) {
-                                if (isTable) {
-                                    // For table MCQs, mark the correct row
-                                    const correctRow = correctRadio.closest('tr');
-                                    if (correctRow) {
-                                        correctRow.classList.add('correct');
+                    switch(questionType) {
+                        case 'checkbox':
+                            const checkedBoxes = document.querySelectorAll(`input[name="${key}"]:checked`);
+                            const userAnswers = Array.from(checkedBoxes).map(cb => cb.value).sort();
+                            userAnswer = userAnswers.join(', ');
+                            const correctAnswersSorted = Array.isArray(correctAnswer) ? correctAnswer.sort() : [correctAnswer];
+                            
+                            // Count how many correct answers the user selected
+                            const correctUserAnswers = userAnswers.filter(ans => correctAnswersSorted.includes(ans));
+                            
+                            // Additive-only scoring: 1 point per correct selected; no penalty for incorrect
+                            const questionScore = correctUserAnswers.length;
+                            score += questionScore;
+                            
+                            // Mark group as fully correct only if all correct options are selected and no extra are selected
+                            isCorrect = (correctUserAnswers.length === correctAnswersSorted.length && userAnswers.length === correctAnswersSorted.length);
+                            
+                            // Mark individual checkboxes
+                            checkedBoxes.forEach(cb => {
+                                const label = cb.closest('label');
+                                if (label) {
+                                    if (correctAnswersSorted.includes(cb.value)) {
+                                        label.classList.add('correct');
+                                    } else {
+                                        label.classList.add('incorrect');
                                     }
-                                } else {
-                                    // For single-choice MCQs, mark the correct label
-                                    const correctLabel = correctRadio.closest('label');
+                                }
+                            });
+                            
+                            // Mark correct answers that weren't selected
+                            correctAnswersSorted.forEach(correctVal => {
+                                const correctCheckbox = document.querySelector(`input[name="${key}"][value="${correctVal}"]`);
+                                if (correctCheckbox && !correctCheckbox.checked) {
+                                    const correctLabel = correctCheckbox.closest('label');
                                     if (correctLabel) {
                                         correctLabel.classList.add('correct');
                                     }
                                 }
-                            }
-                        }
-                        break;
+                            });
+                            break;
+                    }
                     
-                    case 'drag_drop':
-                        const dropZone = document.querySelector(`.drop-zone[data-question-id="${qNum}"]`);
-                        if (dropZone) {
-                            const droppedItem = dropZone.querySelector('.drag-item');
-                            if (droppedItem) {
-                                // Extract the letter from the data-option-id attribute
-                                userAnswer = droppedItem.getAttribute('data-option-id');
-                            } else {
-                                userAnswer = '';
-                            }
-                            isCorrect = userAnswer.toUpperCase() === correctAnswer.toUpperCase();
-                            dropZone.classList.add(isCorrect ? 'correct' : 'incorrect');
-                            if (!isCorrect) {
-                                // Find the correct option text based on the letter
-                                const correctOptionText = findOptionTextByLetter(correctAnswer, qNum);
-                                const correctAnswerSpan = document.createElement('span');
-                                correctAnswerSpan.className = 'correct-answer-text';
-                                correctAnswerSpan.textContent = correctOptionText;
-                                dropZone.appendChild(correctAnswerSpan);
-                            }
+                    // Mark buttons for the question range
+                    for (let qNum = startQ; qNum <= endQ; qNum++) {
+                        const btn = document.querySelector(`.subQuestion[onclick="goToQuestion(${qNum})"]`);
+                        if (btn) {
+                            btn.classList.remove('answered');
+                            btn.classList.add(isCorrect ? 'correct' : 'incorrect');
                         }
-                        break;
-                }
-
-                if (isCorrect) score++;
-
-                if (btn) {
-                    btn.classList.remove('answered');
-                    btn.classList.add(isCorrect ? 'correct' : 'incorrect');
-                }
-
-                // Format the correct answer for display
-                let displayCorrectAnswer;
-                if (questionTypes[`q${qNum}`] === 'drag_drop') {
-                    displayCorrectAnswer = findOptionTextByLetter(correctAnswer, qNum);
+                    }
+                    
+                    resultsData.push({
+                        question: `${startQ}-${endQ}`,
+                        userAnswer: userAnswer || 'No Answer',
+                        correctAnswer: Array.isArray(correctAnswer) ? correctAnswer.join(', ') : String(correctAnswer),
+                        isCorrect: isCorrect
+                    });
+                    
+                    // For checkbox questions in multi-question keys, score was already added in switch statement
+                    // Don't add additional score here - return early to skip the final score increment
+                    return;
                 } else {
-                    displayCorrectAnswer = Array.isArray(correctAnswer) ? correctAnswer.join(' / ') : String(correctAnswer);
-                }
+                   const qNum = parseInt(key.replace('q', ''));
+                   const btn = document.querySelector(`.subQuestion[onclick="goToQuestion(${qNum})"]`);
+                   const element = document.getElementById(key) || document.querySelector(`input[name="${key}"]`);
 
-                resultsData.push({
-                    question: qNum,
-                    userAnswer: userAnswer || 'No Answer',
-                    correctAnswer: displayCorrectAnswer,
-                    isCorrect: isCorrect
-                });
+                   let questionType;
+                   if (element?.type === 'text') questionType = 'text';
+                   else if (element?.type === 'radio') questionType = 'mcq';
+                   else questionType = questionTypes[key]; // Use the questionTypes object for other types
+                   
+                   switch (questionType) {
+                       case 'text':
+                           userAnswer = element.value.trim();
+                           const acceptedAnswers = Array.isArray(correctAnswer) ? correctAnswer : [String(correctAnswer)];
+                           isCorrect = acceptedAnswers.some(ans => ans.toLowerCase() === userAnswer.toLowerCase());
+                           element.classList.add(isCorrect ? 'correct' : 'incorrect');
+                           if (!isCorrect) {
+                               const correctAnswerSpan = document.createElement('span');
+                               correctAnswerSpan.className = 'correct-answer-text';
+                               correctAnswerSpan.textContent = `(Correct: ${acceptedAnswers.join(' / ')})`;
+                               element.parentNode.insertBefore(correctAnswerSpan, element.nextSibling);
+                           }
+                           break;
+                       case 'mcq':
+                           const radioChecked = document.querySelector(`input[name="${key}"]:checked`);
+                           userAnswer = radioChecked ? radioChecked.value : 'No Answer';
+                           isCorrect = userAnswer === correctAnswer;
+                           const labels = document.querySelectorAll(`input[name="${key}"]`);
+                           labels.forEach(radio => {
+                               const label = radio.closest('label');
+                               if (radio.value === correctAnswer) {
+                                   label.classList.add('correct');
+                               } else if (radio.checked) {
+                                   label.classList.add('incorrect');
+                               }
+                           });
+                           break;
+                       case 'clickable':
+                           const selectedCell = document.querySelector(`.clickable-cell[data-question="${qNum}"].selected`);
+                           userAnswer = selectedCell ? selectedCell.getAttribute('data-value') : 'No Answer';
+                           isCorrect = userAnswer === correctAnswer;
+                           
+                           // Mark cells as correct/incorrect
+                           const allCells = document.querySelectorAll(`.clickable-cell[data-question="${qNum}"]`);
+                           allCells.forEach(cell => {
+                               if (cell.getAttribute('data-value') === correctAnswer) {
+                                   cell.classList.add('correct');
+                               } else if (cell.classList.contains('selected')) {
+                                   cell.classList.add('incorrect');
+                               }
+                           });
+                           break;
+                       case 'checkbox':
+                           const checkedBoxes = document.querySelectorAll(`input[name="${key}"]:checked`);
+                           const userAnswers = Array.from(checkedBoxes).map(cb => cb.value).sort();
+                           userAnswer = userAnswers.join(', ');
+                           const correctAnswersSorted = Array.isArray(correctAnswer) ? correctAnswer.sort() : [correctAnswer];
+                           
+                           // Count how many correct answers the user selected
+                           const correctUserAnswers = userAnswers.filter(ans => correctAnswersSorted.includes(ans));
+                           
+                           // Additive-only scoring: 1 point per correct selected; no penalty for incorrect
+                           const questionScore = correctUserAnswers.length;
+                           score += questionScore;
+                           
+                           // Mark group as fully correct only if all correct options are selected and no extra are selected
+                           isCorrect = (correctUserAnswers.length === correctAnswersSorted.length && userAnswers.length === correctAnswersSorted.length);
+                           
+                           // Mark individual checkboxes
+                           checkedBoxes.forEach(cb => {
+                               const label = cb.closest('label');
+                               if (label) {
+                                   if (correctAnswersSorted.includes(cb.value)) {
+                                       label.classList.add('correct');
+                                   } else {
+                                       label.classList.add('incorrect');
+                                   }
+                               }
+                           });
+                           
+                           // Mark correct answers that weren't selected
+                           correctAnswersSorted.forEach(correctVal => {
+                               const correctCheckbox = document.querySelector(`input[name="${key}"][value="${correctVal}"]`);
+                               if (correctCheckbox && !correctCheckbox.checked) {
+                                   const correctLabel = correctCheckbox.closest('label');
+                                   if (correctLabel) {
+                                       correctLabel.classList.add('correct');
+                                   }
+                               }
+                           });
+                           break;
+                   }
+
+                   if (btn) {
+                       btn.classList.remove('answered');
+                       btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+                   }
+
+                   resultsData.push({
+                       question: qNum,
+                       userAnswer: userAnswer || 'No Answer',
+                       correctAnswer: Array.isArray(correctAnswer) ? correctAnswer.join(' / ') : String(correctAnswer),
+                       isCorrect: isCorrect
+                   });
+               }
+
+               // For checkbox questions, score was already added in the switch statement
+               // Only add score for non-checkbox questions
+               if (questionType !== 'checkbox' && isCorrect) {
+                   score++;
+               }
             });
 
             const deliverButton = document.getElementById('deliver-button');
@@ -2837,8 +3060,8 @@ With the limited number of breeding pairs, survivorship becomes difficult for Af
                 if(raw===1) return 1.5;
                 return 0;
             })(score);
-            deliverButton.innerHTML = `<span>Score: ${score} / 40 (Band ${band})</span><br><span>Estimated Band: ${band}</span>`;
-            deliverButton.disabled = true;
+
+            // Disable all inputs after grading
             document.querySelectorAll('.answer-input, input[type="radio"], input[type="checkbox"]').forEach(input => {
                 input.disabled = true;
             });
@@ -2850,10 +3073,11 @@ With the limited number of breeding pairs, survivorship becomes difficult for Af
                 zone.classList.remove('drag-over'); // Ensure no lingering hover styles
             });
 
+            // Results mode layout with transcription
             document.querySelector('.main-container').classList.add('results-mode');
             switchToPart(currentPart); // Show the transcription for the current part
 
-            // Populate and show modal
+            // Populate modal content (but do not force-open yet)
             const modal = document.getElementById('result-modal');
             const scoreSummary = document.getElementById('score-summary');
             const resultDetails = document.getElementById('result-details');
@@ -2876,6 +3100,20 @@ With the limited number of breeding pairs, survivorship becomes difficult for Af
             tableHTML += '</table>';
             resultDetails.innerHTML = tableHTML;
 
+            // Turn the deliver button into a green "My Results" button
+            deliverButton.classList.add('success');
+            deliverButton.innerHTML = '<span>My Results</span>';
+            deliverButton.disabled = false;
+
+            // Rebind click handler to open the results modal from now on
+            const myResultsBtn = deliverButton.cloneNode(true);
+            deliverButton.parentNode.replaceChild(myResultsBtn, deliverButton);
+            myResultsBtn.addEventListener('click', () => {
+                const modalEl = document.getElementById('result-modal');
+                if (modalEl) modalEl.style.display = 'flex';
+            });
+
+            // Open the modal immediately after grading
             modal.style.display = 'flex';
         }
         

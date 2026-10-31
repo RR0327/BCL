@@ -1060,20 +1060,16 @@ class AllModulesFullMockTests(TestCase):
             content_type="application/json",
         )
         res_sub_listening = self.client.post(reverse("bcl:submit_exam", args=[listening_att.pk]), {})
-        self.assertRedirects(res_sub_listening, reverse("bcl:full_mock_intermission", args=[full.pk]))
+        self.assertEqual(res_sub_listening.status_code, 302)
+        self.assertEqual(res_sub_listening.url, reverse("bcl:mock_reading", args=[self.mock_test.pk]))
 
         full.refresh_from_db()
         self.assertEqual(full.current_step, "reading")
         listening_att.refresh_from_db()
         self.assertEqual(listening_att.status, CandidateAttempt.AttemptStatus.SUBMITTED)
 
-        # 2. View intermission and launch Reading
-        res_inter1 = self.client.get(reverse("bcl:full_mock_intermission", args=[full.pk]))
-        self.assertEqual(res_inter1.status_code, 200)
-        self.assertContains(res_inter1, "Listening Module Submitted")
-        self.assertContains(res_inter1, "Reading Module")
-
-        res_launch_reading = self.client.post(reverse("bcl:full_mock_next_module", args=[full.pk]))
+        # 2. Continue directly to Reading
+        res_launch_reading = self.client.get(reverse("bcl:mock_reading", args=[self.mock_test.pk]))
         full.refresh_from_db()
         self.assertIsNotNone(full.reading_attempt)
         self.assertRedirects(res_launch_reading, reverse("bcl:exam_session", args=[full.reading_attempt.pk]))
@@ -1087,18 +1083,18 @@ class AllModulesFullMockTests(TestCase):
             content_type="application/json",
         )
         res_sub_reading = self.client.post(reverse("bcl:submit_exam", args=[reading_att.pk]), {})
-        self.assertRedirects(res_sub_reading, reverse("bcl:full_mock_intermission", args=[full.pk]))
+        self.assertEqual(res_sub_reading.status_code, 302)
+        self.assertEqual(res_sub_reading.url, reverse("bcl:exam_result", args=[reading_att.pk]))
 
         full.refresh_from_db()
         self.assertEqual(full.current_step, "writing")
 
-        # 3. View intermission and launch Writing
-        res_inter2 = self.client.get(reverse("bcl:full_mock_intermission", args=[full.pk]))
-        self.assertEqual(res_inter2.status_code, 200)
-        self.assertContains(res_inter2, "Reading Module Submitted")
-        self.assertContains(res_inter2, "Writing Module")
+        # 3. Review Reading, then continue to Writing
+        res_reading_result = self.client.get(reverse("bcl:exam_result", args=[reading_att.pk]))
+        self.assertEqual(res_reading_result.status_code, 200)
+        self.assertContains(res_reading_result, "Go to Writing Module")
 
-        res_launch_writing = self.client.post(reverse("bcl:full_mock_next_module", args=[full.pk]))
+        res_launch_writing = self.client.get(reverse("bcl:mock_writing", args=[self.mock_test.pk]))
         full.refresh_from_db()
         self.assertIsNotNone(full.writing_attempt)
         self.assertRedirects(res_launch_writing, reverse("bcl:exam_session", args=[full.writing_attempt.pk]))
