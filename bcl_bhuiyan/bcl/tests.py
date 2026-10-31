@@ -1112,6 +1112,11 @@ class AllModulesFullMockTests(TestCase):
         full.refresh_from_db()
         self.assertEqual(full.status, FullMockAttempt.AttemptStatus.SUBMITTED)
         self.assertEqual(full.current_step, "completed")
+        partial_result = self.client.get(reverse("bcl:full_mock_result", args=[full.pk]))
+        self.assertEqual(partial_result.status_code, 200)
+        self.assertTrue(partial_result.context["partial_result"])
+        self.assertIsNone(full.reading_attempt)
+        self.assertIsNone(full.writing_attempt)
 
         # 4. View ended page
         res_ended = self.client.get(reverse("bcl:full_mock_ended", args=[full.pk]))
@@ -1127,11 +1132,30 @@ class AllModulesFullMockTests(TestCase):
 
         # Exit full mock via Back button
         res_exit = self.client.post(reverse("bcl:submit_exam", args=[listening_att.pk]), {"exit_full_mock": "true"})
-        self.assertRedirects(res_exit, reverse("bcl:full_mock_ended", args=[full.pk]))
+        self.assertRedirects(res_exit, reverse("bcl:full_mock_result", args=[full.pk]))
 
         full.refresh_from_db()
         self.assertEqual(full.status, FullMockAttempt.AttemptStatus.SUBMITTED)
         self.assertEqual(full.current_step, "completed")
+
+    def test_starting_full_mock_again_creates_fresh_attempt(self):
+        self.client.post(reverse("bcl:start_full_mock", args=[self.mock_test.pk]), {"accept_rules": "yes"})
+        first = FullMockAttempt.objects.get(candidate=self.candidate, mock_test=self.mock_test)
+        listening = first.listening_attempt
+
+        self.client.post(reverse("bcl:submit_exam", args=[listening.pk]), {"exit_full_mock": "true"})
+        self.client.post(reverse("bcl:start_full_mock", args=[self.mock_test.pk]), {"accept_rules": "yes"})
+
+        attempts = list(
+            FullMockAttempt.objects.filter(candidate=self.candidate, mock_test=self.mock_test)
+            .order_by("started_at", "pk")
+        )
+        self.assertEqual(len(attempts), 2)
+        self.assertEqual(attempts[0].status, FullMockAttempt.AttemptStatus.SUBMITTED)
+        self.assertEqual(attempts[1].status, FullMockAttempt.AttemptStatus.IN_PROGRESS)
+        self.assertNotEqual(attempts[0].pk, attempts[1].pk)
+        self.assertEqual(attempts[1].current_step, "listening")
+        self.assertEqual(attempts[1].listening_attempt.status, CandidateAttempt.AttemptStatus.IN_PROGRESS)
 
     def test_full_mock_result_writing_under_review_then_evaluated(self):
         # Create full mock attempt directly with all 3 module attempts submitted
