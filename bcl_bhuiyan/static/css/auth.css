@@ -43,10 +43,19 @@ a {
 }
 
 .auth-logo {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
     color: var(--dark);
     font-size: 26px;
     font-weight: 800;
+}
+
+.auth-logo img {
+    width: 38px;
+    height: 38px;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
 .auth-logo span {
