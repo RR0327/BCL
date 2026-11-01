@@ -4,6 +4,7 @@ from decouple import config, Csv
 from django.core.exceptions import ImproperlyConfigured
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+APP_NAME = 'BCL_Bhuiyan'
 SECRET_KEY = config('DJANGO_SECRET_KEY', default='')
 if len(SECRET_KEY) < 32:
     raise ImproperlyConfigured('Set DJANGO_SECRET_KEY to a unique random value of at least 32 characters.')
@@ -38,6 +39,7 @@ TEMPLATES = [{
         'django.template.context_processors.request',
         'django.contrib.auth.context_processors.auth',
         'django.contrib.messages.context_processors.messages',
+        'bcl.context_processors.platform_branding',
     ]},
 }]
 WSGI_APPLICATION = 'bcl_bhuiyan.wsgi.application'
