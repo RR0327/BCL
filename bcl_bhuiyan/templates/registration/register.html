@@ -6,7 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Register | IELTS Mock Test</title>
+    {% include "partials/site_meta.html" %}
+    <title>Register | {{ platform_name }}</title>
 
     <script>
         (function() {
@@ -47,13 +48,14 @@
 
         <div style="margin-bottom: 6px;">
             <a href="{% url 'bcl:home' %}" class="auth-logo">
-                IELTS<span>Mock</span>
+                <img src="{% static 'images/bcl.jpg' %}" alt="{{ platform_name }} logo">
+                <span>{{ platform_name }}</span>
             </a>
         </div>
 
         <h1>Create Your Account</h1>
         <p class="subtitle">
-            Join our IELTS mock testing platform.
+            Join {{ platform_name }} for IELTS mock testing.
         </p>
 
         <form method="POST">

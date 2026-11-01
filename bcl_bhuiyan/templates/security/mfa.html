@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Staff verification | {{ platform_name|default:"IELTS Practice" }}</title>
+    {% include "partials/site_meta.html" %}
+    <title>Staff verification | {{ platform_name }}</title>
 
     <script>
         (function() {

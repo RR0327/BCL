@@ -13,6 +13,7 @@
     <meta name="description"
           content="Practice IELTS Reading, Listening, and Writing with realistic computer-based mock tests.">
 
+    {% include "partials/site_meta.html" %}
     <title>{{ platform_name }} | IELTS Practice</title>
 
     <script>
@@ -297,7 +298,8 @@
         <!-- Website Logo -->
         <a href="{% url 'bcl:home' %}"
            class="logo">
-            IELTS<span>Mock</span>
+            <img src="{% static 'images/bcl.jpg' %}" alt="{{ platform_name }} logo">
+            <span>{{ platform_name }}</span>
         </a>
 
         <!-- Main Navigation -->
@@ -559,7 +561,7 @@
             </h2>
 
             <p>
-                Our IELTS Mock Test Platform is designed
+                {{ platform_name }} is designed
                 to recreate the computer-delivered
                 examination experience.
 
@@ -582,7 +584,7 @@
     <footer>
 
         <p>
-            © {% now "Y" %} IELTS Mock Test Platform.
+            © {% now "Y" %} {{ platform_name }}.
             All rights reserved.
         </p>
 

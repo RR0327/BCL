@@ -5,6 +5,7 @@
 
 {% block extrahead %}
 {{ block.super }}
+{% include "partials/site_meta.html" %}
 <script>
     (function() {
         try {
@@ -24,7 +25,7 @@
 {% endblock %}
 
 {% block branding %}
-<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
+<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ platform_name }}</a></h1>
 {% if user.is_anonymous %}
   {% include "admin/color_theme_toggle.html" %}
 {% endif %}

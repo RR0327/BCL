@@ -8,7 +8,8 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Candidate Dashboard | IELTS Mock Test</title>
+    {% include "partials/site_meta.html" %}
+    <title>Candidate Dashboard | {{ platform_name }}</title>
 
     <script>
         (function() {
@@ -229,7 +230,8 @@
 
     <a href="{% url 'bcl:home' %}"
        class="auth-logo">
-        IELTS<span>Mock</span>
+        <img src="{% static 'images/bcl.jpg' %}" alt="{{ platform_name }} logo">
+        <span>{{ platform_name }}</span>
     </a>
 
     <div class="header-actions">
@@ -281,7 +283,7 @@
     <section class="dashboard-section">
 
         <div class="section-heading">
-            <h2>Available IELTS Mock Tests</h2>
+            <h2>Available {{ platform_name }} Tests</h2>
             <p>Select a module to begin.</p>
         </div>
 
@@ -501,7 +503,7 @@
 </main>
 
 <footer class="dashboard-footer">
-    © {% now "Y" %} IELTS Mock Test Platform
+    © {% now "Y" %} {{ platform_name }}
 </footer>
 
 </body>
