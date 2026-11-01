@@ -46,19 +46,17 @@ body {
     color: var(--text);
 }
 
-.logo::before {
-    content: "I";
-    display: grid;
-    place-items: center;
-    width: 30px;
-    height: 30px;
+.logo img,
+.auth-logo img {
+    width: 34px;
+    height: 34px;
+    object-fit: cover;
     border-radius: 9px;
-    background: linear-gradient(135deg, #2457d6, #6d5ce7);
-    color: #ffffff;
-    font-size: 15px;
-    font-weight: 800;
-    letter-spacing: 0;
     box-shadow: 0 6px 14px rgba(36, 87, 214, 0.24);
+}
+
+.logo::before {
+    display: none;
 }
 
 .logo span {
