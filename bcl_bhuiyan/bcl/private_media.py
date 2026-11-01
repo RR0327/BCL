@@ -10,6 +10,10 @@ from django.views.decorators.http import require_GET
 from .models import CandidateAttempt, ExamSection, Question
 
 
+ALLOWED_AUDIO_EXTENSIONS = {"mp3", "wav", "ogg", "m4a", "aac", "webm"}
+ALLOWED_IMAGE_EXTENSIONS = {"jpg", "jpeg", "png", "gif", "webp"}
+
+
 @login_required
 @require_GET
 def section_media(request, attempt_id, section_id, kind):
@@ -23,6 +27,8 @@ def section_media(request, attempt_id, section_id, kind):
     section = get_object_or_404(ExamSection, pk=section_id, module_id=attempt.module_id)
     field = section.audio_file if kind == "audio" else section.image
     if not field or not field.name:
+        raise Http404
+    if kind == "audio" and field.name.rsplit(".", 1)[-1].lower() not in ALLOWED_AUDIO_EXTENSIONS:
         raise Http404
     try:
         # Storage abstraction keeps authorization independent of the filesystem.
@@ -57,6 +63,8 @@ def question_media(request, attempt_id, question_id):
     field = question.image
     if not field or not field.name:
         raise Http404
+    if field.name.rsplit(".", 1)[-1].lower() not in ALLOWED_IMAGE_EXTENSIONS:
+        raise Http404
     try:
         handle = field.open("rb")
     except (OSError, ValueError, FileNotFoundError):
@@ -85,6 +93,8 @@ def module_media(request, attempt_id, kind):
         raise Http404
     field = attempt.module.audio_file
     if not field or not field.name:
+        raise Http404
+    if kind == "audio" and field.name.rsplit(".", 1)[-1].lower() not in ALLOWED_AUDIO_EXTENSIONS:
         raise Http404
     try:
         handle = field.open("rb")

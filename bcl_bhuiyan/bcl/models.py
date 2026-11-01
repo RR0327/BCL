@@ -2,7 +2,7 @@ from decimal import Decimal
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.validators import FileExtensionValidator, MinValueValidator, MaxValueValidator
 from django.db import models
 from django.utils import timezone
 
@@ -58,6 +58,9 @@ class ExamModule(models.Model):
         upload_to="ielts/audio/",
         blank=True,
         null=True,
+        validators=[FileExtensionValidator(
+            allowed_extensions=["mp3", "wav", "ogg", "m4a", "aac", "webm"]
+        )],
         help_text="Full continuous audio recording for this module (covers all parts/questions). If provided, this single audio will play continuously across all parts. If left blank, individual section audio files will be used instead.",
     )
     is_active = models.BooleanField(default=True)
@@ -83,6 +86,9 @@ class ExamSection(models.Model):
         upload_to="ielts/audio/",
         blank=True,
         null=True,
+        validators=[FileExtensionValidator(
+            allowed_extensions=["mp3", "wav", "ogg", "m4a", "aac", "webm"]
+        )],
         help_text="Individual audio for this specific part/section (used when module-level continuous audio is not provided).",
     )
     image = models.ImageField(upload_to="ielts/images/", blank=True, null=True)

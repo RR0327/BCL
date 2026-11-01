@@ -26,6 +26,16 @@ MAX_ANSWER_LENGTH = 20000
 logger = logging.getLogger(__name__)
 
 
+def is_audio_file(field):
+    """Return whether a stored file has a browser-playable audio extension."""
+    return bool(
+        field
+        and field.name
+        and os.path.splitext(field.name)[1].lower().lstrip(".")
+        in {"mp3", "wav", "ogg", "m4a", "aac", "webm"}
+    )
+
+
 def is_candidate(user):
     return (
         user.is_authenticated
@@ -266,12 +276,6 @@ def get_listening_filepath(mock_num):
         os.path.join(settings.BASE_DIR.parent, "listening", f"listening-mock-{mock_num}.html"),
     ]
     for p in candidates:
-        if os.path.exists(p):
-            return p
-    for p in [
-        os.path.join(r"D:\BCL-Bhuiyan\listening", "listening-mock-1.html"),
-        os.path.join(r"D:\BCL-Bhuiyan\bcl_bhuiyan\listening", "listening-mock-1.html"),
-    ]:
         if os.path.exists(p):
             return p
     return None
@@ -2219,11 +2223,18 @@ def exam_session(request, attempt_id):
     if is_superseded_active_attempt(attempt):
         return redirect("bcl:exam_rules", module_id=attempt.module_id)
 
-    # HTML-based Listening Module: Serve directly from D:\BCL-Bhuiyan\listening\
-    if attempt.module.module_type == ExamModule.ModuleType.LISTENING:
+    # Keep legacy HTML listening tests working until their content is migrated.
+    # Any module with database sections is rendered by the normal exam interface.
+    if (
+        attempt.module.module_type == ExamModule.ModuleType.LISTENING
+        and not attempt.module.sections.exists()
+        and get_listening_filepath(attempt.module.mock_test.test_number)
+    ):
         return render_listening_html(request, attempt)
 
     sections = list(attempt.module.sections.order_by("order", "pk").prefetch_related("questions__options"))
+    for section in sections:
+        section.has_valid_audio = is_audio_file(section.audio_file)
     if attempt.module.module_type == ExamModule.ModuleType.WRITING:
         writing_task_numbers = {
             question.pk: task_number
@@ -2250,7 +2261,7 @@ def exam_session(request, attempt_id):
     )
     module_audio_url = ""
     audio_file = getattr(attempt.module, "audio_file", None)
-    if audio_file and audio_file.name:
+    if is_audio_file(audio_file):
         try:
             if audio_file.storage.exists(audio_file.name):
                 from django.urls import reverse
@@ -3385,6 +3396,8 @@ def mock_listening_view(request, mock_id):
                     status=CandidateAttempt.AttemptStatus.IN_PROGRESS,
                 )
 
+    if listening_mod.sections.exists() or not get_listening_filepath(mock_test.test_number):
+        return redirect("bcl:exam_session", attempt_id=attempt.pk)
     return render_listening_html(request, attempt)
 
 

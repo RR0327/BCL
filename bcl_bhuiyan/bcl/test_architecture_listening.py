@@ -81,6 +81,77 @@ class ArchitectureAndIntegrityTests(TestCase):
         self.assertIn("extractAnswersAndScore", content)
         self.assertIn("answers_payload", content)
 
+    def test_database_listening_module_uses_exam_session_interface(self):
+        """A Listening module configured in Admin renders from database content."""
+        mock_test = IELTSMockTest.objects.create(
+            test_number=31,
+            title="Database Listening Test",
+            is_published=True,
+        )
+        listening_mod = ExamModule.objects.create(
+            mock_test=mock_test,
+            module_type=ExamModule.ModuleType.LISTENING,
+            duration_minutes=40,
+            is_active=True,
+        )
+        section = ExamSection.objects.create(
+            module=listening_mod,
+            order=1,
+            title="Part 1: Database content",
+            instructions="Questions 1-2: Choose the correct answer.",
+        )
+        Question.objects.create(
+            section=section,
+            order=1,
+            question_type=Question.QuestionType.MCQ,
+            question_text="Where will the meeting take place?",
+            correct_answer="A",
+        )
+        Question.objects.create(
+            section=section,
+            order=2,
+            question_type=Question.QuestionType.FILL_BLANK,
+            question_text="The meeting starts at ___",
+            correct_answer="10:00",
+        )
+
+        response = self.client.get(reverse("bcl:mock_listening", args=[mock_test.pk]))
+
+        self.assertRedirects(
+            response,
+            reverse("bcl:exam_session", args=[CandidateAttempt.objects.get(module=listening_mod).pk]),
+        )
+        session = self.client.get(response.url)
+        content = session.content.decode("utf-8", errors="replace")
+        self.assertEqual(session.status_code, 200)
+        self.assertIn("Database Listening Test", content)
+        self.assertIn("Where will the meeting take place?", content)
+        self.assertIn("The meeting starts at", content)
+        self.assertIn("data-module-type=\"listening\"", content)
+
+    def test_new_listening_module_without_legacy_html_uses_database_exam(self):
+        """A newly created Listening module must not require a disk HTML file."""
+        mock_test = IELTSMockTest.objects.create(
+            test_number=35,
+            title="New Admin Listening Test",
+            is_published=True,
+        )
+        listening_mod = ExamModule.objects.create(
+            mock_test=mock_test,
+            module_type=ExamModule.ModuleType.LISTENING,
+            duration_minutes=40,
+            is_active=True,
+        )
+
+        response = self.client.get(reverse("bcl:mock_listening", args=[mock_test.pk]))
+
+        attempt = CandidateAttempt.objects.get(module=listening_mod, candidate=self.user)
+        self.assertRedirects(response, reverse("bcl:exam_session", args=[attempt.pk]))
+        session = self.client.get(response.url)
+        self.assertEqual(session.status_code, 200)
+        self.assertIn("New Admin Listening Test", session.content.decode("utf-8"))
+        self.assertNotIn("listening-mock-35.html not found", session.content.decode("utf-8"))
+
     def test_listening_submission_stores_score_and_answers_payload(self):
         """Verify student score and answers payload are persisted to CandidateAttempt in database."""
         mock_test = IELTSMockTest.objects.create(
@@ -516,4 +587,3 @@ class ArchitectureAndIntegrityTests(TestCase):
         self.assertEqual(attempt.raw_score, 28)
         self.assertEqual(attempt.band_score, Decimal("6.5"))
         self.assertIn("answers", attempt.answers_payload)
-

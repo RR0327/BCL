@@ -80,8 +80,14 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STORAGES = {'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
             'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage'}}
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = config('MEDIA_URL', default='/media/')
+MEDIA_ROOT_CONFIG = config('MEDIA_ROOT', default='')
+if not DEBUG and not MEDIA_ROOT_CONFIG:
+    raise ImproperlyConfigured(
+        'Production requires MEDIA_ROOT to point to a persistent mounted volume '
+        'or a storage-backed filesystem.'
+    )
+MEDIA_ROOT = Path(MEDIA_ROOT_CONFIG or (BASE_DIR / 'media')).expanduser().resolve()
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Only enable proxy headers behind a trusted proxy that overwrites client-supplied headers.
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https') if config('TRUST_PROXY_SSL_HEADER', default=False, cast=bool) else None

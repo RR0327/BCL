@@ -54,6 +54,12 @@ class PrivateMediaTests(TestCase):
         self.client.force_login(self.candidate)
         self.assertEqual(self.client.get(self.url(kind="other")).status_code, 404)
 
+    def test_non_audio_extension_is_not_streamed_as_audio(self):
+        self.section.audio_file.name = "ielts/audio/listening-mock.html"
+        self.section.save(update_fields=["audio_file"])
+        self.client.force_login(self.candidate)
+        self.assertEqual(self.client.get(self.url()).status_code, 404)
+
     def test_submitted_denied(self):
         self.attempt.status = CandidateAttempt.AttemptStatus.SUBMITTED
         self.attempt.save(update_fields=["status"])
