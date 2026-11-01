@@ -27,8 +27,8 @@ from .models import (
 # ADMIN SITE BRANDING
 # ==============================================================================
 
-admin.site.site_header = "IELTS Bhuiyan — Exam Portal Administration"
-admin.site.site_title = "IELTS Bhuiyan Admin"
+admin.site.site_header = "BCL_Bhuiyan — Exam Portal Administration"
+admin.site.site_title = "BCL_Bhuiyan Admin"
 admin.site.index_title = "Exam Management & Question Setting Dashboard"
 
 
