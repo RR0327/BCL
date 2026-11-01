@@ -100,8 +100,16 @@ Writing evaluation workflows, and staff-managed test content.
 - SQLite for the default local setup, or PostgreSQL 13+ for deployment
 - A modern browser with JavaScript enabled
 
-Some Listening tests require their corresponding audio or HTML assets to be
-present in the project media/static directories.
+Database-configured Listening tests can be created entirely from Django Admin:
+create a mock test, add a Listening module, upload module or section audio,
+add sections and questions with answer keys, and publish the test. Legacy
+Listening tests that have no database sections continue to use their existing
+HTML assets during migration.
+
+For production, set `MEDIA_ROOT` to a persistent mounted volume (or configure
+your deployment's storage-backed filesystem). Uploaded audio and exam images
+must not live only in an ephemeral application container. Keep media private;
+the application serves candidate media through authenticated endpoints.
 
 ## Local Development Setup
 
@@ -166,6 +174,7 @@ DJANGO_DEBUG=True
 DJANGO_ALLOWED_HOSTS=127.0.0.1,localhost
 DB_ENGINE=sqlite3
 DB_NAME=db.sqlite3
+MEDIA_ROOT=/var/lib/bcl_bhuiyan/media
 ```
 
 ### 5. Apply migrations
