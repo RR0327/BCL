@@ -1,5 +1,5 @@
 /**
- * Global Theme Engine for IELTS Mock Test Platform & Django Admin
+ * Global Theme Engine for BCL_Bhuiyan & Django Admin
  * Supports explicit 'light' and 'dark' modes.
  * Synchronizes across multiple browser tabs, Django Admin, and candidate pages without FOUC.
  */
