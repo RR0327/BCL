@@ -81,7 +81,7 @@ def home(request):
         "platform_name": getattr(
             settings,
             "APP_NAME",
-            "IELTS Mock Test Platform"
+            "BCL_Bhuiyan"
         ),
         "modules": modules,
     }
