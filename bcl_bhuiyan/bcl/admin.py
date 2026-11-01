@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db import transaction
 from django.db.models import Count, Q
 from django.forms.models import BaseInlineFormSet
 from django.urls import reverse
@@ -77,6 +78,16 @@ class ExamModuleAdminForm(forms.ModelForm):
                 "Continuous master audio for the entire Listening module (covers Parts 1–4 and all questions). "
                 "If uploaded, this single file plays continuously across all parts. "
                 "If left empty, you can upload individual audio files for each section/part below."
+            )
+        if "listening_html_file" in self.fields:
+            self.fields["listening_html_file"].help_text = (
+                "Upload the complete HTML listening test for this module. "
+                "It is used automatically when the module has no database sections."
+            )
+        if "module_file" in self.fields:
+            self.fields["module_file"].help_text = (
+                "Optional file for Listening, Reading, or Writing. "
+                "Any extension is accepted and browser-supported formats are displayed to candidates."
             )
         if "duration_minutes" in self.fields:
             self.fields["duration_minutes"].help_text = (
@@ -284,7 +295,7 @@ class ExamModuleInline(admin.TabularInline):
     fields = (
         "module_type",
         "duration_minutes",
-        "audio_file",
+        "module_file",
         "sections_summary",
         "is_active",
     )
@@ -464,6 +475,24 @@ class IELTSMockTestAdmin(QuestionSetterBaseAdmin):
     list_editable = ("is_published",)
     inlines = [ExamModuleInline]
 
+    def get_deleted_objects(self, objs, request):
+        """Allow this admin to remove historical attempts with their mock test."""
+        deleted_objects, model_count, perms_needed, protected = super().get_deleted_objects(
+            objs, request
+        )
+        return deleted_objects, model_count, set(), []
+
+    def delete_model(self, request, obj):
+        with transaction.atomic():
+            FullMockAttempt.objects.filter(mock_test=obj).delete()
+            CandidateAttempt.objects.filter(module__mock_test=obj).delete()
+            obj.delete()
+
+    def delete_queryset(self, request, queryset):
+        with transaction.atomic():
+            for obj in queryset:
+                self.delete_model(request, obj)
+
     fieldsets = (
         (
             "Mock Test Identification",
@@ -566,13 +595,13 @@ class ExamModuleAdmin(QuestionSetterBaseAdmin):
             },
         ),
         (
-            "Listening Audio (Master File)",
+            "Module File",
             {
-                "fields": ("audio_file",),
+                "fields": ("module_file",),
                 "description": (
-                    "Continuous master audio for the entire Listening exam. "
-                    "If uploaded, candidates listen to this single file across all parts. "
-                    "If blank, you can upload separate audio for each part in the sections below."
+                    "Optional file for any module type. Any extension is accepted. "
+                    "HTML, PDF, images, text, audio, and other browser-supported formats "
+                    "are displayed automatically; unsupported formats remain downloadable."
                 ),
             },
         ),

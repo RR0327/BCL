@@ -63,6 +63,25 @@ class ExamModule(models.Model):
         )],
         help_text="Full continuous audio recording for this module (covers all parts/questions). If provided, this single audio will play continuously across all parts. If left blank, individual section audio files will be used instead.",
     )
+    listening_html_file = models.FileField(
+        upload_to="ielts/listening/",
+        blank=True,
+        null=True,
+        validators=[FileExtensionValidator(allowed_extensions=["html"])],
+        help_text="Optional uploaded HTML listening test. Used for Listening modules without database sections.",
+    )
+    content_file = models.FileField(
+        upload_to="ielts/module-content/",
+        blank=True,
+        null=True,
+        help_text="Optional module source file. Any file extension is accepted and browser-supported formats are displayed automatically.",
+    )
+    module_file = models.FileField(
+        upload_to="ielts/module-files/",
+        blank=True,
+        null=True,
+        help_text="Optional file for this module. Any file extension is accepted.",
+    )
     is_active = models.BooleanField(default=True)
 
     class Meta:

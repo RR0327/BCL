@@ -84,14 +84,21 @@ def question_media(request, attempt_id, question_id):
 @login_required
 @require_GET
 def module_media(request, attempt_id, kind):
-    if kind not in ("audio",):
+    if kind not in ("audio", "content"):
         raise Http404
     if not request.user.is_active or request.user.is_staff or request.user.is_superuser:
         raise Http404
     attempt = get_object_or_404(CandidateAttempt, pk=attempt_id, candidate=request.user)
     if attempt.status != CandidateAttempt.AttemptStatus.IN_PROGRESS or timezone.now() >= attempt.expires_at:
         raise Http404
-    field = attempt.module.audio_file
+    field = (
+        attempt.module.audio_file
+        if kind == "audio"
+        else (
+            getattr(attempt.module, "module_file", None)
+            or getattr(attempt.module, "content_file", None)
+        )
+    )
     if not field or not field.name:
         raise Http404
     if kind == "audio" and field.name.rsplit(".", 1)[-1].lower() not in ALLOWED_AUDIO_EXTENSIONS:
@@ -101,7 +108,7 @@ def module_media(request, attempt_id, kind):
     except (OSError, ValueError, FileNotFoundError):
         raise Http404
     content_type = mimetypes.guess_type(field.name)[0] or "application/octet-stream"
-    if not content_type.startswith("audio/"):
+    if kind == "audio" and not content_type.startswith("audio/"):
         content_type = "application/octet-stream"
     response = FileResponse(handle, content_type=content_type, as_attachment=False)
     response["Content-Disposition"] = "inline; filename=\"%s\"" % PurePosixPath(field.name).name.replace('"', '')

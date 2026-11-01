@@ -3,6 +3,7 @@ from datetime import timedelta
 import json
 import logging
 import uuid
+import mimetypes
 
 from django.conf import settings
 from django.contrib import messages
@@ -267,8 +268,20 @@ def get_mock_test_object(mock_id):
     )
 
 
-def get_listening_filepath(mock_num):
-    """Resolve file path to listening-mock-<N>.html across supported directories."""
+def get_listening_filepath(mock_num, module=None):
+    """Resolve an uploaded listening HTML asset, then the legacy disk asset."""
+    uploaded_file = (
+        getattr(module, "module_file", None)
+        or getattr(module, "listening_html_file", None)
+    )
+    if uploaded_file:
+        try:
+            uploaded_path = uploaded_file.path
+        except (AttributeError, NotImplementedError, ValueError):
+            uploaded_path = None
+        if uploaded_path and os.path.isfile(uploaded_path):
+            return uploaded_path
+
     candidates = [
         os.path.join(r"D:\BCL-Bhuiyan\listening", f"listening-mock-{mock_num}.html"),
         os.path.join(r"D:\BCL-Bhuiyan\bcl_bhuiyan\listening", f"listening-mock-{mock_num}.html"),
@@ -281,7 +294,7 @@ def get_listening_filepath(mock_num):
     return None
 
 
-def parse_listening_answer_key(mock_num):
+def parse_listening_answer_key(mock_num, module=None):
     """
     Parse the official answer key for a listening mock test directly from its HTML file.
     Supports single keys, lists of synonyms, range keys (e.g. q11-12, q13_14), and pickGroups.
@@ -290,7 +303,7 @@ def parse_listening_answer_key(mock_num):
     import re
     import ast
 
-    filepath = get_listening_filepath(mock_num)
+    filepath = get_listening_filepath(mock_num, module)
     if not filepath or not os.path.exists(filepath):
         return {}
 
@@ -372,7 +385,7 @@ def render_listening_html(request, attempt):
 
     mock_test = attempt.module.mock_test
     mock_num = mock_test.test_number
-    filepath = get_listening_filepath(mock_num)
+    filepath = get_listening_filepath(mock_num, attempt.module)
     if not filepath or not os.path.exists(filepath):
         logger.error("Could not find listening file for Mock %s", mock_num)
         return HttpResponse(f"Error: listening-mock-{mock_num}.html not found.", status=404)
@@ -391,7 +404,7 @@ def render_listening_html(request, attempt):
         attempt.module.save(update_fields=["duration_minutes"])
 
     max_seconds = 40 * 60  # 2400 seconds
-    server_answer_key = parse_listening_answer_key(mock_num)
+    server_answer_key = parse_listening_answer_key(mock_num, attempt.module)
     server_answer_key_json = json.dumps(server_answer_key)
     if not attempt.expires_at:
         attempt.expires_at = now + timedelta(seconds=max_seconds)
@@ -2228,7 +2241,7 @@ def exam_session(request, attempt_id):
     if (
         attempt.module.module_type == ExamModule.ModuleType.LISTENING
         and not attempt.module.sections.exists()
-        and get_listening_filepath(attempt.module.mock_test.test_number)
+        and get_listening_filepath(attempt.module.mock_test.test_number, attempt.module)
     ):
         return render_listening_html(request, attempt)
 
@@ -2264,10 +2277,25 @@ def exam_session(request, attempt_id):
     if is_audio_file(audio_file):
         try:
             if audio_file.storage.exists(audio_file.name):
-                from django.urls import reverse
                 module_audio_url = reverse("bcl:module_media", args=[attempt.pk, "audio"])
         except Exception:
             pass
+    module_asset_url = ""
+    module_asset_content_type = ""
+    content_file = (
+        getattr(attempt.module, "module_file", None)
+        or getattr(attempt.module, "content_file", None)
+    )
+    if content_file and content_file.name:
+        try:
+            if content_file.storage.exists(content_file.name):
+                module_asset_url = reverse("bcl:module_media", args=[attempt.pk, "content"])
+                module_asset_content_type = (
+                    mimetypes.guess_type(content_file.name)[0]
+                    or "application/octet-stream"
+                )
+        except (OSError, ValueError):
+            logger.warning("Unable to resolve module content file for attempt %s", attempt.pk)
 
     return render(request, "exam/session.html", {
         "attempt": attempt,
@@ -2277,6 +2305,8 @@ def exam_session(request, attempt_id):
         "remaining_seconds": get_remaining_seconds(attempt),
         "saved_answers": saved_answers,
         "module_audio_url": module_audio_url,
+        "module_asset_url": module_asset_url,
+        "module_asset_content_type": module_asset_content_type,
     })
 
 
@@ -2727,7 +2757,7 @@ def exam_result(request, attempt_id):
     # Dedicated Listening Review: Synthesize full 4-part review for raw HTML client-side listening tests
     if module_type == ExamModule.ModuleType.LISTENING or (not sections and module_type == 'listening'):
         mock_num = mock_test.test_number
-        server_keys = parse_listening_answer_key(mock_num)
+        server_keys = parse_listening_answer_key(mock_num, module)
         payload = attempt.answers_payload or {}
         cand_answers = payload.get("answers", {})
 
@@ -3396,7 +3426,7 @@ def mock_listening_view(request, mock_id):
                     status=CandidateAttempt.AttemptStatus.IN_PROGRESS,
                 )
 
-    if listening_mod.sections.exists() or not get_listening_filepath(mock_test.test_number):
+    if listening_mod.sections.exists() or not get_listening_filepath(mock_test.test_number, listening_mod):
         return redirect("bcl:exam_session", attempt_id=attempt.pk)
     return render_listening_html(request, attempt)
 

@@ -88,7 +88,25 @@
           data-result-url="{% url 'bcl:exam_result' attempt.pk %}"
           data-violation-count="{{ attempt.violation_count }}">
 
-        {% if module.module_type == 'reading' %}
+        {% if module_asset_url %}
+        <section class="flex-1 overflow-auto bg-slate-50 p-4 sm:p-6">
+            <div class="mx-auto flex h-full max-w-7xl flex-col overflow-hidden rounded-xl border border-indigo-200 bg-white shadow-sm">
+                <div class="flex flex-wrap items-center justify-between gap-3 border-b border-indigo-100 bg-indigo-50 px-4 py-3">
+                    <div>
+                        <h1 class="text-base font-semibold text-slate-800">Uploaded {{ module.get_module_type_display }} content</h1>
+                        <p class="text-xs text-slate-500">The uploaded file is displayed when your browser supports its format.</p>
+                    </div>
+                    <a href="{{ module_asset_url }}" target="_blank" rel="noopener" download
+                       class="rounded-lg border border-indigo-200 bg-white px-3 py-1.5 text-xs font-semibold text-indigo-700 hover:bg-indigo-50">
+                        Open or download file
+                    </a>
+                </div>
+                <iframe src="{{ module_asset_url }}" title="Uploaded exam content"
+                        class="min-h-0 flex-1 w-full border-0"
+                        sandbox="allow-forms allow-modals allow-pointer-lock allow-popups allow-scripts"></iframe>
+            </div>
+        </section>
+        {% elif module.module_type == 'reading' %}
         <!-- READING SPLIT SCREEN -->
         <div class="reading-split-container flex flex-1 overflow-hidden" id="readingSplitArea">
             <!-- Left Pane: Passage -->

@@ -2,6 +2,8 @@ from django.contrib.admin.sites import AdminSite
 from django.contrib.auth import get_user_model
 from django.test import TestCase, RequestFactory
 from django.urls import reverse
+from django.utils import timezone
+from datetime import timedelta
 
 from .models import (
     IELTSMockTest,
@@ -9,6 +11,8 @@ from .models import (
     ExamSection,
     Question,
     QuestionOption,
+    CandidateAttempt,
+    FullMockAttempt,
 )
 from .admin import (
     IELTSMockTestAdmin,
@@ -128,3 +132,23 @@ class AdminUsabilityTests(TestCase):
                 200,
                 f"Failed to load admin URL: {url} (status {response.status_code})",
             )
+
+    def test_mock_test_delete_removes_dependent_attempts(self):
+        attempt = CandidateAttempt.objects.create(
+            candidate=self.staff_user,
+            module=self.module,
+            started_at=timezone.now(),
+            expires_at=timezone.now() + timedelta(minutes=60),
+        )
+        full_mock = FullMockAttempt.objects.create(
+            candidate=self.staff_user,
+            mock_test=self.mock_test,
+            listening_attempt=attempt,
+        )
+
+        admin_instance = IELTSMockTestAdmin(IELTSMockTest, self.site)
+        admin_instance.delete_model(MockRequest(), self.mock_test)
+
+        self.assertFalse(IELTSMockTest.objects.filter(pk=self.mock_test.pk).exists())
+        self.assertFalse(CandidateAttempt.objects.filter(pk=attempt.pk).exists())
+        self.assertFalse(FullMockAttempt.objects.filter(pk=full_mock.pk).exists())

@@ -1,7 +1,9 @@
 import os
 import json
+import tempfile
 from decimal import Decimal
-from django.test import TestCase, Client
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.test import TestCase, Client, override_settings
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.utils import timezone
@@ -151,6 +153,73 @@ class ArchitectureAndIntegrityTests(TestCase):
         self.assertEqual(session.status_code, 200)
         self.assertIn("New Admin Listening Test", session.content.decode("utf-8"))
         self.assertNotIn("listening-mock-35.html not found", session.content.decode("utf-8"))
+
+    def test_uploaded_listening_html_is_used_for_mock_test(self):
+        """An admin-uploaded Listening HTML file is rendered for its module."""
+        with tempfile.TemporaryDirectory() as media_root:
+            with override_settings(MEDIA_ROOT=media_root):
+                mock_test = IELTSMockTest.objects.create(
+                    test_number=36,
+                    title="Uploaded Listening Test",
+                    is_published=True,
+                )
+                listening_mod = ExamModule.objects.create(
+                    mock_test=mock_test,
+                    module_type=ExamModule.ModuleType.LISTENING,
+                    duration_minutes=40,
+                    is_active=True,
+                    module_file=SimpleUploadedFile(
+                        "custom-listening.html",
+                        b"<html><body><main id='custom-listening'>Uploaded listening content</main></body></html>",
+                        content_type="text/html",
+                    ),
+                )
+
+                response = self.client.get(
+                    reverse("bcl:mock_listening", args=[mock_test.pk])
+                )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("Uploaded listening content", response.content.decode("utf-8"))
+        self.assertEqual(
+            CandidateAttempt.objects.get(module=listening_mod).module_id,
+            listening_mod.pk,
+        )
+
+    def test_generic_module_file_is_rendered_for_reading(self):
+        """A module content file is available for browser-supported formats."""
+        mock_test = IELTSMockTest.objects.create(
+            test_number=37,
+            title="Uploaded Reading Test",
+            is_published=True,
+        )
+        reading_mod = ExamModule.objects.create(
+            mock_test=mock_test,
+            module_type=ExamModule.ModuleType.READING,
+            duration_minutes=60,
+            module_file=SimpleUploadedFile(
+                "reading-content.html",
+                b"<html><body>Uploaded reading content</body></html>",
+                content_type="text/html",
+            ),
+        )
+
+        attempt = CandidateAttempt.objects.create(
+            candidate=self.user,
+            module=reading_mod,
+            started_at=timezone.now(),
+            expires_at=timezone.now() + timedelta(minutes=60),
+        )
+        response = self.client.get(reverse("bcl:exam_session", args=[attempt.pk]))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Open or download file")
+        asset_response = self.client.get(
+            reverse("bcl:module_media", args=[attempt.pk, "content"])
+        )
+        self.assertEqual(asset_response.status_code, 200)
+        self.assertContains(asset_response, "Uploaded reading content")
+        self.assertTrue(CandidateAttempt.objects.filter(module=reading_mod).exists())
 
     def test_listening_submission_stores_score_and_answers_payload(self):
         """Verify student score and answers payload are persisted to CandidateAttempt in database."""
