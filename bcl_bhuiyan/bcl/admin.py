@@ -1,6 +1,7 @@
 from decimal import Decimal
 from django import forms
-from django.contrib import admin
+from django.contrib import admin, messages
+from django.shortcuts import redirect
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -21,6 +22,7 @@ from .models import (
     CandidateAnswer,
     WritingEvaluation,
     FullMockAttempt,
+    CandidateProfile,
 )
 
 
@@ -1277,6 +1279,138 @@ class WritingEvaluationAdmin(QuestionSetterBaseAdmin):
         return fields
 
 
+@admin.register(CandidateProfile)
+class CandidateProfileAdmin(QuestionSetterBaseAdmin):
+    list_display = (
+        "user_username",
+        "user_full_name",
+        "user_email",
+        "status_badge",
+        "created_at",
+        "reviewed_by",
+        "reviewed_at",
+        "action_buttons",
+    )
+    list_filter = (
+        "status",
+        "created_at",
+        "reviewed_at",
+    )
+    search_fields = (
+        "user__username",
+        "user__first_name",
+        "user__last_name",
+        "user__email",
+    )
+    readonly_fields = (
+        "created_at",
+        "updated_at",
+        "reviewed_at",
+        "reviewed_by",
+    )
+    actions = ["approve_selected", "reject_selected"]
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related("user", "reviewed_by")
+
+    @admin.display(description="Username", ordering="user__username")
+    def user_username(self, obj):
+        return obj.user.username
+
+    @admin.display(description="Full Name", ordering="user__first_name")
+    def user_full_name(self, obj):
+        full = f"{obj.user.first_name} {obj.user.last_name}".strip()
+        return full or "—"
+
+    @admin.display(description="Email", ordering="user__email")
+    def user_email(self, obj):
+        return obj.user.email or "—"
+
+    @admin.display(description="Status", ordering="status")
+    def status_badge(self, obj):
+        if obj.status == CandidateProfile.ApprovalStatus.APPROVED:
+            return format_html(
+                '<span style="background-color:#dcfce7;color:#15803d;padding:3px 10px;border-radius:9999px;font-weight:700;font-size:12px;display:inline-block;">Approved</span>'
+            )
+        elif obj.status == CandidateProfile.ApprovalStatus.REJECTED:
+            return format_html(
+                '<span style="background-color:#fee2e2;color:#b91c1c;padding:3px 10px;border-radius:9999px;font-weight:700;font-size:12px;display:inline-block;">Rejected</span>'
+            )
+        return format_html(
+            '<span style="background-color:#fef3c7;color:#b45309;padding:3px 10px;border-radius:9999px;font-weight:700;font-size:12px;display:inline-block;">Pending Approval</span>'
+        )
+
+    @admin.display(description="Actions")
+    def action_buttons(self, obj):
+        approve_url = reverse("admin:bcl_candidateprofile_approve", args=[obj.pk])
+        reject_url = reverse("admin:bcl_candidateprofile_reject", args=[obj.pk])
+        buttons = []
+        if obj.status != CandidateProfile.ApprovalStatus.APPROVED:
+            buttons.append(
+                f'<a href="{approve_url}" style="background-color:#16a34a;color:white;padding:4px 10px;border-radius:6px;font-weight:600;font-size:11px;text-decoration:none;margin-right:6px;display:inline-block;">Approve</a>'
+            )
+        if obj.status != CandidateProfile.ApprovalStatus.REJECTED:
+            buttons.append(
+                f'<a href="{reject_url}" style="background-color:#dc2626;color:white;padding:4px 10px;border-radius:6px;font-weight:600;font-size:11px;text-decoration:none;display:inline-block;">Reject</a>'
+            )
+        return mark_safe("".join(buttons))
+
+    def get_urls(self):
+        from django.urls import path
+        urls = super().get_urls()
+        custom_urls = [
+            path(
+                "<int:profile_id>/approve/",
+                self.admin_site.admin_view(self.approve_candidate_view),
+                name="bcl_candidateprofile_approve",
+            ),
+            path(
+                "<int:profile_id>/reject/",
+                self.admin_site.admin_view(self.reject_candidate_view),
+                name="bcl_candidateprofile_reject",
+            ),
+        ]
+        return custom_urls + urls
+
+    def approve_candidate_view(self, request, profile_id):
+        profile = self.get_object(request, profile_id)
+        if profile:
+            profile.approve(admin_user=request.user)
+            self.message_user(
+                request,
+                f"Candidate {profile.user.username} has been APPROVED. They can now log in.",
+                messages.SUCCESS,
+            )
+        return redirect("admin:bcl_candidateprofile_changelist")
+
+    def reject_candidate_view(self, request, profile_id):
+        profile = self.get_object(request, profile_id)
+        if profile:
+            profile.reject(admin_user=request.user)
+            self.message_user(
+                request,
+                f"Candidate {profile.user.username} has been REJECTED. Their account is disabled.",
+                messages.WARNING,
+            )
+        return redirect("admin:bcl_candidateprofile_changelist")
+
+    @admin.action(description="Approve selected candidates")
+    def approve_selected(self, request, queryset):
+        count = 0
+        for profile in queryset:
+            profile.approve(admin_user=request.user)
+            count += 1
+        self.message_user(request, f"{count} candidate(s) approved successfully.", messages.SUCCESS)
+
+    @admin.action(description="Reject selected candidates")
+    def reject_selected(self, request, queryset):
+        count = 0
+        for profile in queryset:
+            profile.reject(admin_user=request.user)
+            count += 1
+        self.message_user(request, f"{count} candidate(s) rejected.", messages.WARNING)
+
+
 # ==============================================================================
 # 9. ENHANCED ADMIN DASHBOARD CONTEXT
 # ==============================================================================
@@ -1322,6 +1456,7 @@ def custom_admin_index(request, extra_context=None):
         "total_mock_tests": total_mock_tests,
         "total_module_attempts": total_module_attempts,
         "total_full_mocks": total_full_mocks,
+        "pending_registrations": CandidateProfile.objects.filter(status=CandidateProfile.ApprovalStatus.PENDING).count(),
         "pending_writing": pending_writing,
         "recent_student_results": recent_student_results,
         "recent_full_mocks": recent_full_mocks,

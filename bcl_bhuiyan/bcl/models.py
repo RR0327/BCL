@@ -487,5 +487,59 @@ class WritingTaskEvaluation(models.Model):
     def __str__(self):
         return f"Attempt #{self.attempt_id} — Task {self.task_number}"
 
+class CandidateProfile(models.Model):
+    class ApprovalStatus(models.TextChoices):
+        PENDING = 'pending', 'Pending Approval'
+        APPROVED = 'approved', 'Approved'
+        REJECTED = 'rejected', 'Rejected'
+
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='candidate_profile',
+    )
+    status = models.CharField(
+        max_length=20,
+        choices=ApprovalStatus.choices,
+        default=ApprovalStatus.PENDING,
+        db_index=True,
+    )
+    rejection_reason = models.TextField(blank=True, default='')
+    reviewed_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='reviewed_candidates',
+    )
+    reviewed_at = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Candidate Approval'
+        verbose_name_plural = 'Candidate Approvals'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'{self.user.username} ({self.get_status_display()})'
+
+    def approve(self, admin_user=None):
+        self.status = self.ApprovalStatus.APPROVED
+        self.reviewed_by = admin_user
+        self.reviewed_at = timezone.now()
+        self.save(update_fields=['status', 'reviewed_by', 'reviewed_at', 'updated_at'])
+        self.user.is_active = True
+        self.user.save(update_fields=['is_active'])
+
+    def reject(self, admin_user=None, reason=''):
+        self.status = self.ApprovalStatus.REJECTED
+        self.rejection_reason = reason
+        self.reviewed_by = admin_user
+        self.reviewed_at = timezone.now()
+        self.save(update_fields=['status', 'rejection_reason', 'reviewed_by', 'reviewed_at', 'updated_at'])
+        self.user.is_active = False
+        self.user.save(update_fields=['is_active'])
+
 # Privacy/security event metadata; no personal response contents.
 from .privacy import SecurityAuditEvent  # noqa: E402,F401

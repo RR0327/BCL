@@ -1,11 +1,13 @@
 import re
 
 from django import forms
-from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.forms import (
     UserCreationForm,
     AuthenticationForm,
 )
+
+from .models import CandidateProfile
 
 User = get_user_model()
 
@@ -85,16 +87,20 @@ class CandidateRegistrationForm(UserCreationForm):
 
         return password1
 
-
     def save(self, commit=True):
         user = super().save(commit=False)
 
         user.first_name = self.cleaned_data["first_name"]
         user.last_name = self.cleaned_data["last_name"]
         user.email = self.cleaned_data["email"]
+        user.is_active = False  # Keep account inactive until approved by an administrator
 
         if commit:
             user.save()
+            CandidateProfile.objects.create(
+                user=user,
+                status=CandidateProfile.ApprovalStatus.PENDING,
+            )
 
         return user
 
@@ -109,3 +115,36 @@ class CandidateLoginForm(AuthenticationForm):
         label="Password",
         widget=forms.PasswordInput,
     )
+
+    def clean(self):
+        username = self.cleaned_data.get("username")
+        password = self.cleaned_data.get("password")
+
+        if username is not None and password:
+            self.user_cache = authenticate(
+                self.request, username=username, password=password
+            )
+            if self.user_cache is None:
+                user_obj = User.objects.filter(username__iexact=username).first()
+                if user_obj and user_obj.check_password(password):
+                    profile = getattr(user_obj, "candidate_profile", None)
+                    if profile:
+                        if profile.status == CandidateProfile.ApprovalStatus.PENDING:
+                            raise forms.ValidationError(
+                                "Your account is pending administrator approval. "
+                                "You will be able to log in once an admin approves your registration."
+                            )
+                        elif profile.status == CandidateProfile.ApprovalStatus.REJECTED:
+                            reason_msg = f" Reason: {profile.rejection_reason}" if profile.rejection_reason else ""
+                            raise forms.ValidationError(
+                                f"Your registration request was rejected by an administrator.{reason_msg}"
+                            )
+                    if not user_obj.is_active:
+                        raise forms.ValidationError(
+                            "This account is inactive. Please contact the administrator."
+                        )
+                raise self.get_invalid_login_error()
+            else:
+                self.confirm_login_allowed(self.user_cache)
+
+        return self.cleaned_data

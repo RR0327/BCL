@@ -1,4 +1,3 @@
-
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login, logout
@@ -106,15 +105,15 @@ def candidate_register(request):
         form = CandidateRegistrationForm(request.POST)
 
         if form.is_valid():
-            user = form.save()
-            login(request, user, backend="django.contrib.auth.backends.ModelBackend")
+            form.save()
 
             messages.success(
                 request,
-                "Your account has been created successfully."
+                "Your registration request has been submitted and is pending administrator approval. "
+                "You will be able to log in once an administrator approves your account."
             )
 
-            return redirect("bcl:dashboard")
+            return redirect("bcl:login")
 
     else:
         form = CandidateRegistrationForm()

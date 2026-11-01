@@ -12,7 +12,7 @@ from django.utils import timezone
 
 from .models import (
     IELTSMockTest, ExamModule, ExamSection, Question, QuestionOption,
-    CandidateAttempt, CandidateAnswer, WritingEvaluation, WritingTaskEvaluation, FullMockAttempt,
+    CandidateAttempt, CandidateAnswer, WritingEvaluation, WritingTaskEvaluation, FullMockAttempt, CandidateProfile,
 )
 
 User = get_user_model()
@@ -28,8 +28,59 @@ class CandidateAuthenticationTests(TestCase):
             "email": "candidate@example.com", "password1": "TestPass@2026abc",
             "password2": "TestPass@2026abc",
         })
-        self.assertRedirects(response, reverse("bcl:dashboard"))
-        self.assertTrue(User.objects.filter(username="testcandidate").exists())
+        self.assertRedirects(response, reverse("bcl:login"))
+        user = User.objects.filter(username="testcandidate").first()
+        self.assertIsNotNone(user)
+        self.assertFalse(user.is_active)
+        self.assertEqual(user.candidate_profile.status, CandidateProfile.ApprovalStatus.PENDING)
+
+    def test_candidate_approval_workflow(self):
+        self.client.post(reverse("bcl:register"), {
+            "first_name": "Approved", "last_name": "Candidate", "username": "approvedcandidate",
+            "email": "approved@example.com", "password1": "TestPass@2026abc",
+            "password2": "TestPass@2026abc",
+        })
+        user = User.objects.get(username="approvedcandidate")
+
+        # Try to login before approval -> blocked
+        login_res = self.client.post(reverse("bcl:login"), {
+            "username": "approvedcandidate", "password": "TestPass@2026abc"
+        })
+        self.assertEqual(login_res.status_code, 200)
+        self.assertContains(login_res, "pending administrator approval")
+
+        # Admin approves user
+        admin_user = User.objects.create_superuser(username="adminuser", password="AdminPass@2026abc")
+        user.candidate_profile.approve(admin_user=admin_user)
+        user.refresh_from_db()
+        self.assertTrue(user.is_active)
+        self.assertEqual(user.candidate_profile.status, CandidateProfile.ApprovalStatus.APPROVED)
+
+        # Now login succeeds and redirects to dashboard
+        login_res = self.client.post(reverse("bcl:login"), {
+            "username": "approvedcandidate", "password": "TestPass@2026abc"
+        })
+        self.assertRedirects(login_res, reverse("bcl:dashboard"))
+
+    def test_candidate_rejection_workflow(self):
+        self.client.post(reverse("bcl:register"), {
+            "first_name": "Rejected", "last_name": "Candidate", "username": "rejectedcandidate",
+            "email": "rejected@example.com", "password1": "TestPass@2026abc",
+            "password2": "TestPass@2026abc",
+        })
+        user = User.objects.get(username="rejectedcandidate")
+        admin_user = User.objects.create_superuser(username="adminuser2", password="AdminPass@2026abc")
+        user.candidate_profile.reject(admin_user=admin_user, reason="Invalid information")
+        user.refresh_from_db()
+        self.assertFalse(user.is_active)
+        self.assertEqual(user.candidate_profile.status, CandidateProfile.ApprovalStatus.REJECTED)
+
+        # Login fails with rejection message
+        login_res = self.client.post(reverse("bcl:login"), {
+            "username": "rejectedcandidate", "password": "TestPass@2026abc"
+        })
+        self.assertEqual(login_res.status_code, 200)
+        self.assertContains(login_res, "rejected by an administrator")
 
     def test_duplicate_email_rejected(self):
         User.objects.create_user(username="candidate1", email="candidate@example.com", password="TestPass@2026abc")
