@@ -567,6 +567,16 @@
       {% endif %}
     </a>
 
+    <!-- CANDIDATE APPROVALS SHORTCUT -->
+    <a href="{% url 'admin:bcl_candidateprofile_changelist' %}" class="btn-quick-action {% if pending_registrations > 0 %}btn-writing-reviews{% else %}btn-action-secondary{% endif %}" title="Review candidate registration approval requests">
+      <span>👤 Candidate Approvals</span>
+      {% if pending_registrations > 0 %}
+      <span class="writing-pending-badge">{{ pending_registrations }} Pending</span>
+      {% else %}
+      <span style="font-size:11px;opacity:0.85;background:rgba(255,255,255,0.2);padding:2px 6px;border-radius:4px;">All Approved</span>
+      {% endif %}
+    </a>
+
     <!-- QUESTION SETTER SHORTCUTS -->
     <a href="{% url 'admin:bcl_ieltsmocktest_add' %}" class="btn-quick-action btn-action-secondary" title="Create a new {{ platform_name }} test">
       <span>🎯 Create Mock Test</span>
@@ -638,6 +648,23 @@
         <a href="{% url 'bcl:writing_review_list' %}" style="color:#d97706;font-weight:800;">Review {{ pending_writing }} essays now &rarr;</a>
         {% else %}
         All submissions evaluated
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="kpi-card {% if pending_registrations > 0 %}kpi-alert{% endif %}">
+      <div class="kpi-top">
+        <span class="kpi-title">Pending Approvals</span>
+        <span class="kpi-icon">👤</span>
+      </div>
+      <div class="kpi-value" style="color: {% if pending_registrations > 0 %}#d97706{% else %}var(--adm-text){% endif %};">
+        {{ pending_registrations }}
+      </div>
+      <div class="kpi-subtext">
+        {% if pending_registrations > 0 %}
+        <a href="{% url 'admin:bcl_candidateprofile_changelist' %}" style="color:#d97706;font-weight:800;">Approve {{ pending_registrations }} registration{{ pending_registrations|pluralize }} &rarr;</a>
+        {% else %}
+        All registrations reviewed
         {% endif %}
       </div>
     </div>
