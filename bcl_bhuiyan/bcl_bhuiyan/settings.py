@@ -63,6 +63,24 @@ elif DB_ENGINE in ('postgresql', 'postgres'):
                                 'TEMPLATE': 'template0',
                              },
                              }}
+elif DB_ENGINE in ('mysql',):
+    required = {key: config(key, default='') for key in ('DB_NAME', 'DB_USER', 'DB_PASSWORD', 'DB_HOST')}
+    if not all(required.values()):
+        raise ImproperlyConfigured('MySQL requires DB_NAME, DB_USER, DB_PASSWORD and DB_HOST.')
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': required['DB_NAME'],
+            'USER': required['DB_USER'],
+            'PASSWORD': required['DB_PASSWORD'],
+            'HOST': required['DB_HOST'],
+            'PORT': config('DB_PORT', default='3306'),
+            'OPTIONS': {
+                'charset': 'utf8mb4',
+                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            },
+        }
+    }                             
 else:
     raise ImproperlyConfigured('DB_ENGINE must be sqlite3 or postgresql.')
 AUTH_PASSWORD_VALIDATORS = [

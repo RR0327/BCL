@@ -11,3 +11,4 @@ waitress>=3,<4
 django-axes>=7.0,<9
 django-otp>=1.5,<2
 cryptography>=42,<47
+pymysql>=1.1.0
