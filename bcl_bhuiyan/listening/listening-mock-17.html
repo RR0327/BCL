@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +17,8 @@
             background-color: #ffffff;
             line-height: 1.4;
             font-size: 16px;
-            padding-bottom: 90px; /* nav-row height (80px) + some extra spacing */
+            padding-bottom: 90px;
+            /* nav-row height (80px) + some extra spacing */
         }
 
         .header {
@@ -131,11 +133,11 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .icon:hover {
             opacity: 1;
         }
-        
+
         #play-pause-btn {
             background: none;
             border: none;
@@ -146,7 +148,8 @@
             margin-top: 60px;
             display: flex;
             background: #ffffff;
-            padding-bottom: 100px; /* Space for bottom nav */
+            padding-bottom: 100px;
+            /* Space for bottom nav */
         }
 
         .main-container.results-mode {
@@ -190,7 +193,7 @@
             font-size: 15px;
             line-height: 1.7;
         }
-        
+
         .transcription-instruction {
             display: block;
             margin: 1em 0;
@@ -230,8 +233,10 @@
             vertical-align: middle;
             white-space: nowrap;
         }
+
         .correct-inline::before {
-            content: "\2192  "; /* right arrow */
+            content: "\2192  ";
+            /* right arrow */
             font-weight: 700;
         }
 
@@ -270,13 +275,18 @@
         #part-1 table td {
             line-height: 1.8;
         }
+
         /* Increase line height for tables in Part 4 */
         #part-4 table td {
             line-height: 2.0;
             padding-top: 10px;
             padding-bottom: 10px;
         }
-        #part-4 table td div { margin: 8px 0; }
+
+        #part-4 table td div {
+            margin: 8px 0;
+        }
+
         /* Increase line height for Part 3 table (Questions 24-30) */
         #part-3 table td {
             line-height: 3.0;
@@ -284,11 +294,32 @@
             padding-bottom: 10px;
             vertical-align: top;
         }
+
         /* Geosequestration table styling */
-        .geo-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        .geo-table th, .geo-table td { border: 1px solid #e5e7eb; padding: 14px; vertical-align: top; }
-        .geo-table thead th { background: #f7f9fc; text-align: center; font-weight: 700; }
-        .geo-table .arrow-row td { text-align: center; font-size: 20px; color: #6b7280; }
+        .geo-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .geo-table th,
+        .geo-table td {
+            border: 1px solid #e5e7eb;
+            padding: 14px;
+            vertical-align: top;
+        }
+
+        .geo-table thead th {
+            background: #f7f9fc;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .geo-table .arrow-row td {
+            text-align: center;
+            font-size: 20px;
+            color: #6b7280;
+        }
 
         .person-name {
             font-size: 16px;
@@ -377,10 +408,12 @@
             max-width: 600px;
             display: block;
         }
+
         .map-container img {
             width: 100%;
             display: block;
         }
+
         .map-drop-zone {
             position: absolute;
             width: 13%;
@@ -395,10 +428,12 @@
             border-radius: 4px;
             padding: 2px;
         }
+
         .map-drop-zone:hover {
             background-color: rgba(230, 244, 255, 0.7);
             border-color: #4a90e2;
         }
+
         .map-drop-zone .drag-item {
             font-size: 14px;
             width: 100%;
@@ -408,6 +443,7 @@
             justify-content: center;
             padding: 2px;
         }
+
         .map-options-list {
             display: flex;
             flex-wrap: wrap;
@@ -419,6 +455,7 @@
             border-radius: 5px;
             background-color: #f9f9f9;
         }
+
         .map-options-list .drag-item {
             width: calc(25% - 10px);
             text-align: center;
@@ -464,7 +501,7 @@
             left: 0;
             right: 0;
             background: #ffffff;
-        
+
             padding: 0;
             display: flex;
             align-items: center;
@@ -481,10 +518,13 @@
         /* Prevent "Score/Band" button text overflow on small screens */
         .footer__deliverButton___3FM07 {
             max-width: 42%;
-            white-space: normal;          /* allow wrapping */
-            word-break: break-word;       /* break long text if needed */
+            white-space: normal;
+            /* allow wrapping */
+            word-break: break-word;
+            /* break long text if needed */
             line-height: 1.2;
         }
+
         @media (max-width: 768px) {
             .footer__deliverButton___3FM07 {
                 max-width: 55%;
@@ -492,6 +532,7 @@
                 font-size: 14px;
             }
         }
+
         @media (max-width: 480px) {
             .footer__deliverButton___3FM07 {
                 max-width: 65%;
@@ -539,7 +580,8 @@
             font-size: 14px;
             color: #666;
             margin-left: 5px;
-            font-weight: 400; /* Normal weight */
+            font-weight: 400;
+            /* Normal weight */
         }
 
         @media (max-width: 1024px) {
@@ -582,11 +624,13 @@
             background-color: #e9ecef;
             border-color: #ddd;
         }
+
         .subQuestion.correct {
             background-color: #28a745;
             color: white;
             border-color: #28a745;
         }
+
         .subQuestion.incorrect {
             background-color: #dc3545;
             color: white;
@@ -645,12 +689,14 @@
             background-color: #e0e0e0;
             border-color: #bbb;
         }
+
         /* Success style for "My Results" button after checking */
         .footer__deliverButton___3FM07.success {
             background-color: #28a745;
             color: #fff;
             border-color: #28a745;
         }
+
         .footer__deliverButton___3FM07.success:hover {
             background-color: #218838;
             border-color: #1e7e34;
@@ -677,7 +723,7 @@
             background: white;
             border: 1px solid #ccc;
             border-radius: 6px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             z-index: 1000;
             display: none;
             min-width: 140px;
@@ -736,29 +782,37 @@
         .question {
             margin-bottom: 40px;
         }
+
         .question p {
             margin-bottom: 10px;
         }
-        .question ul, .question .people-table {
+
+        .question ul,
+        .question .people-table {
             margin-top: 0;
         }
+
         .question-prompt {
             margin-bottom: 20px;
         }
+
         .question ul {
             list-style: none;
             padding-left: 0;
         }
+
         .question ul li {
             margin-bottom: 5px;
         }
+
         .answer-input {
             border: 1px solid #9aa3ad;
             border-radius: 4px;
             background-color: #fff;
             padding: 4px 8px;
             font-size: 16px;
-            text-align: left; /* start typing from left */
+            text-align: left;
+            /* start typing from left */
             margin-right: 4px;
             margin-left: 4px;
             width: 140px;
@@ -773,36 +827,44 @@
             vertical-align: middle;
             transition: border-color 0.15s ease, box-shadow 0.15s ease;
         }
+
         .answer-input::placeholder {
             color: #999;
             font-weight: bold;
-            text-align: center; /* numbers centered until typing starts */
+            text-align: center;
+            /* numbers centered until typing starts */
         }
+
         .answer-input:focus {
             outline: none;
             border-color: #2c6bed;
             border-width: 2px;
         }
+
         .answer-input.correct {
             border-color: #28a745;
             background-color: #e9f7ef;
         }
+
         .answer-input.incorrect {
             border-color: #dc3545;
             background-color: #f8d7da;
             color: #721c24;
         }
+
         .answer-input {
-    z-index: 10;
-    position: relative;
-    pointer-events: auto;
-}
+            z-index: 10;
+            position: relative;
+            pointer-events: auto;
+        }
+
         .drag-drop-container {
             display: flex;
             gap: 30px;
             margin-top: 20px;
             align-items: flex-start;
         }
+
         .recommendations-box {
             display: flex;
             flex-direction: column;
@@ -813,6 +875,7 @@
             background-color: #f9f9f9;
             min-height: 200px;
         }
+
         .drag-item {
             background: white;
             border: 1px solid #ddd;
@@ -828,13 +891,16 @@
             max-width: 100%;
             box-sizing: border-box;
         }
+
         .drag-item:hover {
             background: #e9ecef;
         }
+
         .drag-item.dragging {
             opacity: 0.5;
             transform: rotate(2deg);
         }
+
         .drop-zone {
             border: 1px dashed #ccc;
             border-radius: 4px;
@@ -853,38 +919,47 @@
             text-align: center;
             line-height: 1.2;
         }
+
         .drop-zone.drag-over {
             background-color: #e6f4ff;
             border-color: #4a90e2;
         }
+
         .drop-zone.correct {
             background-color: #e9f7ef;
             border-color: #28a745;
             border-style: solid;
         }
+
         .drop-zone.incorrect {
             background-color: #f8d7da;
             border-color: #dc3545;
             border-style: solid;
         }
+
         .drop-zone .drag-item {
             cursor: default;
         }
+
         .drag-item.selected {
             border-color: #4a90e2;
             box-shadow: 0 0 0 1px #4a90e2;
         }
+
         .questions-container {
             width: 50%;
         }
+
         /* When transcription (results mode) is visible, give questions container 80% of left panel */
         .main-container.results-mode .questions-container {
             width: 80%;
         }
+
         audio {
             width: 100%;
             margin-bottom: 20px;
         }
+
         .part-header {
             background-color: #f1f2ec;
             padding: 15px;
@@ -892,6 +967,7 @@
             margin-bottom: 20px;
             border: 1px solid #e0e0e0;
         }
+
         .part-header p {
             margin: 0;
         }
@@ -900,13 +976,16 @@
             color: #155724;
             font-weight: bold;
         }
+
         .question li.incorrect {
             color: #721c24;
         }
+
         .question li.correct::before {
             content: '✔ ';
             color: #28a745;
         }
+
         .question li.incorrect::before {
             content: '✖ ';
             color: #dc3545;
@@ -921,11 +1000,13 @@
         }
 
         .timer-container {
-            display: none; /* Timer hidden */
+            display: none;
+            /* Timer hidden */
             color: #333;
             font-size: 16px;
             font-weight: 500;
         }
+
         .timer-container .timer-tooltip {
             display: none;
         }
@@ -944,6 +1025,7 @@
             color: white;
             text-align: center;
         }
+
         .audio-modal-content {
             display: flex;
             flex-direction: column;
@@ -952,14 +1034,17 @@
             max-width: 500px;
             padding: 20px;
         }
+
         .audio-modal-content p {
             font-size: 16px;
             line-height: 1.5;
             color: #eee;
         }
+
         .audio-modal-icon {
             margin-bottom: 20px;
         }
+
         .modal-play-btn {
             background-color: #000;
             color: white;
@@ -974,20 +1059,24 @@
             gap: 8px;
             transition: background-color 0.2s;
         }
+
         .modal-play-btn:hover {
             background-color: #333;
         }
+
         #goto-widget {
             display: flex;
             align-items: center;
             gap: 5px;
         }
+
         #goto-input {
             width: 80px;
             padding: 4px 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+
         #goto-btn {
             padding: 4px 10px;
             border: 1px solid #ccc;
@@ -997,8 +1086,13 @@
         }
 
         @keyframes flash {
-            0% { background-color: #e6f4ff; }
-            100% { background-color: transparent; }
+            0% {
+                background-color: #e6f4ff;
+            }
+
+            100% {
+                background-color: transparent;
+            }
         }
 
         .question.flash {
@@ -1011,13 +1105,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.6);
+            background-color: rgba(0, 0, 0, 0.6);
             z-index: 2000;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
         }
+
         .modal-content {
             background: white;
             padding: 25px;
@@ -1026,8 +1121,9 @@
             max-width: 800px;
             max-height: 90vh;
             overflow-y: auto;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
+
         .modal-header {
             display: flex;
             justify-content: space-between;
@@ -1036,10 +1132,12 @@
             padding-bottom: 15px;
             margin-bottom: 20px;
         }
+
         .modal-header h2 {
             font-size: 24px;
             color: #333;
         }
+
         .modal-close-btn {
             background: none;
             border: none;
@@ -1048,37 +1146,46 @@
             color: #888;
             line-height: 1;
         }
+
         .modal-close-btn:hover {
             color: #333;
         }
+
         #score-summary {
             font-size: 18px;
             font-weight: bold;
             margin-bottom: 20px;
         }
+
         #result-details table {
             width: 100%;
             border-collapse: collapse;
             font-size: 14px;
         }
-        #result-details th, #result-details td {
+
+        #result-details th,
+        #result-details td {
             border: 1px solid #ddd;
             padding: 10px;
             text-align: left;
             vertical-align: middle;
         }
+
         #result-details th {
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
         #result-details td:nth-child(1) {
             font-weight: bold;
             text-align: center;
         }
+
         .result-correct {
             color: #28a745;
             font-weight: bold;
         }
+
         .result-incorrect {
             color: #dc3545;
             font-weight: bold;
@@ -1099,29 +1206,136 @@
             margin-top: 20px;
             align-items: flex-start;
         }
+
         /* Two-column drag-and-drop layout like screenshot */
-        .dnd-col-title { font-weight: 700; margin-bottom: 10px; }
-        .matching-question-container { display: flex; gap: 30px; align-items: flex-start; }
-        .matching-options-bank { flex: 1; display: flex; flex-direction: column; gap: 10px; }
-        .matching-questions { flex: 2; display: flex; flex-direction: column; gap: 24px; }
-        .matching-questions .matching-question-item { display: flex; align-items: center; gap: 16px; padding: 6px 0; }
-        .matching-questions .matching-question-item span { min-width: 180px; }
-        .matching-questions .drop-zone { width: 100%; min-width: 360px; height: 34px; border: 2px dashed #aab3bd; border-radius: 4px; background: #fff; display: flex; align-items: center; padding: 0 8px; justify-content: flex-start; text-align: left; }
-        .matching-questions .drop-zone .placeholder { color: #6b7280; font-weight: 700; }
-        .matching-options-bank .drag-item { border-radius: 6px; padding: 6px 12px; background: #ffffff; border: 1px solid #d1d5db; font-weight: 600; box-shadow: 0 1px 0 rgba(0,0,0,0.02); }
+        .dnd-col-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .matching-question-container {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .course-matching {
+            display: grid;
+            grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
+            align-items: start;
+        }
+
+        .course-matching .matching-questions {
+            min-width: 0;
+        }
+
+        .course-matching .matching-options-bank {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            width: 100%;
+            justify-self: end;
+            box-sizing: border-box;
+        }
+
+        .course-matching .matching-options-bank .drag-item {
+            width: auto;
+            white-space: normal;
+        }
+
+        .course-matching .matching-question-item .drop-zone {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .course-matching .matching-questions .drop-zone.filled {
+            height: auto;
+            min-height: 34px;
+            align-items: center;
+        }
+
+        .course-matching .matching-questions .drop-zone.filled .drag-item {
+            display: block;
+            width: 100%;
+            min-width: 0;
+            max-width: 100%;
+            box-sizing: border-box;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            word-break: normal;
+            line-height: 1.2;
+        }
+
+        .matching-options-bank {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .matching-questions {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .matching-questions .matching-question-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 6px 0;
+        }
+
+        .matching-questions .matching-question-item span {
+            min-width: 180px;
+        }
+
+        .matching-questions .drop-zone {
+            width: 100%;
+            min-width: 360px;
+            height: 34px;
+            border: 2px dashed #aab3bd;
+            border-radius: 4px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            justify-content: flex-start;
+            text-align: left;
+        }
+
+        .matching-questions .drop-zone .placeholder {
+            color: #6b7280;
+            font-weight: 700;
+        }
+
+        .matching-options-bank .drag-item {
+            border-radius: 6px;
+            padding: 6px 12px;
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            font-weight: 600;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+        }
+
         .matching-table {
             flex: 4;
             border-collapse: collapse;
         }
-        .matching-table th, .matching-table td {
+
+        .matching-table th,
+        .matching-table td {
             padding: 6px 12px;
             text-align: left;
             vertical-align: middle;
         }
+
         .matching-table th {
             background-color: #f8f9fa;
             font-weight: 600;
         }
+
         .matching-table .drop-zone {
             min-height: 35px;
             height: 35px;
@@ -1141,6 +1355,7 @@
             text-align: left;
             line-height: 1.2;
         }
+
         .matching-table .drop-zone .drag-item {
             width: auto;
             max-width: none;
@@ -1156,6 +1371,7 @@
             border-radius: 4px;
             margin: 2px;
         }
+
         .matching-options-list {
             display: flex;
             flex-direction: column;
@@ -1165,11 +1381,14 @@
             padding: 0;
             border: none;
             min-height: 250px;
-            min-width: 280px; /* ensure enough width for long option text to stay on one line */
+            min-width: 280px;
+            /* ensure enough width for long option text to stay on one line */
         }
+
         .matching-options-list .drag-item {
             width: 100%;
         }
+
         .matching-question-item .drop-zone .placeholder {
             color: #999;
             font-weight: bold;
@@ -1187,6 +1406,7 @@
             background-color: #f8f9fa;
             margin: 2px;
         }
+
         .clickable-cell::before {
             content: "•";
             color: #999;
@@ -1197,16 +1417,19 @@
             transform: translate(-50%, -50%);
             opacity: 0.3;
         }
+
         .clickable-cell:hover {
             background-color: #e6f4ff;
             border-color: #4a90e2;
         }
+
         .clickable-cell.selected {
             background-color: #75a8e4 !important;
             color: white !important;
             border-color: #2c5aa0;
             box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
         }
+
         .clickable-cell.selected::after {
             content: "✓";
             font-weight: bold;
@@ -1216,25 +1439,29 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
+
         .clickable-cell.correct {
             background-color: #28a745 !important;
             color: white !important;
         }
+
         .clickable-cell.correct::after {
             content: "✓";
             font-weight: bold;
         }
+
         .clickable-cell.incorrect {
             background-color: #dc3545 !important;
             color: white !important;
         }
+
         .clickable-cell.incorrect::after {
             content: "✗";
             font-weight: bold;
         }
-        
 
-        
+
+
         .statement {
             font-weight: 500;
             padding-right: 20px;
@@ -1255,8 +1482,9 @@
             display: flex;
             gap: 8px;
             z-index: 3000;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
         }
+
         .mobile-selection-menu button {
             background: transparent;
             border: 1px solid #fff;
@@ -1265,6 +1493,7 @@
             border-radius: 4px;
             font-size: 14px;
         }
+
         .mobile-selection-menu.hidden {
             display: none;
         }
@@ -1275,6 +1504,7 @@
             border-collapse: collapse;
             margin: 20px 0;
         }
+
         .matching-table th,
         .matching-table td {
             border: 1px solid #ddd;
@@ -1282,27 +1512,32 @@
             vertical-align: middle;
             text-align: center;
         }
+
         .matching-table .clickable-cell {
             padding: 8px 4px;
             min-width: 50px;
             min-height: 50px;
         }
+
         .matching-table th {
             background-color: #1e6de6;
             color: #ffffff;
             font-weight: 600;
             text-align: center;
         }
+
         .matching-table th:first-child {
             text-align: left;
             background-color: #f8f9fa;
             color: #333;
         }
+
         .matching-table tbody td:first-child {
             font-weight: 500;
             text-align: left;
             background-color: #f8f9fa;
         }
+
         .matching-table tr:nth-child(even) td {
             background-color: #f8faff;
         }
@@ -1312,6 +1547,7 @@
             width: 100%;
             border-collapse: collapse;
         }
+
         .mcq-table th,
         .mcq-table td {
             border: 1px solid #ddd;
@@ -1319,49 +1555,84 @@
             vertical-align: middle;
             text-align: center;
         }
+
         .mcq-table th {
-            background-color: #1e6de6; /* vibrant blue header like screenshot */
+            background-color: #1e6de6;
+            /* vibrant blue header like screenshot */
             color: #ffffff;
             font-weight: 600;
             text-align: center;
         }
+
         .mcq-table th:first-child {
             text-align: left;
         }
+
         .mcq-table tbody td:first-child {
             font-weight: 500;
             text-align: left;
         }
+
         .mcq-table tr:nth-child(even) td {
-            background-color: #f8faff; /* subtle alternating row colour */
+            background-color: #f8faff;
+            /* subtle alternating row colour */
         }
+
         .mcq-table input[type="radio"] {
             transform: scale(1.1);
             cursor: pointer;
         }
+
         /* list of options (A, B, C) shown above the table */
         .mcq-options {
             list-style: none;
             padding-left: 0;
             margin: 10px 0;
         }
+
         .mcq-options li {
             margin-bottom: 4px;
             font-size: 16px;
         }
 
         /* MCQ design: full-width selectable panels */
-        .multi-choice-question { margin: 12px 0 18px; }
-        .multi-choice-option { display:block; width:100%; padding: 12px 14px;  background-color: #fff; border: 1px solid transparent;  transition: background-color 0.2s ease, border-color 0.2s ease; }
-        .multi-choice-option:hover { background-color: #f1f7ff; border-color: #c6dcfb; }
-        .multi-choice-option:has(input[type="radio"]:checked) { background-color: #cfe3f9; }
-        .multi-choice-option label { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 16px; width:100%; }
+        .multi-choice-question {
+            margin: 12px 0 18px;
+        }
+
+        .multi-choice-option {
+            display: block;
+            width: 100%;
+            padding: 12px 14px;
+            background-color: #fff;
+            border: 1px solid transparent;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .multi-choice-option:hover {
+            background-color: #f1f7ff;
+            border-color: #c6dcfb;
+        }
+
+        .multi-choice-option:has(input[type="radio"]:checked) {
+            background-color: #cfe3f9;
+        }
+
+        .multi-choice-option label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
 
         .aligned-form .question-row {
             display: flex;
             align-items: center;
             margin-bottom: 8px;
         }
+
         .aligned-form .question-label {
             width: 230px;
             padding-right: 10px;
@@ -1372,14 +1643,20 @@
             .main-container {
                 flex-direction: column;
             }
-            .right-panel, .main-container.results-mode .right-panel {
+
+            .right-panel,
+            .main-container.results-mode .right-panel {
                 display: none;
             }
-            .left-panel, .main-container.results-mode .left-panel {
+
+            .left-panel,
+            .main-container.results-mode .left-panel {
                 width: 100%;
                 padding: 20px 10px;
-                height: auto; /* Reset height for mobile */
+                height: auto;
+                /* Reset height for mobile */
             }
+
             .questions-container {
                 width: 100%;
             }
@@ -1389,27 +1666,33 @@
             color: #155724;
             font-weight: bold;
         }
+
         .single-choice label.correct::before {
             content: '✔ ';
             color: #28a745;
         }
+
         .single-choice label.incorrect {
             color: #721c24;
             text-decoration: line-through;
         }
+
         .single-choice label.incorrect::before {
             content: '✖ ';
             color: #dc3545;
         }
+
         .mcq-table tbody tr.correct {
             background-color: #d4edda !important;
             color: #155724;
             font-weight: bold;
         }
+
         .mcq-table tbody tr.incorrect {
             background-color: #f8d7da !important;
             text-decoration: line-through;
         }
+
         .mcq-table tbody tr.incorrect td {
             color: #721c24;
         }
@@ -1431,11 +1714,13 @@
             padding: 0 15px;
             z-index: 99;
             gap: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
+
         .main-container {
             margin-top: 115px;
         }
+
         .player-btn {
             background: none;
             border: none;
@@ -1445,17 +1730,20 @@
             align-items: center;
             justify-content: center;
         }
+
         .player-btn svg {
             width: 20px;
             height: 20px;
             fill: #333;
         }
+
         .progress-container {
             flex-grow: 1;
             display: flex;
             align-items: center;
             gap: 10px;
         }
+
         #progress-bar {
             flex-grow: 1;
             -webkit-appearance: none;
@@ -1466,6 +1754,7 @@
             border-radius: 3px;
             cursor: pointer;
         }
+
         #progress-bar::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
@@ -1475,6 +1764,7 @@
             background: #4a90e2;
             cursor: pointer;
         }
+
         #progress-bar::-moz-range-thumb {
             width: 12px;
             height: 12px;
@@ -1483,22 +1773,27 @@
             cursor: pointer;
             border: none;
         }
-        #current-time, #total-duration {
+
+        #current-time,
+        #total-duration {
             font-size: 12px;
             color: #555;
             min-width: 35px;
             text-align: center;
         }
+
         .controls-container {
             display: flex;
             align-items: center;
             gap: 10px;
         }
+
         .volume-container {
             display: flex;
             align-items: center;
             position: relative;
         }
+
         #new-volume-slider {
             -webkit-appearance: none;
             appearance: none;
@@ -1509,9 +1804,9 @@
             border-radius: 2px;
             cursor: pointer;
             margin-left: 8px;
-            display: block; 
+            display: block;
         }
-    
+
         #new-volume-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
@@ -1520,6 +1815,7 @@
             border-radius: 50%;
             background: #333;
         }
+
         #new-volume-slider::-moz-range-thumb {
             width: 12px;
             height: 12px;
@@ -1527,9 +1823,11 @@
             background: #333;
             border: none;
         }
+
         .speed-container {
             position: relative;
         }
+
         #speed-btn {
             font-size: 12px;
             font-weight: 600;
@@ -1539,20 +1837,24 @@
             border-radius: 4px;
             padding: 4px 8px;
         }
+
         #speed-options {
             position: absolute;
-            top: calc(100% + 5px); /* Position below the button with a small gap */
+            top: calc(100% + 5px);
+            /* Position below the button with a small gap */
             right: 0;
             background: white;
             border: 1px solid #ccc;
             border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             z-index: 100;
         }
+
         #speed-options div {
             padding: 8px 15px;
             cursor: pointer;
         }
+
         #speed-options div:hover {
             background-color: #f0f0f0;
         }
@@ -1562,17 +1864,20 @@
             border: 1px solid #ccc;
             padding: 0 20px;
         }
+
         .flowchart-step {
             text-align: center;
             margin: 0;
             padding: 20px 0;
             border-top: 1px solid #ddd;
         }
+
         .flowchart-step:first-child {
             border-top: none;
             padding-top: 20px;
             margin-top: 0;
         }
+
         .flowchart-arrow {
             text-align: center;
             margin: 0;
@@ -1581,6 +1886,7 @@
             color: #555;
             border-top: 1px solid #ddd;
         }
+
         .flowchart-split {
             display: flex;
             justify-content: space-between;
@@ -1588,6 +1894,7 @@
             gap: 20px;
             border-top: 1px solid #ddd;
         }
+
         .flowchart-split-col {
             width: 48%;
             text-align: center;
@@ -1595,6 +1902,7 @@
             flex-direction: column;
             justify-content: center;
         }
+
         .flowchart-split .flowchart-step {
             border-top: none;
             padding-top: 0;
@@ -1605,6 +1913,7 @@
             justify-content: center;
             padding: 20px 0;
         }
+
         .flowchart-split .flowchart-arrow {
             border-top: none;
             padding: 15px 0;
@@ -1616,36 +1925,42 @@
             .main-container {
                 flex-direction: column;
             }
-            .right-panel, .main-container.results-mode .right-panel {
+
+            .right-panel,
+            .main-container.results-mode .right-panel {
                 display: none;
             }
-            .left-panel, .main-container.results-mode .left-panel {
+
+            .left-panel,
+            .main-container.results-mode .left-panel {
                 width: 100%;
                 padding: 20px 10px;
-                height: auto; /* Reset height for mobile */
+                height: auto;
+                /* Reset height for mobile */
             }
+
             .questions-container {
                 width: 100%;
             }
-            
+
             /* Adjust input boxes for tablets */
             .answer-input {
                 width: 90px;
                 max-width: 110px;
                 font-size: 15px;
             }
-            
+
             .drop-zone {
                 max-width: 110px;
                 min-width: 90px;
             }
-            
+
             .matching-table .drop-zone {
                 max-width: 110px;
                 min-width: 90px;
             }
         }
-        
+
         /* Responsive adjustments for mobile phones */
         @media (max-width: 768px) {
             .answer-input {
@@ -1654,39 +1969,39 @@
                 font-size: 14px;
                 padding: 2px 4px;
             }
-            
+
             .drop-zone {
                 max-width: 100px;
                 min-width: 80px;
                 font-size: 14px;
             }
-            
+
             .matching-table .drop-zone {
                 max-width: 100px;
                 min-width: 80px;
             }
-            
+
             .drag-item {
                 font-size: 13px;
                 padding: 4px 6px;
             }
-            
+
             .matching-table .drop-zone .drag-item {
                 font-size: 12px;
             }
-            
+
             /* Ensure drag-drop containers are more mobile-friendly */
             .drag-drop-container {
                 flex-direction: column;
                 gap: 15px;
             }
-            
+
             .matching-container {
                 flex-direction: column;
                 gap: 20px;
             }
         }
-        
+
         /* Extra small screens */
         @media (max-width: 480px) {
             .answer-input {
@@ -1694,12 +2009,12 @@
                 max-width: 90px;
                 font-size: 13px;
             }
-            
+
             .drop-zone {
                 max-width: 90px;
                 min-width: 70px;
             }
-            
+
             .matching-table .drop-zone {
                 max-width: 90px;
                 min-width: 70px;
@@ -1708,37 +2023,162 @@
 
         /* ===== Imported designs from Reading 4.html ===== */
         /* TRUE/FALSE/NOT GIVEN styles */
-        .tf-question { margin-bottom: 25px; padding: 10px 0; border-radius: 4px; }
-        .tf-question-line { display: flex; align-items: flex-start; margin-bottom: 15px; padding: 5px 0; border-radius: 4px; }
-        .tf-question-number, .question-number-box { border: 2px solid #ccc; padding: 2px 8px; margin-right: 10px; border-radius: 3px; font-weight: bold; display: inline-block; }
-        .tf-question.active-question .tf-question-number { border-color: #4a90e2; }
-        .tf-question-text { padding-top: 3px; }
-        .tf-options { padding-left: 5px; }
-        .tf-option { display: flex; align-items: center; padding: 10px 12px; background-color: #fff; transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; }
-        .tf-option:hover { background-color: #f1f7ff; border-color: #c6dcfb; }
-        .tf-option.correct { background-color: #d4edda !important; border-color: #28a745 !important; }
-        .tf-option.incorrect { background-color: #f8d7da !important; border-color: #dc3545 !important; }
-        .tf-option input[type="radio"] { margin-right: 10px; transform: scale(1.2); }
-        .tf-question.correct .tf-question-line { background-color: #e9f7ef; }
-        .tf-question.incorrect .tf-question-line { background-color: #f8d7da; }
+        .tf-question {
+            margin-bottom: 25px;
+            padding: 10px 0;
+            border-radius: 4px;
+        }
+
+        .tf-question-line {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 5px 0;
+            border-radius: 4px;
+        }
+
+        .tf-question-number,
+        .question-number-box {
+            border: 2px solid #ccc;
+            padding: 2px 8px;
+            margin-right: 10px;
+            border-radius: 3px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .tf-question.active-question .tf-question-number {
+            border-color: #4a90e2;
+        }
+
+        .tf-question-text {
+            padding-top: 3px;
+        }
+
+        .tf-options {
+            padding-left: 5px;
+        }
+
+        .tf-option {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            background-color: #fff;
+            transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .tf-option:hover {
+            background-color: #f1f7ff;
+            border-color: #c6dcfb;
+        }
+
+        .tf-option.correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+        }
+
+        .tf-option.incorrect {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+        }
+
+        .tf-option input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .tf-question.correct .tf-question-line {
+            background-color: #e9f7ef;
+        }
+
+        .tf-question.incorrect .tf-question-line {
+            background-color: #f8d7da;
+        }
 
         /* Multi-choice question styles */
-        .multi-choice-question { margin-bottom: 20px; padding: 10px; border-radius: 4px; border: 3px solid transparent; }
-        .multi-choice-question .question-prompt p > strong:first-child { display: inline-flex; align-items: center; justify-content: center; min-width: 24px; padding: 2px 6px; margin-right: 8px; border: 1px solid #d0d7e2; border-radius: 6px; background: #fff; }
-        .multi-choice-question.active-question .question-prompt p > strong:first-child { border-color: #4a90e2; border-width: 2px; }
-        .multi-choice-option { padding: 10px 12px; background-color: #fff; transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; }
-        .multi-choice-option:hover { background-color: #f1f7ff; border-color: #c6dcfb; }
-        .multi-choice-option.correct { background-color: #d4edda !important;  }
-        .multi-choice-option.incorrect { background-color: #f8d7da !important;  }
-        .multi-choice-option label { display: flex; align-items: center; cursor: pointer; font-size: 16px; }
-        .multi-choice-option input[type="checkbox"], .multi-choice-option input[type="radio"] { margin-right: 12px; transform: scale(1.3); accent-color: #4a90e2; }
+        .multi-choice-question {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            border: 3px solid transparent;
+        }
+
+        .multi-choice-question .question-prompt p>strong:first-child {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 24px;
+            padding: 2px 6px;
+            margin-right: 8px;
+            border: 1px solid #d0d7e2;
+            border-radius: 6px;
+            background: #fff;
+        }
+
+        .multi-choice-question.active-question .question-prompt p>strong:first-child {
+            border-color: #4a90e2;
+            border-width: 2px;
+        }
+
+        .multi-choice-option {
+            padding: 10px 12px;
+            background-color: #fff;
+            transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .multi-choice-option:hover {
+            background-color: #f1f7ff;
+            border-color: #c6dcfb;
+        }
+
+        .multi-choice-option.correct {
+            background-color: #d4edda !important;
+        }
+
+        .multi-choice-option.incorrect {
+            background-color: #f8d7da !important;
+        }
+
+        .multi-choice-option label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .multi-choice-option input[type="checkbox"],
+        .multi-choice-option input[type="radio"] {
+            margin-right: 12px;
+            transform: scale(1.3);
+            accent-color: #4a90e2;
+        }
 
         /* Drag & Drop enhancements */
         /* Filled zone should look like an input with blue border */
-        .drop-zone.filled { background-color: #ffffff; border: 2px solid #2c6bed !important; outline: none !important; box-shadow: none !important; padding: 6px 10px; border-radius: 4px; }
-        .drop-zone.filled .drag-item { width: auto; height: auto; display: inline-block; border: none; border-radius: 0; padding: 0; font-weight: 500; background: transparent; box-shadow: none; white-space: nowrap; }
+        .drop-zone.filled {
+            background-color: #ffffff;
+            border: 2px solid #2c6bed !important;
+            outline: none !important;
+            box-shadow: none !important;
+            padding: 6px 10px;
+            border-radius: 4px;
+        }
+
+        .drop-zone.filled .drag-item {
+            width: auto;
+            height: auto;
+            display: inline-block;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            font-weight: 500;
+            background: transparent;
+            box-shadow: none;
+            white-space: nowrap;
+        }
     </style>
 </head>
+
 <body>
     <div class="header">
         <div class="timer-container">
@@ -1748,13 +2188,15 @@
             MINDLESS_WRITER
         </a>
         <div class="header-icons">
-        
+
         </div>
     </div>
 
     <div class="audio-player-container">
         <button id="play-pause-btn" class="player-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+            </svg>
         </button>
         <div class="progress-container">
             <span id="current-time">0:00</span>
@@ -1764,7 +2206,11 @@
         <div class="controls-container">
             <div class="volume-container">
                 <button id="volume-btn" class="player-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
                 </button>
                 <input type="range" id="new-volume-slider" min="0" max="1" step="0.01" value="1">
             </div>
@@ -1785,7 +2231,7 @@
     <div class="main-container">
         <!-- Left Panel -->
         <div class="left-panel">
-            
+
             <div id="part-1" class="question-part">
                 <div class="part-header">
                     <p><strong>Part 1</strong></p>
@@ -1798,24 +2244,39 @@
                             <p><strong>Questions 1-3</strong></p>
                             <p>Choose the correct answer.</p>
                         </div>
-                        
+
                         <div class="multi-choice-question">
-                            <div class="question-prompt"><p><strong>1</strong>&nbsp;&nbsp;The teacher praised student Emma for</p></div>
-                            <div class="multi-choice-option"><label><input type="radio" name="q1" value="A">her good performance in public show.</label></div>
-                            <div class="multi-choice-option"><label><input type="radio" name="q1" value="B">setting a good example for others.</label></div>
-                            <div class="multi-choice-option"><label><input type="radio" name="q1" value="C">settling in quickly</label></div>
+                            <div class="question-prompt">
+                                <p><strong>1</strong>&nbsp;&nbsp;The teacher praised student Emma for</p>
+                            </div>
+                            <div class="multi-choice-option"><label><input type="radio" name="q1" value="A">her good
+                                    performance in public show.</label></div>
+                            <div class="multi-choice-option"><label><input type="radio" name="q1" value="B">setting a
+                                    good example for others.</label></div>
+                            <div class="multi-choice-option"><label><input type="radio" name="q1" value="C">settling in
+                                    quickly</label></div>
                         </div>
                         <div class="multi-choice-question">
-                            <div class="question-prompt"><p><strong>2</strong>&nbsp;&nbsp;Why has the timetable for drama class changed?</p></div>
-                            <div class="multi-choice-option"><label><input type="radio" name="q2" value="A">Because of falling enrollment.</label></div>
-                            <div class="multi-choice-option"><label><input type="radio" name="q2" value="B">Because the class size is too big.</label></div>
-                            <div class="multi-choice-option"><label><input type="radio" name="q2" value="C">Because of the availability of music room.</label></div>
+                            <div class="question-prompt">
+                                <p><strong>2</strong>&nbsp;&nbsp;Why has the timetable for drama class changed?</p>
+                            </div>
+                            <div class="multi-choice-option"><label><input type="radio" name="q2" value="A">Because of
+                                    falling enrollment.</label></div>
+                            <div class="multi-choice-option"><label><input type="radio" name="q2" value="B">Because the
+                                    class size is too big.</label></div>
+                            <div class="multi-choice-option"><label><input type="radio" name="q2" value="C">Because of
+                                    the availability of music room.</label></div>
                         </div>
                         <div class="multi-choice-question">
-                            <div class="question-prompt"><p><strong>3</strong>&nbsp;&nbsp;What is the new time for the drama class?</p></div>
-                            <div class="multi-choice-option"><label><input type="radio" name="q3" value="A">3.15 pm</label></div>
-                            <div class="multi-choice-option"><label><input type="radio" name="q3" value="B">4.15 pm</label></div>
-                            <div class="multi-choice-option"><label><input type="radio" name="q3" value="C">4.45 pm</label></div>
+                            <div class="question-prompt">
+                                <p><strong>3</strong>&nbsp;&nbsp;What is the new time for the drama class?</p>
+                            </div>
+                            <div class="multi-choice-option"><label><input type="radio" name="q3" value="A">3.15
+                                    pm</label></div>
+                            <div class="multi-choice-option"><label><input type="radio" name="q3" value="B">4.15
+                                    pm</label></div>
+                            <div class="multi-choice-option"><label><input type="radio" name="q3" value="C">4.45
+                                    pm</label></div>
                         </div>
                     </div>
 
@@ -1825,8 +2286,8 @@
                             <p><strong>Questions 4-6</strong></p>
                             <p>Drag the correct letter, A–E, into each course.</p>
                         </div>
-                       
-                        <div class="matching-question-container">
+
+                        <div class="matching-question-container course-matching">
                             <div class="matching-questions">
                                 <div class="dnd-col-title">Courses</div>
                                 <div class="matching-question-item">
@@ -1845,9 +2306,12 @@
                             <div class="matching-options-bank">
                                 <div class="dnd-col-title">Options</div>
                                 <div class="drag-item" draggable="true" data-letter="A">A. The course is full.</div>
-                                <div class="drag-item" draggable="true" data-letter="B">B. The course fee is too expensive.</div>
-                                <div class="drag-item" draggable="true" data-letter="C">C. She has another activity at that time.</div>
-                                <div class="drag-item" draggable="true" data-letter="D">D. She has another activity that evening.</div>
+                                <div class="drag-item" draggable="true" data-letter="B">B. The course fee is too
+                                    expensive.</div>
+                                <div class="drag-item" draggable="true" data-letter="C">C. She has another activity at
+                                    that time.</div>
+                                <div class="drag-item" draggable="true" data-letter="D">D. She has another activity that
+                                    evening.</div>
                                 <div class="drag-item" draggable="true" data-letter="E">E. The class is too late.</div>
                             </div>
                         </div>
@@ -1867,9 +2331,12 @@
                         </div>
                         <div style="border:1px solid #ccc; padding:10px;">
                             <p class="centered-title">Information on Music Class</p>
-                            <p>The class teaches children to play instruments and how to <input type="text" id="q7" class="answer-input" placeholder="7">.</p>
-                            <p>Cost of the course: $8<input type="text" id="q8" class="answer-input" placeholder="8">.</p>
-                            <p>Date Emma starts the course: <input type="text" id="q9" class="answer-input" placeholder="9">.</p>
+                            <p>The class teaches children to play instruments and how to <input type="text" id="q7"
+                                    class="answer-input" placeholder="7">.</p>
+                            <p>Cost of the course: $8<input type="text" id="q8" class="answer-input" placeholder="8">.
+                            </p>
+                            <p>Date Emma starts the course: <input type="text" id="q9" class="answer-input"
+                                    placeholder="9">.</p>
                             <p>Teacher: Jamal <input type="text" id="q10" class="answer-input" placeholder="10">.</p>
                         </div>
                     </div>
@@ -1889,11 +2356,16 @@
                             <p>Write <strong>ONE WORD ONLY</strong> for each answer.</p>
                         </div>
                         <div style="margin-bottom:10px;">
-                            <p><strong>11</strong>&nbsp;&nbsp;What does the centre provide first? <input type="text" id="q11" class="answer-input" placeholder="11"></p>
-                            <p><strong>12</strong>&nbsp;&nbsp;What is important to control? <input type="text" id="q12" class="answer-input" placeholder="12"></p>
-                            <p><strong>13</strong>&nbsp;&nbsp;What will be used to assess member’s fitness level? <input type="text" id="q13" class="answer-input" placeholder="13"></p>
-                            <p><strong>14</strong>&nbsp;&nbsp;How often is the exercise schedule reviewed? <input type="text" id="q14" class="answer-input" placeholder="14"></p>
-                            <p><strong>15</strong>&nbsp;&nbsp;How many exercise programs are available? <input type="text" id="q15" class="answer-input" placeholder="15"></p>
+                            <p><strong>11</strong>&nbsp;&nbsp;What does the centre provide first? <input type="text"
+                                    id="q11" class="answer-input" placeholder="11"></p>
+                            <p><strong>12</strong>&nbsp;&nbsp;What is important to control? <input type="text" id="q12"
+                                    class="answer-input" placeholder="12"></p>
+                            <p><strong>13</strong>&nbsp;&nbsp;What will be used to assess member’s fitness level? <input
+                                    type="text" id="q13" class="answer-input" placeholder="13"></p>
+                            <p><strong>14</strong>&nbsp;&nbsp;How often is the exercise schedule reviewed? <input
+                                    type="text" id="q14" class="answer-input" placeholder="14"></p>
+                            <p><strong>15</strong>&nbsp;&nbsp;How many exercise programs are available? <input
+                                    type="text" id="q15" class="answer-input" placeholder="15"></p>
                         </div>
 
                         <div class="question-prompt" style="margin-top:60px;">
@@ -1905,12 +2377,27 @@
                         <div class="matching-question-container">
                             <div class="matching-questions">
                                 <div class="dnd-col-title">Which place is best for</div>
-                                <div class="matching-question-item"><span>developing confidence?</span><div class="drop-zone" data-question-id="16"><span class="placeholder">16</span></div></div>
-                                <div class="matching-question-item"><span>reducing stress?</span><div class="drop-zone" data-question-id="17"><span class="placeholder">17</span></div></div>
-                                <div class="matching-question-item"><span>building fitness?</span><div class="drop-zone" data-question-id="18"><span class="placeholder">18</span></div></div>
-                                <div class="matching-question-item"><span>meeting others?</span><div class="drop-zone" data-question-id="19"><span class="placeholder">19</span></div></div>
-                                <div class="matching-question-item"><span>finding information?</span><div class="drop-zone" data-question-id="20"><span class="placeholder">20</span></div></div>
-                    </div>
+                                <div class="matching-question-item"><span>developing confidence?</span>
+                                    <div class="drop-zone" data-question-id="16"><span class="placeholder">16</span>
+                                    </div>
+                                </div>
+                                <div class="matching-question-item"><span>reducing stress?</span>
+                                    <div class="drop-zone" data-question-id="17"><span class="placeholder">17</span>
+                                    </div>
+                                </div>
+                                <div class="matching-question-item"><span>building fitness?</span>
+                                    <div class="drop-zone" data-question-id="18"><span class="placeholder">18</span>
+                                    </div>
+                                </div>
+                                <div class="matching-question-item"><span>meeting others?</span>
+                                    <div class="drop-zone" data-question-id="19"><span class="placeholder">19</span>
+                                    </div>
+                                </div>
+                                <div class="matching-question-item"><span>finding information?</span>
+                                    <div class="drop-zone" data-question-id="20"><span class="placeholder">20</span>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="matching-options-bank matching-options-list">
                                 <div class="dnd-col-title">Options</div>
                                 <div class="drag-item" draggable="true" data-letter="A">A. Jogging machines</div>
@@ -1922,7 +2409,7 @@
                                 <div class="drag-item" draggable="true" data-letter="G">G. Swimming pool</div>
                             </div>
                         </div>
-                        
+
                         <!-- hidden inputs to capture selections 16-20 -->
                         <input type="hidden" id="q16" class="answer-input">
                         <input type="hidden" id="q17" class="answer-input">
@@ -1946,9 +2433,12 @@
                             <p>Write <strong>NO MORE THAN TWO WORDS</strong> for each answer.</p>
                         </div>
                         <div style="margin-bottom:10px;">
-                            <p>The new teacher who is very popular among students wrote a book titled <input type="text" id="q21" class="answer-input" placeholder="21">.</p>
-                            <p>It covers techniques including doing research as part of a <input type="text" id="q22" class="answer-input" placeholder="22">.</p>
-                            <p>The objective is for the students to present <input type="text" id="q23" class="answer-input" placeholder="23"> in a collaborative manner.</p>
+                            <p>The new teacher who is very popular among students wrote a book titled <input type="text"
+                                    id="q21" class="answer-input" placeholder="21">.</p>
+                            <p>It covers techniques including doing research as part of a <input type="text" id="q22"
+                                    class="answer-input" placeholder="22">.</p>
+                            <p>The objective is for the students to present <input type="text" id="q23"
+                                    class="answer-input" placeholder="23"> in a collaborative manner.</p>
                         </div>
 
                         <div class="question-prompt" style="margin-top:60px;">
@@ -1959,27 +2449,34 @@
                         <table style="width:100%; border-collapse: collapse;">
                             <tbody>
                                 <tr>
-                                    <th style="padding:8px; border:1px solid #ddd; text-align:left;" colspan="2">Observational method: Observation checklist</th>
+                                    <th style="padding:8px; border:1px solid #ddd; text-align:left;" colspan="2">
+                                        Observational method: Observation checklist</th>
                                 </tr>
                                 <tr>
                                     <td style="width:25%; padding:8px; border:1px solid #ddd;">Conduct</td>
                                     <td style="padding:8px; border:1px solid #ddd;">
                                         Students:<br>
-                                        • examine the <input type="text" id="q24" class="answer-input" placeholder="24"> of peer pupils<br>
+                                        • examine the <input type="text" id="q24" class="answer-input" placeholder="24">
+                                        of peer pupils<br>
                                         • Keep a <input type="text" id="q25" class="answer-input" placeholder="25"><br>
-                                        • Carry out <input type="text" id="q26" class="answer-input" placeholder="26"><br>
+                                        • Carry out <input type="text" id="q26" class="answer-input"
+                                            placeholder="26"><br>
                                         • In-class <input type="text" id="q27" class="answer-input" placeholder="27">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th style="padding:8px; border:1px solid #ddd; text-align:left;" colspan="2">Non-observational method: Non-observation checklist</th>
+                                    <th style="padding:8px; border:1px solid #ddd; text-align:left;" colspan="2">
+                                        Non-observational method: Non-observation checklist</th>
                                 </tr>
                                 <tr>
                                     <td style="width:25%; padding:8px; border:1px solid #ddd;">Conduct</td>
                                     <td style="padding:8px; border:1px solid #ddd;">
-                                        Statistics – Evaluate <input type="text" id="q28" class="answer-input" placeholder="28"><br>
-                                        Questionnaires – With the help of <input type="text" id="q29" class="answer-input" placeholder="29"> to identify respondents<br>
-                                        Choose own respondents to do <input type="text" id="q30" class="answer-input" placeholder="30">
+                                        Statistics – Evaluate <input type="text" id="q28" class="answer-input"
+                                            placeholder="28"><br>
+                                        Questionnaires – With the help of <input type="text" id="q29"
+                                            class="answer-input" placeholder="29"> to identify respondents<br>
+                                        Choose own respondents to do <input type="text" id="q30" class="answer-input"
+                                            placeholder="30">
                                     </td>
                                 </tr>
                             </tbody>
@@ -2000,28 +2497,38 @@
                             <p>Complete the notes below.</p>
                             <p>Write <strong>ONE WORD ONLY</strong> for each answer.</p>
                         </div>
-                        
+
                         <div style="border:1px solid #ccc; padding:15px; margin-top:20px;">
                             <p class="centered-title">Fish Farming</p>
-                            
-                            <p>Local fish farmers are afraid that genetically modified fish will <input type="text" id="q31" class="answer-input" placeholder="31"> into the sea.</p>
-                            
-                            <p>• like to breed fish with special features, like <input type="text" id="q32" class="answer-input" placeholder="32"></p>
-                            
+
+                            <p>Local fish farmers are afraid that genetically modified fish will <input type="text"
+                                    id="q31" class="answer-input" placeholder="31"> into the sea.</p>
+
+                            <p>• like to breed fish with special features, like <input type="text" id="q32"
+                                    class="answer-input" placeholder="32"></p>
+
                             <p>• other solutions:</p>
-                            <p style="margin-left:20px;">– to build some cages to prevent the fish from <input type="text" id="q33" class="answer-input" placeholder="33"></p>
-                            <p style="margin-left:20px;">– to use <input type="text" id="q34" class="answer-input" placeholder="34"> nets to support the frames of the cages</p>
-                            
+                            <p style="margin-left:20px;">– to build some cages to prevent the fish from <input
+                                    type="text" id="q33" class="answer-input" placeholder="33"></p>
+                            <p style="margin-left:20px;">– to use <input type="text" id="q34" class="answer-input"
+                                    placeholder="34"> nets to support the frames of the cages</p>
+
                             <p>Problems facing the local fishermen:</p>
-                            <p style="margin-left:20px;">• lack of land on the <input type="text" id="q35" class="answer-input" placeholder="35"></p>
-                            <p style="margin-left:20px;">• lack of <input type="text" id="q36" class="answer-input" placeholder="36"> fish</p>
-                            
+                            <p style="margin-left:20px;">• lack of land on the <input type="text" id="q35"
+                                    class="answer-input" placeholder="35"></p>
+                            <p style="margin-left:20px;">• lack of <input type="text" id="q36" class="answer-input"
+                                    placeholder="36"> fish</p>
+
                             <p>Initiatives taken by the government:</p>
-                            <p style="margin-left:20px;">• encourages fish farmers to <input type="text" id="q37" class="answer-input" placeholder="37"> local fish farming business</p>
+                            <p style="margin-left:20px;">• encourages fish farmers to <input type="text" id="q37"
+                                    class="answer-input" placeholder="37"> local fish farming business</p>
                             <p style="margin-left:20px;">• helps fish farmers to sell seaweed and oyster:</p>
-                            <p style="margin-left:40px;">– Seaweed can be used to make <input type="text" id="q38" class="answer-input" placeholder="38"></p>
-                            <p style="margin-left:40px;">– Oyster is a source of seafood which can supply local <input type="text" id="q39" class="answer-input" placeholder="39"> industry.</p>
-                            <p style="margin-left:20px;">• saves local fishing business by encouraging aquaculture, recreation and <input type="text" id="q40" class="answer-input" placeholder="40"></p>
+                            <p style="margin-left:40px;">– Seaweed can be used to make <input type="text" id="q38"
+                                    class="answer-input" placeholder="38"></p>
+                            <p style="margin-left:40px;">– Oyster is a source of seafood which can supply local <input
+                                    type="text" id="q39" class="answer-input" placeholder="39"> industry.</p>
+                            <p style="margin-left:20px;">• saves local fishing business by encouraging aquaculture,
+                                recreation and <input type="text" id="q40" class="answer-input" placeholder="40"></p>
                         </div>
                     </div>
                 </div>
@@ -2040,106 +2547,234 @@
     <div id="transcription-data" style="display:none;">
         <div data-part="1"><strong>SECTION 1</strong>
 
-Teacher:              Good afternoon. May I speak to Emma’s parent?
-Father:                 Afternoon. I’m her father. Who am I speaking to?
-Teacher:              This is Emma’s teacher Jane Carson calling from the Art Centre. I’m just calling to talk about her drama class at the centre.
-Father:                 Oh, thank you for calling. How’s Emma doing in drama class? You know she just transferred here last month, unlike the others in her class who have been taking the course the whole semester since June. So I’m a bit worried that she might not fit in so well.
-Teacher:              There’s no need to worry. She exhibits a strong performance in her drama class.
-Father:                 Is that so?
-Teacher:              Yes. She didn’t adapt to the new environment as quickly as I originally expected, and seemed a bit shy at first. But a few days later, she made a couple of friends and became more talkative and also more involved in class. Emma really is a role model for others (Q1), because she has always been an active participant during class. She voices her own ideas and is very creative.
-Father:                 I didn’t expect that. But I can tell that she really enjoys the course, because she’s been talking about it at home frequently these past few weeks.
-Teacher:              That’s great to hear. Interest is always the best teacher. I also have to inform you that there’s been an adjustment in the timetable of the drama class next term.
-Father:                 Why is that?
-Teacher:              It’s not that the music room that we currently use isn’t available. As there are too many enrolling for the coming semester, increased class size means that space is limited to house the whole class (Q2). Also the new classroom we use is not available during the current timeframe, so I’m afraid we have to change the time for it.
-Father:                 I see. So when would it be?
-Teacher:              As you know, the current class begins at three fifteen. But the new time of the drama class would be a quarter to five. (Q3)
-Father:                 I’m afraid I have errands to run during that time.
-Teacher:              On the other campus the class still begins at three fifteen, but for the campus Emma goes to, it is the only time available for drama class.
-Father:                 Oh. I see. I have to make adjustments to my chore schedule then. No problem.
-Father:                 Miss Carson, I’m thinking about signing Emma up for another art course. I’m
-thinking about dance class.
-Teacher:              Dance class is a popular course here, a great choice for a child to shape up and have fun. But unfortunately, it is over-subscribed at the moment (Q4). I have to put you on the waiting list.
-Father:                 That’s too bad. What else can I choose from then? Could you give me some advice?
-Teacher:              Sure. Emma could take singing class (Q5) as well. This would improve her musicality.
-Father:                 Sounds good. When is that?
-Teacher:              It is held every Friday evening.
-Father:                 That’s too bad. Emma already has a swimming class earlier that evening (Q5). It will be too late for her to come home if she takes this course.
-Teacher:              There is also a vocal course (Q6) available. Emma’s got a great voice, I’m sure she’ll stand out in the class.
-Father:                 Tell me about it.
-Teacher:              The vocal course starts at 4.30 pm every Tuesday. It isn’t fully booked yet. Great teacher, experienced and beloved by students. The price is a bit higher though.
-Father:                 How much is it?
-Teacher:              It’s 110 dollars.
-Father:                 Oh, that’s too much, way over our budget (Q6). We have to cover the extra cost if we choose it.
-Teacher:              Or maybe Emma could take music class.
-Father:                 What is it about? Learning about songs and musicals?
-Teacher:              Well, the students have the opportunity to play different instruments like the piano, drum and so on. They can also learn how to write music under professional guidance. (Q7)
-Father:                 That’s exactly what Emma is eager to learn. How much would it cost? (Q8)
-Teacher:              It was 63 dollars last term. But this term it is 85 dollars (Q8), 22 dollars more than the original price.
-Father:                 We can afford that. When does the course begin?
-Teacher:              The course starts on September 7th.
-Father:                 Can we start one week later, on September 14th? My daughter will be on a trip to France with her Mom on the 7th. (Q9)
-Teacher:              No problem. And the teacher for the class is Jamal Curtis (Q10). Just contact him if you have any further questions regarding the course.
-Father:                 Jamal Curtis? How do you spell Curtis?
-Teacher:              Oh, it’s C-U-R-T-I-S. (Q10)
-Father:                 Thank you.
+            Teacher: Good afternoon. May I speak to Emma’s parent?
+            Father: Afternoon. I’m her father. Who am I speaking to?
+            Teacher: This is Emma’s teacher Jane Carson calling from the Art Centre. I’m just calling to talk about her
+            drama class at the centre.
+            Father: Oh, thank you for calling. How’s Emma doing in drama class? You know she just transferred here last
+            month, unlike the others in her class who have been taking the course the whole semester since June. So I’m
+            a bit worried that she might not fit in so well.
+            Teacher: There’s no need to worry. She exhibits a strong performance in her drama class.
+            Father: Is that so?
+            Teacher: Yes. She didn’t adapt to the new environment as quickly as I originally expected, and seemed a bit
+            shy at first. But a few days later, she made a couple of friends and became more talkative and also more
+            involved in class. Emma really is a role model for others (Q1), because she has always been an active
+            participant during class. She voices her own ideas and is very creative.
+            Father: I didn’t expect that. But I can tell that she really enjoys the course, because she’s been talking
+            about it at home frequently these past few weeks.
+            Teacher: That’s great to hear. Interest is always the best teacher. I also have to inform you that there’s
+            been an adjustment in the timetable of the drama class next term.
+            Father: Why is that?
+            Teacher: It’s not that the music room that we currently use isn’t available. As there are too many enrolling
+            for the coming semester, increased class size means that space is limited to house the whole class (Q2).
+            Also the new classroom we use is not available during the current timeframe, so I’m afraid we have to change
+            the time for it.
+            Father: I see. So when would it be?
+            Teacher: As you know, the current class begins at three fifteen. But the new time of the drama class would
+            be a quarter to five. (Q3)
+            Father: I’m afraid I have errands to run during that time.
+            Teacher: On the other campus the class still begins at three fifteen, but for the campus Emma goes to, it is
+            the only time available for drama class.
+            Father: Oh. I see. I have to make adjustments to my chore schedule then. No problem.
+            Father: Miss Carson, I’m thinking about signing Emma up for another art course. I’m
+            thinking about dance class.
+            Teacher: Dance class is a popular course here, a great choice for a child to shape up and have fun. But
+            unfortunately, it is over-subscribed at the moment (Q4). I have to put you on the waiting list.
+            Father: That’s too bad. What else can I choose from then? Could you give me some advice?
+            Teacher: Sure. Emma could take singing class (Q5) as well. This would improve her musicality.
+            Father: Sounds good. When is that?
+            Teacher: It is held every Friday evening.
+            Father: That’s too bad. Emma already has a swimming class earlier that evening (Q5). It will be too late for
+            her to come home if she takes this course.
+            Teacher: There is also a vocal course (Q6) available. Emma’s got a great voice, I’m sure she’ll stand out in
+            the class.
+            Father: Tell me about it.
+            Teacher: The vocal course starts at 4.30 pm every Tuesday. It isn’t fully booked yet. Great teacher,
+            experienced and beloved by students. The price is a bit higher though.
+            Father: How much is it?
+            Teacher: It’s 110 dollars.
+            Father: Oh, that’s too much, way over our budget (Q6). We have to cover the extra cost if we choose it.
+            Teacher: Or maybe Emma could take music class.
+            Father: What is it about? Learning about songs and musicals?
+            Teacher: Well, the students have the opportunity to play different instruments like the piano, drum and so
+            on. They can also learn how to write music under professional guidance. (Q7)
+            Father: That’s exactly what Emma is eager to learn. How much would it cost? (Q8)
+            Teacher: It was 63 dollars last term. But this term it is 85 dollars (Q8), 22 dollars more than the original
+            price.
+            Father: We can afford that. When does the course begin?
+            Teacher: The course starts on September 7th.
+            Father: Can we start one week later, on September 14th? My daughter will be on a trip to France with her Mom
+            on the 7th. (Q9)
+            Teacher: No problem. And the teacher for the class is Jamal Curtis (Q10). Just contact him if you have any
+            further questions regarding the course.
+            Father: Jamal Curtis? How do you spell Curtis?
+            Teacher: Oh, it’s C-U-R-T-I-S. (Q10)
+            Father: Thank you.
         </div>
         <div data-part="2"><strong>SECTION 2</strong>
 
-You will hear the manager of a fitness centre giving information about the centre to some new customers.
-Hello everyone, and welcome to the “Fit for Life” Health Centre — a place which, as the name suggests, is not just for short-term solutions, but rather, intends to put you on a sensible and achievable looting for the rest of your life. And that’s how we’re different. For example, we could immediately put you on a harsh exercise program, expeeling you to work out every day, but such a plan would see you quickly lose interest. That’s why the initial step is a oneand-a-half-hour consultation (Q11), in which your lifestyle, current situation, and long-term goals, are all thoroughly analysed.
-Now, an important part of this consultation involves analysing what you eat. There’s no point exercising here, and losing weight, then pulling it all back on, later. You will need to show self-control and discipline in your diet (Q12), and we’ll work on that. Similarly, we’ll put you on an exercise regime suitable for your level of fitness, so that will involve a test (Q13), where we will take you through some activities, then measure your heart rate and blood pressure to determine how fit you are. This will be monitored during every subsequent consultation, along with your exercise schedule, and that occurs monthly (Q14), and not half-yearly, as with many other centres.
-As to our actual exercise machines and programs, you will have to decide whether it is muscle mass, stamina, or general fitness, that you want to develop. Think about which of these three (Q15) you want to target, and we’ll design a specific program for you – but remember, bulging muscles aren’t necessarily suitable for everyone. Sometimes it’s better to think in terms of two simple concepts: muscle definition and stamina; or, if you are female, being fit and healthy, in both mind and body.
-Now, if you’re going to work out at this gym. you’ll need to think about your reasons for exercising, so let’s consider that in more detail. Muscle mass is certainly popular with the guys, probably seeking, to impress the girls, and with muscles comes the confidence to do that, right? Well, for that, you’ll need our high-stress weight units (Q16), where pumping iron is all the rage. Moving, on to other benefits, one of the main ones is beating the tension of life, right, and the longer the exercise is, the greater the rewards in this respect. Thus, playing squash can certainly help, and so can swimming, but what’s much better, as every jogger will tell you, is their activity, so we have ample jogging machines (Q17), and they’re always popular. They can provide good fitness too, as can the yoga classes; however, again, let’s not forget playing squash (Q18), which, I would say, is the optimum way to improve your general wellbeing. Such an active, energetic game, plus the competitive element, drives you forward into high levels of health and fitness. These, of course, are the ultimate purposes of being here, but remember, the centre is full of like- minded people, all of whom are interesting to meet, and valuable sources of information.
-The yoga classes have a pre- and post-meeting session, so you’ll certainly meet others there, although they’ll all be yoga enthusiasts, which limits the range somewhat. But whether doing yoga, swimming, or exercising, everyone showers, right, so those facilities are where you’ll hear all sorts of interesting conversations, and really get to know people (Q19) —not like the front-desk area, which is mostly empty as patrons go immediately inside to do their exercise. Of course, the front desk can answer all your questions, and has information brochures, and such like, but for knowing more about a greater variety of subjects and community concerns, look at the notice board in the yoga studio (Q20), where there’s a huge array of papers, leaflets, and articles, all for you to read and consider.
+            You will hear the manager of a fitness centre giving information about the centre to some new customers.
+            Hello everyone, and welcome to the “Fit for Life” Health Centre — a place which, as the name suggests, is
+            not just for short-term solutions, but rather, intends to put you on a sensible and achievable looting for
+            the rest of your life. And that’s how we’re different. For example, we could immediately put you on a harsh
+            exercise program, expeeling you to work out every day, but such a plan would see you quickly lose interest.
+            That’s why the initial step is a oneand-a-half-hour consultation (Q11), in which your lifestyle, current
+            situation, and long-term goals, are all thoroughly analysed.
+            Now, an important part of this consultation involves analysing what you eat. There’s no point exercising
+            here, and losing weight, then pulling it all back on, later. You will need to show self-control and
+            discipline in your diet (Q12), and we’ll work on that. Similarly, we’ll put you on an exercise regime
+            suitable for your level of fitness, so that will involve a test (Q13), where we will take you through some
+            activities, then measure your heart rate and blood pressure to determine how fit you are. This will be
+            monitored during every subsequent consultation, along with your exercise schedule, and that occurs monthly
+            (Q14), and not half-yearly, as with many other centres.
+            As to our actual exercise machines and programs, you will have to decide whether it is muscle mass, stamina,
+            or general fitness, that you want to develop. Think about which of these three (Q15) you want to target, and
+            we’ll design a specific program for you – but remember, bulging muscles aren’t necessarily suitable for
+            everyone. Sometimes it’s better to think in terms of two simple concepts: muscle definition and stamina; or,
+            if you are female, being fit and healthy, in both mind and body.
+            Now, if you’re going to work out at this gym. you’ll need to think about your reasons for exercising, so
+            let’s consider that in more detail. Muscle mass is certainly popular with the guys, probably seeking, to
+            impress the girls, and with muscles comes the confidence to do that, right? Well, for that, you’ll need our
+            high-stress weight units (Q16), where pumping iron is all the rage. Moving, on to other benefits, one of the
+            main ones is beating the tension of life, right, and the longer the exercise is, the greater the rewards in
+            this respect. Thus, playing squash can certainly help, and so can swimming, but what’s much better, as every
+            jogger will tell you, is their activity, so we have ample jogging machines (Q17), and they’re always
+            popular. They can provide good fitness too, as can the yoga classes; however, again, let’s not forget
+            playing squash (Q18), which, I would say, is the optimum way to improve your general wellbeing. Such an
+            active, energetic game, plus the competitive element, drives you forward into high levels of health and
+            fitness. These, of course, are the ultimate purposes of being here, but remember, the centre is full of
+            like- minded people, all of whom are interesting to meet, and valuable sources of information.
+            The yoga classes have a pre- and post-meeting session, so you’ll certainly meet others there, although
+            they’ll all be yoga enthusiasts, which limits the range somewhat. But whether doing yoga, swimming, or
+            exercising, everyone showers, right, so those facilities are where you’ll hear all sorts of interesting
+            conversations, and really get to know people (Q19) —not like the front-desk area, which is mostly empty as
+            patrons go immediately inside to do their exercise. Of course, the front desk can answer all your questions,
+            and has information brochures, and such like, but for knowing more about a greater variety of subjects and
+            community concerns, look at the notice board in the yoga studio (Q20), where there’s a huge array of papers,
+            leaflets, and articles, all for you to read and consider.
         </div>
         <div data-part="3"><strong>SECTION 3</strong>
 
-Tutor:    Jerry, how did it go with preparing your lessons? Is there anything you would like to discuss?
-Jerry:     Well, this is actually the first time that I have ever taught in an elementary classroom. After 8 years of learning pedagogy, I want to practice what I’ve learned in an instructive manner, but I’m a bit stuck right now. You know the topic 1 want them to research is a bit hard for pupils. I’m afraid that they won’t be able to handle it on their own. So I need new ideas on designing more effective teaching methods. Mr. Carter, do you have any suggestions?
-Tutor:    Well, you should probably read this book called Professional Learning, written by J.K. Simmons. He is a professor who just transferred here last semester but is already popular amongst the students for his creative teaching methods (Q21). There is an extensive range of learning approaches mentioned in the book including approaches for team research (Q22), which might be helpful to you.
-Jerry:     You mean dividing the students into groups to do research? I’ve never thought of this before. How does it work?
-Tutor:    Professor Simmons has already demonstrated how efficient this approach can be. Basically it aims to increase cooperation between students so they can present the results in a collaborative fashion (Q23). It helps them to develop their own voice and perspective.
-Jerry:     I’ll check out the book as soon as possible. It seems I can borrow some of the essential concepts and work them into my course design.
-Jerry:     Well, I was thinking maybe I could use both observation and nonobservation as part of my teaching methodology. Could you take a look at my teaching plan?
-Tutor:    Sure. What kind of observational methods do you have in mind?
-Jerry:     For the observational part, I intend to include two approaches. First, the pupils can assess each other’s behaviour (Q24). I feel that reviewing fellow students through criteria-based reference evaluation allows constructive feedback. It can also improve their understanding of the subject material.
-Tutor:    That’s a smart move for a large class that would be hard to observe all by yourself. Also, you might want to get the feedback from several different individuals rather than just one. So how do you plan to carry out the peer assessments?
-Jerry:     Oh, every pupil will be required to write a diary, which includes group projects, presentations and in-class discussions. They’ll put down their remarks. I’ll collect them on a regular basis which can also help me see whether they can keep up or not. (Q25)
-Tutor:    Good, what else do you intend to do?
-Jerry:     Besides that, I also plan to do video recording (Q26). I’ve already purchased a camera just in case I miss anything important. I can go back and review their performances anytime I want.
-Tutor:    Would you record every in-class activity?
-Jerry:     No, I’ll just keep track of an in-class simulation (Q27), which would require every pupil to fully participate. Students will act as members of a City Council meeting, discussing issues like whether or not prohibition should be instated in the United States.
-Tutor:    This kind of teaching method is both inspiring and challenging. I can’t wait to see how yours work out. Do you send me a copy of the assessment afterwards, will you?
-Jerry:     No problem.
-Tutor:    So what do you have in mind for the non-observational approaches?
-Jerry:     Well, my plan is to quantify the statistics. Numbers do not lie. It is the most direct way to measure their performance. See how well they’ve learned.
-Tutor:    Where does the data come from?
-Jerry:     I’ll evaluate the test results including the mid-term (Q28), final exam and pop quizzes, which would only take up about 40 percent of the overall assessment.
-Tutor:    Sounds like a lot of tests and assignments. Please remember that you don’t want to wear out your students. Keeping them engaged is the key to efficient learning. Once they are exhausted, they just stop trying.
-Jerry:     Oh, I haven’t thought about that. You are right. I don’t want to frighten them with tons of assignments and exams. I’ll make note of that. Thanks for the advice.
-Tutor:    I remember last time you mentioned questionnaires, right?
-Jerry:     That’s true. But it is not for my students. In fact, they have to design their own questionnaires and choose the respondents using the Internet (Q29). As a complement of other teaching activities, it would deepen the creative learning process.
-Tutor:    Is that all?
-Jerry:     Oh, the pupils will have to conduct interviews of their own (Q30). And for this, they get to choose anyone they like, including relatives, friends and acquaintances to answer the questions.
-Tutor:    Seems to me that you have figured out most of your teaching methods. But you still need to polish some of the activities…
+            Tutor: Jerry, how did it go with preparing your lessons? Is there anything you would like to discuss?
+            Jerry: Well, this is actually the first time that I have ever taught in an elementary classroom. After 8
+            years of learning pedagogy, I want to practice what I’ve learned in an instructive manner, but I’m a bit
+            stuck right now. You know the topic 1 want them to research is a bit hard for pupils. I’m afraid that they
+            won’t be able to handle it on their own. So I need new ideas on designing more effective teaching methods.
+            Mr. Carter, do you have any suggestions?
+            Tutor: Well, you should probably read this book called Professional Learning, written by J.K. Simmons. He is
+            a professor who just transferred here last semester but is already popular amongst the students for his
+            creative teaching methods (Q21). There is an extensive range of learning approaches mentioned in the book
+            including approaches for team research (Q22), which might be helpful to you.
+            Jerry: You mean dividing the students into groups to do research? I’ve never thought of this before. How
+            does it work?
+            Tutor: Professor Simmons has already demonstrated how efficient this approach can be. Basically it aims to
+            increase cooperation between students so they can present the results in a collaborative fashion (Q23). It
+            helps them to develop their own voice and perspective.
+            Jerry: I’ll check out the book as soon as possible. It seems I can borrow some of the essential concepts and
+            work them into my course design.
+            Jerry: Well, I was thinking maybe I could use both observation and nonobservation as part of my teaching
+            methodology. Could you take a look at my teaching plan?
+            Tutor: Sure. What kind of observational methods do you have in mind?
+            Jerry: For the observational part, I intend to include two approaches. First, the pupils can assess each
+            other’s behaviour (Q24). I feel that reviewing fellow students through criteria-based reference evaluation
+            allows constructive feedback. It can also improve their understanding of the subject material.
+            Tutor: That’s a smart move for a large class that would be hard to observe all by yourself. Also, you might
+            want to get the feedback from several different individuals rather than just one. So how do you plan to
+            carry out the peer assessments?
+            Jerry: Oh, every pupil will be required to write a diary, which includes group projects, presentations and
+            in-class discussions. They’ll put down their remarks. I’ll collect them on a regular basis which can also
+            help me see whether they can keep up or not. (Q25)
+            Tutor: Good, what else do you intend to do?
+            Jerry: Besides that, I also plan to do video recording (Q26). I’ve already purchased a camera just in case I
+            miss anything important. I can go back and review their performances anytime I want.
+            Tutor: Would you record every in-class activity?
+            Jerry: No, I’ll just keep track of an in-class simulation (Q27), which would require every pupil to fully
+            participate. Students will act as members of a City Council meeting, discussing issues like whether or not
+            prohibition should be instated in the United States.
+            Tutor: This kind of teaching method is both inspiring and challenging. I can’t wait to see how yours work
+            out. Do you send me a copy of the assessment afterwards, will you?
+            Jerry: No problem.
+            Tutor: So what do you have in mind for the non-observational approaches?
+            Jerry: Well, my plan is to quantify the statistics. Numbers do not lie. It is the most direct way to measure
+            their performance. See how well they’ve learned.
+            Tutor: Where does the data come from?
+            Jerry: I’ll evaluate the test results including the mid-term (Q28), final exam and pop quizzes, which would
+            only take up about 40 percent of the overall assessment.
+            Tutor: Sounds like a lot of tests and assignments. Please remember that you don’t want to wear out your
+            students. Keeping them engaged is the key to efficient learning. Once they are exhausted, they just stop
+            trying.
+            Jerry: Oh, I haven’t thought about that. You are right. I don’t want to frighten them with tons of
+            assignments and exams. I’ll make note of that. Thanks for the advice.
+            Tutor: I remember last time you mentioned questionnaires, right?
+            Jerry: That’s true. But it is not for my students. In fact, they have to design their own questionnaires and
+            choose the respondents using the Internet (Q29). As a complement of other teaching activities, it would
+            deepen the creative learning process.
+            Tutor: Is that all?
+            Jerry: Oh, the pupils will have to conduct interviews of their own (Q30). And for this, they get to choose
+            anyone they like, including relatives, friends and acquaintances to answer the questions.
+            Tutor: Seems to me that you have figured out most of your teaching methods. But you still need to polish
+            some of the activities…
         </div>
         <div data-part="4"><strong>SECTION 4</strong>
 
-So what I'm going to talk about to you today is something called "aquaculture". It has been responsible for the impressive growth in the supply of fish for human consumption. There's also been a slight improvement in the state of certain fish stocks due to improved fishery management. Aquatic food production has transitioned from being primarily based on the capturing of wild fish to the culture of increasing numbers of farmed species. In recent years, a type of genetically modified salmon has been farmed in the New England region, produced by a Massachusetts based bio-tech firm. This type of fish is engineered to grow twice as fast as its conventional farm-raised counterpart.
+            So what I'm going to talk about to you today is something called "aquaculture". It has been responsible for
+            the impressive growth in the supply of fish for human consumption. There's also been a slight improvement in
+            the state of certain fish stocks due to improved fishery management. Aquatic food production has
+            transitioned from being primarily based on the capturing of wild fish to the culture of increasing numbers
+            of farmed species. In recent years, a type of genetically modified salmon has been farmed in the New England
+            region, produced by a Massachusetts based bio-tech firm. This type of fish is engineered to grow twice as
+            fast as its conventional farm-raised counterpart.
 
-As a result, this increases the speed of the local aquaculture industry development, and thus reduces the fishing pressure on wild stock. But local residents have expressed their concerns on the potential negative effects on the ecosystem. Should those GM fish ever escape into the sea (Q31), stronger, healthier and faster growing. These fish might cannibalize others or outcompete wild-type fish for food. Local decision makers and regulators have thus pushed forward a number of measures making it impossible for most GM fish to mate. A small percentage is able to breed only within confined pools.
+            As a result, this increases the speed of the local aquaculture industry development, and thus reduces the
+            fishing pressure on wild stock. But local residents have expressed their concerns on the potential negative
+            effects on the ecosystem. Should those GM fish ever escape into the sea (Q31), stronger, healthier and
+            faster growing. These fish might cannibalize others or outcompete wild-type fish for food. Local decision
+            makers and regulators have thus pushed forward a number of measures making it impossible for most GM fish to
+            mate. A small percentage is able to breed only within confined pools.
 
-Despite the economic boom of genetically engineered fish, culturing traditional types of fish is still mainstream among fish farmers. Most of them prefer fish with special features, such as tuna (Q32). It is a source of high quality protein with almost no fat. It also contains all essential amino acids required by the body for growth and maintenance of lean muscle tissue. With high nutritional value, this kind of fish will always be popular in the fish market.
+            Despite the economic boom of genetically engineered fish, culturing traditional types of fish is still
+            mainstream among fish farmers. Most of them prefer fish with special features, such as tuna (Q32). It is a
+            source of high quality protein with almost no fat. It also contains all essential amino acids required by
+            the body for growth and maintenance of lean muscle tissue. With high nutritional value, this kind of fish
+            will always be popular in the fish market.
 
-For the fish farming industry, incidents of fish escaping the farms has been a troubling issue over the years. Due to bad weather, nets that used to hold the fish were often destroyed. Thousands of salmon worth nearly 220 thousand euros escaped from a fish farm in the Norwegian region in July, raising fear that they would breed with wild fish stocks. Cages were thus built to withstand storms (Q33). The frames of the cages are made of PE which is dedicated to marine use. This material has trustable strength, resilience and tenacity. To further strengthen it, strong nets without knots are used to support the cylindrical frame. (Q34)
+            For the fish farming industry, incidents of fish escaping the farms has been a troubling issue over the
+            years. Due to bad weather, nets that used to hold the fish were often destroyed. Thousands of salmon worth
+            nearly 220 thousand euros escaped from a fish farm in the Norwegian region in July, raising fear that they
+            would breed with wild fish stocks. Cages were thus built to withstand storms (Q33). The frames of the cages
+            are made of PE which is dedicated to marine use. This material has trustable strength, resilience and
+            tenacity. To further strengthen it, strong nets without knots are used to support the cylindrical frame.
+            (Q34)
 
-A group of small villages on the island of Zanzibar off the coast of East Africa have been trying to develop a local aquaculture industry sustainably. They use a land-based production system that is both economically and ecologically sound. Land-based recirculation can control ocean temperature and optimize growth for the fish that are used to warmer water. All organic waste from the fish is held on land with incoming water sterilized to avoid disease, which has historically plagued ocean based farms. The lack of disease means that no drugs are administered to the fish.
+            A group of small villages on the island of Zanzibar off the coast of East Africa have been trying to develop
+            a local aquaculture industry sustainably. They use a land-based production system that is both economically
+            and ecologically sound. Land-based recirculation can control ocean temperature and optimize growth for the
+            fish that are used to warmer water. All organic waste from the fish is held on land with incoming water
+            sterilized to avoid disease, which has historically plagued ocean based farms. The lack of disease means
+            that no drugs are administered to the fish.
 
-However, one problem facing the villagers is lack of suitable land on the coast (Q35) for this system. Hotels & beaches open to tourists take up most of the coastal area. Another problem facing local fishermen is the scarcity of young fish (Q36) used to breed the species. This predicament stems from overfishing during the previous decades. The local commercial fishing industry has been reduced by 50% for this reason and the aquaculture industry has yet to thrive.
+            However, one problem facing the villagers is lack of suitable land on the coast (Q35) for this system.
+            Hotels & beaches open to tourists take up most of the coastal area. Another problem facing local fishermen
+            is the scarcity of young fish (Q36) used to breed the species. This predicament stems from overfishing
+            during the previous decades. The local commercial fishing industry has been reduced by 50% for this reason
+            and the aquaculture industry has yet to thrive.
 
-The government has taken a set of initiatives to safeguard native aquaculture and the fishing industry. An open-air seafood market has been launched. Residents are encouraged to support local fish farming businesses (Q37) by purchasing marine products. As it turns out, there is a public demand for access to locally produced, sustainable sources of fresh seafood. Moreover, local fish farmers are aided to market seaweed and oysters, both of which have additional economic values. Seaweed is used in various ways in cosmetics (Q38). Seaweed extract is often found on the list of ingredients, constituting creams, soaps, shampoos, powders and sprays. It is said to be useful in various ways, including the relief of rheumatic pain and the removal of cellulite. Oyster is a source of seafood popular among the local hospitality industry (Q39). Served with caviar and champagne, it is one of the world's ultimate luxury foods, appealing to gourmets with its succulent and delicate flavor. It thus appears to have the greatest potential for commercial culture.
+            The government has taken a set of initiatives to safeguard native aquaculture and the fishing industry. An
+            open-air seafood market has been launched. Residents are encouraged to support local fish farming businesses
+            (Q37) by purchasing marine products. As it turns out, there is a public demand for access to locally
+            produced, sustainable sources of fresh seafood. Moreover, local fish farmers are aided to market seaweed and
+            oysters, both of which have additional economic values. Seaweed is used in various ways in cosmetics (Q38).
+            Seaweed extract is often found on the list of ingredients, constituting creams, soaps, shampoos, powders and
+            sprays. It is said to be useful in various ways, including the relief of rheumatic pain and the removal of
+            cellulite. Oyster is a source of seafood popular among the local hospitality industry (Q39). Served with
+            caviar and champagne, it is one of the world's ultimate luxury foods, appealing to gourmets with its
+            succulent and delicate flavor. It thus appears to have the greatest potential for commercial culture.
 
-Even though the national and international market has shown demand for marine products in Zanzibar, it is still challenging to survive in the competitive modern fishing industry. The government ought to restore the business by encouraging aquaculture, recreation and shipping (Q40). First, it could utilize modern fish farming technology to supply more high-quality marine products. Tourism is an effective stimulus to boost its sales and with better shipping capability, more products can be delivered abroad. 
+            Even though the national and international market has shown demand for marine products in Zanzibar, it is
+            still challenging to survive in the competitive modern fishing industry. The government ought to restore the
+            business by encouraging aquaculture, recreation and shipping (Q40). First, it could utilize modern fish
+            farming technology to supply more high-quality marine products. Tourism is an effective stimulus to boost
+            its sales and with better shipping capability, more products can be delivered abroad.
 
 
 
@@ -2165,19 +2800,29 @@ Even though the national and international market has shown demand for marine pr
                 </span>
             </button>
             <div class="footer__subquestionWrapper___9GgoP">
-                <button class="subQuestion scorable-item" onclick="goToQuestion(1)"><span class="sr-only">Question 1</span><span aria-hidden="true">1</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(2)"><span class="sr-only">Question 2</span><span aria-hidden="true">2</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(3)"><span class="sr-only">Question 3</span><span aria-hidden="true">3</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(4)"><span class="sr-only">Question 4</span><span aria-hidden="true">4</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(5)"><span class="sr-only">Question 5</span><span aria-hidden="true">5</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(6)"><span class="sr-only">Question 6</span><span aria-hidden="true">6</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(7)"><span class="sr-only">Question 7</span><span aria-hidden="true">7</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(8)"><span class="sr-only">Question 8</span><span aria-hidden="true">8</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(9)"><span class="sr-only">Question 9</span><span aria-hidden="true">9</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(10)"><span class="sr-only">Question 10</span><span aria-hidden="true">10</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(1)"><span class="sr-only">Question
+                        1</span><span aria-hidden="true">1</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(2)"><span class="sr-only">Question
+                        2</span><span aria-hidden="true">2</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(3)"><span class="sr-only">Question
+                        3</span><span aria-hidden="true">3</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(4)"><span class="sr-only">Question
+                        4</span><span aria-hidden="true">4</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(5)"><span class="sr-only">Question
+                        5</span><span aria-hidden="true">5</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(6)"><span class="sr-only">Question
+                        6</span><span aria-hidden="true">6</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(7)"><span class="sr-only">Question
+                        7</span><span aria-hidden="true">7</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(8)"><span class="sr-only">Question
+                        8</span><span aria-hidden="true">8</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(9)"><span class="sr-only">Question
+                        9</span><span aria-hidden="true">9</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(10)"><span class="sr-only">Question
+                        10</span><span aria-hidden="true">10</span></button>
             </div>
         </div>
-        
+
         <div class="footer__questionWrapper___1tZ46 selected multiple" role="tablist">
             <button role="tab" class="footer__questionNo___3WNct" onclick="switchToPart(2)">
                 <span>
@@ -2187,7 +2832,8 @@ Even though the national and international market has shown demand for marine pr
                 </span>
             </button>
             <div class="footer__subquestionWrapper___9GgoP">
-                <button class="subQuestion scorable-item" onclick="goToQuestion(11)"><span class="sr-only">Question 11</span><span aria-hidden="true">11</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(11)"><span class="sr-only">Question
+                        11</span><span aria-hidden="true">11</span></button>
                 <button class="subQuestion scorable-item" onclick="goToQuestion(12)">
                     <span class="sr-only">Question 12</span>
                     <span aria-hidden="true">12</span>
@@ -2226,7 +2872,7 @@ Even though the national and international market has shown demand for marine pr
                 </button>
             </div>
         </div>
-        
+
         <div class="footer__questionWrapper___1tZ46 multiple" role="tablist">
             <button role="tab" class="footer__questionNo___3WNct" onclick="switchToPart(3)">
                 <span>
@@ -2236,19 +2882,29 @@ Even though the national and international market has shown demand for marine pr
                 </span>
             </button>
             <div class="footer__subquestionWrapper___9GgoP">
-                <button class="subQuestion scorable-item" onclick="goToQuestion(21)"><span class="sr-only">Question 21</span><span aria-hidden="true">21</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(22)"><span class="sr-only">Question 22</span><span aria-hidden="true">22</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(23)"><span class="sr-only">Question 23</span><span aria-hidden="true">23</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(24)"><span class="sr-only">Question 24</span><span aria-hidden="true">24</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(25)"><span class="sr-only">Question 25</span><span aria-hidden="true">25</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(26)"><span class="sr-only">Question 26</span><span aria-hidden="true">26</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(27)"><span class="sr-only">Question 27</span><span aria-hidden="true">27</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(28)"><span class="sr-only">Question 28</span><span aria-hidden="true">28</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(29)"><span class="sr-only">Question 29</span><span aria-hidden="true">29</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(30)"><span class="sr-only">Question 30</span><span aria-hidden="true">30</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(21)"><span class="sr-only">Question
+                        21</span><span aria-hidden="true">21</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(22)"><span class="sr-only">Question
+                        22</span><span aria-hidden="true">22</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(23)"><span class="sr-only">Question
+                        23</span><span aria-hidden="true">23</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(24)"><span class="sr-only">Question
+                        24</span><span aria-hidden="true">24</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(25)"><span class="sr-only">Question
+                        25</span><span aria-hidden="true">25</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(26)"><span class="sr-only">Question
+                        26</span><span aria-hidden="true">26</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(27)"><span class="sr-only">Question
+                        27</span><span aria-hidden="true">27</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(28)"><span class="sr-only">Question
+                        28</span><span aria-hidden="true">28</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(29)"><span class="sr-only">Question
+                        29</span><span aria-hidden="true">29</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(30)"><span class="sr-only">Question
+                        30</span><span aria-hidden="true">30</span></button>
             </div>
         </div>
-        
+
         <div class="footer__questionWrapper___1tZ46 multiple" role="tablist">
             <button role="tab" class="footer__questionNo___3WNct" onclick="switchToPart(4)">
                 <span>
@@ -2258,19 +2914,29 @@ Even though the national and international market has shown demand for marine pr
                 </span>
             </button>
             <div class="footer__subquestionWrapper___9GgoP">
-                <button class="subQuestion scorable-item" onclick="goToQuestion(31)"><span class="sr-only">Question 31</span><span aria-hidden="true">31</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(32)"><span class="sr-only">Question 32</span><span aria-hidden="true">32</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(33)"><span class="sr-only">Question 33</span><span aria-hidden="true">33</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(34)"><span class="sr-only">Question 34</span><span aria-hidden="true">34</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(35)"><span class="sr-only">Question 35</span><span aria-hidden="true">35</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(36)"><span class="sr-only">Question 36</span><span aria-hidden="true">36</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(37)"><span class="sr-only">Question 37</span><span aria-hidden="true">37</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(38)"><span class="sr-only">Question 38</span><span aria-hidden="true">38</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(39)"><span class="sr-only">Question 39</span><span aria-hidden="true">39</span></button>
-                <button class="subQuestion scorable-item" onclick="goToQuestion(40)"><span class="sr-only">Question 40</span><span aria-hidden="true">40</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(31)"><span class="sr-only">Question
+                        31</span><span aria-hidden="true">31</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(32)"><span class="sr-only">Question
+                        32</span><span aria-hidden="true">32</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(33)"><span class="sr-only">Question
+                        33</span><span aria-hidden="true">33</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(34)"><span class="sr-only">Question
+                        34</span><span aria-hidden="true">34</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(35)"><span class="sr-only">Question
+                        35</span><span aria-hidden="true">35</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(36)"><span class="sr-only">Question
+                        36</span><span aria-hidden="true">36</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(37)"><span class="sr-only">Question
+                        37</span><span aria-hidden="true">37</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(38)"><span class="sr-only">Question
+                        38</span><span aria-hidden="true">38</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(39)"><span class="sr-only">Question
+                        39</span><span aria-hidden="true">39</span></button>
+                <button class="subQuestion scorable-item" onclick="goToQuestion(40)"><span class="sr-only">Question
+                        40</span><span aria-hidden="true">40</span></button>
             </div>
         </div>
-        
+
         <button id="deliver-button" aria-label="Review your answers" class="footer__deliverButton___3FM07">
             <i class="fa fa fa-check" aria-hidden="true"></i>
             <span>Check Answers</span>
@@ -2281,25 +2947,36 @@ Even though the national and international market has shown demand for marine pr
     <div id="contextMenu" class="context-menu">
         <div class="context-menu-item" id="highlight-item" onclick="highlightText()">
             <span class="context-menu-icon">
-                <svg viewBox="0 0 24 24" fill="black"><path d="M15.24 12.32L12.28 9.36l-1.04 1.04-1.04-1.04-1.04 1.04-1.04-1.04-1.04 1.04-1.04-1.04-3.12 3.12c-.59.58-1.54.58-2.12 0l-1.04-1.04c-.58-.59-.58-1.54 0-2.12L7.88.88c.59-.58 1.54-.58 2.12 0l1.04 1.04 1.04-1.04 1.04 1.04 1.04-1.04 1.04 1.04 1.04-1.04 3.12 3.12c.58.59.58 1.54 0 2.12l-1.04 1.04c-.58.59-1.54.59-2.12 0zM12 15l-3 3-7-7 3-3 7 7zm-9-5l-2.29 2.29c-.39.39-.39 1.02 0 1.41l8.29 8.29c.39.39 1.02.39 1.41 0L22.7 8.41c.39-.39.39-1.02 0-1.41L14.42.29c-.39-.39-1.02-.39-1.41 0L3 10z"/></svg>
+                <svg viewBox="0 0 24 24" fill="black">
+                    <path
+                        d="M15.24 12.32L12.28 9.36l-1.04 1.04-1.04-1.04-1.04 1.04-1.04-1.04-1.04 1.04-1.04-1.04-3.12 3.12c-.59.58-1.54.58-2.12 0l-1.04-1.04c-.58-.59-.58-1.54 0-2.12L7.88.88c.59-.58 1.54-.58 2.12 0l1.04 1.04 1.04-1.04 1.04 1.04 1.04-1.04 1.04 1.04 1.04-1.04 3.12 3.12c.58.59.58 1.54 0 2.12l-1.04 1.04c-.58.59-1.54.59-2.12 0zM12 15l-3 3-7-7 3-3 7 7zm-9-5l-2.29 2.29c-.39.39-.39 1.02 0 1.41l8.29 8.29c.39.39 1.02.39 1.41 0L22.7 8.41c.39-.39.39-1.02 0-1.41L14.42.29c-.39-.39-1.02-.39-1.41 0L3 10z" />
+                </svg>
             </span>
             <span>Highlight</span>
         </div>
         <div class="context-menu-item" id="comment-item" onclick="addComment()">
             <span class="context-menu-icon">
-                <svg viewBox="0 0 24 24" fill="black"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 12H5.17L4 15.17V4h16v10z"/></svg>
+                <svg viewBox="0 0 24 24" fill="black">
+                    <path
+                        d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 12H5.17L4 15.17V4h16v10z" />
+                </svg>
             </span>
             <span>Comment</span>
         </div>
         <div class="context-menu-item" id="clear-item" onclick="clearHighlight()" style="display:none;">
             <span class="context-menu-icon">
-                <svg viewBox="0 0 24 24" fill="black"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                <svg viewBox="0 0 24 24" fill="black">
+                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+                </svg>
             </span>
             <span>Clear</span>
         </div>
         <div class="context-menu-item" onclick="clearAllHighlights()">
             <span class="context-menu-icon">
-                <svg viewBox="0 0 24 24" fill="black"><path d="M16 9h-2.29l3-3-1.42-1.42-3 3V5h-2v2.29l-3-3-1.42 1.42 3 3H5v2h2.29l-3 3 1.42 1.42 3-3V17h2v-2.29l3 3 1.42-1.42-3-3H17V9h-2zm-4 4h-2v-2h2v2z"/></svg>
+                <svg viewBox="0 0 24 24" fill="black">
+                    <path
+                        d="M16 9h-2.29l3-3-1.42-1.42-3 3V5h-2v2.29l-3-3-1.42 1.42 3 3H5v2h2.29l-3 3 1.42 1.42 3-3V17h2v-2.29l3 3 1.42-1.42-3-3H17V9h-2zm-4 4h-2v-2h2v2z" />
+                </svg>
             </span>
             <span>Clear All</span>
         </div>
@@ -2452,7 +3129,7 @@ Even though the national and international market has shown demand for marine pr
             'q39': ['hospitality'],
             'q40': ['shipping']
         };
-        
+
         const questionTypes = {
             'q1': 'mcq', 'q2': 'mcq', 'q3': 'mcq', 'q4': 'dragdrop', 'q5': 'dragdrop',
             'q6': 'dragdrop', 'q7': 'text', 'q8': 'text', 'q9': 'text', 'q10': 'text',
@@ -2523,32 +3200,32 @@ Even though the national and international market has shown demand for marine pr
                 console.log(`Cell ${index}: question=${question}, value=${value}, onclick=${onclick}`);
             });
         }
-        
+
         function selectCell(cell, questionNumber, value) {
             try {
                 console.log(`selectCell called: question ${questionNumber}, value ${value}`);
                 console.log('Cell element:', cell);
                 console.log('Cell classes:', cell.className);
-                
+
                 // Remove previous selection for this question
                 const row = cell.closest('tr');
                 if (!row) {
                     console.error('Could not find row for cell');
                     return;
                 }
-                
+
                 const cells = row.querySelectorAll('.clickable-cell');
                 console.log(`Found ${cells.length} clickable cells in row`);
                 cells.forEach(c => {
                     c.classList.remove('selected');
                     console.log(`Removed 'selected' class from cell with value: ${c.getAttribute('data-value')}`);
                 });
-                
+
                 // Select the clicked cell
                 cell.classList.add('selected');
                 console.log(`Added 'selected' class to cell with value: ${value}`);
                 console.log('Cell classes after selection:', cell.className);
-                
+
                 // Store the answer in the hidden input
                 const hiddenInput = document.getElementById(`q${questionNumber}`);
                 if (hiddenInput) {
@@ -2560,12 +3237,12 @@ Even though the national and international market has shown demand for marine pr
 
                 // Update answered indicators
                 updateAnsweredIndicators();
-                
+
                 // Force a visual update
                 cell.style.display = 'none';
                 cell.offsetHeight; // Force reflow
                 cell.style.display = '';
-                
+
             } catch (error) {
                 console.error('Error in selectCell:', error);
             }
@@ -2576,7 +3253,7 @@ Even though the national and international market has shown demand for marine pr
                 const firstQuestionOfPart = (partNumber - 1) * 10 + 1;
                 currentQuestion = firstQuestionOfPart;
             }
-            
+
             currentPart = partNumber;
 
             updateNavigation();
@@ -2626,18 +3303,18 @@ Even though the national and international market has shown demand for marine pr
             // Scroll to the question
             let questionElement;
             if (questionNumber >= 27 && questionNumber <= 28) {
-               questionElement = document.querySelector('input[name="q27-28"]');
+                questionElement = document.querySelector('input[name="q27-28"]');
             } else if (questionNumber >= 29 && questionNumber <= 30) {
-               questionElement = document.querySelector('input[name="q29-30"]');
+                questionElement = document.querySelector('input[name="q29-30"]');
             } else {
                 questionElement = document.getElementById(`q${questionNumber}`) || // text inputs
-                                document.querySelector(`[data-question-id="${questionNumber}"]`) || // drag-drop
-                                document.querySelector(`input[name="q${questionNumber}"]`); // radio buttons
+                    document.querySelector(`[data-question-id="${questionNumber}"]`) || // drag-drop
+                    document.querySelector(`input[name="q${questionNumber}"]`); // radio buttons
             }
-            
+
             if (questionElement) {
                 const questionContainer = questionElement.closest('.question');
-                if(questionContainer) {
+                if (questionContainer) {
                     questionContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     questionContainer.classList.add('flash');
                     setTimeout(() => {
@@ -2665,12 +3342,12 @@ Even though the national and international market has shown demand for marine pr
                 closeContextMenu();
                 return;
             }
-            
+
             try {
                 // Check if selection spans multiple elements
                 const startContainer = selectedRange.startContainer;
                 const endContainer = selectedRange.endContainer;
-                
+
                 if (startContainer === endContainer && startContainer.nodeType === Node.TEXT_NODE) {
                     // Simple case: selection within a single text node
                     const span = document.createElement('span');
@@ -2679,69 +3356,69 @@ Even though the national and international market has shown demand for marine pr
                 } else {
                     // Complex case: selection spans multiple elements
                     // Handle partial text selections and complex DOM structures
-                    
+
                     // First, handle partial text at the start
                     const startOffset = selectedRange.startOffset;
                     const endOffset = selectedRange.endOffset;
-                    
+
                     if (startContainer.nodeType === Node.TEXT_NODE && startOffset > 0) {
                         // Split the start text node if selection starts in the middle
                         const startText = startContainer.textContent;
                         const beforeText = startText.substring(0, startOffset);
                         const selectedStartText = startText.substring(startOffset);
-                        
+
                         const beforeNode = document.createTextNode(beforeText);
                         const selectedNode = document.createTextNode(selectedStartText);
-                        
+
                         const parent = startContainer.parentNode;
                         parent.insertBefore(beforeNode, startContainer);
                         parent.insertBefore(selectedNode, startContainer);
                         parent.removeChild(startContainer);
-                        
+
                         // Update the range to start from the new node
                         selectedRange.setStart(selectedNode, 0);
                     }
-                    
+
                     if (endContainer.nodeType === Node.TEXT_NODE && endOffset < endContainer.textContent.length) {
                         // Split the end text node if selection ends in the middle
                         const endText = endContainer.textContent;
                         const selectedEndText = endText.substring(0, endOffset);
                         const afterText = endText.substring(endOffset);
-                        
+
                         const selectedNode = document.createTextNode(selectedEndText);
                         const afterNode = document.createTextNode(afterText);
-                        
+
                         const parent = endContainer.parentNode;
                         parent.insertBefore(selectedNode, endContainer);
                         parent.insertBefore(afterNode, endContainer);
                         parent.removeChild(endContainer);
-                        
+
                         // Update the range to end at the new node
                         selectedRange.setEnd(selectedNode, selectedNode.textContent.length);
                     }
-                    
+
                     // Now extract the contents and highlight all text nodes
                     const fragment = selectedRange.extractContents();
-                    
+
                     // Create a tree walker to find all text nodes
                     const walker = document.createTreeWalker(
                         fragment,
                         NodeFilter.SHOW_TEXT,
                         {
-                            acceptNode: function(node) {
+                            acceptNode: function (node) {
                                 // Accept text nodes that have content (not just whitespace)
                                 return node.textContent.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
                             }
                         },
                         false
                     );
-                    
+
                     const textNodes = [];
                     let node;
                     while (node = walker.nextNode()) {
                         textNodes.push(node);
                     }
-                    
+
                     // Wrap each text node in a highlight span
                     textNodes.forEach(textNode => {
                         const span = document.createElement('span');
@@ -2752,35 +3429,35 @@ Even though the national and international market has shown demand for marine pr
                             span.appendChild(textNode);
                         }
                     });
-                    
+
                     // Insert the highlighted fragment back
                     selectedRange.insertNode(fragment);
                 }
-            } catch(err) {
+            } catch (err) {
                 console.warn('Primary highlighting failed, trying robust fallback:', err);
-                
+
                 // Robust fallback for complex selections
                 try {
                     const selection = window.getSelection();
                     if (selection.rangeCount > 0) {
                         const range = selection.getRangeAt(0);
-                        
+
                         // Get all nodes in the selection
                         const startContainer = range.startContainer;
                         const endContainer = range.endContainer;
                         const commonAncestor = range.commonAncestorContainer;
-                        
+
                         // Create a temporary range to work with
                         const tempRange = document.createRange();
                         tempRange.selectNodeContents(commonAncestor);
-                        
+
                         // Find the start and end positions
                         const startPos = range.startOffset;
                         const endPos = range.endOffset;
-                        
+
                         // Extract and highlight the content
                         const contents = range.extractContents();
-                        
+
                         // Recursively highlight all text content
                         function highlightAllText(node) {
                             if (node.nodeType === Node.TEXT_NODE) {
@@ -2800,23 +3477,23 @@ Even though the national and international market has shown demand for marine pr
                                 });
                             }
                         }
-                        
+
                         highlightAllText(contents);
                         range.insertNode(contents);
                     }
-                } catch(e2) {
+                } catch (e2) {
                     console.warn('Robust fallback failed, using final method:', e2);
                     // Final fallback - use execCommand
                     try {
                         document.execCommand('backColor', false, 'yellow');
-                    } catch(e3) {
+                    } catch (e3) {
                         console.error('All highlighting methods failed:', e3);
                         // Show user feedback
                         alert('Highlighting failed for this selection. Please try selecting smaller portions of text.');
                     }
                 }
             }
-            
+
             window.getSelection().removeAllRanges();
             closeContextMenu();
         }
@@ -2835,7 +3512,7 @@ Even though the national and international market has shown demand for marine pr
                 tooltip.textContent = commentText;
                 span.appendChild(tooltip);
                 selectedRange.surroundContents(span);
-            }catch(err){
+            } catch (err) {
                 console.warn('Complex selection – cannot comment');
             }
             window.getSelection().removeAllRanges();
@@ -2843,23 +3520,23 @@ Even though the national and international market has shown demand for marine pr
         }
 
         function clearHighlight() {
-           const elementToClear = contextElement;
-           if (!elementToClear) {
-               closeContextMenu();
-               return;
-           }
-           const parent = elementToClear.parentNode;
-           
-           while (elementToClear.firstChild) {
-               if (!elementToClear.firstChild.classList?.contains('comment-tooltip')) {
-                   parent.insertBefore(elementToClear.firstChild, elementToClear);
-               } else {
-                   elementToClear.removeChild(elementToClear.firstChild);
-               }
-           }
-           parent.removeChild(elementToClear);
-           parent.normalize();
-           closeContextMenu();
+            const elementToClear = contextElement;
+            if (!elementToClear) {
+                closeContextMenu();
+                return;
+            }
+            const parent = elementToClear.parentNode;
+
+            while (elementToClear.firstChild) {
+                if (!elementToClear.firstChild.classList?.contains('comment-tooltip')) {
+                    parent.insertBefore(elementToClear.firstChild, elementToClear);
+                } else {
+                    elementToClear.removeChild(elementToClear.firstChild);
+                }
+            }
+            parent.removeChild(elementToClear);
+            parent.normalize();
+            closeContextMenu();
         }
 
         function clearAllHighlights() {
@@ -2878,7 +3555,7 @@ Even though the national and international market has shown demand for marine pr
             });
             closeContextMenu();
         }
-        
+
         function closeContextMenu() {
             document.getElementById('contextMenu').style.display = 'none';
             contextElement = null;
@@ -2907,7 +3584,7 @@ Even though the national and international market has shown demand for marine pr
                     answeredCount++;
                 }
             });
-            
+
             // Include clickable cells as answered
             const clickableCells = partContainer.querySelectorAll('.clickable-cell.selected');
             clickableCells.forEach(cell => {
@@ -2931,35 +3608,35 @@ Even though the national and international market has shown demand for marine pr
                     el.classList.remove('correct', 'incorrect');
                 }
             });
-            
+
             Object.keys(correctAnswers).forEach(key => {
                 const correctAnswer = correctAnswers[key];
                 let userAnswer = '';
                 let isCorrect = false;
                 const questionType = questionTypes[key];
-                
+
                 // Handle different question types
                 if (key.includes('-')) {
                     // Multi-question keys like 'q11-12', 'q13-14'
                     const [startQ, endQ] = key.split('-').map(q => parseInt(q.replace('q', '')));
-                    
-                    switch(questionType) {
+
+                    switch (questionType) {
                         case 'checkbox':
                             const checkedBoxes = document.querySelectorAll(`input[name="${key}"]:checked`);
                             const userAnswers = Array.from(checkedBoxes).map(cb => cb.value).sort();
                             userAnswer = userAnswers.join(', ');
                             const correctAnswersSorted = Array.isArray(correctAnswer) ? correctAnswer.sort() : [correctAnswer];
-                            
+
                             // Count how many correct answers the user selected
                             const correctUserAnswers = userAnswers.filter(ans => correctAnswersSorted.includes(ans));
-                            
+
                             // Additive-only scoring: 1 point per correct selected; no penalty for incorrect
                             const questionScore = correctUserAnswers.length;
                             score += questionScore;
-                            
+
                             // Mark group as fully correct only if all correct options are selected and no extra are selected
                             isCorrect = (correctUserAnswers.length === correctAnswersSorted.length && userAnswers.length === correctAnswersSorted.length);
-                            
+
                             // Mark individual checkboxes
                             checkedBoxes.forEach(cb => {
                                 const label = cb.closest('label');
@@ -2971,7 +3648,7 @@ Even though the national and international market has shown demand for marine pr
                                     }
                                 }
                             });
-                            
+
                             // Mark correct answers that weren't selected
                             correctAnswersSorted.forEach(correctVal => {
                                 const correctCheckbox = document.querySelector(`input[name="${key}"][value="${correctVal}"]`);
@@ -2984,7 +3661,7 @@ Even though the national and international market has shown demand for marine pr
                             });
                             break;
                     }
-                    
+
                     // Mark buttons for the question range
                     for (let qNum = startQ; qNum <= endQ; qNum++) {
                         const btn = document.querySelector(`.subQuestion[onclick="goToQuestion(${qNum})"]`);
@@ -2993,42 +3670,42 @@ Even though the national and international market has shown demand for marine pr
                             btn.classList.add(isCorrect ? 'correct' : 'incorrect');
                         }
                     }
-                    
+
                     resultsData.push({
                         question: `${startQ}-${endQ}`,
                         userAnswer: userAnswer || 'No Answer',
                         correctAnswer: Array.isArray(correctAnswer) ? correctAnswer.join(', ') : String(correctAnswer),
                         isCorrect: isCorrect
                     });
-                    
+
                     // For checkbox questions in multi-question keys, score was already added in switch statement
                     // Don't add additional score here - return early to skip the final score increment
                     return;
                 } else {
-                   const qNum = parseInt(key.replace('q', ''));
-                   const btn = document.querySelector(`.subQuestion[onclick="goToQuestion(${qNum})"]`);
-                   const element = document.getElementById(key) || document.querySelector(`input[name="${key}"]`);
+                    const qNum = parseInt(key.replace('q', ''));
+                    const btn = document.querySelector(`.subQuestion[onclick="goToQuestion(${qNum})"]`);
+                    const element = document.getElementById(key) || document.querySelector(`input[name="${key}"]`);
 
-                   // Determine question type: prefer explicit mapping over DOM input type
-                   let questionType = questionTypes[key];
-                   if (!questionType) {
-                       if (element?.type === 'radio') questionType = 'mcq';
-                       else if (element?.type === 'text') questionType = 'text';
-                   }
-                   
+                    // Determine question type: prefer explicit mapping over DOM input type
+                    let questionType = questionTypes[key];
+                    if (!questionType) {
+                        if (element?.type === 'radio') questionType = 'mcq';
+                        else if (element?.type === 'text') questionType = 'text';
+                    }
+
                     switch (questionType) {
-                       case 'text':
-                           userAnswer = element.value.trim();
-                           const acceptedAnswers = Array.isArray(correctAnswer) ? correctAnswer : [String(correctAnswer)];
-                           isCorrect = acceptedAnswers.some(ans => ans.toLowerCase() === userAnswer.toLowerCase());
-                           element.classList.add(isCorrect ? 'correct' : 'incorrect');
-                           if (!isCorrect) {
+                        case 'text':
+                            userAnswer = element.value.trim();
+                            const acceptedAnswers = Array.isArray(correctAnswer) ? correctAnswer : [String(correctAnswer)];
+                            isCorrect = acceptedAnswers.some(ans => ans.toLowerCase() === userAnswer.toLowerCase());
+                            element.classList.add(isCorrect ? 'correct' : 'incorrect');
+                            if (!isCorrect) {
                                 const correctAnswerSpan = document.createElement('span');
                                 correctAnswerSpan.className = 'correct-inline';
                                 correctAnswerSpan.textContent = acceptedAnswers[0];
                                 element.insertAdjacentElement('afterend', correctAnswerSpan);
-                           }
-                           break;
+                            }
+                            break;
                         case 'mcq':
                             const radioChecked = document.querySelector(`input[name="${key}"]:checked`);
                             userAnswer = radioChecked ? radioChecked.value : 'No Answer';
@@ -3057,7 +3734,7 @@ Even though the national and international market has shown demand for marine pr
                             } else {
                                 userAnswer = '';
                             }
-                            const accepted = Array.isArray(correctAnswer) ? correctAnswer.map(a=>String(a).toLowerCase()) : [String(correctAnswer).toLowerCase()];
+                            const accepted = Array.isArray(correctAnswer) ? correctAnswer.map(a => String(a).toLowerCase()) : [String(correctAnswer).toLowerCase()];
                             isCorrect = userAnswer && accepted.includes(String(userAnswer).toLowerCase());
                             if (!isCorrect) {
                                 const correctAnswerSpan = document.createElement('span');
@@ -3073,101 +3750,102 @@ Even though the national and international market has shown demand for marine pr
                                     anchor.insertAdjacentElement('afterend', correctAnswerSpan);
                                 }
                             }
-                            break; }
-                       case 'clickable':
-                           const selectedCell = document.querySelector(`.clickable-cell[data-question="${qNum}"].selected`);
-                           userAnswer = selectedCell ? selectedCell.getAttribute('data-value') : 'No Answer';
-                           isCorrect = userAnswer === correctAnswer;
-                           
-                           // Mark cells as correct/incorrect
-                           const allCells = document.querySelectorAll(`.clickable-cell[data-question="${qNum}"]`);
-                           allCells.forEach(cell => {
-                               if (cell.getAttribute('data-value') === correctAnswer) {
-                                   cell.classList.add('correct');
-                               } else if (cell.classList.contains('selected')) {
-                                   cell.classList.add('incorrect');
-                               }
-                           });
-                           break;
-                       case 'checkbox':
-                           const checkedBoxes = document.querySelectorAll(`input[name="${key}"]:checked`);
-                           const userAnswers = Array.from(checkedBoxes).map(cb => cb.value).sort();
-                           userAnswer = userAnswers.join(', ');
-                           const correctAnswersSorted = Array.isArray(correctAnswer) ? correctAnswer.sort() : [correctAnswer];
-                           
-                           // Count how many correct answers the user selected
-                           const correctUserAnswers = userAnswers.filter(ans => correctAnswersSorted.includes(ans));
-                           
-                           // Additive-only scoring: 1 point per correct selected; no penalty for incorrect
-                           const questionScore = correctUserAnswers.length;
-                           score += questionScore;
-                           
-                           // Mark group as fully correct only if all correct options are selected and no extra are selected
-                           isCorrect = (correctUserAnswers.length === correctAnswersSorted.length && userAnswers.length === correctAnswersSorted.length);
-                           
-                           // Mark individual checkboxes
-                           checkedBoxes.forEach(cb => {
-                               const label = cb.closest('label');
-                               if (label) {
-                                   if (correctAnswersSorted.includes(cb.value)) {
-                                       label.classList.add('correct');
-                                   } else {
-                                       label.classList.add('incorrect');
-                                   }
-                               }
-                           });
-                           
-                           // Mark correct answers that weren't selected
-                           correctAnswersSorted.forEach(correctVal => {
-                               const correctCheckbox = document.querySelector(`input[name="${key}"][value="${correctVal}"]`);
-                               if (correctCheckbox && !correctCheckbox.checked) {
-                                   const correctLabel = correctCheckbox.closest('label');
-                                   if (correctLabel) {
-                                       correctLabel.classList.add('correct');
-                                   }
-                               }
-                           });
-                           break;
-                   }
+                            break;
+                        }
+                        case 'clickable':
+                            const selectedCell = document.querySelector(`.clickable-cell[data-question="${qNum}"].selected`);
+                            userAnswer = selectedCell ? selectedCell.getAttribute('data-value') : 'No Answer';
+                            isCorrect = userAnswer === correctAnswer;
 
-                   if (btn) {
-                       btn.classList.remove('answered');
-                       btn.classList.add(isCorrect ? 'correct' : 'incorrect');
-                   }
+                            // Mark cells as correct/incorrect
+                            const allCells = document.querySelectorAll(`.clickable-cell[data-question="${qNum}"]`);
+                            allCells.forEach(cell => {
+                                if (cell.getAttribute('data-value') === correctAnswer) {
+                                    cell.classList.add('correct');
+                                } else if (cell.classList.contains('selected')) {
+                                    cell.classList.add('incorrect');
+                                }
+                            });
+                            break;
+                        case 'checkbox':
+                            const checkedBoxes = document.querySelectorAll(`input[name="${key}"]:checked`);
+                            const userAnswers = Array.from(checkedBoxes).map(cb => cb.value).sort();
+                            userAnswer = userAnswers.join(', ');
+                            const correctAnswersSorted = Array.isArray(correctAnswer) ? correctAnswer.sort() : [correctAnswer];
 
-                   resultsData.push({
-                       question: qNum,
-                       userAnswer: userAnswer || 'No Answer',
-                       correctAnswer: Array.isArray(correctAnswer) ? correctAnswer.join(' / ') : String(correctAnswer),
-                       isCorrect: isCorrect
-                   });
-               }
+                            // Count how many correct answers the user selected
+                            const correctUserAnswers = userAnswers.filter(ans => correctAnswersSorted.includes(ans));
 
-               // For checkbox questions, score was already added in the switch statement
-               // Only add score for non-checkbox questions
-               if (questionType !== 'checkbox' && isCorrect) {
-                   score++;
-               }
+                            // Additive-only scoring: 1 point per correct selected; no penalty for incorrect
+                            const questionScore = correctUserAnswers.length;
+                            score += questionScore;
+
+                            // Mark group as fully correct only if all correct options are selected and no extra are selected
+                            isCorrect = (correctUserAnswers.length === correctAnswersSorted.length && userAnswers.length === correctAnswersSorted.length);
+
+                            // Mark individual checkboxes
+                            checkedBoxes.forEach(cb => {
+                                const label = cb.closest('label');
+                                if (label) {
+                                    if (correctAnswersSorted.includes(cb.value)) {
+                                        label.classList.add('correct');
+                                    } else {
+                                        label.classList.add('incorrect');
+                                    }
+                                }
+                            });
+
+                            // Mark correct answers that weren't selected
+                            correctAnswersSorted.forEach(correctVal => {
+                                const correctCheckbox = document.querySelector(`input[name="${key}"][value="${correctVal}"]`);
+                                if (correctCheckbox && !correctCheckbox.checked) {
+                                    const correctLabel = correctCheckbox.closest('label');
+                                    if (correctLabel) {
+                                        correctLabel.classList.add('correct');
+                                    }
+                                }
+                            });
+                            break;
+                    }
+
+                    if (btn) {
+                        btn.classList.remove('answered');
+                        btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    }
+
+                    resultsData.push({
+                        question: qNum,
+                        userAnswer: userAnswer || 'No Answer',
+                        correctAnswer: Array.isArray(correctAnswer) ? correctAnswer.join(' / ') : String(correctAnswer),
+                        isCorrect: isCorrect
+                    });
+                }
+
+                // For checkbox questions, score was already added in the switch statement
+                // Only add score for non-checkbox questions
+                if (questionType !== 'checkbox' && isCorrect) {
+                    score++;
+                }
             });
 
             const deliverButton = document.getElementById('deliver-button');
-            const band = (function(raw){
-                if(raw>=39) return 9;
-                if(raw>=37) return 8.5;
-                if(raw>=35) return 8;
-                if(raw>=32) return 7.5;
-                if(raw>=30) return 7;
-                if(raw>=26) return 6.5;
-                if(raw>=23) return 6;
-                if(raw>=18) return 5.5;
-                if(raw>=16) return 5;
-                if(raw>=13) return 4.5;
-                if(raw>=10) return 4;
-                if(raw>=8)  return 3.5;
-                if(raw>=6)  return 3;
-                if(raw>=4)  return 2.5;
-                if(raw>=2)  return 2;
-                if(raw===1) return 1.5;
+            const band = (function (raw) {
+                if (raw >= 39) return 9;
+                if (raw >= 37) return 8.5;
+                if (raw >= 35) return 8;
+                if (raw >= 32) return 7.5;
+                if (raw >= 30) return 7;
+                if (raw >= 26) return 6.5;
+                if (raw >= 23) return 6;
+                if (raw >= 18) return 5.5;
+                if (raw >= 16) return 5;
+                if (raw >= 13) return 4.5;
+                if (raw >= 10) return 4;
+                if (raw >= 8) return 3.5;
+                if (raw >= 6) return 3;
+                if (raw >= 4) return 2.5;
+                if (raw >= 2) return 2;
+                if (raw === 1) return 1.5;
                 return 0;
             })(score);
 
@@ -3191,11 +3869,11 @@ Even though the national and international market has shown demand for marine pr
             const modal = document.getElementById('result-modal');
             const scoreSummary = document.getElementById('score-summary');
             const resultDetails = document.getElementById('result-details');
-            
+
             scoreSummary.textContent = `You scored ${score} out of 40 (Band ${band}).`;
-            
+
             let tableHTML = '<table><tr><th>Question</th><th>Your Answer</th><th>Correct Answer</th><th>Result</th></tr>';
-            resultsData.sort((a,b) => parseInt(a.question, 10) - parseInt(b.question, 10)).forEach(res => {
+            resultsData.sort((a, b) => parseInt(a.question, 10) - parseInt(b.question, 10)).forEach(res => {
                 tableHTML += `
                     <tr>
                         <td>${res.question}</td>
@@ -3226,7 +3904,7 @@ Even though the national and international market has shown demand for marine pr
             // Open the modal immediately after grading
             modal.style.display = 'flex';
         }
-        
+
         function startTimer() {
             timerInterval = setInterval(() => {
                 timeInSeconds--;
@@ -3264,7 +3942,7 @@ Even though the national and international market has shown demand for marine pr
                 }
             }
         });
-        
+
         audioPlayer.addEventListener('play', () => {
             playPauseBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
         });
@@ -3308,7 +3986,7 @@ Even though the national and international market has shown demand for marine pr
                 speedOptions.classList.add('hidden');
             }
         });
-        
+
         document.addEventListener('click', () => {
             if (!speedOptions.classList.contains('hidden')) {
                 speedOptions.classList.add('hidden');
@@ -3316,7 +3994,7 @@ Even though the national and international market has shown demand for marine pr
         });
 
         document.getElementById('deliver-button').addEventListener('click', checkAnswers);
-        
+
         // Go To Question Widget Logic
         const gotoWidget = document.getElementById('goto-widget');
         const gotoInput = document.getElementById('goto-input');
@@ -3357,21 +4035,21 @@ Even though the national and international market has shown demand for marine pr
         });
 
         // === Tap-to-select & tap-to-drop for drag items (mobile support) ===
-            document.body.addEventListener('click', function(e){
+        document.body.addEventListener('click', function (e) {
             const item = e.target.closest('.drag-item');
-            if(item && item.getAttribute('draggable')){
+            if (item && item.getAttribute('draggable')) {
                 // Toggle selection
-                document.querySelectorAll('.drag-item.selected').forEach(i=>i.classList.remove('selected'));
+                document.querySelectorAll('.drag-item.selected').forEach(i => i.classList.remove('selected'));
                 item.classList.add('selected');
                 draggedElement = item;
                 return;
             }
             const dz = e.target.closest('.drop-zone');
-            if(dz && draggedElement){
+            if (dz && draggedElement) {
                 // If already filled, move old back
                 const container = dz.closest('.matching-container') || dz.closest('.matching-question-container') || document;
                 const optionsList = container.querySelector('.matching-options-list') || document.querySelector('.matching-options-list');
-                if(dz.children.length>0 && dz.firstElementChild!==draggedElement){
+                if (dz.children.length > 0 && dz.firstElementChild !== draggedElement) {
                     // restore original label (with letter) when returning to bank
                     const old = dz.firstElementChild;
                     if (old && old.dataset && old.dataset.fullLabel) {
@@ -3389,7 +4067,7 @@ Even though the national and international market has shown demand for marine pr
                 }
                 // show only the option text (strip leading "A. ", "B. ", etc.)
                 const full = draggedElement.dataset.fullLabel;
-                const letter = (full.match(/^\s*([A-G])\s*[\.)-]?/i) || [,''])[1].toUpperCase();
+                const letter = (full.match(/^\s*([A-G])\s*[\.)-]?/i) || [, ''])[1].toUpperCase();
                 const plain = full.replace(/^\s*[A-G]\s*[\.)-]?\s*/i, '');
                 if (!draggedElement.dataset.letter && letter) {
                     draggedElement.dataset.letter = letter;
@@ -3397,7 +4075,7 @@ Even though the national and international market has shown demand for marine pr
                 draggedElement.textContent = plain;
                 dz.appendChild(draggedElement);
                 draggedElement.classList.remove('selected');
-                draggedElement=null;
+                draggedElement = null;
                 // style as filled pill and hide placeholder
                 dz.classList.add('filled');
                 const placeholder = dz.querySelector('.placeholder');
@@ -3412,9 +4090,9 @@ Even though the national and international market has shown demand for marine pr
 
         // === Mobile highlight/comment toolbar ===
         const mobileToolbar = document.getElementById('mobile-selection-menu');
-        function positionToolbar(){
+        function positionToolbar() {
             const sel = window.getSelection();
-            if(sel.rangeCount===0 || sel.isCollapsed){
+            if (sel.rangeCount === 0 || sel.isCollapsed) {
                 mobileToolbar.classList.add('hidden');
                 return;
             }
@@ -3426,16 +4104,16 @@ Even though the national and international market has shown demand for marine pr
         }
         document.addEventListener('selectionchange', () => {
             const sel = window.getSelection();
-            if(sel && sel.rangeCount>0 && !sel.isCollapsed){
+            if (sel && sel.rangeCount > 0 && !sel.isCollapsed) {
                 selectedRange = sel.getRangeAt(0);
                 selectedText = sel.toString();
             }
-            if('ontouchstart' in window || navigator.maxTouchPoints>0){
+            if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
                 setTimeout(positionToolbar, 0);
             }
         });
-        document.addEventListener('click', (e)=>{
-            if(!e.target.closest('#mobile-selection-menu')){
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('#mobile-selection-menu')) {
                 mobileToolbar.classList.add('hidden');
             }
         });
@@ -3498,7 +4176,7 @@ Even though the national and international market has shown demand for marine pr
                 }
 
                 document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
-                
+
                 const existingItem = dropTarget.matches('.drop-zone') ? dropTarget.querySelector('.drag-item') : null;
                 const originalParent = draggedElement.parentNode;
 
@@ -3517,10 +4195,10 @@ Even though the national and international market has shown demand for marine pr
                         }
                     }
                 }
-                
+
                 dropTarget.appendChild(draggedElement);
 
-                if(dropTarget.matches('.drop-zone')) {
+                if (dropTarget.matches('.drop-zone')) {
                     const placeholder = dropTarget.querySelector('.placeholder');
                     if (placeholder) placeholder.style.display = 'none';
                     dropTarget.classList.add('filled');
@@ -3529,7 +4207,7 @@ Even though the national and international market has shown demand for marine pr
                         draggedElement.dataset.fullLabel = draggedElement.textContent.trim();
                     }
                     const full = draggedElement.dataset.fullLabel;
-                    const letter = (full.match(/^\s*([A-G])\s*[\.)-]?/i) || [,''])[1].toUpperCase();
+                    const letter = (full.match(/^\s*([A-G])\s*[\.)-]?/i) || [, ''])[1].toUpperCase();
                     const plain = full.replace(/^\s*[A-G]\s*[\.)-]?\s*/i, '');
                     if (!draggedElement.dataset.letter && letter) {
                         draggedElement.dataset.letter = letter;
@@ -3555,7 +4233,7 @@ Even though the national and international market has shown demand for marine pr
             switchToPart(1);
             goToQuestion(1);
             setupCheckboxLimits();
-            
+
             // Test clickable cells after a short delay
             setTimeout(() => {
                 testClickableCells();
@@ -3573,26 +4251,26 @@ Even though the national and international market has shown demand for marine pr
                 const target = e.target;
                 const clearItem = document.getElementById('clear-item');
                 contextElement = target.closest('.highlight, .comment-highlight');
-                if(contextElement){
+                if (contextElement) {
                     clearItem.style.display = 'block';
                 } else {
                     clearItem.style.display = 'none';
                 }
             });
-            
-            document.body.addEventListener('click', function(e) {
+
+            document.body.addEventListener('click', function (e) {
                 if (e.target.closest('.context-menu')) return;
                 document.getElementById('contextMenu').style.display = 'none';
             });
         });
 
         // Initial setup on DOM load
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             updateAnsweredIndicators();
-            
+
             // Add specific event listeners for questions 17-20 radio buttons
             document.querySelectorAll('input[name="q17"], input[name="q18"], input[name="q19"], input[name="q20"]').forEach(radio => {
-                radio.addEventListener('change', function() {
+                radio.addEventListener('change', function () {
                     const questionNumber = this.name.substring(1); // Remove 'q' prefix
                     const hiddenInput = document.getElementById(`q${questionNumber}`);
                     if (hiddenInput) {
@@ -3658,26 +4336,26 @@ Even though the national and international market has shown demand for marine pr
                 e.preventDefault();
                 const targetZone = e.target.closest('.drop-zone');
                 if (!targetZone || !draggedElement) return;
-                
+
                 targetZone.classList.remove('drag-over');
 
                 const sourceContainer = draggedElement.parentNode;
                 const itemInTargetZone = targetZone.querySelector('.drag-item');
-                
+
                 // Prevent dropping on self or non-droppable area inside zone
                 if (e.target.classList.contains('drag-item') && e.target !== draggedElement) {
                     return; // Or handle swap explicitly here if needed
                 }
-                
+
                 if (itemInTargetZone && itemInTargetZone !== draggedElement) {
                     // If source is an options list, move the existing item back
                     const optionsList = findParentOptionsList(targetZone);
                     if (sourceContainer.classList.contains('matching-options-list') || sourceContainer.classList.contains('map-options-list')) {
-                    if (itemInTargetZone.dataset && itemInTargetZone.dataset.fullLabel) {
-                        itemInTargetZone.textContent = itemInTargetZone.dataset.fullLabel;
+                        if (itemInTargetZone.dataset && itemInTargetZone.dataset.fullLabel) {
+                            itemInTargetZone.textContent = itemInTargetZone.dataset.fullLabel;
+                        }
+                        optionsList.appendChild(itemInTargetZone);
                     }
-                    optionsList.appendChild(itemInTargetZone);
-                    } 
                     // If source is another drop zone (swapping)
                     else if (sourceContainer.classList.contains('drop-zone')) {
                         if (itemInTargetZone.dataset && itemInTargetZone.dataset.fullLabel) {
@@ -3705,7 +4383,7 @@ Even though the national and international market has shown demand for marine pr
                         hiddenInput.value = draggedElement.textContent.trim();
                     }
                 }
-                
+
                 updateAnsweredIndicators();
             }
 
@@ -3755,12 +4433,12 @@ Even though the national and international market has shown demand for marine pr
 
                 for (const answer of answersToHighlight) {
                     if (/^[A-G]$/.test(answer)) continue;
-                    
+
                     let searchTerm = answer.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
                     searchTerm = searchTerm.replace(/\\\(s\\\)/g, '(s)?');
-                    
+
                     const regex = new RegExp(`\\b(${searchTerm})\\b`, 'gi');
-                    
+
                     highlightedTranscripts[partNumber] = highlightedTranscripts[partNumber].replace(
                         regex,
                         '<span class="highlight">$1</span>'
@@ -3770,15 +4448,16 @@ Even though the national and international market has shown demand for marine pr
 
             for (let i = 1; i <= 4; i++) {
                 const partElement = document.querySelector(`#transcription-data [data-part="${i}"]`);
-                if(partElement) partElement.innerHTML = highlightedTranscripts[i];
+                if (partElement) partElement.innerHTML = highlightedTranscripts[i];
             }
             transcriptionHighlighted = true;
         }
-        
+
         function closeContextMenu() {
             document.getElementById('contextMenu').style.display = 'none';
             contextElement = null;
         }
     </script>
 </body>
+
 </html>
