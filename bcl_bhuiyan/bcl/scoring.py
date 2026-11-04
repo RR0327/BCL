@@ -73,6 +73,21 @@ def finalize_attempt_score(attempt):
         return
     if attempt.module.module_type == ExamModule.ModuleType.WRITING:
         return
+    if attempt.module.module_type == ExamModule.ModuleType.LISTENING:
+        # Listening is client-side HTML tested. Preserve verified score and answers payload.
+        if attempt.raw_score is not None and attempt.band_score is not None:
+            return
+        if attempt.answers_payload and "score" in attempt.answers_payload:
+            try:
+                raw = int(attempt.answers_payload["score"])
+                attempt.raw_score = raw
+                attempt.band_score = band_for_raw(attempt.module.module_type, raw)
+                attempt.save(update_fields=["raw_score", "band_score"])
+            except Exception:
+                pass
+            return
+        if not CandidateAnswer.objects.filter(attempt=attempt).exists():
+            return
 
     questions = list(
         Question.objects.filter(section__module=attempt.module)

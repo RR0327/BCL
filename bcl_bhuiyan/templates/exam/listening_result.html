@@ -1,0 +1,608 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "partials/site_meta.html" %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Exam Result & Answers Review | Test {{ mock_test.test_number }}: {{ mock_test.title }} | {{ platform_name }}</title>
+    <link rel="stylesheet" href="{% static 'css/exam.css' %}">
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    <script>
+        (function() {
+            try {
+                var t = localStorage.getItem("test-theme") || "device";
+                var isDark = (t === "dark") || (t === "device" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+                if (isDark) {
+                    document.documentElement.classList.add("dark");
+                    document.documentElement.setAttribute("data-theme", "dark");
+                } else {
+                    document.documentElement.classList.remove("dark");
+                    document.documentElement.setAttribute("data-theme", "light");
+                }
+            } catch (e) {}
+        })();
+    </script>
+    <style>
+        :root {
+            --bcl-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --bcl-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            --bcl-primary: #4f46e5;
+            --bcl-bg: #f8fafc;
+            --bcl-card-bg: #ffffff;
+            --bcl-border: #e2e8f0;
+            --bcl-text: #0f172a;
+            --bcl-text-muted: #64748b;
+        }
+
+        html.dark {
+            --bcl-bg: #0f172a;
+            --bcl-card-bg: #1e293b;
+            --bcl-border: #334155;
+            --bcl-text: #f8fafc;
+            --bcl-text-muted: #94a3b8;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--bcl-font-sans) !important;
+            background-color: var(--bcl-bg);
+            color: var(--bcl-text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Unified Header */
+        #bcl-exam-header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(to bottom, #eff6ff, #eef2ff, rgba(250, 245, 255, 0.98));
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid #c7d2fe;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 1000;
+            box-shadow: 0 1px 3px 0 rgba(79, 70, 229, 0.08);
+            box-sizing: border-box;
+        }
+        html.dark #bcl-exam-header {
+            background: linear-gradient(to bottom, #1e1b4b, #0f172a);
+            border-bottom-color: #3730a3;
+        }
+
+        .bcl-header-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bcl-brand-badge {
+            width: 34px;
+            height: 34px;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 16px;
+            box-shadow: 0 2px 6px rgba(79, 70, 229, 0.35);
+        }
+
+        .bcl-title-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bcl-main-title {
+            font-size: 14.5px;
+            font-weight: 800;
+            color: #1e1b4b;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+        }
+        html.dark .bcl-main-title {
+            color: #e0e7ff;
+        }
+
+        .bcl-sub-meta {
+            font-size: 11px;
+            color: #6366f1;
+            font-weight: 600;
+        }
+
+        .bcl-stage-pill {
+            display: inline-block;
+            padding: 2.5px 8px;
+            background: #e0e7ff;
+            color: #4338ca;
+            border-radius: 9999px;
+            font-size: 10.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .bcl-user-badge {
+            font-size: 13px;
+            color: #475569;
+            background: #ffffff;
+            border: 1px solid #c7d2fe;
+            padding: 5px 12px;
+            border-radius: 9999px;
+            font-weight: 500;
+        }
+        html.dark .bcl-user-badge {
+            background: #1e293b;
+            color: #cbd5e1;
+            border-color: #3730a3;
+        }
+
+        .bcl-back-link {
+            text-decoration: none;
+            color: #4f46e5;
+            font-weight: 700;
+            font-size: 13.5px;
+            padding: 6px 14px;
+            background: #ffffff;
+            border: 1px solid #c7d2fe;
+            border-radius: 8px;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .bcl-back-link:hover {
+            background: #eef2ff;
+            border-color: #818cf8;
+            color: #3730a3;
+            transform: translateX(-2px);
+        }
+
+        .bcl-submit-btn {
+            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+            color: #ffffff !important;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 7px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.25);
+            transition: all 0.15s ease;
+        }
+        .bcl-submit-btn:hover {
+            background: linear-gradient(135deg, #4338ca 0%, #4f46e5 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
+        }
+
+        /* Review Page Container */
+        .bcl-review-wrapper {
+            flex: 1;
+            padding: 30px 16px 50px 16px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        /* Matching the Completion Modal Interface */
+        .bcl-modal-container {
+            background: var(--bcl-card-bg);
+            border-radius: 20px;
+            max-width: 820px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.12), 0 0 0 1px var(--bcl-border);
+            overflow: hidden;
+            animation: bclFadeIn 0.22s ease-out;
+        }
+
+        @keyframes bclFadeIn {
+            from { opacity: 0; transform: scale(0.98) translateY(6px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .bcl-modal-top {
+            padding: 22px 28px 18px 28px;
+            border-bottom: 1px solid var(--bcl-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            background: var(--bcl-card-bg);
+        }
+
+        .bcl-modal-score-banner {
+            margin: 20px 28px 0 28px;
+            padding: 18px 24px;
+            background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%);
+            border: 1px solid #c7d2fe;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            text-align: center;
+        }
+        html.dark .bcl-modal-score-banner {
+            background: linear-gradient(135deg, #1e1b4b 0%, #2e1065 100%);
+            border-color: #4338ca;
+        }
+
+        .bcl-metric-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #4338ca;
+            letter-spacing: 0.05em;
+            margin-bottom: 3px;
+        }
+        html.dark .bcl-metric-title {
+            color: #a5b4fc;
+        }
+
+        .bcl-metric-value {
+            font-size: 26px;
+            font-weight: 800;
+            color: #1e1b4b;
+            font-family: var(--bcl-font-mono) !important;
+        }
+        html.dark .bcl-metric-value {
+            color: #ffffff;
+        }
+
+        .bcl-metric-divider {
+            width: 1px;
+            height: 38px;
+            background: #c7d2fe;
+        }
+        html.dark .bcl-metric-divider {
+            background: #4338ca;
+        }
+
+        /* Filter Controls */
+        .bcl-filters-bar {
+            margin: 18px 28px 0 28px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--bcl-border);
+        }
+
+        .bcl-filter-group {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .bcl-filter-btn {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            color: #475569;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .bcl-filter-btn:hover {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+        .bcl-filter-btn.active {
+            background: #4f46e5;
+            color: #ffffff;
+            border-color: #4338ca;
+            box-shadow: 0 2px 6px rgba(79, 70, 229, 0.25);
+        }
+
+        /* Audio Review Bar */
+        .bcl-audio-bar {
+            margin: 14px 28px 0 28px;
+            padding: 12px 16px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        html.dark .bcl-audio-bar {
+            background: #0f172a;
+            border-color: #334155;
+        }
+
+        /* Table */
+        .bcl-modal-table-scroll {
+            padding: 8px 28px 20px 28px;
+            overflow-x: auto;
+        }
+
+        .bcl-review-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13.5px;
+            text-align: left;
+        }
+
+        .bcl-review-table th {
+            background: var(--bcl-card-bg);
+            color: var(--bcl-text-muted);
+            font-weight: 700;
+            padding: 12px 14px;
+            border-bottom: 2px solid var(--bcl-border);
+            position: sticky;
+            top: 0;
+            z-index: 5;
+            font-size: 12.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .bcl-review-table td {
+            padding: 11px 14px;
+            border-bottom: 1px solid var(--bcl-border);
+            color: var(--bcl-text);
+            vertical-align: middle;
+        }
+
+        .bcl-review-table tr:hover {
+            background-color: rgba(241, 245, 249, 0.6);
+        }
+        html.dark .bcl-review-table tr:hover {
+            background-color: rgba(51, 65, 85, 0.4);
+        }
+
+        .bcl-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .bcl-status-pill.correct {
+            background: #ecfdf5;
+            color: #047857;
+            border: 1px solid #a7f3d0;
+        }
+
+        .bcl-status-pill.incorrect {
+            background: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        .bcl-modal-bottom {
+            padding: 16px 28px;
+            background: #f8fafc;
+            border-top: 1px solid var(--bcl-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+        }
+        html.dark .bcl-modal-bottom {
+            background: #0f172a;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Unified Website Exam Header -->
+    <header id="bcl-exam-header">
+        <div class="bcl-header-group">
+            {% if attempt.full_mock_id %}
+                <a href="{% url 'bcl:full_mock_result' attempt.full_mock_id %}" class="bcl-back-link" title="Return to All Modules Result">&larr; All Modules Result</a>
+            {% else %}
+                <a href="{% url 'bcl:dashboard' %}" class="bcl-back-link" title="Return to Candidate Dashboard">&larr; Dashboard</a>
+            {% endif %}
+            <div class="bcl-brand-badge">🎧</div>
+            <div class="bcl-title-box">
+                <span class="bcl-main-title">Test {{ mock_test.test_number }}: {{ mock_test.title }}</span>
+                <span class="bcl-sub-meta">Module Attempt #{{ attempt.pk }} &bull; <span class="bcl-stage-pill">Listening Review</span></span>
+            </div>
+        </div>
+
+        <div class="bcl-header-group">
+            <div class="bcl-user-badge">
+                Candidate: <strong>{{ candidate_name }}</strong>
+            </div>
+            <button type="button" class="bcl-back-link" onclick="window.print()" title="Print Review Summary" style="cursor:pointer;">
+                🖨️ Print
+            </button>
+        </div>
+
+        <div class="bcl-header-group">
+            {% if attempt.full_mock_id %}
+                <a href="{% url 'bcl:full_mock_result' attempt.full_mock_id %}" class="bcl-submit-btn">
+                    Return to All Results &rarr;
+                </a>
+            {% else %}
+                <a href="{% url 'bcl:dashboard' %}" class="bcl-submit-btn">
+                    Return to Dashboard &rarr;
+                </a>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- Main Content Wrapper -->
+    <main class="bcl-review-wrapper">
+        <div class="bcl-modal-container">
+            <!-- Modal Top Header -->
+            <div class="bcl-modal-top">
+                <div>
+                    <span class="bcl-stage-pill">Listening Test Completed</span>
+                    <h1 style="margin: 6px 0 3px 0; font-size: 19px; font-weight: 800; color: #0f172a; line-height: 1.25;">Exam Result &amp; Answers Review</h1>
+                    <p style="margin: 0; font-size: 12.5px; color: #64748b;">
+                        Candidate: <strong>{{ candidate_name }} ({{ candidate_username }})</strong> &bull; Test {{ mock_test.test_number }}: {{ mock_test.title }}
+                    </p>
+                </div>
+                <div style="text-align: right;">
+                    <span style="font-size: 12px; font-weight: 600; color: #64748b;">Time taken: <strong>{{ time_taken }}</strong></span>
+                </div>
+            </div>
+
+            <!-- Score Banner -->
+            <div class="bcl-modal-score-banner">
+                <div>
+                    <div class="bcl-metric-title">Score</div>
+                    <div class="bcl-metric-value">{{ raw_score }} / 40</div>
+                </div>
+                <div class="bcl-metric-divider"></div>
+                <div>
+                    <div class="bcl-metric-title">IELTS Band</div>
+                    <div class="bcl-metric-value">Band {{ band_score }}</div>
+                </div>
+                <div class="bcl-metric-divider"></div>
+                <div>
+                    <div class="bcl-metric-title">Status</div>
+                    <div style="font-size: 14.5px; font-weight: 800; color: #059669; margin-top: 4px;">Saved to Database &check;</div>
+                </div>
+            </div>
+
+            <!-- Continuous Audio Recording Bar (if available) -->
+            {% if audio_url %}
+            <div class="bcl-audio-bar">
+                <span style="font-size: 22px;">🎧</span>
+                <div style="flex: 1;">
+                    <div style="font-size: 12px; font-weight: 700; color: #334155; margin-bottom: 4px;">Continuous Exam Recording (All 4 Sections)</div>
+                    <audio controls style="width: 100%; height: 32px;" src="{{ audio_url }}"></audio>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Interactive Filters -->
+            <div class="bcl-filters-bar">
+                <div class="bcl-filter-group" id="partFilterGroup">
+                    <button type="button" class="bcl-filter-btn active" onclick="setPartFilter('all', this)">All Questions (40)</button>
+                    <button type="button" class="bcl-filter-btn" onclick="setPartFilter('1', this)">Part 1 (1–10)</button>
+                    <button type="button" class="bcl-filter-btn" onclick="setPartFilter('2', this)">Part 2 (11–20)</button>
+                    <button type="button" class="bcl-filter-btn" onclick="setPartFilter('3', this)">Part 3 (21–30)</button>
+                    <button type="button" class="bcl-filter-btn" onclick="setPartFilter('4', this)">Part 4 (31–40)</button>
+                </div>
+                <div class="bcl-filter-group" id="statusFilterGroup">
+                    <button type="button" class="bcl-filter-btn active" onclick="setStatusFilter('all', this)">All</button>
+                    <button type="button" class="bcl-filter-btn" onclick="setStatusFilter('correct', this)" style="color:#047857;">&check; Correct ({{ correct_count }})</button>
+                    <button type="button" class="bcl-filter-btn" onclick="setStatusFilter('incorrect', this)" style="color:#b91c1c;">&times; Incorrect ({{ wrong_count }})</button>
+                </div>
+            </div>
+
+            <!-- Review Table -->
+            <div class="bcl-modal-table-scroll">
+                <table class="bcl-review-table" id="bclReviewTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 55px;">Q#</th>
+                            <th style="width: 70px;">Part</th>
+                            <th>Your Answer</th>
+                            <th>Correct Answer</th>
+                            <th style="width: 110px;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for q in questions %}
+                        <tr class="bcl-review-row" data-part="{{ q.part }}" data-status="{{ q.status_class }}">
+                            <td><strong>{{ q.num }}</strong></td>
+                            <td><span style="font-size: 11.5px; font-weight: 600; color: #64748b;">Part {{ q.part }}</span></td>
+                            <td>
+                                {% if q.has_answer %}
+                                    <strong>{{ q.user_answer }}</strong>
+                                {% else %}
+                                    <em style="color: #94a3b8; font-size: 13px;">No Answer</em>
+                                {% endif %}
+                            </td>
+                            <td><strong style="color: #0f172a;">{{ q.correct_answer }}</strong></td>
+                            <td>
+                                <span class="bcl-status-pill {{ q.status_class }}">
+                                    {% if q.is_correct %}
+                                        &check; Correct
+                                    {% else %}
+                                        &times; Incorrect
+                                    {% endif %}
+                                </span>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 24px; color: #64748b;">
+                                No answers recorded for this examination session.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Modal Bottom Navigation -->
+            <div class="bcl-modal-bottom">
+                {% if attempt.full_mock_id %}
+                    <a href="{% url 'bcl:full_mock_result' attempt.full_mock_id %}" class="bcl-back-link">
+                        &larr; Return to All Modules Result
+                    </a>
+                    <a href="{% url 'bcl:full_mock_result' attempt.full_mock_id %}" class="bcl-submit-btn">
+                        Return to All Modules Result &rarr;
+                    </a>
+                {% else %}
+                    <a href="{% url 'bcl:dashboard' %}" class="bcl-back-link">
+                        &larr; Return to Candidate Dashboard
+                    </a>
+                    <a href="{% url 'bcl:dashboard' %}" class="bcl-submit-btn">
+                        Return to Dashboard &rarr;
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let currentPart = 'all';
+        let currentStatus = 'all';
+
+        function updateRows() {
+            const rows = document.querySelectorAll('.bcl-review-row');
+            rows.forEach(row => {
+                const rowPart = row.getAttribute('data-part');
+                const rowStatus = row.getAttribute('data-status');
+                const matchPart = (currentPart === 'all' || rowPart === currentPart);
+                const matchStatus = (currentStatus === 'all' || rowStatus === currentStatus);
+                row.style.display = (matchPart && matchStatus) ? '' : 'none';
+            });
+        }
+
+        function setPartFilter(part, btn) {
+            currentPart = part;
+            document.querySelectorAll('#partFilterGroup .bcl-filter-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            updateRows();
+        }
+
+        function setStatusFilter(status, btn) {
+            currentStatus = status;
+            document.querySelectorAll('#statusFilterGroup .bcl-filter-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            updateRows();
+        }
+    </script>
+</body>
+</html>
+

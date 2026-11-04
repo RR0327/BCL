@@ -385,6 +385,125 @@ def parse_listening_answer_key(mock_num, module=None):
     return answers
 
 
+def get_listening_review_data(attempt):
+    """
+    Synthesize complete 40-question review data for a listening CandidateAttempt,
+    matching the exact completion modal interface displayed upon listening submission.
+    """
+    if not attempt or not getattr(attempt, "module", None):
+        return None
+
+    module = attempt.module
+    mock_test = module.mock_test
+    mock_num = mock_test.test_number if mock_test else 1
+    server_keys = parse_listening_answer_key(mock_num, module)
+    payload = attempt.answers_payload or {}
+    cand_answers = payload.get("answers", {}) if isinstance(payload, dict) else {}
+    db_answers = {
+        a.question.order: a
+        for a in CandidateAnswer.objects.filter(attempt=attempt).select_related("question")
+    }
+
+    questions = []
+    correct_count = 0
+
+    for q_num in range(1, 41):
+        k = str(q_num)
+        ans_item = cand_answers.get(k) or cand_answers.get(f"q{q_num}")
+        user_answer = ""
+        correct_answer = ""
+        is_correct = False
+
+        if isinstance(ans_item, dict):
+            user_answer = str(ans_item.get("user_answer", "")).strip()
+            if user_answer.lower() in ("no answer", "none", "null"):
+                user_answer = ""
+            is_correct = bool(ans_item.get("is_correct", False))
+            correct_answer = str(ans_item.get("correct_answer", "")).strip()
+        elif isinstance(ans_item, str):
+            user_answer = ans_item.strip()
+            if user_answer.lower() in ("no answer", "none", "null"):
+                user_answer = ""
+
+        if not user_answer and q_num in db_answers:
+            db_ans = db_answers[q_num]
+            user_answer = (db_ans.answer_text or "").strip()
+            if user_answer.lower() in ("no answer", "none", "null"):
+                user_answer = ""
+            is_correct = bool(db_ans.is_correct)
+
+        if not correct_answer:
+            raw_key = server_keys.get(k) or server_keys.get(f"q{q_num}")
+            if isinstance(raw_key, (list, tuple)):
+                correct_answer = " / ".join(str(x) for x in raw_key)
+            elif raw_key:
+                correct_answer = str(raw_key)
+            else:
+                correct_answer = "-"
+
+        if not is_correct and user_answer and correct_answer and correct_answer != "-":
+            raw_key = server_keys.get(k) or server_keys.get(f"q{q_num}")
+            if isinstance(raw_key, (list, tuple)):
+                valid_lower = [str(x).strip().lower() for x in raw_key]
+                if user_answer.lower() in valid_lower:
+                    is_correct = True
+            elif isinstance(raw_key, str) and raw_key:
+                tokens = [t.strip().lower() for t in raw_key.replace('/', ',').split(',') if t.strip()]
+                if user_answer.lower() in tokens or user_answer.lower() == raw_key.strip().lower():
+                    is_correct = True
+
+        if is_correct:
+            correct_count += 1
+
+        part_num = ((q_num - 1) // 10) + 1
+        questions.append({
+            "num": q_num,
+            "part": part_num,
+            "user_answer": user_answer,
+            "has_answer": bool(user_answer),
+            "correct_answer": correct_answer,
+            "is_correct": is_correct,
+            "status_label": "Correct" if is_correct else "Incorrect",
+            "status_class": "correct" if is_correct else "incorrect",
+        })
+
+    raw_score = attempt.raw_score if attempt.raw_score is not None else correct_count
+    from .scoring import band_for_raw
+    from decimal import Decimal
+    band_score = str(attempt.band_score) if attempt.band_score is not None else str(band_for_raw(ExamModule.ModuleType.LISTENING, raw_score))
+
+    time_taken_str = "00:00"
+    if attempt.submitted_at and attempt.started_at:
+        seconds = max(0, int((attempt.submitted_at - attempt.started_at).total_seconds()))
+        time_taken_str = f"{seconds // 60:02d}:{seconds % 60:02d}"
+
+    audio_url = f"/static/listening_audio/mock_{mock_num}_full.mp3"
+    audio_path = os.path.join(settings.BASE_DIR, "static", "listening_audio", f"mock_{mock_num}_full.mp3")
+    if not os.path.exists(audio_path):
+        audio_url = ""
+
+    candidate = attempt.candidate
+    cand_full_name = f"{candidate.first_name} {candidate.last_name}".strip() if candidate and hasattr(candidate, 'first_name') else ""
+    candidate_name = cand_full_name if cand_full_name else (candidate.username if candidate and hasattr(candidate, 'username') else "Candidate")
+    candidate_username = candidate.username if candidate and hasattr(candidate, 'username') else "candidate"
+
+    return {
+        "attempt": attempt,
+        "candidate": candidate,
+        "candidate_name": candidate_name,
+        "candidate_username": candidate_username,
+        "mock_test": mock_test,
+        "mock_num": mock_num,
+        "raw_score": raw_score,
+        "band_score": band_score,
+        "correct_count": correct_count,
+        "wrong_count": 40 - correct_count,
+        "time_taken": time_taken_str,
+        "questions": questions,
+        "audio_url": audio_url,
+    }
+
+
 def render_listening_html(request, attempt):
     r"""
     Render client-side raw HTML listening module from D:\BCL-Bhuiyan\listening\
@@ -488,15 +607,34 @@ def render_listening_html(request, attempt):
             font-family: var(--font-sans) !important;
         }
 
-        /* Suppress third-party links, disparate unstyled headers and raw modals */
+        /* Suppress third-party links, disparate unstyled headers and raw/legacy modals completely across all mock files */
         .header:not(#bcl-exam-header),
         header:not(#bcl-exam-header),
         .fixed-header:not(#bcl-exam-header),
         .app-header:not(#bcl-exam-header),
         .telegram-link,
         .telegram-pin,
-        #resultsModal {
+        #resultsModal,
+        #result-modal,
+        #results-modal,
+        div[id*="result-modal"],
+        div[id*="results-modal"],
+        div[id*="resultsModal"],
+        .modal-overlay:not(#bcl-listening-modal):not(#bcl-instruction-modal):not(#bcl-violation-modal),
+        .modal:not(#bcl-listening-modal):not(#bcl-instruction-modal):not(#bcl-violation-modal) {
             display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            z-index: -99999 !important;
+            position: absolute !important;
+            left: -99999px !important;
+            top: -99999px !important;
+            width: 0 !important;
+            height: 0 !important;
+            max-width: 0 !important;
+            max-height: 0 !important;
+            overflow: hidden !important;
         }
 
         /* Unified Website Exam Header */
@@ -1257,7 +1395,7 @@ def render_listening_html(request, attempt):
     bcl_header_html = f"""
     <div id="bcl-exam-header">
         <div class="bcl-header-group">
-            <a href="/dashboard/" class="bcl-back-link" title="Exit to Candidate Dashboard">&larr; Dashboard</a>
+            <a href="/dashboard/" class="bcl-back-link" id="bclHeaderBackBtn" onclick="event.preventDefault(); handleExitPrompt(); return false;" title="Exit to Candidate Dashboard">&larr; Dashboard</a>
             <div class="bcl-brand-badge">🎧</div>
             <div class="bcl-title-box">
                 <span class="bcl-main-title">Test {mock_num}: {mock_test.title}</span>
@@ -1279,7 +1417,7 @@ def render_listening_html(request, attempt):
         </div>
 
         <div class="bcl-header-group">
-            <button type="button" class="bcl-submit-btn" id="bclHeaderSubmitBtn" onclick="bclTriggerSubmission()">
+            <button type="button" class="bcl-submit-btn" id="bclHeaderSubmitBtn" onclick="bclConfirmAndSubmit()">
                 Submit Listening &check;
             </button>
         </div>
@@ -1427,6 +1565,7 @@ def render_listening_html(request, attempt):
     (function() {{
         const attemptId = {attempt.pk};
         const mockId = {mock_id};
+        const isFullMock = {'true' if is_full_mock else 'false'};
         const submitUrl = "{submit_url}";
         const nextUrl = "{next_url}";
         const violationUrl = "{violation_url}";
@@ -1493,15 +1632,17 @@ def render_listening_html(request, attempt):
         window.startTimer = function() {{}};
 
         // Instruction Modal Controls
-        window.bclDismissInstructions = function() {{
+        function bclDismissInstructions() {{
             const m = document.getElementById('bcl-instruction-modal');
             if (m) m.style.display = 'none';
-        }};
+        }}
+        window.bclDismissInstructions = bclDismissInstructions;
 
-        window.bclShowInstructions = function() {{
+        function bclShowInstructions() {{
             const m = document.getElementById('bcl-instruction-modal');
             if (m) m.style.display = 'flex';
-        }};
+        }}
+        window.bclShowInstructions = bclShowInstructions;
 
         // =========================================================================
         // UNIVERSAL CONTINUOUS AUDIO ENGINE: ALL 4 SECTIONS MERGE & PLAY SEAMLESSLY
@@ -1920,12 +2061,13 @@ def render_listening_html(request, attempt):
             }}
         }}
 
-        window.bclDismissViolation = function() {{
+        function bclDismissViolation() {{
             const vModal = document.getElementById('bcl-violation-modal');
             if (vModal) vModal.style.display = 'none';
             warningOpen = false;
             lastViolationAt = 0;
-        }};
+        }}
+        window.bclDismissViolation = bclDismissViolation;
 
         document.addEventListener('visibilitychange', function() {{
             if (document.hidden) reportViolation('tab_hidden');
@@ -1946,20 +2088,66 @@ def render_listening_html(request, attempt):
         // =========================================================================
         // OFFICIAL SUBMISSION & RESULTS
         // =========================================================================
+        function hideAllLegacyModals() {{
+            try {{
+                const legacy = document.querySelectorAll(
+                    '#resultsModal, #result-modal, #results-modal, [id*="result-modal"], [id*="results-modal"], [id*="resultsModal"], .modal-overlay:not(#bcl-listening-modal):not(#bcl-instruction-modal):not(#bcl-violation-modal), .modal:not(#bcl-listening-modal):not(#bcl-instruction-modal):not(#bcl-violation-modal)'
+                );
+                legacy.forEach(function(el) {{
+                    el.style.setProperty('display', 'none', 'important');
+                    el.style.setProperty('visibility', 'hidden', 'important');
+                    el.classList.remove('show');
+                    el.setAttribute('aria-hidden', 'true');
+                }});
+            }} catch(e) {{}}
+        }}
+
         window.bclCloseModal = function() {{
             const m = document.getElementById('bcl-listening-modal');
             if (m) m.style.display = 'none';
+            hideAllLegacyModals();
         }};
 
-        window.bclTriggerSubmission = function() {{
-            // Run grader first so #result-details / #resultsTable are populated
-            // before we extract answers and correct answers from the DOM.
-            if (typeof window.checkAnswers === 'function') {{
+        let isBclSubmitting = false;
+        const origPageCheckAnswers = window.checkAnswers;
+
+        window.bclConfirmAndSubmit = function() {{
+            if (alreadySubmitted || isBclSubmitting) return;
+            const msg = isFullMock
+                ? "Are you sure you want to submit Listening and proceed to the Reading module? You cannot change Listening answers after submitting."
+                : "Are you sure you want to submit your examination? You cannot modify answers after submitting.";
+            if (window.confirm(msg)) {{
+                window.bclTriggerSubmission(false);
+            }}
+        }};
+
+        window.bclTriggerSubmission = function(isExit = false) {{
+            if (alreadySubmitted || isBclSubmitting) return;
+            isBclSubmitting = true;
+            // Run page grader first so #result-details / #resultsTable are populated
+            if (typeof origPageCheckAnswers === 'function') {{
+                try {{ origPageCheckAnswers(); }} catch(e) {{}}
+            }} else if (typeof window.checkAnswers === 'function' && window.checkAnswers !== bclCheckAnswersHook) {{
                 try {{ window.checkAnswers(); }} catch(e) {{}}
             }}
+            hideAllLegacyModals();
             const extracted = extractAnswersAndScore();
-            submitToBackend(extracted);
+            submitToBackend(extracted, isExit);
         }};
+
+        function bclCheckAnswersHook() {{
+            if (origPageCheckAnswers) {{
+                try {{ origPageCheckAnswers.apply(this, arguments); }} catch(e) {{}}
+            }}
+            hideAllLegacyModals();
+            if (!alreadySubmitted && !isBclSubmitting) {{
+                window.bclTriggerSubmission(false);
+            }}
+        }}
+        window.checkAnswers = bclCheckAnswersHook;
+
+        // Suppress legacy opener functions so they never pop up raw modals
+        window.showResultsModal = function() {{ hideAllLegacyModals(); }};
 
         function extractAnswersAndScore() {{
             let score = 0;
@@ -2047,12 +2235,50 @@ def render_listening_html(request, attempt):
                 let uAns = '';
                 if (answers[k] && answers[k].user_answer) {{
                     uAns = answers[k].user_answer.trim();
-                }} else {{
+                }}
+                // Check range keys in answers like '11-12' or '13-14'
+                if (!uAns) {{
+                    for (const aKey of Object.keys(answers)) {{
+                        if (aKey.includes('-')) {{
+                            const parts = aKey.split('-').map(x => parseInt(x.replace(/[^0-9]/g, ''), 10));
+                            if (parts.length === 2 && i >= parts[0] && i <= parts[1]) {{
+                                const rangeItem = answers[aKey];
+                                if (rangeItem && rangeItem.user_answer) {{
+                                    const vals = rangeItem.user_answer.split(',').map(s => s.trim());
+                                    const offset = i - parts[0];
+                                    uAns = vals[offset] || rangeItem.user_answer;
+                                    break;
+                                }}
+                            }}
+                        }}
+                    }}
+                }}
+                if (!uAns) {{
                     const input = document.getElementById('q' + i)
                         || document.querySelector('input[name="q' + i + '"]:checked')
                         || document.querySelector('input[name="q' + i + '"]')
                         || document.querySelector('select[name="q' + i + '"]');
                     if (input) uAns = (input.value || '').trim();
+                }}
+                if (!uAns) {{
+                    const checkedCbs = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).filter(cb => {{
+                        const name = cb.name || cb.id || '';
+                        const m = name.match(/q?(\d+)[-_](\d+)/);
+                        if (m) {{
+                            const s = parseInt(m[1], 10), e = parseInt(m[2], 10);
+                            return i >= s && i <= e;
+                        }}
+                        return false;
+                    }});
+                    if (checkedCbs.length > 0) {{
+                        uAns = checkedCbs.map(cb => cb.value.trim()).join(', ');
+                    }}
+                }}
+                if (!uAns) {{
+                    const dropZone = document.querySelector('[data-question="' + i + '"], [data-q="' + i + '"], #drop-' + i + ', #drop-zone-' + i + ', #drop_' + i);
+                    if (dropZone) {{
+                        uAns = (dropZone.textContent || dropZone.innerText || '').trim();
+                    }}
                 }}
 
                 // Determine official correct answer from serverAnswerKey
@@ -2065,8 +2291,14 @@ def render_listening_html(request, attempt):
                     validOptions = rawKey.map(x => String(x).trim().toLowerCase());
                 }} else if (typeof rawKey === 'string') {{
                     displayCorrect = rawKey;
+                    if (rawKey.includes('/')) {{
+                        rawKey.split('/').forEach(x => validOptions.push(x.trim().toLowerCase()));
+                    }}
+                    if (rawKey.includes('||')) {{
+                        rawKey.split('||').forEach(x => validOptions.push(x.trim().toLowerCase()));
+                    }}
                     if (rawKey.includes(',')) {{
-                        validOptions = rawKey.split(',').map(x => x.trim().toLowerCase());
+                        rawKey.split(',').forEach(x => validOptions.push(x.trim().toLowerCase()));
                     }}
                     validOptions.push(rawKey.trim().toLowerCase());
                 }}
@@ -2079,8 +2311,12 @@ def render_listening_html(request, attempt):
                 if (answers[k] && typeof answers[k].is_correct === 'boolean') {{
                     isCor = answers[k].is_correct;
                 }}
-                if (!isCor && uAns && validOptions.length > 0) {{
-                    isCor = validOptions.includes(uAns.toLowerCase());
+                const uNorm = uAns.toLowerCase().replace(/\s+/g, ' ').trim();
+                if (!isCor && uNorm && validOptions.length > 0) {{
+                    isCor = validOptions.some(opt => {{
+                        const optNorm = opt.toLowerCase().replace(/\s+/g, ' ').trim();
+                        return uNorm === optNorm;
+                    }});
                 }}
 
                 answers[k] = {{
@@ -2113,11 +2349,14 @@ def render_listening_html(request, attempt):
             if (score >= 18) return "5.5";
             if (score >= 16) return "5.0";
             if (score >= 13) return "4.5";
-            if (score >= 10) return "4.0";
+            if (score >= 11) return "4.0";
             if (score >= 8) return "3.5";
             if (score >= 6) return "3.0";
             if (score >= 4) return "2.5";
-            return "2.0";
+            if (score >= 3) return "2.0";
+            if (score >= 2) return "1.5";
+            if (score >= 1) return "1.0";
+            return "0.0";
         }}
 
         function displayBclModal(score, band, answers) {{
@@ -2150,7 +2389,7 @@ def render_listening_html(request, attempt):
             if (modal) modal.style.display = 'flex';
         }}
 
-        function submitToBackend(extracted) {{
+        function submitToBackend(extracted, isExit = false) {{
             if (alreadySubmitted) return;
             alreadySubmitted = true;
 
@@ -2180,23 +2419,54 @@ def render_listening_html(request, attempt):
             formData.append('module_type', 'listening');
             formData.append('attempt_id', String(attemptId));
             formData.append('answers_payload', JSON.stringify(payload));
+            if (isExit) {{
+                formData.append('exit_full_mock', 'true');
+            }}
 
             fetch(submitUrl, {{
                 method: 'POST',
                 body: formData,
                 headers: {{ 'X-Requested-With': 'XMLHttpRequest' }}
-            }}).then(res => res.json()).then(data => {{
+            }}).then(res => {{
+                if (res.redirected) {{
+                    window.location.replace(res.url);
+                    return null;
+                }}
+                return res.json();
+            }}).then(data => {{
+                if (!data) return;
                 if (!data || data.status !== 'ok') {{
                     throw new Error((data && data.error) || 'Listening submission failed.');
                 }}
                 console.log('Listening submission recorded to DB:', data);
-                const confirmedNext = (data && data.next_url) ? data.next_url : nextUrl;
+                const confirmedNext = (data && data.next_url) ? data.next_url : (isExit ? (isFullMock ? endedUrl : '/dashboard/') : nextUrl);
                 window.__bclConfirmedNextUrl = confirmedNext;
+
+                if (isExit) {{
+                    window.location.replace(confirmedNext);
+                    return;
+                }}
+
                 const completedButton = document.getElementById('bclHeaderSubmitBtn');
                 if (completedButton) {{
                     completedButton.innerHTML = '{next_btn_label}';
                     completedButton.onclick = function() {{ window.location.href = confirmedNext; }};
                 }}
+                const headerGroup = completedButton ? completedButton.parentElement : null;
+                if (headerGroup && !document.getElementById('bclReopenResultsBtn')) {{
+                    const reviewBtn = document.createElement('button');
+                    reviewBtn.id = 'bclReopenResultsBtn';
+                    reviewBtn.type = 'button';
+                    reviewBtn.className = 'bcl-info-btn';
+                    reviewBtn.style.marginRight = '8px';
+                    reviewBtn.innerHTML = '📊 Results Summary';
+                    reviewBtn.onclick = function() {{
+                        const m = document.getElementById('bcl-listening-modal');
+                        if (m) m.style.display = 'flex';
+                    }};
+                    headerGroup.insertBefore(reviewBtn, completedButton);
+                }}
+                hideAllLegacyModals();
                 displayBclModal(extracted.score, band, extracted.answers);
                 const proceedBtn = document.getElementById('bclModalNextBtn');
                 if (proceedBtn) {{
@@ -2208,9 +2478,99 @@ def render_listening_html(request, attempt):
             }}).catch(err => {{
                 console.error('Submission error:', err);
                 alreadySubmitted = false;
+                isBclSubmitting = false;
                 alert('The Listening result could not be saved. Please check your connection and try again.');
+                rearmHistoryTrap();
             }});
         }}
+
+        hideAllLegacyModals();
+
+        // History trap and confirmation handling matching Reading & Writing
+        function rearmHistoryTrap() {{
+            try {{
+                window.history.pushState({{ examTrap: true, token: Date.now() }}, "", window.location.href);
+            }} catch(e) {{
+                console.warn("Could not push history trap state:", e);
+            }}
+        }}
+        rearmHistoryTrap();
+
+        function handleExitPrompt() {{
+            if (alreadySubmitted) {{
+                window.location.href = isFullMock ? endedUrl : '/dashboard/';
+                return;
+            }}
+            const msg = isFullMock
+                ? "Going back will exit your All-Module exam and submit your work so far. Are you sure you want to exit and submit?"
+                : "Going back will submit your examination. Are you sure you want to exit and submit?";
+
+            const confirmed = window.confirm(msg);
+            if (confirmed) {{
+                window.bclTriggerSubmission(true);
+            }} else {{
+                rearmHistoryTrap();
+                setTimeout(rearmHistoryTrap, 50);
+                setTimeout(rearmHistoryTrap, 200);
+            }}
+        }}
+        window.handleExitPrompt = handleExitPrompt;
+
+        let popstateHandling = false;
+        try {{
+            window.addEventListener('popstate', function() {{
+                if (alreadySubmitted) return;
+                rearmHistoryTrap();
+                if (popstateHandling) return;
+                popstateHandling = true;
+
+                setTimeout(function() {{
+                    try {{
+                        handleExitPrompt();
+                    }} finally {{
+                        popstateHandling = false;
+                        rearmHistoryTrap();
+                    }}
+                }}, 30);
+            }});
+        }} catch(e) {{
+            console.warn("Could not register popstate listener:", e);
+        }}
+
+        document.addEventListener('click', function(e) {{
+            // Dashboard / Back button in top header
+            const backLink = e.target.closest('#bclHeaderBackBtn, .bcl-back-link[href*="dashboard"], a[href="/dashboard/"]');
+            if (backLink) {{
+                e.preventDefault();
+                e.stopPropagation();
+                handleExitPrompt();
+                return;
+            }}
+
+            const btn = e.target.closest('#deliver-button, #checkButton, #check-btn, #btnCheckAnswers, .deliver-btn, .footer__deliverButton___3FM07, #modal-close-button');
+            if (!btn) return;
+            if (btn.id === 'modal-close-button') {{
+                hideAllLegacyModals();
+                return;
+            }}
+            const text = (btn.textContent || '').toLowerCase();
+            if (text.includes('result') || text.includes('review') || text.includes('score')) {{
+                const bclModal = document.getElementById('bcl-listening-modal');
+                if (bclModal && alreadySubmitted) {{
+                    e.preventDefault();
+                    e.stopPropagation();
+                    hideAllLegacyModals();
+                    bclModal.style.display = 'flex';
+                    return;
+                }}
+            }}
+            // If in-page check or deliver button clicked while not yet submitted, trigger submission
+            if (!alreadySubmitted && !isBclSubmitting) {{
+                e.preventDefault();
+                e.stopPropagation();
+                window.bclTriggerSubmission(false);
+            }}
+        }}, true);
     }})();
     </script>
     """
@@ -2645,6 +3005,35 @@ def submit_exam(request, attempt_id):
                 except Exception as exc:
                     logger.warning("Could not parse answers_payload for attempt %s: %s", attempt.pk, exc)
 
+            if attempt.module.module_type == ExamModule.ModuleType.LISTENING:
+                if isinstance(attempt.answers_payload, dict):
+                    payload_score = attempt.answers_payload.get("score")
+                    if payload_score is not None:
+                        try:
+                            attempt.raw_score = int(payload_score)
+                            from .scoring import band_for_raw
+                            from decimal import Decimal
+                            attempt.band_score = Decimal(str(band_for_raw(attempt.module.module_type, attempt.raw_score)))
+                        except (ValueError, TypeError):
+                            pass
+
+                if attempt.module.sections.exists() and isinstance(attempt.answers_payload, dict):
+                    cand_answers = attempt.answers_payload.get("answers", {})
+                    if cand_answers:
+                        for q in Question.objects.filter(section__module=attempt.module):
+                            ans_item = cand_answers.get(str(q.order)) or cand_answers.get(f"q{q.order}")
+                            if ans_item and isinstance(ans_item, dict):
+                                is_cor = bool(ans_item.get("is_correct", False))
+                                CandidateAnswer.objects.update_or_create(
+                                    attempt=attempt,
+                                    question=q,
+                                    defaults={
+                                        "answer_text": ans_item.get("user_answer", ""),
+                                        "is_correct": is_cor,
+                                        "awarded_marks": 1 if is_cor else 0,
+                                    }
+                                )
+
             attempt.save(update_fields=["status", "submitted_at", "raw_score", "band_score", "answers_payload"])
             finalize_attempt_score(attempt)
 
@@ -2659,12 +3048,22 @@ def submit_exam(request, attempt_id):
                 full_mock.calculate_overall_score()
                 full_mock.save()
                 messages.success(request, "Your All-Module examination session has ended.")
-                return redirect("bcl:full_mock_result", full_attempt_id=full_mock.pk) if is_exit else redirect(
-                    "bcl:full_mock_ended", full_attempt_id=full_mock.pk
+                target_url = reverse("bcl:full_mock_result", args=[full_mock.pk]) if is_exit else reverse(
+                    "bcl:full_mock_ended", args=[full_mock.pk]
                 )
+                if request.headers.get("x-requested-with") == "XMLHttpRequest":
+                    return JsonResponse({
+                        "status": "ok",
+                        "raw_score": attempt.raw_score,
+                        "band_score": str(attempt.band_score) if attempt.band_score else None,
+                        "next_url": target_url,
+                    })
+                return redirect(target_url)
             elif attempt.module.module_type == ExamModule.ModuleType.LISTENING:
                 full_mock.current_step = "reading"
-                full_mock.save(update_fields=["current_step"])
+                full_mock.listening_attempt = attempt
+                full_mock.calculate_overall_score()
+                full_mock.save(update_fields=["current_step", "listening_attempt", "overall_band_score"])
                 messages.success(request, "Listening module completed. Next stage: Reading.")
                 if request.headers.get("x-requested-with") == "XMLHttpRequest":
                     return JsonResponse({
@@ -2789,145 +3188,31 @@ def exam_result(request, attempt_id):
         attempt.refresh_from_db()
     sections = list(module.sections.order_by("order", "pk").prefetch_related("questions__options"))
 
-    # Dedicated Listening Review: Synthesize full 4-part review for raw HTML client-side listening tests
+    # Dedicated Listening Review: Render exact completion modal interface
     if module_type == ExamModule.ModuleType.LISTENING or (not sections and module_type == 'listening'):
-        mock_num = mock_test.test_number
-        server_keys = parse_listening_answer_key(mock_num, module)
-        payload = attempt.answers_payload or {}
-        cand_answers = payload.get("answers", {})
-
-        class DummyQuestion:
-            def __init__(self, num, text, correct_ans, explanation=""):
-                self.pk = num
-                self.order = num
-                self.global_num = num
-                self.question_type = "short_answer"
-                self.question_text = text
-                self.correct_answer = correct_ans
-                self.explanation = explanation
-                self.passage_excerpt = ""
-                self.answer_location = ""
-                self.what_question_asks = ""
-                self.what_passage_says = ""
-                self.why_answer = ""
-                self.paraphrase = ""
-                self.tip = ""
-                self.image = None
-                self.table_content = ""
-                self.has_rich_explanation = False
-
-        class DummySection:
-            def __init__(self, title, part_num, passage=""):
-                self.pk = part_num
-                self.title = title
-                self.instructions = f"Listen to the recording and answer questions {(part_num-1)*10 + 1} to {part_num*10}."
-                self.passage_instructions = ""
-                self.passage = passage
-                self.image = None
-
-        correct_count = 0
-        wrong_count = 0
-        sections_data = []
-
-        part_ranges = [
-            (1, 1, 10, "Part 1: Questions 1–10"),
-            (2, 11, 20, "Part 2: Questions 11–20"),
-            (3, 21, 30, "Part 3: Questions 21–30"),
-            (4, 31, 40, "Part 4: Questions 31–40"),
-        ]
-
-        for part_num, start_q, end_q, part_title in part_ranges:
-            sec_correct = 0
-            sec_total = 0
-            questions_data = []
-            sec = DummySection(part_title, part_num, f"Listen to the audio recording using the audio player above to review your answers for {part_title}.")
-
-            for q_num in range(start_q, end_q + 1):
-                k = str(q_num)
-                ans_item = cand_answers.get(k) or cand_answers.get(f"q{q_num}") or {}
-                if isinstance(ans_item, dict):
-                    cand_ans = str(ans_item.get("user_answer", "")).strip()
-                    is_cor = bool(ans_item.get("is_correct", False))
-                elif isinstance(ans_item, str):
-                    cand_ans = ans_item.strip()
-                    is_cor = False
-                else:
-                    cand_ans = ""
-                    is_cor = False
-
-                correct_raw = server_keys.get(k) or server_keys.get(f"q{q_num}") or ""
-                if isinstance(correct_raw, (list, tuple)):
-                    correct_display = " / ".join(str(x) for x in correct_raw)
-                    valid_lower = [str(x).strip().lower() for x in correct_raw]
-                    if cand_ans and cand_ans.lower() in valid_lower:
-                        is_cor = True
-                elif isinstance(correct_raw, str):
-                    correct_display = correct_raw
-                    if cand_ans and correct_raw:
-                        if "," in correct_raw:
-                            tokens = [t.strip().lower() for t in correct_raw.split(",") if t.strip()]
-                            if cand_ans.lower() in tokens or cand_ans.lower() == correct_raw.lower():
-                                is_cor = True
-                        elif cand_ans.lower() == correct_raw.strip().lower():
-                            is_cor = True
-                else:
-                    correct_display = str(correct_raw)
-
-                if is_cor:
-                    correct_count += 1
-                    sec_correct += 1
-                else:
-                    wrong_count += 1
-                sec_total += 1
-
-                q_obj = DummyQuestion(q_num, f"Question {q_num}", correct_display, f"Official Answer: {correct_display}")
-                questions_data.append({
-                    "question": q_obj,
-                    "global_num": q_num,
-                    "blank_count": 1,
-                    "group_header": None,
-                    "candidate_answer": cand_ans,
-                    "is_correct": is_cor,
-                    "is_blank": not bool(cand_ans),
-                    "explanation": q_obj.explanation,
-                    "display_options": [],
-                    "options": [],
-                })
-
-            sections_data.append({
-                "section": sec,
-                "correct_count": sec_correct,
-                "total_count": sec_total,
-                "questions": questions_data,
-            })
-
-        total_marks = 40
-        if attempt.raw_score != correct_count or attempt.band_score is None:
-            attempt.raw_score = correct_count
+        review_data = get_listening_review_data(attempt)
+        if attempt.raw_score != review_data["raw_score"] or attempt.band_score is None:
+            attempt.raw_score = review_data["raw_score"]
             from .scoring import band_for_raw
             from decimal import Decimal
-            attempt.band_score = Decimal(str(band_for_raw(ExamModule.ModuleType.LISTENING, correct_count)))
+            attempt.band_score = Decimal(str(band_for_raw(ExamModule.ModuleType.LISTENING, attempt.raw_score)))
             attempt.save(update_fields=["raw_score", "band_score"])
 
-        review_module_audio_url = f"/static/listening_audio/mock_{mock_num}_full.mp3"
-        merged_audio_path = os.path.join(settings.BASE_DIR, "static", "listening_audio", f"mock_{mock_num}_full.mp3")
-        if not os.path.exists(merged_audio_path):
-            review_module_audio_url = ""
-
-        return render(request, "exam/result.html", {
+        return render(request, "exam/listening_result.html", {
             "attempt": attempt,
             "module": module,
             "mock_test": mock_test,
             "module_type": module_type,
-            "time_taken": time_taken_str,
-            "correct_count": correct_count,
-            "wrong_count": wrong_count,
-            "total_marks": total_marks,
-            "task_evaluations": task_evaluations,
-            "sections_data": sections_data,
-            "review_module_audio_url": review_module_audio_url,
-            "next_module_url": next_module_url,
-            "next_module_label": next_module_label,
+            "review": review_data,
+            "raw_score": review_data["raw_score"],
+            "band_score": review_data["band_score"],
+            "correct_count": review_data["correct_count"],
+            "wrong_count": review_data["wrong_count"],
+            "time_taken": review_data["time_taken"],
+            "candidate_name": review_data["candidate_name"],
+            "candidate_username": review_data["candidate_username"],
+            "audio_url": review_data["audio_url"],
+            "questions": review_data["questions"],
         })
 
     answers = {
@@ -3417,7 +3702,12 @@ def full_mock_result(request, full_attempt_id):
         sec = max(0, int((full_mock.writing_attempt.submitted_at - full_mock.writing_attempt.started_at).total_seconds()))
         writing_time = f"{sec // 60:02d}:{sec % 60:02d}"
 
+    listening_review = None
+    if full_mock.listening_attempt:
+        listening_review = get_listening_review_data(full_mock.listening_attempt)
+
     return render(request, "exam/full_mock_result.html", {
+        "listening_review": listening_review,
         "full_mock": full_mock,
         "mock_test": full_mock.mock_test,
         "reading_attempt": full_mock.reading_attempt,
@@ -3513,7 +3803,7 @@ def mock_listening_view(request, mock_id):
                     status=CandidateAttempt.AttemptStatus.IN_PROGRESS,
                 )
 
-    if listening_mod.sections.exists() or not get_listening_filepath(mock_test.test_number, listening_mod):
+    if not get_listening_filepath(mock_test.test_number, listening_mod):
         return redirect("bcl:exam_session", attempt_id=attempt.pk)
     return render_listening_html(request, attempt)
 

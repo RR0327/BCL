@@ -1135,6 +1135,7 @@ class CandidateAttemptAdmin(QuestionSetterBaseAdmin):
         "raw_score",
         "band_score",
         "result_actions_card",
+        "listening_answers_breakdown",
     )
     list_select_related = (
         "candidate",
@@ -1194,6 +1195,49 @@ class CandidateAttemptAdmin(QuestionSetterBaseAdmin):
             '</div>',
             result_url, pdf_url, docx_url, mark_safe(review_button_html),
         )
+
+    @admin.display(description="Listening Answers Breakdown (40 Questions)")
+    def listening_answers_breakdown(self, obj):
+        if not obj or not obj.pk or obj.module.module_type != ExamModule.ModuleType.LISTENING:
+            return "N/A (Non-Listening module)"
+        payload = obj.answers_payload or {}
+        answers = payload.get("answers", {})
+        if not answers:
+            return format_html("<em>No detailed answers payload recorded for this attempt.</em>")
+
+        rows = []
+        keys = sorted(answers.keys(), key=lambda x: int(x) if str(x).isdigit() else 999)
+        for k in keys:
+            item = answers[k]
+            u_ans = item.get("user_answer", "") or "-"
+            c_ans = item.get("correct_answer", "") or "-"
+            is_cor = bool(item.get("is_correct", False))
+            status_badge = (
+                '<span style="color:#059669; font-weight:700;">&#10003; Correct</span>'
+                if is_cor else
+                '<span style="color:#dc2626; font-weight:700;">&#10007; Incorrect</span>'
+            )
+            rows.append(
+                f"<tr>"
+                f"<td style='padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;'>{k}</td>"
+                f"<td style='padding:6px 12px; border:1px solid #e2e8f0;'>{u_ans}</td>"
+                f"<td style='padding:6px 12px; border:1px solid #e2e8f0; font-weight:bold;'>{c_ans}</td>"
+                f"<td style='padding:6px 12px; border:1px solid #e2e8f0;'>{status_badge}</td>"
+                f"</tr>"
+            )
+        table_html = (
+            "<div style='max-height:450px; overflow-y:auto; border:1px solid #cbd5e1; border-radius:6px;'>"
+            "<table style='border-collapse:collapse; width:100%; font-size:13px;'>"
+            "<thead><tr style='background:#f1f5f9; text-align:left; position:sticky; top:0; z-index:2;'>"
+            "<th style='padding:8px 12px; border:1px solid #cbd5e1;'>Q#</th>"
+            "<th style='padding:8px 12px; border:1px solid #cbd5e1;'>Candidate Answer</th>"
+            "<th style='padding:8px 12px; border:1px solid #cbd5e1;'>Correct Answer</th>"
+            "<th style='padding:8px 12px; border:1px solid #cbd5e1;'>Result</th>"
+            "</tr></thead><tbody>"
+            + "".join(rows) +
+            "</tbody></table></div>"
+        )
+        return mark_safe(table_html)
 
 
 @admin.register(CandidateAnswer)

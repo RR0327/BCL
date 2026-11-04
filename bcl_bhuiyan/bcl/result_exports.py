@@ -59,30 +59,61 @@ def get_module_attempt_data(attempt_id):
     wrong_count = 0
     global_num = 1
 
-    for section in sections:
-        for q in section.questions.order_by("order", "pk"):
-            ans = answers.get(q.pk)
-            candidate_answer = ans.answer_text if ans else ""
-            is_correct = bool(ans and ans.is_correct)
-            is_blank = not bool(candidate_answer.strip())
-
-            if is_correct:
+    if module_type == ExamModule.ModuleType.LISTENING and (not sections or not answers):
+        from .exam_views import parse_listening_answer_key
+        server_keys = parse_listening_answer_key(mock_test.test_number, module)
+        payload = attempt.answers_payload or {}
+        cand_answers = payload.get("answers", {})
+        for q_num in range(1, 41):
+            k = str(q_num)
+            item = cand_answers.get(k, {})
+            u_ans = item.get("user_answer", "") if isinstance(item, dict) else str(item)
+            c_ans = item.get("correct_answer", "") if isinstance(item, dict) else ""
+            if not c_ans:
+                raw_k = server_keys.get(k, "")
+                c_ans = " / ".join(raw_k) if isinstance(raw_k, (list, tuple)) else str(raw_k)
+            is_cor = bool(item.get("is_correct", False)) if isinstance(item, dict) else False
+            if is_cor:
                 correct_count += 1
             else:
                 wrong_count += 1
-
+            part_num = (q_num - 1) // 10 + 1
             questions_data.append({
-                "global_num": global_num,
-                "section_title": section.title,
-                "question_text": q.question_text,
-                "question_type": q.get_question_type_display(),
-                "candidate_answer": candidate_answer or "[No Answer]",
-                "correct_answer": q.correct_answer or "—",
-                "is_correct": is_correct,
-                "is_blank": is_blank,
-                "explanation": q.explanation or "",
+                "global_num": q_num,
+                "section_title": f"Part {part_num}",
+                "question_text": f"Question {q_num}",
+                "question_type": "Listening Item",
+                "candidate_answer": u_ans or "[No Answer]",
+                "correct_answer": c_ans or "—",
+                "is_correct": is_cor,
+                "is_blank": not bool(u_ans.strip()),
+                "explanation": "",
             })
-            global_num += 1
+    else:
+        for section in sections:
+            for q in section.questions.order_by("order", "pk"):
+                ans = answers.get(q.pk)
+                candidate_answer = ans.answer_text if ans else ""
+                is_correct = bool(ans and ans.is_correct)
+                is_blank = not bool(candidate_answer.strip())
+
+                if is_correct:
+                    correct_count += 1
+                else:
+                    wrong_count += 1
+
+                questions_data.append({
+                    "global_num": global_num,
+                    "section_title": section.title,
+                    "question_text": q.question_text,
+                    "question_type": q.get_question_type_display(),
+                    "candidate_answer": candidate_answer or "[No Answer]",
+                    "correct_answer": q.correct_answer or "—",
+                    "is_correct": is_correct,
+                    "is_blank": is_blank,
+                    "explanation": q.explanation or "",
+                })
+                global_num += 1
 
     # For writing modules
     writing_tasks = []
