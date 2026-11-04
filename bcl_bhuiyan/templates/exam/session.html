@@ -132,7 +132,7 @@
                     </div>
                     <div class="px-6 pb-6 pt-2 border-t border-blue-100">
                         <label class="notes-label block text-xs font-bold text-gray-500 mb-1" for="readingPassageNotes">Private passage notes (saved in this browser)</label>
-                        <textarea id="readingPassageNotes" class="passage-notes" rows="3" placeholder="Type your personal notes here..."></textarea>
+                        <textarea id="readingPassageNotes" class="passage-notes" rows="3" placeholder="Type your personal notes here..." spellcheck="false"></textarea>
                     </div>
                 </div>
             </div>
@@ -296,7 +296,7 @@
                                             </div>
 
                                         {% else %}
-                                            <input type="text" class="answer-field w-full rounded-lg border border-slate-300 dark:border-zinc-700 p-2.5 text-sm bg-white dark:bg-zinc-800 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Type your answer here...">
+                                            <input type="text" class="answer-field w-full rounded-lg border border-slate-300 dark:border-zinc-700 p-2.5 text-sm bg-white dark:bg-zinc-800 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Type your answer here..." spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
                                         {% endif %}
                                     </div>
                                 </section>
@@ -562,7 +562,7 @@
                                             </div>
 
                                         {% else %}
-                                            <input type="text" class="answer-field w-full rounded-lg border border-slate-300 dark:border-zinc-700 p-2.5 text-sm bg-white dark:bg-zinc-800 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Type your answer here...">
+                                            <input type="text" class="answer-field w-full rounded-lg border border-slate-300 dark:border-zinc-700 p-2.5 text-sm bg-white dark:bg-zinc-800 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Type your answer here..." spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
                                         {% endif %}
                                     </div>
                                 </section>
@@ -619,7 +619,7 @@
                                 </div>
                                 <div class="writing-answer-pane">
                                     <label for="answer-{{ question.pk }}" class="sr-only">Answer Writing Task {{ question.writing_task_number }}</label>
-                                    <textarea id="answer-{{ question.pk }}" class="answer-field writing-editor" maxlength="20000" spellcheck="true" placeholder="{% if section.order == 1 %}Start writing your response here...{% else %}Write your essay here...{% endif %}"></textarea>
+                                    <textarea id="answer-{{ question.pk }}" class="answer-field writing-editor" maxlength="20000" spellcheck="false" autocorrect="off" autocapitalize="off" autocomplete="off" data-gramm="false" data-gramm_editor="false" data-enable-grammarly="false" placeholder="{% if section.order == 1 %}Start writing your response here...{% else %}Write your essay here...{% endif %}"></textarea>
                                     <p class="word-count" aria-live="polite">Words: <span>0</span> <span class="writing-save-note">· Saved automatically every 15 seconds</span></p>
                                 </div>
                             </div>
