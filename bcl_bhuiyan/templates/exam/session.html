@@ -84,7 +84,7 @@
           data-timer-url="{% url 'bcl:exam_timer' attempt.pk %}"
           data-save-url="{% url 'bcl:save_exam_answer' attempt.pk %}"
           data-violation-url="{% url 'bcl:report_exam_violation' attempt.pk %}"
-          data-ended-url="{% if attempt.full_mock_id %}{% url 'bcl:full_mock_ended' attempt.full_mock_id %}{% else %}{% url 'bcl:exam_ended' attempt.pk %}{% endif %}"
+          data-ended-url="{% if attempt.full_mock_id %}{% if module.module_type == 'writing' %}{% url 'bcl:full_mock_ended' attempt.full_mock_id %}{% else %}{% url 'bcl:full_mock_intermission' attempt.full_mock_id %}{% endif %}{% else %}{% url 'bcl:exam_ended' attempt.pk %}{% endif %}"
           data-result-url="{% url 'bcl:exam_result' attempt.pk %}"
           data-violation-count="{{ attempt.violation_count }}">
 

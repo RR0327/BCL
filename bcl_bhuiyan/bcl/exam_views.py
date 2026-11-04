@@ -65,6 +65,22 @@ def expire_attempt_if_needed(attempt):
             locked.submitted_at = now
             locked.save(update_fields=["status", "submitted_at"])
             finalize_attempt_score(locked)
+
+            if locked.full_mock_id:
+                fm = FullMockAttempt.objects.select_for_update().filter(pk=locked.full_mock_id).first()
+                if fm and fm.status == FullMockAttempt.AttemptStatus.IN_PROGRESS:
+                    if fm.current_step == "listening" and (fm.listening_attempt_id == locked.pk or not fm.listening_attempt_id):
+                        fm.current_step = "reading"
+                        fm.save(update_fields=["current_step"])
+                    elif fm.current_step == "reading" and (fm.reading_attempt_id == locked.pk or not fm.reading_attempt_id):
+                        fm.current_step = "writing"
+                        fm.save(update_fields=["current_step"])
+                    elif fm.current_step == "writing" and (fm.writing_attempt_id == locked.pk or not fm.writing_attempt_id):
+                        fm.status = CandidateAttempt.AttemptStatus.AUTO_SUBMITTED
+                        fm.current_step = "completed"
+                        fm.submitted_at = now
+                        fm.calculate_overall_score()
+                        fm.save()
         return locked
 
 
@@ -2230,6 +2246,25 @@ def exam_session(request, attempt_id):
     attempt = expire_attempt_if_needed(get_candidate_attempt(request, attempt_id))
     if attempt.status != CandidateAttempt.AttemptStatus.IN_PROGRESS:
         if attempt.full_mock_id:
+            full_mock = FullMockAttempt.objects.filter(pk=attempt.full_mock_id, candidate=request.user).first()
+            if full_mock and full_mock.status == FullMockAttempt.AttemptStatus.IN_PROGRESS:
+                if attempt.module.module_type == ExamModule.ModuleType.LISTENING:
+                    if full_mock.current_step == "listening":
+                        full_mock.current_step = "reading"
+                        full_mock.save(update_fields=["current_step"])
+                    return redirect("bcl:full_mock_intermission", full_attempt_id=full_mock.pk)
+                elif attempt.module.module_type == ExamModule.ModuleType.READING:
+                    if full_mock.current_step in ("listening", "reading"):
+                        full_mock.current_step = "writing"
+                        full_mock.save(update_fields=["current_step"])
+                    return redirect("bcl:full_mock_intermission", full_attempt_id=full_mock.pk)
+                elif attempt.module.module_type == ExamModule.ModuleType.WRITING:
+                    full_mock.status = attempt.status
+                    full_mock.current_step = "completed"
+                    full_mock.submitted_at = attempt.submitted_at or timezone.now()
+                    full_mock.calculate_overall_score()
+                    full_mock.save()
+                    return redirect("bcl:full_mock_ended", full_attempt_id=full_mock.pk)
             return redirect("bcl:full_mock_ended", full_attempt_id=attempt.full_mock_id)
         return redirect("bcl:exam_ended", attempt_id=attempt.pk)
     # An older duplicate must not display an active exam interface.
@@ -3127,6 +3162,28 @@ def full_mock_intermission(request, full_attempt_id):
     if full_mock.status != FullMockAttempt.AttemptStatus.IN_PROGRESS or full_mock.current_step == "completed":
         return redirect("bcl:full_mock_ended", full_attempt_id=full_mock.pk)
 
+    # Check if the attempt for the current step has already completed or expired
+    if full_mock.current_step == "reading":
+        if full_mock.reading_attempt:
+            reading_att = expire_attempt_if_needed(full_mock.reading_attempt)
+            if reading_att.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
+                return redirect("bcl:exam_session", attempt_id=reading_att.pk)
+            else:
+                full_mock.current_step = "writing"
+                full_mock.save(update_fields=["current_step"])
+    elif full_mock.current_step == "writing":
+        if full_mock.writing_attempt:
+            writing_att = expire_attempt_if_needed(full_mock.writing_attempt)
+            if writing_att.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
+                return redirect("bcl:exam_session", attempt_id=writing_att.pk)
+            else:
+                full_mock.status = writing_att.status
+                full_mock.current_step = "completed"
+                full_mock.submitted_at = writing_att.submitted_at or timezone.now()
+                full_mock.calculate_overall_score()
+                full_mock.save()
+                return redirect("bcl:full_mock_ended", full_attempt_id=full_mock.pk)
+
     step_info = {}
     if full_mock.current_step == "reading":
         step_info = {
@@ -3254,11 +3311,41 @@ def full_mock_ended(request, full_attempt_id):
         candidate=request.user,
     )
     if full_mock.status == FullMockAttempt.AttemptStatus.IN_PROGRESS:
-        if full_mock.current_step in {"listening", "reading", "writing"} and not getattr(full_mock, f"{full_mock.current_step}_attempt"):
-            return redirect("bcl:full_mock_intermission", full_attempt_id=full_mock.pk)
-        active_att = getattr(full_mock, f"{full_mock.current_step}_attempt", None)
-        if active_att:
-            return redirect("bcl:exam_session", attempt_id=active_att.pk)
+        if full_mock.current_step == "completed":
+            full_mock.status = CandidateAttempt.AttemptStatus.SUBMITTED
+            if not full_mock.submitted_at:
+                full_mock.submitted_at = timezone.now()
+            full_mock.calculate_overall_score()
+            full_mock.save()
+            return render(request, "exam/full_mock_ended.html", {
+                "full_mock": full_mock,
+                "mock_test": full_mock.mock_test,
+            })
+
+        if full_mock.current_step in {"listening", "reading", "writing"}:
+            active_att = getattr(full_mock, f"{full_mock.current_step}_attempt", None)
+            if not active_att:
+                return redirect("bcl:full_mock_intermission", full_attempt_id=full_mock.pk)
+
+            active_att = expire_attempt_if_needed(active_att)
+            if active_att.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
+                return redirect("bcl:exam_session", attempt_id=active_att.pk)
+
+            # active_att has ended (auto_submitted or submitted)
+            if full_mock.current_step == "listening":
+                full_mock.current_step = "reading"
+                full_mock.save(update_fields=["current_step"])
+                return redirect("bcl:full_mock_intermission", full_attempt_id=full_mock.pk)
+            elif full_mock.current_step == "reading":
+                full_mock.current_step = "writing"
+                full_mock.save(update_fields=["current_step"])
+                return redirect("bcl:full_mock_intermission", full_attempt_id=full_mock.pk)
+            elif full_mock.current_step == "writing":
+                full_mock.status = active_att.status
+                full_mock.current_step = "completed"
+                full_mock.submitted_at = active_att.submitted_at or timezone.now()
+                full_mock.calculate_overall_score()
+                full_mock.save()
 
     return render(request, "exam/full_mock_ended.html", {
         "full_mock": full_mock,
