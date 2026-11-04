@@ -27,6 +27,14 @@ from .models import (
 from .writing_views import writing_result_band
 
 
+def format_local_dt(dt, fmt="%Y-%m-%d %H:%M"):
+    if not dt:
+        return "—"
+    if timezone.is_aware(dt):
+        dt = timezone.localtime(dt)
+    return dt.strftime(fmt)
+
+
 # ==============================================================================
 # 1. INDIVIDUAL MODULE RESULT EXPORT (READING, LISTENING, WRITING)
 # ==============================================================================
@@ -148,7 +156,7 @@ def export_candidate_attempt(request, attempt_id, format):
             ("Candidate Name:", f"{attempt.candidate.get_full_name() or attempt.candidate.username} ({attempt.candidate.email})"),
             ("Mock Examination:", f"{data['mock_test'].title}"),
             ("Module:", f"{module_type.capitalize()} Module"),
-            ("Date & Time Submitted:", f"{attempt.submitted_at.strftime('%Y-%m-%d %H:%M') if attempt.submitted_at else 'In Progress'} (Time: {data['duration_str']})"),
+            ("Date & Time Submitted:", f"{format_local_dt(attempt.submitted_at) if attempt.submitted_at else 'In Progress'} (Time: {data['duration_str']})"),
             ("Final Result:", f"Band Score: {attempt.band_score if attempt.band_score is not None else 'Pending'} | Raw Score: {attempt.raw_score}/{data['total_questions']}" if module_type != "writing" else f"Writing Band: {data['writing_band'] if data['writing_band'] is not None else 'Pending Review'}"),
         ]
         for idx, (label, val) in enumerate(info_rows):
@@ -240,7 +248,7 @@ def export_candidate_attempt(request, attempt_id, format):
             [Paragraph("<b>Candidate:</b>", body_style), Paragraph(f"{attempt.candidate.get_full_name() or attempt.candidate.username} ({attempt.candidate.email})", body_style)],
             [Paragraph("<b>Mock Test:</b>", body_style), Paragraph(data["mock_test"].title, body_style)],
             [Paragraph("<b>Module:</b>", body_style), Paragraph(f"{module_type.capitalize()} (Duration: {data['duration_str']})", body_style)],
-            [Paragraph("<b>Submitted:</b>", body_style), Paragraph(attempt.submitted_at.strftime('%Y-%m-%d %H:%M') if attempt.submitted_at else 'In Progress', body_style)],
+            [Paragraph("<b>Submitted:</b>", body_style), Paragraph(format_local_dt(attempt.submitted_at) if attempt.submitted_at else 'In Progress', body_style)],
             [Paragraph("<b>Score:</b>", body_style), Paragraph(f"<b>Band {attempt.band_score}</b> (Raw: {attempt.raw_score}/{data['total_questions']})" if module_type != "writing" else f"<b>Writing Band: {data['writing_band'] or 'Pending'}</b>", body_style)],
         ]
         sum_table = Table(summary_data, colWidths=[100, 400])
@@ -370,7 +378,7 @@ def export_full_mock_attempt(request, full_attempt_id, format):
         p_sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
         p_sub.add_run(f"Candidate: {full_mock.candidate.get_full_name() or full_mock.candidate.username} ({full_mock.candidate.email})\n")
         p_sub.add_run(f"Test: {full_mock.mock_test.title} | Status: {full_mock.get_status_display()}\n")
-        p_sub.add_run(f"Date: {full_mock.started_at.strftime('%Y-%m-%d %H:%M')}")
+        p_sub.add_run(f"Date: {format_local_dt(full_mock.started_at)}")
 
         doc.add_heading("Overall Exam Band Scores", level=1)
         score_table = doc.add_table(rows=5, cols=3)
@@ -429,7 +437,7 @@ def export_full_mock_attempt(request, full_attempt_id, format):
         info_rows = [
             [Paragraph("<b>Candidate:</b>", body_style), Paragraph(f"{full_mock.candidate.get_full_name() or full_mock.candidate.username} ({full_mock.candidate.email})", body_style)],
             [Paragraph("<b>Mock Test:</b>", body_style), Paragraph(full_mock.mock_test.title, body_style)],
-            [Paragraph("<b>Date Started:</b>", body_style), Paragraph(full_mock.started_at.strftime('%Y-%m-%d %H:%M'), body_style)],
+            [Paragraph("<b>Date Started:</b>", body_style), Paragraph(format_local_dt(full_mock.started_at), body_style)],
             [Paragraph("<b>Overall Band:</b>", body_style), Paragraph(f"<b>Band {full_mock.overall_band_score}</b>" if full_mock.overall_band_score is not None else "Pending Writing Evaluation", body_style)],
         ]
         t_info = Table(info_rows, colWidths=[100, 400])

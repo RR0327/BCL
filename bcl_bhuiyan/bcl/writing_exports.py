@@ -10,6 +10,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_GET
+from django.utils import timezone
 
 from .models import CandidateAttempt, CandidateAnswer, ExamModule, get_writing_task_questions
 from .writing_views import writing_result_band
@@ -41,7 +42,7 @@ def export_lines(attempt, tasks, band):
              f"Attempt: {attempt.pk}", f"Candidate: {attempt.candidate.username}",
              f"Mock test: {attempt.module.mock_test.title}",
              f"Status: {attempt.get_status_display()}",
-             f"Submitted: {attempt.submitted_at.isoformat() if attempt.submitted_at else 'Not recorded'}",
+             f"Submitted: {timezone.localtime(attempt.submitted_at).strftime('%Y-%m-%d %H:%M') if attempt.submitted_at else 'Not recorded'}",
              f"Overall practice Writing band: {band if band is not None else 'Pending'}",
              "Practice assessment only; not an official IELTS score."]
     for task in tasks:
