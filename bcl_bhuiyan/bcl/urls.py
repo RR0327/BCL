@@ -1,6 +1,6 @@
 from django.urls import path
 from django.views.generic import RedirectView
-from . import exam_views, views, writing_views, writing_exports, private_media, mfa_views, result_exports
+from . import exam_views, views, writing_views, writing_exports, private_media, mfa_views, result_exports, admin_review_views
 
 app_name = "bcl"
 
@@ -40,6 +40,11 @@ urlpatterns = [
     path("writing/reviews/", writing_views.writing_review_list, name="writing_review_list"),
     path("writing/reviews/<int:attempt_id>/", writing_views.writing_review_detail, name="writing_review_detail"),
     path("writing/reviews/<int:attempt_id>/export/<str:format>/", writing_exports.writing_export, name="writing_export"),
+    path("writing/reviews/<int:attempt_id>/delete/", writing_views.writing_review_delete, name="writing_review_delete"),
+    path("admin-tools/reviews/", admin_review_views.admin_results_hub, name="admin_results_hub"),
+    path("admin-tools/reviews/<int:attempt_id>/", admin_review_views.admin_attempt_review, name="admin_attempt_review"),
+    path("admin-tools/reviews/full-mock/<int:full_attempt_id>/", admin_review_views.admin_full_mock_review, name="admin_full_mock_review"),
+    path("admin-tools/reviews/<int:attempt_id>/delete/", admin_review_views.admin_attempt_delete, name="admin_attempt_delete"),
     path("admin-tools/export/attempt/<int:attempt_id>/<str:format>/", result_exports.export_candidate_attempt, name="export_candidate_attempt"),
     path("admin-tools/export/full-mock/<int:full_attempt_id>/<str:format>/", result_exports.export_full_mock_attempt, name="export_full_mock_attempt"),
     path("start-mock/", exam_views.start_mock_shortcut, name="start_mock_shortcut"),

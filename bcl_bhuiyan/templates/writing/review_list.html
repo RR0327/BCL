@@ -240,6 +240,118 @@
             background: #2563eb;
         }
 
+        .btn-delete {
+            background: #e11d48;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-delete:hover {
+            background: #be123c;
+        }
+
+        /* Modal Overlay & Card */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+            animation: modalFadeIn 0.2s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-card);
+        }
+
+        .modal-header h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #e11d48;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            font-size: 20px;
+            color: var(--text-muted);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .modal-body {
+            padding: 20px;
+            font-size: 14px;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .modal-footer {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 14px 20px;
+            background: var(--bg-th);
+            border-top: 1px solid var(--border-card);
+        }
+
+        .btn-cancel {
+            padding: 8px 14px;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: 600;
+            background: var(--bg-page);
+            border: 1px solid var(--border-card);
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        .btn-confirm-delete {
+            padding: 8px 16px;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: 700;
+            background: #e11d48;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .btn-confirm-delete:hover {
+            background: #be123c;
+        }
+
         .empty-state {
             text-align: center;
             padding: 40px 20px;
@@ -254,6 +366,9 @@
         <div class="nav-links">
             <a href="{% url 'admin:index' %}">
                 &larr; Admin Dashboard
+            </a>
+            <a href="{% url 'bcl:admin_results_hub' %}">
+                📊 All Exam Results Hub
             </a>
             <a href="{% url 'bcl:dashboard' %}" target="_blank">
                 Candidate Portal ↗
@@ -343,6 +458,9 @@
                                     <a class="btn-action btn-docx" href="{% url 'bcl:export_candidate_attempt' attempt.id 'docx' %}" target="_blank" title="Export official Word DOCX report">
                                         📝 DOCX
                                     </a>
+                                    <button type="button" class="btn-action btn-delete" onclick="openDeleteModal('{{ attempt.id }}', '{{ attempt.candidate.username|escapejs }}', '{{ attempt.module.mock_test.title|escapejs }}')" title="Permanently delete this writing attempt and student essay answers">
+                                        🗑️ Delete
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -358,5 +476,55 @@
             </div>
         </div>
     </main>
+
+    <!-- DELETE CONFIRMATION MODAL -->
+    <div id="deleteModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>🗑️ Delete Writing Result &amp; Answers</h3>
+                <button type="button" class="modal-close" onclick="closeDeleteModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete writing submission <strong>#<span id="delAttemptIdText"></span></strong> for candidate <strong><span id="delCandidateText"></span></strong>?</p>
+                <div style="font-size: 12.5px; color: var(--text-muted); margin: 8px 0;">Test: <span id="delTestTitleText"></span></div>
+                <div style="background: rgba(225, 29, 72, 0.08); border-left: 3px solid #e11d48; padding: 10px 14px; border-radius: 0 6px 6px 0; margin-top: 12px; font-size: 12.5px; color: #be123c;">
+                    ⚠️ This permanently erases the student's submitted essay responses, word counts, and examiner rubric evaluation to free up database storage. This action cannot be undone.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" onclick="closeDeleteModal()">Cancel</button>
+                <form id="deleteAttemptForm" method="POST" action="">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                    <button type="submit" class="btn-confirm-delete">Permanently Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openDeleteModal(attemptId, username, testTitle) {
+            document.getElementById('delAttemptIdText').innerText = attemptId;
+            document.getElementById('delCandidateText').innerText = username;
+            document.getElementById('delTestTitleText').innerText = testTitle;
+            var form = document.getElementById('deleteAttemptForm');
+            form.action = '/writing/reviews/' + attemptId + '/delete/';
+            document.getElementById('deleteModal').style.display = 'flex';
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').style.display = 'none';
+        }
+
+        var modalOverlay = document.getElementById('deleteModal');
+        if (modalOverlay) {
+            modalOverlay.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeDeleteModal();
+                }
+            });
+        }
+    </script>
+
 </body>
 </html>

@@ -1,0 +1,1079 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    {% include "partials/site_meta.html" %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ module.get_module_type_display }} Review — {{ candidate.get_full_name|default:candidate.username }} | IELTS Admin | {{ platform_name }}</title>
+    <script>
+        (function() {
+            try {
+                var t = localStorage.getItem("test-theme") || localStorage.getItem("theme") || "device";
+                var isDark = (t === "dark") || ((t === "device" || t === "auto") && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+                if (isDark) {
+                    document.documentElement.classList.add("dark");
+                    document.documentElement.setAttribute("data-theme", "dark");
+                } else {
+                    document.documentElement.classList.remove("dark");
+                    document.documentElement.setAttribute("data-theme", "light");
+                }
+            } catch (e) {}
+        })();
+    </script>
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    <script src="{% static 'js/theme.js' %}" defer></script>
+    <style>
+        :root {
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --border-card: #e2e8f0;
+            --text-main: #0f172a;
+            --text-sub: #475569;
+            --text-muted: #64748b;
+            --bg-th: #f1f5f9;
+            --border-row: #e2e8f0;
+            --bg-row-hover: #f8fafc;
+            --bg-header: #0f172a;
+            --accent: #4f46e5;
+            --accent-hover: #4338ca;
+            --success-bg: #ecfdf5;
+            --success-text: #065f46;
+            --success-border: #a7f3d0;
+            --danger-bg: #fef2f2;
+            --danger-text: #991b1b;
+            --danger-border: #fecaca;
+            --warning-bg: #fffbeb;
+            --warning-text: #92400e;
+            --warning-border: #fde68a;
+        }
+
+        html.dark, html[data-theme="dark"] {
+            --bg-page: #0b0f19;
+            --bg-card: #1e293b;
+            --border-card: #334155;
+            --text-main: #f8fafc;
+            --text-sub: #cbd5e1;
+            --text-muted: #94a3b8;
+            --bg-th: #0f172a;
+            --border-row: #334155;
+            --bg-row-hover: #24334a;
+            --bg-header: #0f172a;
+            --accent: #6366f1;
+            --accent-hover: #4f46e5;
+            --success-bg: rgba(6, 95, 70, 0.25);
+            --success-text: #6ee7b7;
+            --success-border: rgba(5, 150, 105, 0.4);
+            --danger-bg: rgba(153, 27, 27, 0.25);
+            --danger-text: #fca5a5;
+            --danger-border: rgba(220, 38, 38, 0.4);
+            --warning-bg: rgba(146, 64, 14, 0.25);
+            --warning-text: #fde68a;
+            --warning-border: rgba(217, 119, 6, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header.top-navbar {
+            background-color: var(--bg-header);
+            color: #ffffff;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13.5px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #e2e8f0;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            transition: all 0.15s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.15s ease;
+        }
+
+        .btn-pdf {
+            background-color: #ef4444;
+            color: #ffffff;
+        }
+        .btn-pdf:hover {
+            background-color: #dc2626;
+        }
+
+        .btn-docx {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+        .btn-docx:hover {
+            background-color: #1d4ed8;
+        }
+
+        .btn-print {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+        }
+        .btn-print:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .main-container {
+            max-width: 1280px;
+            margin: 28px auto 60px;
+            padding: 0 20px;
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            padding: 24px 28px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .hero-meta h1 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .hero-meta-details {
+            font-size: 13.5px;
+            color: var(--text-sub);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 8px;
+        }
+
+        .hero-meta-details span {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .mod-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+        .mod-listening { background: #e0e7ff; color: #3730a3; }
+        .mod-reading { background: #dcfce7; color: #166534; }
+        .mod-writing { background: #fef3c7; color: #92400e; }
+
+        html.dark .mod-listening { background: rgba(79, 70, 229, 0.2); color: #a5b4fc; }
+        html.dark .mod-reading { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; }
+        html.dark .mod-writing { background: rgba(245, 158, 11, 0.2); color: #fde68a; }
+
+        /* Score Group Cards */
+        .score-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .score-box {
+            text-align: center;
+            padding: 12px 20px;
+            background: var(--bg-th);
+            border: 1px solid var(--border-card);
+            border-radius: 10px;
+            min-width: 110px;
+        }
+
+        .score-box-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .score-box-val {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .band-badge-hero {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            font-weight: 900;
+            padding: 12px 24px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+            letter-spacing: 0.5px;
+        }
+
+        /* Audio Player Card */
+        .audio-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+        }
+
+        .audio-card-title {
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-main);
+        }
+
+        .audio-card audio {
+            height: 40px;
+            max-width: 480px;
+            width: 100%;
+            outline: none;
+        }
+
+        /* Filter & Control Bar */
+        .filter-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 14px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        .pill-filters {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--bg-page);
+            border: 1px solid var(--border-card);
+            color: var(--text-sub);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .filter-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #ffffff;
+        }
+
+        .quick-stats {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            flex-wrap: wrap;
+        }
+
+        .stat-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        .stat-correct { background: var(--success-bg); color: var(--success-text); border: 1px solid var(--success-border); }
+        .stat-wrong { background: var(--danger-bg); color: var(--danger-text); border: 1px solid var(--danger-border); }
+        .stat-total { background: var(--bg-th); color: var(--text-main); border: 1px solid var(--border-card); }
+
+        /* Questions Table */
+        .table-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            margin-bottom: 30px;
+        }
+
+        .review-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13.5px;
+            text-align: left;
+        }
+
+        .review-table th {
+            background: var(--bg-th);
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-card);
+        }
+
+        .review-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-row);
+            vertical-align: middle;
+        }
+
+        .review-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .review-table tr:hover {
+            background: var(--bg-row-hover);
+        }
+
+        .q-num-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--bg-th);
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--text-main);
+            border: 1px solid var(--border-card);
+        }
+
+        .ans-pill {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 13.5px;
+            max-width: 340px;
+            word-break: break-word;
+        }
+
+        .ans-pill.correct {
+            background: var(--success-bg);
+            color: var(--success-text);
+            border: 1px solid var(--success-border);
+        }
+
+        .ans-pill.incorrect {
+            background: var(--danger-bg);
+            color: var(--danger-text);
+            border: 1px solid var(--danger-border);
+        }
+
+        .ans-pill.blank {
+            color: var(--text-muted);
+            font-style: italic;
+            background: var(--bg-page);
+            border: 1px dashed var(--border-card);
+        }
+
+        .correct-ans-text {
+            font-weight: 700;
+            color: var(--text-main);
+            background: rgba(79, 70, 229, 0.08);
+            border: 1px solid rgba(79, 70, 229, 0.2);
+            padding: 6px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            max-width: 340px;
+            word-break: break-word;
+        }
+
+        html.dark .correct-ans-text {
+            background: rgba(99, 102, 241, 0.15);
+            border-color: rgba(99, 102, 241, 0.3);
+            color: #c7d2fe;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .status-correct {
+            background: var(--success-bg);
+            color: var(--success-text);
+        }
+
+        .status-incorrect {
+            background: var(--danger-bg);
+            color: var(--danger-text);
+        }
+
+        /* Writing Specific Layout */
+        .writing-task-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .writing-task-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--border-card);
+            padding-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .writing-task-title {
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .task-prompt-box {
+            background: var(--bg-th);
+            border-left: 4px solid var(--accent);
+            padding: 14px 18px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: var(--text-sub);
+            white-space: pre-wrap;
+        }
+
+        .candidate-response-box {
+            background: var(--bg-page);
+            border: 1px solid var(--border-card);
+            border-radius: 8px;
+            padding: 18px 20px;
+            font-size: 14.5px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            margin-bottom: 20px;
+            font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+            color: var(--text-main);
+        }
+
+        .rubric-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13.5px;
+            margin-top: 12px;
+        }
+
+        .rubric-table th, .rubric-table td {
+            padding: 10px 14px;
+            border: 1px solid var(--border-card);
+        }
+
+        .rubric-table th {
+            background: var(--bg-th);
+            text-align: left;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .rubric-score {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--accent);
+            text-align: center;
+        }
+
+        .feedback-box {
+            background: var(--warning-bg);
+            border: 1px solid var(--warning-border);
+            color: var(--warning-text);
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-top: 14px;
+            font-size: 13.5px;
+        }
+
+        @media print {
+            header.top-navbar, .filter-card, .btn-action, .theme-toggle-btn {
+                display: none !important;
+            }
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+            }
+            .hero-banner, .table-card, .writing-task-card {
+                border: 1px solid #ccc !important;
+                box-shadow: none !important;
+            }
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+            animation: modalFadeIn 0.2s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-card);
+        }
+
+        .modal-header h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #e11d48;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            font-size: 20px;
+            color: var(--text-muted);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .modal-body {
+            padding: 20px;
+            font-size: 14px;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .modal-footer {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 14px 20px;
+            background: var(--bg-th);
+            border-top: 1px solid var(--border-card);
+        }
+
+        .btn-cancel {
+            padding: 8px 14px;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: 600;
+            background: var(--bg-page);
+            border: 1px solid var(--border-card);
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        .btn-confirm-delete {
+            padding: 8px 16px;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: 700;
+            background: #e11d48;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .btn-confirm-delete:hover {
+            background: #be123c;
+        }
+    </style>
+
+</head>
+<body>
+
+    <!-- TOP NAVBAR -->
+    <header class="top-navbar">
+        <div class="nav-links">
+            <a href="{% url 'bcl:admin_results_hub' %}">
+                &larr; Results &amp; Reviews Hub
+            </a>
+            <a href="{% url 'admin:index' %}">
+                Admin Dashboard
+            </a>
+            <a href="{% url 'bcl:dashboard' %}" target="_blank">
+                Candidate Portal &nearr;
+            </a>
+        </div>
+
+        <div class="nav-actions">
+            {% if module_type == 'writing' %}
+            <a href="{% url 'bcl:writing_review_detail' attempt.pk %}" class="btn-action" style="background:#4f46e5;color:#fff;">
+                ✏️ Grade / Edit Rubric
+            </a>
+            {% endif %}
+            <a href="{% url 'bcl:export_candidate_attempt' attempt.pk 'pdf' %}" class="btn-action btn-pdf" title="Download Official PDF Report">
+                📄 Export PDF
+            </a>
+            <a href="{% url 'bcl:export_candidate_attempt' attempt.pk 'docx' %}" class="btn-action btn-docx" title="Download Word DOCX Document">
+                📝 Export Word
+            </a>
+            <button type="button" class="btn-action btn-print" onclick="window.print()" title="Print Exam Report">
+                🖨️ Print
+            </button>
+            <button type="button" class="btn-action" style="background:#e11d48;color:#fff;" onclick="openDeleteModal()" title="Permanently delete this attempt and candidate answers to free database space">
+                🗑️ Delete
+            </button>
+            <button type="button" id="themeToggleBtn" class="theme-toggle-btn" title="Toggle Theme" aria-label="Toggle Theme"></button>
+        </div>
+    </header>
+
+    <main class="main-container">
+
+        <!-- CANDIDATE & SCORE HERO BANNER -->
+        <div class="hero-banner">
+            <div class="hero-meta">
+                <h1>
+                    <span>Attempt #{{ attempt.pk }}</span>
+                    <span class="mod-pill mod-{{ module_type }}">
+                        {% if module_type == 'listening' %}🎧 Listening
+                        {% elif module_type == 'reading' %}📖 Reading
+                        {% elif module_type == 'writing' %}✍️ Writing
+                        {% else %}{{ module.get_module_type_display }}{% endif %}
+                    </span>
+                    {% if attempt.full_mock %}
+                    <a href="{% url 'bcl:admin_full_mock_review' attempt.full_mock.pk %}" style="font-size:12px;padding:3px 8px;border-radius:4px;background:#e2e8f0;color:#334155;text-decoration:none;font-weight:600;">
+                        Part of Full Mock #{{ attempt.full_mock.pk }} &nearr;
+                    </a>
+                    {% endif %}
+                </h1>
+                <div style="font-size:16px;font-weight:600;color:var(--text-main);margin-top:4px;">
+                    Candidate: <strong>{{ candidate.get_full_name|default:candidate.username }}</strong>
+                    <span style="font-weight:400;color:var(--text-muted);font-size:13.5px;">({{ candidate.email }})</span>
+                </div>
+                <div class="hero-meta-details">
+                    <span>📚 <strong>{{ mock_test.title }}</strong></span>
+                    <span>⏱️ Duration: <strong>{{ time_taken }}</strong></span>
+                    <span>📅 Submitted: <strong>{{ attempt.submitted_at|date:"M d, Y · H:i"|default:"—" }}</strong></span>
+                    <span>📌 Status: <strong style="text-transform:capitalize;">{{ attempt.get_status_display }}</strong></span>
+                </div>
+            </div>
+
+            <!-- SCORE BADGES -->
+            <div class="score-group">
+                {% if module_type != 'writing' %}
+                <div class="score-box">
+                    <div class="score-box-label">Raw Score</div>
+                    <div class="score-box-val">{{ raw_score|default:correct_count }} / {{ total_questions|default:40 }}</div>
+                </div>
+                {% endif %}
+
+                <div class="band-badge-hero">
+                    Band {{ band_score|default:"—" }}
+                </div>
+            </div>
+        </div>
+
+        {% if module_type == 'listening' and audio_url %}
+        <!-- AUDIO PLAYER CARD FOR LISTENING -->
+        <div class="audio-card">
+            <div class="audio-card-title">
+                <span>🎧</span>
+                <span>Listening Audio Recording (Continuous Multi-Part Playback)</span>
+            </div>
+            <audio controls preload="metadata" src="{{ audio_url }}">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        {% endif %}
+
+        {% if module_type == 'listening' or module_type == 'reading' %}
+        <!-- FILTER & STATISTICS TOOLBAR -->
+        <div class="filter-card">
+            <div class="pill-filters">
+                <button type="button" class="filter-btn active" data-part="all">All Questions ({{ total_questions }})</button>
+                <button type="button" class="filter-btn" data-part="1">Part 1 (Q1–10)</button>
+                <button type="button" class="filter-btn" data-part="2">Part 2 (Q11–20)</button>
+                <button type="button" class="filter-btn" data-part="3">Part 3 (Q21–30)</button>
+                <button type="button" class="filter-btn" data-part="4">Part 4 (Q31–40)</button>
+            </div>
+
+            <div class="pill-filters">
+                <button type="button" class="filter-btn active" data-status="all">Show All</button>
+                <button type="button" class="filter-btn" data-status="correct">✓ Correct ({{ correct_count }})</button>
+                <button type="button" class="filter-btn" data-status="incorrect">✗ Incorrect ({{ wrong_count }})</button>
+            </div>
+
+            <div class="quick-stats">
+                <span class="stat-badge stat-correct">✓ {{ correct_count }} Correct</span>
+                <span class="stat-badge stat-wrong">✗ {{ wrong_count }} Incorrect</span>
+                <span class="stat-badge stat-total">🎯 {{ total_questions }} Total</span>
+            </div>
+        </div>
+
+        <!-- QUESTION-BY-QUESTION REVIEW TABLE -->
+        <div class="table-card">
+            <table class="review-table" id="reviewTable">
+                <thead>
+                    <tr>
+                        <th style="width: 50px; text-align: center;">Q#</th>
+                        <th style="width: 100px;">Section / Part</th>
+                        {% if module_type == 'reading' %}
+                        <th>Question / Prompt</th>
+                        {% endif %}
+                        <th>Candidate's Answer</th>
+                        <th>Official Correct Answer</th>
+                        <th style="width: 100px; text-align: center;">Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for q in questions %}
+                    <tr class="q-row" data-part="{{ q.part|default:1 }}" data-status="{% if q.is_correct %}correct{% else %}incorrect{% endif %}">
+                        <td style="text-align: center;">
+                            <span class="q-num-badge">{{ q.num }}</span>
+                        </td>
+                        <td>
+                            <strong style="font-size: 12.5px; color: var(--text-sub);">
+                                {% if q.section_title %}{{ q.section_title }}{% else %}Part {{ q.part|default:1 }}{% endif %}
+                            </strong>
+                        </td>
+                        {% if module_type == 'reading' %}
+                        <td>
+                            <div style="font-weight: 500; font-size: 13px; color: var(--text-main); margin-bottom: 4px;">
+                                {% if q.question_text %}{{ q.question_text|striptags|truncatewords:20 }}{% else %}Question {{ q.num }}{% endif %}
+                            </div>
+                            {% if q.explanation %}
+                            <div style="font-size: 12px; color: var(--text-muted); font-style: italic;">
+                                💡 {{ q.explanation }}
+                            </div>
+                            {% endif %}
+                        </td>
+                        {% endif %}
+                        <td>
+                            {% if q.has_answer %}
+                                <span class="ans-pill {% if q.is_correct %}correct{% else %}incorrect{% endif %}">
+                                    {{ q.user_answer }}
+                                </span>
+                            {% else %}
+                                <span class="ans-pill blank">No Answer</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <span class="correct-ans-text">{{ q.correct_answer }}</span>
+                        </td>
+                        <td style="text-align: center;">
+                            {% if q.is_correct %}
+                                <span class="status-badge status-correct">✓ Correct</span>
+                            {% else %}
+                                <span class="status-badge status-incorrect">✗ Incorrect</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 40px; color: var(--text-muted);">
+                            No question details recorded for this attempt.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+
+        {% if module_type == 'writing' %}
+        <!-- WRITING TASKS DISPLAY -->
+        {% for task in writing_tasks %}
+        <div class="writing-task-card">
+            <div class="writing-task-header">
+                <div class="writing-task-title">
+                    <span>✍️</span>
+                    <span>{{ task.title }}</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;">
+                    <span style="font-size:13px;font-weight:600;color:var(--text-muted);background:var(--bg-th);padding:4px 10px;border-radius:6px;border:1px solid var(--border-card);">
+                        Word Count: <strong>{{ task.word_count }}</strong> words
+                    </span>
+                    {% if task.evaluation %}
+                    <span class="stat-badge stat-correct" style="font-size:13px;font-weight:700;">
+                        Task Band: {{ task.evaluation.task_band_score }}
+                    </span>
+                    {% else %}
+                    <span class="stat-badge" style="background:var(--warning-bg);color:var(--warning-text);border:1px solid var(--warning-border);font-size:13px;font-weight:700;">
+                        Pending Grading
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- TASK PROMPT -->
+            <div style="font-size:12px;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">Prompt / Topic:</div>
+            <div class="task-prompt-box">{{ task.prompt }}</div>
+
+            <!-- CANDIDATE RESPONSE -->
+            <div style="font-size:12px;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">Candidate's Submission:</div>
+            <div class="candidate-response-box">{{ task.response }}</div>
+
+            <!-- RUBRIC EVALUATION IF PRESENT -->
+            {% if task.evaluation %}
+            <div style="margin-top:20px;">
+                <div style="font-size:13px;font-weight:700;text-transform:uppercase;color:var(--text-sub);margin-bottom:8px;">Examiner Rubric Assessment</div>
+                <table class="rubric-table">
+                    <thead>
+                        <tr>
+                            <th>{% if task.task_number == 1 %}Task Achievement (TA){% else %}Task Response (TR){% endif %}</th>
+                            <th>Coherence &amp; Cohesion (CC)</th>
+                            <th>Lexical Resource (LR)</th>
+                            <th>Grammatical Range &amp; Accuracy (GRA)</th>
+                            <th style="text-align:center;">Task Band</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="rubric-score">{{ task.evaluation.task_achievement }}</td>
+                            <td class="rubric-score">{{ task.evaluation.coherence_cohesion }}</td>
+                            <td class="rubric-score">{{ task.evaluation.lexical_resource }}</td>
+                            <td class="rubric-score">{{ task.evaluation.grammatical_range_accuracy }}</td>
+                            <td class="rubric-score" style="color:#059669;font-size:18px;">{{ task.evaluation.criterion_average }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                {% if task.evaluation.feedback %}
+                <div class="feedback-box">
+                    <strong>Examiner Feedback:</strong>
+                    <div style="margin-top: 4px; white-space: pre-wrap;">{{ task.evaluation.feedback }}</div>
+                    {% if task.evaluation.examiner %}
+                    <div style="margin-top: 6px; font-size: 12px; opacity: 0.85;">
+                        Evaluated by: <em>{{ task.evaluation.examiner.get_full_name|default:task.evaluation.examiner.username }}</em>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+            {% else %}
+            <div style="background:var(--bg-th);border:1px dashed var(--border-card);padding:16px;border-radius:8px;text-align:center;margin-top:16px;">
+                <p style="font-size:14px;color:var(--text-muted);margin-bottom:10px;">This task has not been evaluated by an examiner yet.</p>
+                <a href="{% url 'bcl:writing_review_detail' attempt.pk %}" class="btn-action" style="background:#4f46e5;color:#fff;">
+                    ✏️ Evaluate Task Now &rarr;
+                </a>
+            </div>
+            {% endif %}
+        </div>
+        {% empty %}
+        <div class="writing-task-card" style="text-align:center;color:var(--text-muted);padding:40px;">
+            No writing tasks recorded for this attempt.
+        </div>
+        {% endfor %}
+        {% endif %}
+
+    </main>
+
+    <!-- INTERACTIVE FILTERING SCRIPT -->
+    <script>
+        (function() {
+            var activePart = 'all';
+            var activeStatus = 'all';
+
+            var partButtons = document.querySelectorAll('.pill-filters button[data-part]');
+            var statusButtons = document.querySelectorAll('.pill-filters button[data-status]');
+            var rows = document.querySelectorAll('.q-row');
+
+            function applyFilters() {
+                rows.forEach(function(row) {
+                    var rowPart = row.getAttribute('data-part');
+                    var rowStatus = row.getAttribute('data-status');
+
+                    var partMatch = (activePart === 'all') || (rowPart === activePart);
+                    var statusMatch = (activeStatus === 'all') || (rowStatus === activeStatus);
+
+                    if (partMatch && statusMatch) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            }
+
+            partButtons.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    partButtons.forEach(function(b) { b.classList.remove('active'); });
+                    this.classList.add('active');
+                    activePart = this.getAttribute('data-part');
+                    applyFilters();
+                });
+            });
+
+            statusButtons.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    statusButtons.forEach(function(b) { b.classList.remove('active'); });
+                    this.classList.add('active');
+                    activeStatus = this.getAttribute('data-status');
+                    applyFilters();
+                });
+            });
+        })();
+    </script>
+
+    <!-- DELETE CONFIRMATION MODAL -->
+    <div id="deleteModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>🗑️ Delete Candidate Result &amp; Answers</h3>
+                <button type="button" class="modal-close" onclick="closeDeleteModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to permanently delete <strong>Attempt #{{ attempt.pk }}</strong> for candidate <strong>{{ candidate.get_full_name|default:candidate.username }}</strong>?</p>
+                <div style="font-size: 12.5px; color: var(--text-muted); margin: 8px 0;">Test: {{ mock_test.title }} ({{ module.get_module_type_display }})</div>
+                <div style="background: rgba(225, 29, 72, 0.08); border-left: 3px solid #e11d48; padding: 10px 14px; border-radius: 0 6px 6px 0; margin-top: 12px; font-size: 12.5px; color: #be123c;">
+                    ⚠️ This permanently deletes all submitted answers, word counts, and scores for this attempt to free database storage. This action cannot be undone.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" onclick="closeDeleteModal()">Cancel</button>
+                <form method="POST" action="{% url 'bcl:admin_attempt_delete' attempt.pk %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{% url 'bcl:admin_results_hub' %}">
+                    <button type="submit" class="btn-confirm-delete">Permanently Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openDeleteModal() {
+            document.getElementById('deleteModal').style.display = 'flex';
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').style.display = 'none';
+        }
+
+        var modalOverlay = document.getElementById('deleteModal');
+        if (modalOverlay) {
+            modalOverlay.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeDeleteModal();
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

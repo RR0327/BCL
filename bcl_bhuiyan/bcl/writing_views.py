@@ -7,6 +7,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.db import transaction
 from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.http import require_http_methods
 
 from .models import (
@@ -167,3 +168,45 @@ def writing_review_detail(request, attempt_id):
         "task_cards": task_cards,
         "overall_band": writing_result_band(attempt),
     })
+
+
+@staff_member_required
+@require_http_methods(["POST"])
+def writing_review_delete(request, attempt_id):
+    """
+    Allow administrators/examiners to delete a candidate writing result along with
+    their essay answers and evaluations, cleaning up the database and reducing clutter.
+    """
+    attempt = get_object_or_404(
+        CandidateAttempt.objects.select_related("candidate", "module", "module__mock_test", "full_mock"),
+        pk=attempt_id,
+        module__module_type=ExamModule.ModuleType.WRITING,
+    )
+
+    candidate_name = attempt.candidate.get_full_name() or attempt.candidate.username
+    mock_title = attempt.module.mock_test.title if attempt.module and attempt.module.mock_test else f"Attempt #{attempt.pk}"
+
+    with transaction.atomic():
+        if attempt.full_mock:
+            fm = attempt.full_mock
+            fm.writing_attempt = None
+            fm.calculate_overall_score()
+            fm.save()
+
+        for fm in attempt.as_full_mock_writing.all():
+            fm.writing_attempt = None
+            fm.calculate_overall_score()
+            fm.save()
+
+        # Cascading automatically removes candidate answers and evaluations cleanly
+        attempt.delete()
+
+    messages.success(
+        request,
+        f"Writing submission #{attempt_id} ({candidate_name} — {mock_title}) and all student essay answers were permanently deleted."
+    )
+
+    next_url = request.POST.get("next") or request.GET.get("next")
+    if next_url and url_has_allowed_host_and_scheme(next_url, allowed_hosts={request.get_host()}):
+        return redirect(next_url)
+    return redirect("bcl:writing_review_list")

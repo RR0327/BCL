@@ -557,6 +557,12 @@
   <div class="quick-action-bar">
     <span class="quick-bar-label">Quick Actions:</span>
 
+    <!-- UNIFIED RESULTS & EXAM REVIEWS HUB -->
+    <a href="{% url 'bcl:admin_results_hub' %}" class="btn-quick-action" style="background:#4f46e5;color:#ffffff;box-shadow:0 2px 6px rgba(79,70,229,0.3);" title="Candidate Exam Results & Answers Review Hub (Listening, Reading, Writing, Full Mocks)">
+      <span>📊 Exam Results &amp; Reviews Hub</span>
+      <span style="font-size:11px;opacity:0.9;background:rgba(255,255,255,0.25);padding:2px 6px;border-radius:4px;font-weight:700;">All Modules</span>
+    </a>
+
     <!-- PROMINENT WRITING REVIEWS REDIRECT BUTTON -->
     <a href="{% url 'bcl:writing_review_list' %}" class="btn-quick-action btn-writing-reviews" title="Direct access to manual IELTS Writing assessment workflow">
       <span>✍️ Writing Reviews</span>
@@ -742,6 +748,10 @@
               <td>
                 <div class="action-btn-group" style="justify-content: flex-end;">
                   <!-- View Result -->
+                  <!-- Detailed Answers Review -->
+                  <a href="{% url 'bcl:admin_attempt_review' att.pk %}" target="_blank" class="btn-row-action" style="background:#e0e7ff;color:#3730a3;" title="Review student answers alongside correct answers">
+                    🔍 Answers
+                  </a>
                   <a href="{% url 'bcl:exam_result' att.pk %}" target="_blank" class="btn-row-action btn-view-res" title="View interactive results page">
                     👁️ View
                   </a>
