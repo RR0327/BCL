@@ -346,3 +346,57 @@ class ListeningIsolationRegressionTests(TestCase):
         self.assertIn('id="bcl-listening-modal"', html)
         self.assertIn('Exam Result &amp; Answers Review', html)
         self.assertIn('30 / 40', html)
+
+    def test_only_listening_not_hijacked_by_in_progress_full_mock_in_reading_step(self):
+        # Candidate previously started FullMockAttempt and is at 'reading' step
+        full = FullMockAttempt.objects.create(
+            candidate=self.user, mock_test=self.mock,
+            status=FullMockAttempt.AttemptStatus.IN_PROGRESS,
+            current_step='reading', started_at=timezone.now()
+        )
+        # Now candidate clicks "only listening" (GET /mock/<id>/listening/)
+        response = self.client.get(reverse('bcl:mock_listening', args=[self.mock.pk]))
+
+        # Must NOT redirect to mock_reading!
+        if response.status_code == 302:
+            self.assertNotIn('reading', response.url)
+            self.assertIn('session', response.url)
+        else:
+            self.assertEqual(response.status_code, 200)
+
+        # Must have created an independent listening attempt
+        ind_attempt = CandidateAttempt.objects.filter(
+            candidate=self.user, module=self.listening, full_mock__isnull=True
+        ).first()
+        self.assertIsNotNone(ind_attempt)
+        self.assertEqual(ind_attempt.status, CandidateAttempt.AttemptStatus.IN_PROGRESS)
+
+    def test_only_listening_with_mode_individual_always_takes_listening(self):
+        # Even with an in-progress full mock at listening step with completed listening attempt
+        full = FullMockAttempt.objects.create(
+            candidate=self.user, mock_test=self.mock,
+            status=FullMockAttempt.AttemptStatus.IN_PROGRESS,
+            current_step='listening', started_at=timezone.now()
+        )
+        prior_listen = self.make_attempt(self.listening, full)
+        prior_listen.status = CandidateAttempt.AttemptStatus.SUBMITTED
+        prior_listen.save()
+        full.listening_attempt = prior_listen
+        full.save()
+
+        # Candidate clicks "Listening" under individual modules with ?mode=individual
+        url = reverse('bcl:mock_listening', args=[self.mock.pk]) + '?mode=individual'
+        response = self.client.get(url)
+
+        # Must NOT redirect to mock_reading!
+        if response.status_code == 302:
+            self.assertNotIn('reading', response.url)
+            self.assertIn('session', response.url)
+        else:
+            self.assertEqual(response.status_code, 200)
+
+        # Independent listening attempt created
+        ind_attempt = CandidateAttempt.objects.filter(
+            candidate=self.user, module=self.listening, full_mock__isnull=True
+        ).first()
+        self.assertIsNotNone(ind_attempt)

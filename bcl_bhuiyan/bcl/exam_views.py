@@ -132,7 +132,8 @@ def exam_rules(request, module_id):
             return redirect("bcl:exam_session", attempt_id=updated.pk)
 
     if module.module_type == ExamModule.ModuleType.LISTENING:
-        return redirect("bcl:mock_listening", mock_id=module.mock_test_id)
+        url = reverse("bcl:mock_listening", args=[module.mock_test_id])
+        return redirect(f"{url}?mode=individual")
     return render(request, "exam/rules.html", {"module": module, "mock_test": module.mock_test})
 
 
@@ -3738,19 +3739,32 @@ def mock_listening_view(request, mock_id):
         ExamModule, mock_test=mock_test, module_type=ExamModule.ModuleType.LISTENING, is_active=True
     )
 
+    is_individual = (
+        request.GET.get("mode") in ("individual", "single", "practice")
+        or request.GET.get("practice") == "1"
+    )
+
     with transaction.atomic():
         get_user_model().objects.select_for_update().get(pk=request.user.pk)
         now = timezone.now()
         
-        # Check if candidate has an active full mock for this test
-        full_mock = (
-            FullMockAttempt.objects.select_for_update()
-            .filter(candidate=request.user, mock_test=mock_test, status=FullMockAttempt.AttemptStatus.IN_PROGRESS)
-            .order_by("-started_at")
-            .first()
-        )
-        
-        if full_mock and full_mock.current_step == "listening":
+        full_mock = None
+        if not is_individual:
+            # Check if candidate has an active full mock for this test currently at listening step
+            full_mock = (
+                FullMockAttempt.objects.select_for_update()
+                .filter(
+                    candidate=request.user,
+                    mock_test=mock_test,
+                    status=FullMockAttempt.AttemptStatus.IN_PROGRESS,
+                    current_step="listening",
+                )
+                .order_by("-started_at")
+                .first()
+            )
+
+        attempt = None
+        if full_mock:
             # Taking listening as part of full mock
             if not full_mock.listening_attempt:
                 attempt = CandidateAttempt.objects.create(
@@ -3764,35 +3778,31 @@ def mock_listening_view(request, mock_id):
                 full_mock.listening_attempt = attempt
                 full_mock.save(update_fields=["listening_attempt"])
             else:
-                attempt = expire_attempt_if_needed(full_mock.listening_attempt)
-                if attempt.status != CandidateAttempt.AttemptStatus.IN_PROGRESS:
-                    return redirect("bcl:mock_reading", mock_id=mock_id)
-        elif full_mock and full_mock.current_step in ("reading", "writing"):
-            # Candidate is in reading/writing step of full mock; redirect to active step
-            if full_mock.current_step == "reading":
-                return redirect("bcl:mock_reading", mock_id=mock_id)
-            return redirect("bcl:mock_writing", mock_id=mock_id)
-        else:
+                expired_att = expire_attempt_if_needed(full_mock.listening_attempt)
+                if expired_att.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
+                    attempt = expired_att
+                # If full mock listening is already completed, do NOT redirect to reading.
+                # Treat as individual practice attempt so candidate can practice listening!
+
+        if not attempt:
             # Individual Listening Practice: completely independent from full mock!
             active_attempt = (
                 CandidateAttempt.objects.select_for_update()
-                .filter(candidate=request.user, module=listening_mod, status=CandidateAttempt.AttemptStatus.IN_PROGRESS)
+                .filter(
+                    candidate=request.user,
+                    module=listening_mod,
+                    status=CandidateAttempt.AttemptStatus.IN_PROGRESS,
+                    full_mock__isnull=True,
+                )
                 .order_by("-started_at")
                 .first()
             )
             if active_attempt:
-                attempt = expire_attempt_if_needed(active_attempt)
-                if attempt.status != CandidateAttempt.AttemptStatus.IN_PROGRESS:
-                    # Expired -> start fresh attempt
-                    attempt = CandidateAttempt.objects.create(
-                        candidate=request.user,
-                        module=listening_mod,
-                        full_mock=None,
-                        started_at=now,
-                        expires_at=now + timedelta(minutes=listening_mod.duration_minutes),
-                        status=CandidateAttempt.AttemptStatus.IN_PROGRESS,
-                    )
-            else:
+                active_attempt = expire_attempt_if_needed(active_attempt)
+                if active_attempt.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
+                    attempt = active_attempt
+
+            if not attempt:
                 # Fresh attempt: audio plays from start!
                 attempt = CandidateAttempt.objects.create(
                     candidate=request.user,
@@ -3964,13 +3974,8 @@ def mock_writing_view(request, mock_id):
             return redirect("bcl:mock_listening", mock_id=mock_id)
 
         # Sequence Guard: Validate Listening and Reading are completed
-        if full_mock.reading_attempt and full_mock.reading_attempt.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
-            full_mock.reading_attempt.status = CandidateAttempt.AttemptStatus.SUBMITTED
-            full_mock.reading_attempt.submitted_at = now
-            full_mock.reading_attempt.save(update_fields=["status", "submitted_at"])
-            finalize_attempt_score(full_mock.reading_attempt)
-            full_mock.current_step = "writing"
-            full_mock.save(update_fields=["current_step"])
+        if full_mock.reading_attempt:
+            expire_attempt_if_needed(full_mock.reading_attempt)
 
         if not full_mock.listening_attempt or full_mock.listening_attempt.status == CandidateAttempt.AttemptStatus.IN_PROGRESS:
             messages.warning(request, "You must complete the Listening module first.")

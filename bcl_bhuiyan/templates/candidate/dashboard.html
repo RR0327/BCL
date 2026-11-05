@@ -308,7 +308,7 @@
                                 {% for module in test.ordered_modules %}
                                     {% if module.module_type == 'listening' %}
                                         <a class="exam-link exam-link-module"
-                                           href="{% url 'bcl:mock_listening' test.id %}"
+                                           href="{% url 'bcl:mock_listening' test.id %}?mode=individual"
                                            title="Take {{ module.get_module_type_display }} ({{ module.duration_minutes }} min)">
                                             <span class="module-btn-name">{{ module.get_module_type_display }}</span>
                                             <span class="module-btn-time">{{ module.duration_minutes }} min</span>
@@ -403,11 +403,19 @@
                             {% if full_attempt.status == 'in_progress' %}
                                 {% if full_attempt.current_step == 'listening' and full_attempt.listening_attempt and full_attempt.listening_attempt.status == 'in_progress' %}
                                     <a class="exam-link" href="{% url 'bcl:mock_listening' full_attempt.mock_test_id %}">
-                                        Start New Attempt
+                                        Resume Listening
+                                    </a>
+                                {% elif full_attempt.current_step == 'reading' %}
+                                    <a class="exam-link" href="{% url 'bcl:mock_reading' full_attempt.mock_test_id %}">
+                                        Resume Reading
+                                    </a>
+                                {% elif full_attempt.current_step == 'writing' %}
+                                    <a class="exam-link" href="{% url 'bcl:mock_writing' full_attempt.mock_test_id %}">
+                                        Resume Writing
                                     </a>
                                 {% else %}
                                     <a class="exam-link" href="{% url 'bcl:full_mock_rules' full_attempt.mock_test_id %}">
-                                        Start New Attempt
+                                        Resume Exam
                                     </a>
                                 {% endif %}
                             {% else %}
@@ -459,7 +467,7 @@
                         <div>
                             {% if attempt.status == 'in_progress' %}
                                 {% if attempt.module.module_type == 'listening' %}
-                                    <a class="exam-link" href="{% url 'bcl:mock_listening' attempt.module.mock_test_id %}">
+                                    <a class="exam-link" href="{% url 'bcl:mock_listening' attempt.module.mock_test_id %}?mode=individual">
                                         Resume
                                     </a>
                                 {% else %}
