@@ -1664,8 +1664,11 @@ def render_listening_html(request, attempt):
             || document.querySelector('audio');
 
         if (masterSingleAudio && mergedAudioUrl) {{
-            masterSingleAudio.src = mergedAudioUrl;
-            masterSingleAudio.preload = 'auto';
+            const hasExistingSrc = masterSingleAudio.src && !masterSingleAudio.src.endsWith('/') && masterSingleAudio.src !== window.location.href;
+            if (!hasExistingSrc) {{
+                masterSingleAudio.src = mergedAudioUrl;
+                masterSingleAudio.preload = 'auto';
+            }}
         }}
 
         if (audioElements.length === 0 && masterSingleAudio) {{
@@ -1819,17 +1822,9 @@ def render_listening_html(request, attempt):
                 }}
             }} catch(e) {{}}
 
-            // Ensure single continuous audio remained intact
+            // Ensure single continuous audio remains intact without resetting .src
             if (aud) {{
-                if (mergedAudioUrl && !aud.src.endsWith(mergedAudioUrl)) {{
-                    aud.src = mergedAudioUrl;
-                    aud.currentTime = curTime;
-                }} else if (curSrc && aud.src !== curSrc) {{
-                    aud.src = curSrc;
-                    aud.currentTime = curTime;
-                }}
                 if (wasPlaying && aud.paused) {{
-                    aud.currentTime = curTime;
                     aud.play().catch(function() {{}});
                 }}
             }}
@@ -1864,16 +1859,9 @@ def render_listening_html(request, attempt):
                 }}
             }} catch(e) {{}}
 
+            // Ensure single continuous audio remains intact without resetting .src
             if (aud) {{
-                if (mergedAudioUrl && !aud.src.endsWith(mergedAudioUrl)) {{
-                    aud.src = mergedAudioUrl;
-                    aud.currentTime = curTime;
-                }} else if (curSrc && aud.src !== curSrc) {{
-                    aud.src = curSrc;
-                    aud.currentTime = curTime;
-                }}
                 if (wasPlaying && aud.paused) {{
-                    aud.currentTime = curTime;
                     aud.play().catch(function() {{}});
                 }}
             }}
@@ -1882,7 +1870,8 @@ def render_listening_html(request, attempt):
         function startMasterPlayback() {{
             const aud = masterSingleAudio || audioElements[0];
             if (aud) {{
-                if (mergedAudioUrl && !aud.src.endsWith(mergedAudioUrl)) {{
+                const hasExistingSrc = aud.src && !aud.src.endsWith('/') && aud.src !== window.location.href;
+                if (!hasExistingSrc && mergedAudioUrl) {{
                     aud.src = mergedAudioUrl;
                 }}
                 aud.play().then(function() {{
